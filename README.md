@@ -1,52 +1,39 @@
-# 三角比を図で理解しよう
+# 三角比 Visual Lab
 
-角度を動かしながら、直角三角形・単位円・`sin`・`cos`・`tan` の関係を発見する高校数学Ⅰ向けWeb教材です。0°〜180°、代表角の正確な値、鈍角の符号、`sin θ = 1/2` を考える段階式の探究モードに対応します。
+高校数学Ⅰ「三角比」のための、直角三角形を見て・押して・動かせる1ページ教材です。角度に連動する立体風SVGと光のアニメーションで、`sin`・`cos`・`tan` がどの辺の比かを可視化します。
 
-## 1. インストール方法
+## ファイル構成
 
-Node.js 20 以上を用意し、リポジトリのルートで実行します。
+- `src/App.tsx` — 画面全体と状態管理
+- `src/components/TriangleScene.tsx` — 立体風の直角三角形と光の経路
+- `src/components/Controls.tsx` — 角度スライダーと三角比ボタン
+- `src/components/RatioDisplay.tsx` — 三角比のリアルタイム数値
+- `src/components/InfoPanel.tsx` — 式、短い説明、辺の関係
+- `src/math.ts` — 三角比の計算
+
+## 起動
+
+Node.js 20 以上を用意して、次を実行します。
 
 ```bash
 npm install
-```
-
-## 2. 開発サーバー起動方法
-
-```bash
 npm run dev
 ```
 
-表示されたURL（通常は `http://localhost:5173`）をブラウザで開きます。
-
-## 3. ビルド方法
-
-```bash
-npm run build
-```
-
-静的ファイルが `dist/` に生成されます。確認には `npm run preview` を使います。
-
-## 4. GitHub Pagesへの公開方法
-
-`vite.config.ts` の `base: './'` により、プロジェクトページのサブパスでも動作します。
-
-1. `npm run build` を実行する。
-2. リポジトリの **Settings → Pages** を開く。
-3. GitHub Actions、または `gh-pages` ブランチを公開元に指定する。
-4. Actionsを使う場合は、Node.jsでビルド後の `dist/` を `actions/upload-pages-artifact` でアップロードし、`actions/deploy-pages` で公開する。
-
-手元から `gh-pages` パッケージで公開する場合は、`npx gh-pages -d dist` も利用できます。
-
-## 5. 教材の操作方法
-
-- スライダー、±1°ボタン、代表角ボタンで θ を動かします。点Pと `sin`（縦）、`cos`（横）が同期します。
-- 上部の5モードを切り替えると、基本・単位円・鈍角・方程式・探究の説明に変わります。
-- **答えを表示／隠す**で数値と探究の最終回答を切り替えます。
-- **図だけ表示**で説明を隠し、単位円を大型表示します。
-- **探究**ではSTEPを順に進め、`y = 1/2` と円の2交点から30°と150°を発見します。
-
-## テスト
+## テストとビルド
 
 ```bash
 npm test
+npm run build
 ```
+
+## GitHub Pages で公開
+
+`vite.config.ts` は相対パスの `base: './'` に設定済みです。`npm run build` で生成される `dist/` を GitHub Pages にデプロイできます。
+
+1. GitHub の **Settings → Pages** で公開元を GitHub Actions にする。
+2. Actions で `npm ci` と `npm run build` を実行する。
+3. `dist/` を `actions/upload-pages-artifact` でアップロードする。
+4. `actions/deploy-pages` で公開する。
+
+手元から公開する場合は `npx gh-pages -d dist` も利用できます。
