@@ -15,10 +15,10 @@ export function TriangleScene({ angle, activeRatio, playing }: Props) {
     : activeRatio === 'cos'
       ? `M ${theta.x} ${theta.y} L ${top.x} ${top.y} M ${theta.x} ${theta.y} L ${right.x} ${right.y}`
       : `M ${theta.x} ${theta.y} L ${right.x} ${right.y} L ${top.x} ${top.y}`
+  const cosPath = `M ${top.x} ${top.y} L ${theta.x} ${theta.y} L ${right.x} ${right.y}`
   const active = (side: 'hypotenuse'|'base'|'height') => activeRatio === 'sin' ? side !== 'base' : activeRatio === 'cos' ? side !== 'height' : side !== 'hypotenuse'
   const arcR = 58
   const arcEnd = { x: theta.x + arcR * Math.cos(angle * Math.PI / 180), y: theta.y - arcR * Math.sin(angle * Math.PI / 180) }
-
   return <div className="triangle-stage">
     <svg viewBox="0 0 720 485" role="img" aria-label={`角度${angle}度の直角三角形`}>
       <defs>
@@ -42,9 +42,23 @@ export function TriangleScene({ angle, activeRatio, playing }: Props) {
       <text className="side-label height-label" x={right.x+25} y={(right.y+top.y)/2}>高さ</text>
       <text className="side-label opposite-label" x={right.x+25} y={(right.y+top.y)/2+24}>（向かい側）</text>
       <text className="side-label hyp-label" x={(theta.x+top.x)/2-30} y={(theta.y+top.y)/2-24}>斜辺</text>
-      <g className={`motion ${playing ? 'playing' : 'paused'} ${activeRatio}`}>
-        <path id="motionPath" d={path}/><circle r="8"><animateMotion dur="2.8s" repeatCount="indefinite" path={path}/></circle>
-      </g>
+      {activeRatio === 'cos' ? (
+        <g key="cos-motion" className={`motion cos-motion ${playing ? 'playing' : 'paused'}`}>
+          <path className="motion-guide" d={cosPath}/>
+          <path className="motion-trail" d={cosPath} pathLength="100">
+            <animate attributeName="stroke-dashoffset" values="100;0;0" keyTimes="0;.857;1" dur="3.5s" repeatCount="indefinite"/>
+          </path>
+          <circle r="8"><animateMotion dur="3.5s" repeatCount="indefinite" path={cosPath} keyPoints="0;1;1" keyTimes="0;.857;1" calcMode="linear"/></circle>
+        </g>
+      ) : (
+        <g key={`${activeRatio}-motion`} className={`motion ${playing ? 'playing' : 'paused'} ${activeRatio}`}>
+          <path className="motion-guide" d={path}/>
+          <path className="motion-trail" d={path} pathLength="100">
+            <animate attributeName="stroke-dashoffset" values="100;0" dur="2.8s" repeatCount="indefinite"/>
+          </path>
+          <circle r="8"><animateMotion dur="2.8s" repeatCount="indefinite" path={path}/></circle>
+        </g>
+      )}
     </svg>
     <div className="scene-key"><span><i className="key-red"/>注目する角 θ</span><span><i className="key-pulse"/>光が「比べる辺」をたどります</span></div>
   </div>
