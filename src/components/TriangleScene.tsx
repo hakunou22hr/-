@@ -12,10 +12,12 @@ export function TriangleScene({ angle, activeRatio, playing }: Props) {
   const back = (p: {x:number;y:number}) => ({ x: p.x + offset.x, y: p.y + offset.y })
   const path = activeRatio === 'sin'
     ? `M ${theta.x} ${theta.y} L ${top.x} ${top.y} L ${right.x} ${right.y}`
-    : activeRatio === 'cos'
-      ? `M ${theta.x} ${theta.y} L ${top.x} ${top.y} M ${theta.x} ${theta.y} L ${right.x} ${right.y}`
-      : `M ${theta.x} ${theta.y} L ${right.x} ${right.y} L ${top.x} ${top.y}`
+    : `M ${theta.x} ${theta.y} L ${right.x} ${right.y} L ${top.x} ${top.y}`
   const cosPath = `M ${top.x} ${top.y} L ${theta.x} ${theta.y} L ${right.x} ${right.y}`
+  const cosHypotenusePath = `M ${top.x} ${top.y} L ${theta.x} ${theta.y}`
+  const cosBasePath = `M ${theta.x} ${theta.y} L ${right.x} ${right.y}`
+  const cosTravelEnd = 3 / 3.5
+  const cosHypotenuseEnd = cosTravelEnd * hypotenuseLength / (hypotenuseLength + right.x - theta.x)
   const active = (side: 'hypotenuse'|'base'|'height') => activeRatio === 'sin' ? side !== 'base' : activeRatio === 'cos' ? side !== 'height' : side !== 'hypotenuse'
   const arcR = 58
   const arcEnd = { x: theta.x + arcR * Math.cos(angle * Math.PI / 180), y: theta.y - arcR * Math.sin(angle * Math.PI / 180) }
@@ -45,10 +47,13 @@ export function TriangleScene({ angle, activeRatio, playing }: Props) {
       {activeRatio === 'cos' ? (
         <g key="cos-motion" className={`motion cos-motion ${playing ? 'playing' : 'paused'}`}>
           <path className="motion-guide" d={cosPath}/>
-          <path className="motion-trail" d={cosPath} pathLength="100">
-            <animate attributeName="stroke-dashoffset" values="100;0;0" keyTimes="0;.857;1" dur="3.5s" repeatCount="indefinite"/>
+          <path className="motion-trail hypotenuse-trail" d={cosHypotenusePath} pathLength="100">
+            <animate attributeName="stroke-dashoffset" values="100;0;0" keyTimes={`0;${cosHypotenuseEnd};1`} dur="3.5s" repeatCount="indefinite"/>
           </path>
-          <circle r="8"><animateMotion dur="3.5s" repeatCount="indefinite" path={cosPath} keyPoints="0;1;1" keyTimes="0;.857;1" calcMode="linear"/></circle>
+          <path className="motion-trail base-trail" d={cosBasePath} pathLength="100">
+            <animate attributeName="stroke-dashoffset" values="100;100;0;0" keyTimes={`0;${cosHypotenuseEnd};${cosTravelEnd};1`} dur="3.5s" repeatCount="indefinite"/>
+          </path>
+          <circle r="8"><animateMotion dur="3.5s" repeatCount="indefinite" path={cosPath} keyPoints="0;1;1" keyTimes={`0;${cosTravelEnd};1`} calcMode="linear"/></circle>
         </g>
       ) : (
         <g key={`${activeRatio}-motion`} className={`motion ${playing ? 'playing' : 'paused'} ${activeRatio}`}>
