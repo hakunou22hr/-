@@ -1,19 +1,28 @@
-# 三角比 Visual Lab
+# 数学教材ライブラリ
 
-高校数学Ⅰ「三角比」のための、直角三角形を見て・押して・動かせる1ページ教材です。角度に連動する立体風SVGと光のアニメーションで、`sin`・`cos`・`tan` がどの辺の比かを可視化します。
+複数のインタラクティブ数学教材を、互いに上書きせず保存・公開するための GitHub Pages ポータルです。トップページから各教材を独立して起動できます。
 
-## ファイル構成
+## 収録教材
 
-- `src/App.tsx` — 画面全体と状態管理
-- `src/components/TriangleScene.tsx` — 立体風の直角三角形と光の経路
-- `src/components/Controls.tsx` — 角度スライダーと三角比ボタン
-- `src/components/RatioDisplay.tsx` — 三角比のリアルタイム数値
-- `src/components/InfoPanel.tsx` — 式、短い説明、辺の関係
-- `src/math.ts` — 三角比の計算
+| 教材 | 保存場所 | 公開パス |
+| --- | --- | --- |
+| 三角比を図で学べるインタラクティブ教材（PR #1） | `materials/trig-unit-circle/` | `materials/trig-unit-circle/` |
+| 立体風SVGで学ぶ三角比のインタラクティブ教材（PR #3） | `materials/trig-visual-lab/` | `materials/trig-visual-lab/` |
+| cos アニメーションと筆記体マークで学ぶ三角比（PR #4） | `materials/trig-cos-animation/` | `materials/trig-cos-animation/` |
+| 数学A 4領域の塗り分けインタラクティブ教材（PR #6） | `materials/coloring-4areas/` | `materials/coloring-4areas/` |
 
-## 起動
+公開パスは GitHub Pages のリポジトリ URL を基準にした相対 URL です。
 
-Node.js 20 以上を用意して、次を実行します。
+## 教材の追加
+
+既存教材を変更せず、次の2点を新しい `materials/<教材ID>/` に追加します。
+
+1. 教材のエントリーポイント `index.html` と、その教材専用のソース・アセット
+2. 一覧カード用の `material.json`（`id`、`name`、`subject`、`unit`、`description`）
+
+トップページは `materials/*/material.json` を自動検出し、Vite は各ディレクトリの `index.html` を独立したページとしてビルドします。したがって、一覧コードやビルド設定へ教材ごとの追記は不要です。
+
+## 開発
 
 ```bash
 npm install
@@ -27,13 +36,4 @@ npm test
 npm run build
 ```
 
-## GitHub Pages で公開
-
-`vite.config.ts` は相対パスの `base: './'` に設定済みです。`npm run build` で生成される `dist/` を GitHub Pages にデプロイできます。
-
-1. GitHub の **Settings → Pages** で公開元を GitHub Actions にする。
-2. Actions で `npm ci` と `npm run build` を実行する。
-3. `dist/` を `actions/upload-pages-artifact` でアップロードする。
-4. `actions/deploy-pages` で公開する。
-
-手元から公開する場合は `npx gh-pages -d dist` も利用できます。
+`vite.config.ts` の相対ベース設定を利用しているため、生成された `dist/` はリポジトリ名を含む GitHub Pages URL でも動作します。既存の `.github/workflows/deploy.yml` が `main` 更新時に `dist/` を GitHub Pages へ公開します。
