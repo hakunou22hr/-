@@ -36,7 +36,8 @@
             <filter id="redGlow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
             <filter id="blueGlow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
           </defs>
-          <polygon points="90,345 350,397 610,285 350,220" fill="url(#ground)" stroke="#b8d4d4" stroke-width="2"/>
+          <!-- 地面は、問題で使う三角形 ABC だけを描く。 -->
+          <polygon points="90,345 610,285 350,220" fill="url(#ground)" stroke="#b8d4d4" stroke-width="2"/>
           <polygon class="face face-acd" points="90,345 350,220 350,55"/>
           <polygon class="face face-bcd" points="610,285 350,220 350,55"/>
           <polygon class="face face-abc" points="90,345 610,285 350,220"/>
