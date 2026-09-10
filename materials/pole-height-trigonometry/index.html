@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="平面を選び、三角比と余弦定理で電柱の高さを求める高校数学教材">
+  <title>数学Ⅰ｜三角比で電柱の高さを求める</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a href="../../" class="back" aria-label="教材一覧へ戻る">← <span>教材一覧</span></a>
+    <div class="brand"><span class="brand-mark">MⅠ</span><span>図形と計量 <b>／ 三角比</b></span></div>
+    <button class="summary-link" id="summaryTop">学習のまとめ</button>
+  </header>
+
+  <main>
+    <section class="intro">
+      <p class="kicker">INTERACTIVE LESSON <span>01</span></p>
+      <h1>三角比で<span>電柱の高さ</span>を求める</h1>
+      <p>立体に見えても、使うのは3つの<span class="blue">平面</span>。必要な面を一枚ずつ取り出して考えよう。</p>
+    </section>
+
+    <section class="problem-card">
+      <span class="problem-label">問題</span>
+      <p>地面に垂直な電柱 <b>CD</b> を A、B から見ると、仰角は 60°、45°。<br><b>AB = 6 m</b>、<b>∠ACB = 30°</b> のとき、高さ <b class="red">h = CD</b> を求めよ。</p>
+      <small>※ 目の高さは考えないものとする。</small>
+    </section>
+
+    <section class="workspace" aria-labelledby="diagram-title">
+      <div class="diagram-panel">
+        <div class="panel-heading"><span>01</span><div><small>ORIGINAL FIGURE</small><h2 id="diagram-title">まず、全体の図を見よう</h2></div></div>
+        <svg class="main-figure" viewBox="0 0 680 440" role="img" aria-label="A、B、Cを含む地面と垂直な電柱CDの立体図">
+          <defs>
+            <linearGradient id="ground" x1="0" x2="1"><stop stop-color="#e8f4f5"/><stop offset="1" stop-color="#f7fbf7"/></linearGradient>
+            <filter id="redGlow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <filter id="blueGlow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+          <polygon points="90,345 350,397 610,285 350,220" fill="url(#ground)" stroke="#b8d4d4" stroke-width="2"/>
+          <polygon class="face face-acd" points="90,345 350,220 350,55"/>
+          <polygon class="face face-bcd" points="610,285 350,220 350,55"/>
+          <polygon class="face face-abc" points="90,345 610,285 350,220"/>
+          <g class="edge edge-acd"><path d="M90 345L350 220L350 55L90 345"/></g>
+          <g class="edge edge-bcd"><path d="M610 285L350 220L350 55L610 285"/></g>
+          <g class="edge edge-abc"><path d="M90 345L610 285L350 220L90 345"/></g>
+          <path class="pole" d="M350 220V55"/>
+          <path class="right-angle" d="M350 220l22 5v-20"/>
+          <text x="382" y="140" class="height-label">h = CD</text>
+          <text x="365" y="202" class="tiny">地面に垂直</text>
+          <path d="M124 344 A42 42 0 0 1 115 318" class="angle"/><text x="125" y="316" class="angle-text">60°</text>
+          <path d="M574 281 A38 38 0 0 0 584 263" class="angle"/><text x="545" y="256" class="angle-text">45°</text>
+          <path d="M325 232 A33 33 0 0 1 370 225" class="angle ground-angle"/><text x="315" y="269" class="angle-text">30°</text>
+          <text x="303" y="374" class="measure">AB = 6 m</text>
+          <g class="points"><circle cx="90" cy="345" r="6"/><text x="65" y="371">A</text><circle cx="610" cy="285" r="6"/><text x="622" y="299">B</text><circle cx="350" cy="220" r="6"/><text x="360" y="232">C</text><circle cx="350" cy="55" r="6"/><text x="361" y="52">D</text></g>
+        </svg>
+        <div class="legend"><span><i class="dot red-dot"></i>求める高さ</span><span><i class="dot blue-dot"></i>使う辺</span><span><i class="dot yellow-dot"></i>選択中の面</span></div>
+      </div>
+
+      <aside class="control-panel">
+        <p class="section-no">STEP 01</p><h2>どの面を見る？</h2><p>立体のまま考えず、三角形をクリックして平面を取り出そう。</p>
+        <div class="face-buttons" role="group" aria-label="見る面を選択">
+          <button data-face="acd"><span>①</span><b>△ACD</b><small>仰角 60° の面</small></button>
+          <button data-face="bcd"><span>②</span><b>△BCD</b><small>仰角 45° の面</small></button>
+          <button data-face="abc"><span>③</span><b>△ABC</b><small>地面の三角形</small></button>
+        </div>
+        <div class="tip"><span>!</span><p><b>考えるヒント</b>まず ① → ② → ③ の順がおすすめ。はじめの2面で底辺を <i>h</i> に置き換えます。</p></div>
+      </aside>
+    </section>
+
+    <section class="formula-strip" aria-labelledby="formula-title">
+      <div><small>REFERENCE</small><h2 id="formula-title">参考公式</h2><p>迷ったら、公式を開いて使いどころを確認。</p></div>
+      <div class="formula-buttons"><button data-formula="sin">sin</button><button data-formula="cos">cos</button><button data-formula="tan" class="recommended">tan <em>おすすめ</em></button><button data-formula="sine">正弦定理</button><button data-formula="cosine" class="recommended">余弦定理 <em>おすすめ</em></button></div>
+    </section>
+
+    <section class="cutout" id="cutout" aria-live="polite">
+      <div class="empty-state"><span>△</span><h2>面を選択してください</h2><p>選んだ三角形だけを、ここに大きく取り出します。</p></div>
+    </section>
+  </main>
+
+  <dialog id="formulaDialog"><button class="dialog-close" aria-label="閉じる">×</button><div id="formulaContent"></div></dialog>
+  <dialog id="summaryDialog" class="summary-dialog"><button class="dialog-close" aria-label="閉じる">×</button><div id="summaryContent"></div></dialog>
+  <footer><a href="../../">← 数学教材ライブラリ</a><span>MATHEMATICS I · TRIGONOMETRY</span></footer>
+  <script type="module" src="./script.js"></script>
+</body>
+</html>
