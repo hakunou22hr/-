@@ -11,6 +11,7 @@
 | cos アニメーションと筆記体マークで学ぶ三角比（PR #4） | `materials/trig-cos-animation/` | `materials/trig-cos-animation/` |
 | 数学A 4領域の塗り分けインタラクティブ教材（PR #6） | `materials/coloring-4areas/` | `materials/coloring-4areas/` |
 | 数学Ⅰ｜三角比の不等式（半円で可視化） | `materials/trig-inequality-semicircle/` | `materials/trig-inequality-semicircle/` |
+| 数学Ⅰ｜三角比で電柱の高さを求める | `materials/pole-height-trigonometry/` | `materials/pole-height-trigonometry/` |
 
 公開パスは GitHub Pages のリポジトリ URL を基準にした相対 URL です。
 
