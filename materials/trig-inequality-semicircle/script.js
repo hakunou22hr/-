@@ -1,0 +1,52 @@
+export const VALUES={sin:[['0',0],['1/2',.5],['1/√2',Math.SQRT1_2],['√3/2',Math.sqrt(3)/2],['1',1]],cos:[['1',1],['√3/2',Math.sqrt(3)/2],['1/√2',Math.SQRT1_2],['1/2',.5],['0',0],['−1/2',-.5],['−1/√2',-Math.SQRT1_2],['−√3/2',-Math.sqrt(3)/2],['−1',-1]],tan:[['−√3',-Math.sqrt(3)],['−1',-1],['−1/√3',-1/Math.sqrt(3)],['0',0],['1/√3',1/Math.sqrt(3)],['1',1],['√3',Math.sqrt(3)]]}
+const rad=d=>d*Math.PI/180
+export const trig=(mode,d)=>mode==='sin'?Math.sin(rad(d)):mode==='cos'?Math.cos(rad(d)):Math.abs(d-90)<1e-9?null:Math.tan(rad(d))
+const passes=(x,op,c)=>op==='>'?x>c+1e-9:op==='<'?x<c-1e-9:op==='>='?x>=c-1e-9:x<=c+1e-9
+export function solve(mode,op,c){
+  let roots=[]
+  if(mode==='sin'&&c>=0&&c<=1){const a=Math.asin(c)/Math.PI*180;roots=[a,180-a]}
+  if(mode==='cos'&&c>=-1&&c<=1)roots=[Math.acos(c)/Math.PI*180]
+  if(mode==='tan'){const a=Math.atan(c)/Math.PI*180;roots=[a<0?a+180:a]}
+  const cuts=[0,...roots,180,...(mode==='tan'?[90]:[])].filter((x,i,a)=>x>=0&&x<=180&&a.findIndex(y=>Math.abs(y-x)<1e-7)===i).sort((a,b)=>a-b)
+  const result=[]
+  for(let i=0;i<cuts.length-1;i++){const lo=cuts[i],hi=cuts[i+1],mid=(lo+hi)/2,v=trig(mode,mid);if(v!==null&&passes(v,op,c)){result.push({lo,hi,lc:trig(mode,lo)!==null&&passes(trig(mode,lo),op,c),hc:trig(mode,hi)!==null&&passes(trig(mode,hi),op,c)})}}
+  for(const x of cuts){if(!result.some(q=>x>q.lo+1e-8&&x<q.hi-1e-8)){const v=trig(mode,x);if(v!==null&&passes(v,op,c)&&!result.some(q=>Math.abs(q.lo-x)<1e-7||Math.abs(q.hi-x)<1e-7))result.push({lo:x,hi:x,lc:true,hc:true})}}
+  result.sort((a,b)=>a.lo-b.lo);return result
+}
+const nice=n=>Math.abs(n-Math.round(n))<1e-7?`${Math.round(n)}°`:`${Math.round(n*10)/10}°`
+export const formatSolution=xs=>xs.length?xs.map(q=>q.lo===q.hi?`θ = ${nice(q.lo)}`:`${nice(q.lo)} ${q.lc?'≦':'<'} θ ${q.hc?'≦':'<'} ${nice(q.hi)}`).join('， '):'解なし'
+
+const $=s=>document.querySelector(s), $$=s=>typeof document==='undefined'?[]:document.querySelectorAll(s)
+let state={mode:'sin',op:'>',c:.5,label:'1/2',theta:45,running:false,last:0};let raf
+const colors={sin:'#ff4665',cos:'#36e59b',tan:'#ffd84d'}
+function svgEl(tag,attrs={}){const e=document.createElementNS('http://www.w3.org/2000/svg',tag);for(const[k,v]of Object.entries(attrs))e.setAttribute(k,v);return e}
+function add(svg,tag,attrs,text){const e=svgEl(tag,attrs);if(text!=null)e.textContent=text;svg.append(e);return e}
+function line(svg,x1,y1,x2,y2,cls=''){return add(svg,'line',{x1,y1,x2,y2,class:cls})}
+function arcPath(a,b,cx,cy,r){const pts=[];for(let d=a;d<=b+.1;d+=Math.max(1,(b-a)/80))pts.push([cx+r*Math.cos(rad(Math.min(d,b))),cy-r*Math.sin(rad(Math.min(d,b)))]);return pts.map((p,i)=>(i?'L':'M')+p.join(',')).join(' ')}
+function sectorPath(a,b,cx,cy,r){return `M${cx},${cy} L${arcPath(a,b,cx,cy,r).slice(1)} Z`}
+function circle(){const svg=$('#circle');svg.innerHTML='';const cx=330,cy=350,R=245,col=colors[state.mode];add(svg,'defs',{}).innerHTML=`<filter id="glow"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>`
+  line(svg,55,cy,650,cy,'axis');line(svg,cx,390,cx,55,'axis');add(svg,'path',{d:arcPath(0,180,cx,cy,R),class:'base-arc'});add(svg,'text',{x:662,y:355,class:'axis-label'},'x');add(svg,'text',{x:338,y:56,class:'axis-label'},'y');add(svg,'text',{x:312,y:373,class:'axis-label'},'O')
+  for(const d of [0,30,45,60,90,120,135,150,180]){const x=cx+R*Math.cos(rad(d)),y=cy-R*Math.sin(rad(d));line(svg,x,y,cx+(R+9)*Math.cos(rad(d)),cy-(R+9)*Math.sin(rad(d)),'tick');add(svg,'text',{x:cx+(R+28)*Math.cos(rad(d)),y:cy-(R+28)*Math.sin(rad(d))+4,class:'degree','text-anchor':'middle'},d+'°')}
+  const intervals=solve(state.mode,state.op,state.c);for(const q of intervals){if(q.hi>q.lo){
+    add(svg,'path',{d:sectorPath(q.lo,q.hi,cx,cy,R),class:'answer-sector',fill:col})
+    for(const d of [q.lo,q.hi])if(!(state.mode==='tan'&&d===90))line(svg,cx,cy,cx+R*Math.cos(rad(d)),cy-R*Math.sin(rad(d)),'answer-radius')
+    add(svg,'path',{d:arcPath(q.lo,q.hi,cx,cy,R),class:'answer-arc',stroke:col})
+  }for(const [d,closed] of [[q.lo,q.lc],[q.hi,q.hc]])if(d!==90||state.mode!=='tan')add(svg,'circle',{cx:cx+R*Math.cos(rad(d)),cy:cy-R*Math.sin(rad(d)),r:7,class:closed?'closed':'open',stroke:col,fill:closed?col:'#091321'})}
+  if(state.mode==='sin'){const y=cy-R*state.c;line(svg,cx-R-25,y,cx+R+25,y,'compare');add(svg,'text',{x:70,y:y-9,class:'compare-label'},`y = ${state.label}`)}
+  if(state.mode==='cos'){const x=cx+R*state.c;line(svg,x,cy+20,x,cy-Math.sqrt(Math.max(0,1-state.c**2))*R-30,'compare');add(svg,'text',{x:x+9,y:105,class:'compare-label'},`x = ${state.label}`)}
+  if(state.mode==='tan'){const tx=cx+R;line(svg,tx,cy+55,tx,45,'tangent');add(svg,'text',{x:tx+9,y:70,class:'compare-label'},'x = 1');if(state.theta!==90){const yy=cy-R*Math.tan(rad(state.theta));line(svg,cx,cy,tx,yy,'extension');add(svg,'circle',{cx:tx,cy:yy,r:6,fill:col,class:'point'})}line(svg,cx,70,cx,cy,'undefined');add(svg,'text',{x:cx+9,y:82,class:'warning'},'tan 90°：未定義')}
+  const x=cx+R*Math.cos(rad(state.theta)),y=cy-R*Math.sin(rad(state.theta));line(svg,cx,cy,x,y,'radius');add(svg,'path',{d:`M ${cx+48} ${cy} A 48 48 0 ${state.theta>180?1:0} 0 ${cx+48*Math.cos(rad(state.theta))} ${cy-48*Math.sin(rad(state.theta))}`,class:'theta-arc',stroke:col});add(svg,'text',{x:cx+62*Math.cos(rad(state.theta/2)),y:cy-62*Math.sin(rad(state.theta/2)),class:'theta-label'},'θ');add(svg,'circle',{cx:x,cy:y,r:8,fill:col,class:'point'});add(svg,'text',{x:x+(x<cx?-48:14),y:y-14,class:'point-label'},'P')
+}
+function graph(){const svg=$('#graph');svg.innerHTML='';const x0=55,x1=570,y0=170,scale=state.mode==='tan'?62:120,col=colors[state.mode],X=d=>x0+(x1-x0)*d/180,Y=v=>y0-scale*v;line(svg,x0,y0,x1,y0,'axis');line(svg,x0,24,x0,320,'axis');for(const d of [0,30,60,90,120,150,180]){line(svg,X(d),y0-4,X(d),y0+4,'tick');add(svg,'text',{x:X(d),y:342,class:'degree','text-anchor':'middle'},d+'°')};line(svg,x0,Y(state.c),x1,Y(state.c),'compare');add(svg,'text',{x:x0+5,y:Y(state.c)-7,class:'compare-label'},state.label)
+  const paths=state.mode==='tan'?[[0,89.2],[90.8,180]]:[[0,180]];for(const [a,b] of paths){let d='';for(let t=a;t<=b;t+=.5){let v=trig(state.mode,t);if(state.mode==='tan')v=Math.max(-2.25,Math.min(2.25,v));d+=(d?'L':'M')+X(t)+','+Y(v)}add(svg,'path',{d,class:'curve'})}if(state.mode==='tan'){line(svg,X(90),22,X(90),320,'asymptote')}
+  for(const q of solve(state.mode,state.op,state.c)){const a=Math.max(q.lo,state.mode==='tan'&&q.lo===90?90.8:q.lo),b=Math.min(q.hi,state.mode==='tan'&&q.hi===90?89.2:q.hi);if(b>a)add(svg,'line',{x1:X(a),y1:310,x2:X(b),y2:310,stroke:col,class:'graph-answer'});for(const [d,closed]of[[q.lo,q.lc],[q.hi,q.hc]])if(!(state.mode==='tan'&&d===90)){const v=trig(state.mode,d);if(v!==null&&Math.abs(v)<2.3)add(svg,'circle',{cx:X(d),cy:Y(v),r:6,stroke:col,fill:closed?col:'#091321',class:closed?'closed':'open'})}}
+}
+const exact={0:['0','1','0'],30:['1/2','√3/2','1/√3'],45:['1/√2','1/√2','1'],60:['√3/2','1/2','√3'],90:['1','0','未定義'],120:['√3/2','−1/2','−√3'],135:['1/√2','−1/√2','−1'],150:['1/2','−√3/2','−1/√3'],180:['0','−1','0']}
+function values(){const t=state.theta,s=Math.sin(rad(t)),c=Math.cos(rad(t)),tv=trig('tan',t);$('#angleOut').textContent=`θ = ${t}°`;$('#sinVal').textContent=s.toFixed(3);$('#cosVal').textContent=c.toFixed(3);$('#tanVal').textContent=tv===null?'未定義':Math.abs(tv)>999?'∞':tv.toFixed(3);const e=exact[t];['sin','cos','tan'].forEach((m,i)=>$('#'+m+'Exact').textContent=e?`= ${e[i]}`:'')}
+function explain(){const noun={sin:'y 座標',cos:'x 座標',tan:'直線 OP の傾き'}[state.mode],guide={sin:`水平線 y = ${state.label}`,cos:`垂直線 x = ${state.label}`,tan:`傾き ${state.label} となる直線`}[state.mode];$('#explanation').innerHTML=`${state.mode}θ は半円上の点 P から読み取れる <b>${noun}</b> です。${guide}を境界に、条件を満たす光った弧をたどります。${state.mode==='tan'?'ただし、<b>90°では定義されない</b>ため、そこで範囲を分けます。':''}<br>端の${state.op.includes('=')?'●（塗りつぶし）は等号を含む':'○（中抜き）は等号を含まない'}ことを表し、したがって解は <b>${formatSolution(solve(state.mode,state.op,state.c))}</b> です。`}
+function update(){document.documentElement.style.setProperty('--accent',colors[state.mode]);document.documentElement.style.setProperty('--glow',colors[state.mode]+'73');const symbol={'>':'>','<':'<','>=':'≧','<=':'≦'}[state.op];$('#problem').textContent=`${state.mode}θ ${symbol} ${state.label}`;$('#solution').textContent=formatSolution(solve(state.mode,state.op,state.c));$('#graphTitle').textContent=`y = ${state.mode} θ`;$('#tanNote').classList.toggle('show',state.mode==='tan');values();circle();graph();explain()}
+function options(){const sel=$('#value');sel.innerHTML='';VALUES[state.mode].forEach(([l,v])=>{const o=document.createElement('option');o.value=v;o.textContent=l;sel.append(o)});const preferred=state.mode==='sin'?.5:state.mode==='cos'?0:1;sel.value=preferred;state.c=preferred;state.label=VALUES[state.mode].find(x=>x[1]===preferred)[0]}
+if(typeof document!=='undefined'){
+$$('#modes button').forEach(b=>b.onclick=()=>{
+$$('#modes button').forEach(x=>x.classList.remove('active'));b.classList.add('active');state.mode=b.dataset.mode;options();update()});$$('#operators button').forEach(b=>b.onclick=()=>{$$('#operators button').forEach(x=>x.classList.remove('active'));b.classList.add('active');state.op=b.dataset.op;update()});$('#value').onchange=e=>{state.c=+e.target.value;state.label=e.target.options[e.target.selectedIndex].text;update()};$('#angle').oninput=e=>{state.theta=+e.target.value;update()};$('#play').onclick=()=>{state.running=true;state.last=performance.now();cancelAnimationFrame(raf);raf=requestAnimationFrame(step)};$('#pause').onclick=()=>state.running=false;$('#reset').onclick=()=>{state.running=false;state.theta=0;$('#angle').value=0;update()};function step(now){if(!state.running)return;state.theta=Math.min(180,state.theta+(now-state.last)/50*+$('#speed').value);state.last=now;if(state.theta>=180)state.running=false;$('#angle').value=state.theta;update();raf=requestAnimationFrame(step)}
+options();update()}
