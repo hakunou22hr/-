@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ja">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#050709"><title>数学Ⅰ 集合ビジュアライザー</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<header><span class="eyebrow">MATH I / INTERACTIVE LAB</span><h1>集合<span>ビジュアライザー</span></h1><p>記号を選ぶ。光でわかる。集合がつながる。</p></header>
+<main>
+<aside class="panel controls">
+<div class="section-heading"><h2><span>01</span> 集合をつくる</h2><button id="reset" class="small">リセット</button></div>
+<p class="hint">数字をカンマで区切って入力。空欄は空集合です。</p>
+<label for="input-u">U <span>全体集合</span></label><input id="input-u" type="text" value="1,2,3,4,5,6,7,8,9,10" autocomplete="off" spellcheck="false">
+<label for="input-a" class="a-color">A <span>集合A</span></label><input id="input-a" type="text" value="1,2,3,4,5" autocomplete="off" spellcheck="false">
+<label for="input-b" class="b-color">B <span>集合B</span></label><input id="input-b" type="text" value="4,5,6,7" autocomplete="off" spellcheck="false">
+<p id="error" role="alert"></p>
+<div class="section-heading"><h2><span>02</span> 集合を選ぶ</h2></div>
+<div class="tabs" role="tablist" aria-label="演算の分類"><button role="tab" id="tab-basic" aria-controls="operations" aria-selected="true" data-tab="basic">基本</button><button role="tab" id="tab-combination" aria-controls="operations" aria-selected="false" data-tab="combination" tabindex="-1">組み合わせ</button><button role="tab" id="tab-discovery" aria-controls="operations" aria-selected="false" data-tab="discovery" tabindex="-1">発見</button></div>
+<div id="operations" role="tabpanel" aria-labelledby="tab-basic"></div>
+<div id="comparison" hidden><p id="compare-instruction">左辺と右辺を順にタップして、光る場所を比べよう。</p><div class="compare-sides"><button id="left-side"></button><span>=</span><button id="right-side"></button></div><p id="discovery-message" role="status"></p></div>
+<p class="hint bottom-hint">補集合は、いつも「Uの中」で考えよう。</p>
+</aside>
+<section class="visual-area">
+<div class="panel diagram-panel"><div class="section-heading"><h2><span>03</span> 光る領域を見よう</h2><span class="live">LIVE</span></div><p id="diagram-caption">AまたはBの少なくとも一方に入っている要素</p>
+<svg id="venn" viewBox="0 0 720 500" role="img" aria-labelledby="venn-title venn-desc">
+<title id="venn-title">全体集合Uと集合A・Bのベン図</title><desc id="venn-desc"></desc>
+<defs><filter id="glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="8"/></filter></defs>
+<rect x="20" y="20" width="680" height="460" rx="18" class="universe"/>
+<g id="regions"></g>
+<rect x="20" y="20" width="680" height="460" rx="18" class="u-outline"/>
+<circle cx="285" cy="235" r="160" class="a-outline"/><circle cx="435" cy="235" r="160" class="b-outline"/>
+<text x="45" y="57" class="u-label">U</text><text x="188" y="111" class="circle-label a-color">A</text><text x="520" y="111" class="circle-label b-color">B</text>
+<g id="region-labels"></g><g id="empty-marker" hidden><rect x="267" y="212" width="186" height="50" rx="12"/><text x="360" y="245" text-anchor="middle">∅ 空集合</text></g>
+</svg><div class="legend"><span><i></i>選択した領域</span><span>円の外側も、Uの一部です</span></div></div>
+<section class="panel result" aria-live="polite" aria-atomic="true"><div><span class="step">集合記号</span><div id="result-symbol" class="formula"></div></div><div><span class="step">ことば</span><p id="result-meaning"></p></div><div class="answer"><span class="step">該当する要素</span><p id="result-elements"></p><p id="empty-message"></p></div></section>
+<details class="panel region-details"><summary>4つの領域の要素を確認する</summary><div id="region-list"></div></details>
+</section>
+</main><footer>数学Ⅰ · 集合 / 記号 → 意味 → 図 → 要素</footer><script type="module" src="./script.js"></script></body></html>
