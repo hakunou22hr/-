@@ -6,7 +6,7 @@ export const INEQUALITIES:Inequality[]=[
  {id:'x',label:'x ≧ 0',boundary:'x = 0',a:-1,b:0,c:0,color:'#2364d2'},
  {id:'y',label:'y ≧ 0',boundary:'y = 0',a:0,b:-1,c:0,color:'#12966f'},
  {id:'top',label:'2x + y ≦ 8',boundary:'2x + y = 8',a:2,b:1,c:8,color:'#e07a17'},
- {id:'side',label:'x + 2y ≦ 8',boundary:'x + 2y = 8',a:1,b:2,c:8,color:'#8b4eb5'}]
+ {id:'side',label:'2x + 3y ≦ 12',boundary:'2x + 3y = 12',a:2,b:3,c:12,color:'#8b4eb5'}]
 export const satisfies=(p:Point,q:Inequality,tol=EPS)=>q.a*p.x+q.b*p.y<=q.c+tol
 export function intersection(p:Inequality,q:Inequality):Point|null{const d=p.a*q.b-q.a*p.b;if(Math.abs(d)<EPS)return null;const x=(p.c*q.b-q.c*p.b)/d,y=(p.a*q.c-q.a*p.c)/d;return{x:Math.abs(x)<EPS?0:x,y:Math.abs(y)<EPS?0:y}}
 export function feasibleVertices(items:Inequality[]){const out:Point[]=[];for(let i=0;i<items.length;i++)for(let j=i+1;j<items.length;j++){const p=intersection(items[i],items[j]);if(p&&items.every(q=>satisfies(p,q))&&!out.some(v=>Math.hypot(v.x-p.x,v.y-p.y)<EPS))out.push(p)}return out.sort((p,q)=>Math.atan2(p.y-2.5,p.x-2.5)-Math.atan2(q.y-2.5,q.x-2.5))}
