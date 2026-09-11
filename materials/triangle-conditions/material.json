@@ -1,0 +1,7 @@
+{
+  "id": "triangle-conditions",
+  "name": "3辺が3，4，xの三角形",
+  "subject": "数学Ⅰ",
+  "unit": "図形と計量",
+  "description": "辺xを動かし、三角形の成立条件と鋭角三角形の条件を図・式・数直線で探究します。"
+}

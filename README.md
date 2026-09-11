@@ -13,6 +13,7 @@
 | 数学Ⅰ｜三角比の不等式（半円で可視化） | `materials/trig-inequality-semicircle/` | `materials/trig-inequality-semicircle/` |
 | 数学Ⅰ｜三角比で電柱の高さを求める | `materials/pole-height-trigonometry/` | `materials/pole-height-trigonometry/` |
 | 数学Ⅰ 集合ビジュアライザー | `materials/set-visualizer/` | `materials/set-visualizer/` |
+| 数学Ⅰ 3辺が3，4，xの三角形 | `materials/triangle-conditions/` | `materials/triangle-conditions/` |
 
 公開パスは GitHub Pages のリポジトリ URL を基準にした相対 URL です。
 
