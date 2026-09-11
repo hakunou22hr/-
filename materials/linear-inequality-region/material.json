@@ -1,0 +1,7 @@
+{
+  "id": "linear-inequality-region",
+  "name": "連立不等式の領域と最大・最小",
+  "subject": "数学Ⅱ",
+  "unit": "図形と方程式・領域",
+  "description": "不等式の領域を重ね、x+y=k を動かして共通領域の頂点と最大値・最小値を発見します。"
+}
