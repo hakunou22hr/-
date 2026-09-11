@@ -14,3 +14,8 @@ export function clipPolygon(poly:Point[],q:Inequality){const out:Point[]=[];poly
 export function commonPolygon(items:Inequality[],min=-2,max=9){return items.reduce((p,q)=>clipPolygon(p,q),[{x:min,y:min},{x:max,y:min},{x:max,y:max},{x:min,y:max}])}
 export function extrema(vertices:Point[]){if(!vertices.length)return null;return{min:vertices.reduce((a,b)=>a.x+a.y<=b.x+b.y?a:b),max:vertices.reduce((a,b)=>a.x+a.y>=b.x+b.y?a:b)}}
 export function formatNumber(n:number){if(Math.abs(n-Math.round(n))<EPS)return String(Math.round(n));return String(Math.round(n*100)/100)}
+export function advancePingPong(value:number,direction:1|-1,delta:number,min:number,max:number){
+ let next=value+direction*delta, nextDirection=direction
+ while(next>max||next<min){if(next>max){next=max-(next-max);nextDirection=-1}else{next=min+(min-next);nextDirection=1}}
+ return{value:next,direction:nextDirection as 1|-1}
+}

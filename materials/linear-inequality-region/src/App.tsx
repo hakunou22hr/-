@@ -1,6 +1,6 @@
-import {useMemo,useState} from 'react'
-import {Check,Eye,Lightbulb,RotateCcw} from 'lucide-react'
-import {INEQUALITIES,Inequality,Point,commonPolygon,extrema,feasibleVertices,formatNumber} from './math'
+import {useEffect,useMemo,useRef,useState} from 'react'
+import {Check,Eye,Lightbulb,Pause,Play,RotateCcw} from 'lucide-react'
+import {INEQUALITIES,Inequality,Point,advancePingPong,commonPolygon,extrema,feasibleVertices,formatNumber} from './math'
 
 const MIN=-2,MAX=9,SIZE=660,PAD=42,SPAN=MAX-MIN
 const sx=(x:number)=>PAD+(x-MIN)*(SIZE-2*PAD)/SPAN
@@ -24,20 +24,23 @@ function Graph({active,k,showCommon,showLine,onVertex}:{active:Inequality[],k:nu
   </g>
   {showCommon&&vertices.map((v,i)=><g className={`vertex ${hit===i?'hit':''}`} key={`${v.x}-${v.y}`} onClick={()=>onVertex(i)} role="button" tabIndex={0} onKeyDown={e=>{if(e.key==='Enter'||e.key===' ')onVertex(i)}} aria-label={`点${String.fromCharCode(65+i)}、座標${formatNumber(v.x)},${formatNumber(v.y)}`}><circle className="vertex-hit" cx={sx(v.x)} cy={sy(v.y)} r="18"/><circle cx={sx(v.x)} cy={sy(v.y)} r="6"/><text x={sx(v.x)+11} y={sy(v.y)-10}>{String.fromCharCode(65+i)}</text></g>)}
   {showLine&&<text className="line-label" x={sx(Math.max(MIN,Math.min(MAX,k/2)))} y={sy(Math.max(MIN,Math.min(MAX,k-Math.max(MIN,Math.min(MAX,k/2)))))-13}>x + y = {formatNumber(k)}</text>}
+  {showLine&&<g className={`y-intercept ${k<MIN||k>MAX?'outside':''}`}><circle cx={sx(0)} cy={sy(Math.max(MIN,Math.min(MAX,k)))} r="7"/><text x={sx(0)+13} y={sy(Math.max(MIN,Math.min(MAX,k)))+(k>MAX?19:-13)}>y切片（0，{formatNumber(k)}）{k>MAX?' ↑':k<MIN?' ↓':''}</text></g>}
  </svg>{hit>=0&&<div className="hit-card"><small>頂点に到達！</small><strong>（{formatNumber(vertices[hit].x)}，{formatNumber(vertices[hit].y)}）</strong><span>x + y = {formatNumber(vertices[hit].x)} + {formatNumber(vertices[hit].y)} = {formatNumber(vertices[hit].x+vertices[hit].y)}</span><b>k = {formatNumber(vertices[hit].x+vertices[hit].y)}</b></div>}</div>
 }
 
 export default function App(){
- const [ids,setIds]=useState<string[]>([]),[k,setK]=useState(2),[mode,setMode]=useState(1),[selected,setSelected]=useState<number|null>(null),[answers,setAnswers]=useState(false)
+ const [ids,setIds]=useState<string[]>([]),[k,setK]=useState(2),[mode,setMode]=useState(1),[selected,setSelected]=useState<number|null>(null),[answers,setAnswers]=useState(false),[auto,setAuto]=useState(false)
+ const direction=useRef<1|-1>(1)
+ useEffect(()=>{if(!auto||mode<3)return;let frame=0,last=performance.now();const tick=(now:number)=>{const elapsed=Math.min((now-last)/1000,.1);last=now;setK(value=>{const next=advancePingPong(value,direction.current,elapsed*1.8,-4,18);direction.current=next.direction;return next.value});frame=requestAnimationFrame(tick)};frame=requestAnimationFrame(tick);return()=>cancelAnimationFrame(frame)},[auto,mode])
  const active=INEQUALITIES.filter(q=>ids.includes(q.id)),vertices=useMemo(()=>feasibleVertices(active),[active]),result=useMemo(()=>active.length===4?extrema(vertices):null,[active.length,vertices])
- const reset=()=>{setIds([]);setK(2);setMode(1);setSelected(null);setAnswers(false)}
+ const reset=()=>{setIds([]);setK(2);setMode(1);setSelected(null);setAnswers(false);setAuto(false);direction.current=1}
  const toggle=(id:string)=>{setIds(s=>s.includes(id)?s.filter(x=>x!==id):[...s,id]);setSelected(null);setAnswers(false)}
  const vertexInfo=selected===null?null:vertices[selected]
  return <div className="app"><header><a href="../../">← 教材一覧</a><div><p>MATHEMATICS II · INTERACTIVE LESSON</p><h1>連立不等式の領域と <span>最大・最小</span></h1></div><button className="reset" onClick={reset}><RotateCcw/>リセット</button></header>
   <nav className="modes" aria-label="表示モード">{['領域を見る','共通領域を見る','x+y=kを動かす','最大・最小を考える'].map((x,i)=><button key={x} className={mode===i+1?'on':''} onClick={()=>setMode(i+1)}><i>{i+1}</i>{x}</button>)}</nav>
   <main><section className="control-panel"><div className="section-title"><span>01</span><div><small>INEQUALITIES</small><h2>不等式を選ぼう</h2></div></div><p className="guide">ボタンを押すと、その式を満たす側が光ります。複数選んで共通部分を探そう。</p><div className="choices">{INEQUALITIES.map(q=>{const on=ids.includes(q.id);return <button key={q.id} aria-pressed={on} className={on?'on':''} style={{'--c':q.color} as React.CSSProperties} onClick={()=>toggle(q.id)}><span>{on?<Check/>:null}</span><b>{q.label}</b><small>境界：{q.boundary}</small></button>})}</div>
    <div className="legend"><b><i/>現在の共通領域</b><span>{active.length<2?'2つ以上の式を選ぶと表示されます':`${active.length}つの式を同時に満たす部分`}</span></div>
-   {mode>=3&&<div className="slider"><div><label htmlFor="k">x + y = k</label><output>現在の k = <b>{formatNumber(k)}</b></output></div><input id="k" type="range" min="-4" max="18" step="0.1" value={k} onChange={e=>setK(Number(e.target.value))}/><div className="range"><span>−4</span><span>小さく ← 平行移動 → 大きく</span><span>18</span></div></div>}
+   {mode>=3&&<div className="slider"><div><label htmlFor="k">x + y = k</label><output>現在の k = <b>{formatNumber(k)}</b></output></div><div className="motion-toggle" aria-label="kの移動方法"><button className={!auto?'on':''} aria-pressed={!auto} onClick={()=>setAuto(false)}><Pause/>手動</button><button className={auto?'on':''} aria-pressed={auto} onClick={()=>setAuto(true)}><Play/>自動</button></div><input id="k" type="range" min="-4" max="18" step="0.1" value={k} disabled={auto} onChange={e=>setK(Number(e.target.value))}/><div className="range"><span>−4</span><span>{auto?'自動で往復中…':'小さく ← 平行移動 → 大きく'}</span><span>18</span></div></div>}
    {vertexInfo&&<div className="vertex-info"><small>選んだ頂点</small><b>点{String.fromCharCode(65+selected!)}　（{formatNumber(vertexInfo.x)}，{formatNumber(vertexInfo.y)}）</b><span>x + y = {formatNumber(vertexInfo.x)} + {formatNumber(vertexInfo.y)} = <strong>{formatNumber(vertexInfo.x+vertexInfo.y)}</strong></span></div>}
   </section>
   <section className="graph-panel"><div className="graph-heading"><div><span>02</span><small>COORDINATE PLANE</small><h2>{active.length?`${active.length}つの不等式を表示中`:'不等式を選択してください'}</h2></div><div className="key"><i/>共通領域 <em/>x+y=k</div></div><Graph active={active} k={k} showCommon={mode>=2} showLine={mode>=3} onVertex={setSelected}/></section></main>
