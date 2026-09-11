@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="description" content="三角形の成立条件と鋭角三角形の条件を動かして学ぶ数学Ⅰ教材">
+  <title>3辺が3，4，xの三角形｜数学Ⅰ</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header class="topbar"><a href="../../">← 教材一覧</a><span>数学Ⅰ ・ 図形と計量</span><button id="reset" class="ghost">↻ リセット</button></header>
+<main>
+  <section class="hero">
+    <div><p class="kicker">INTERACTIVE LESSON</p><h1>3辺が <em>3，4，x</em> の三角形</h1><p>辺を動かして、三角形の「できる」と「鋭角」を見つけよう。</p></div>
+    <div class="problem"><b>今日の問題</b><span>（1）三角形が成立する x の範囲</span><span>（2）鋭角三角形となる x の範囲</span></div>
+  </section>
+
+  <nav class="steps" aria-label="学習ステップ">
+    <button data-jump="1" class="active"><i>1</i>動かす</button><button data-jump="2"><i>2</i>成立条件</button><button data-jump="3"><i>3</i>数直線</button><button data-jump="4"><i>4</i>最大角</button><button data-jump="5"><i>5</i>場合分け</button><button data-jump="6"><i>6</i>余弦定理</button><button data-jump="7"><i>7</i>共通範囲</button><button data-jump="8"><i>8</i>まとめ</button>
+  </nav>
+
+  <section class="panel lab" id="step1" data-step="1">
+    <div class="section-head"><span>STEP 01</span><div><h2>まず、x を動かしてみよう</h2><p>どこで三角形が「できる」から「できない」に変わるかな？</p></div></div>
+    <div class="lab-grid">
+      <div class="visual-card" id="visualCard">
+        <div class="status-row"><span id="status" class="status">できる</span><span id="kind">鋭角三角形</span></div>
+        <svg id="triangle" viewBox="0 0 640 390" role="img" aria-label="辺4を底辺に固定し、辺3と辺xの長さを正しい縮尺で描いた三角形"></svg>
+        <p class="edge-note" id="edgeNote"></p>
+      </div>
+      <div class="control-card">
+        <label for="xRange">辺の長さ <b>x = <output id="xOut">3.0</output></b></label>
+        <input id="xRange" type="range" min="0" max="8" value="3" step="0.1">
+        <div class="scale"><span>0</span><span>1</span><span>4</span><span>7</span><span>8</span></div>
+        <div class="quick"><span>試してみよう</span><button data-x="0.8">0.8</button><button data-x="1">1</button><button data-x="3">3</button><button data-x="5">5</button><button data-x="7">7</button><button data-x="7.4">7.4</button></div>
+        <aside class="think"><b>✦ 考えてみよう</b><p>x は大きすぎても、小さすぎてもいけないのでは？ 境目の値を探そう。</p></aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="step2" data-step="2">
+    <div class="section-head"><span>STEP 02</span><div><h2>なぜ、できたりできなかったりする？</h2><p>どの2辺を選んでも、その和が残りの1辺より大きい必要があります。</p></div></div>
+    <aside class="think"><b>✦ 考えてみよう</b><p>3辺が 3，4，x のとき、成立条件はどんな3本の式になるだろう？</p></aside>
+    <div class="learning-flow" aria-label="考え方の流れ"><span>① xを動かす</span><i>→</i><span>② 3辺の条件を式にする</span><i>→</i><span>③ 同時に満たす範囲を探す</span></div>
+    <div class="reveal" id="triangleReveal"><button class="primary" data-reveal>式を表示 <span>→</span></button>
+      <div class="reveal-stage" data-level="0">
+        <div class="formula-cards first"><div><small>3 と 4 の和</small><strong>3 + 4 &gt; x</strong></div><div><small>3 と x の和</small><strong>3 + x &gt; 4</strong></div><div><small>4 と x の和</small><strong>4 + x &gt; 3</strong></div></div>
+        <div class="down">↓　x について整理する　↓</div>
+        <div class="formula-cards second"><strong>x &lt; 7</strong><strong>x &gt; 1</strong><strong>x &gt; −1</strong></div>
+        <div class="all">3つを <b>すべて</b> 満たす（共通部分）</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="step3" data-step="3">
+    <div class="section-head"><span>STEP 03</span><div><h2>3つの条件を、数直線で重ねる</h2><p>条件をオン・オフして、重なっている範囲を見よう。</p></div></div>
+    <div class="toggle-row" id="conditionToggles"><label><input type="checkbox" value="lt7" checked><span class="dot c1"></span>x &lt; 7</label><label><input type="checkbox" value="gt1" checked><span class="dot c2"></span>x &gt; 1</label><label><input type="checkbox" value="gtn1" checked><span class="dot c3"></span>x &gt; −1</label></div>
+    <div class="numberline" id="line1"></div>
+    <div class="conclusion"><small>3つの共通部分</small><strong>1 &lt; x &lt; 7</strong><p>x &gt; −1 も必要ですが、x &gt; 1 を満たせば自動的に満たされます。</p></div>
+  </section>
+
+  <section class="panel" id="step4" data-step="4">
+    <div class="section-head"><span>STEP 04</span><div><h2>鋭角三角形は「最大の角」に注目</h2><p>最大の角が90°未満なら、ほかの2角も必ず90°未満です。</p></div></div>
+    <div class="max-grid"><div class="idea"><span>3つ全部を調べる？</span><strong>最大の角だけ<br>調べればよい！</strong><p>一番大きい角は、一番長い辺の向かい側。</p></div><div class="compare"><small>いまの x で比べる</small><div><span>4</span><b id="compareSign">&gt;</b><span id="compareX">3.0</span></div><p id="maxMessage">最大辺は 4 → 辺4の向かいの角に注目</p></div></div>
+    <aside class="think"><b>✦ 考えてみよう</b><p>4 と x のどちらが一番長い？ x が4をまたぐと、注目する角が切り替わります。</p></aside>
+  </section>
+
+  <section class="panel cases" id="step5" data-step="5">
+    <div class="section-head"><span>STEP 05–06</span><div><h2>最大辺で場合分けし、余弦定理を使う</h2><p>カードを開いて、鋭角になる不等式を順番に追おう。</p></div></div>
+    <div class="case-tabs"><button class="active" data-case="1">場合1　1 &lt; x ≦ 4</button><button data-case="2">場合2　x ≧ 4</button></div>
+    <div class="case-content" id="case1"><div class="case-title"><span>最大辺 <b>4</b></span><h3>辺4の向かいの最大角を α とする</h3></div><button class="primary reveal-case" data-target="case1Steps">式を表示 →</button><div class="case-steps" id="case1Steps">
+      <div><small>余弦定理</small><div class="equation">cos α = <span class="frac"><span>3<sup>2</sup> + x<sup>2</sup> − 4<sup>2</sup></span><span>2・3・x</span></span></div></div><b>α &lt; 90° ⇔ cos α &gt; 0</b><div class="equation"><span class="frac"><span>3<sup>2</sup> + x<sup>2</sup> − 4<sup>2</sup></span><span>2・3・x</span></span> &gt; 0</div><p>x &gt; 0 では分母 2・3・x は正。だから分子だけを調べればよい。</p><div class="flow"><span>x<sup>2</sup> − 7 &gt; 0</span><i>→</i><span>x &gt; √7 または x &lt; −√7</span><i>→ x &gt; 0 と x ≦ 4</i><strong>√7 &lt; x ≦ 4</strong></div>
+    </div></div>
+    <div class="case-content hidden" id="case2"><div class="case-title"><span>最大辺 <b>x</b></span><h3>辺xの向かいの最大角を β とする</h3></div><button class="primary reveal-case" data-target="case2Steps">式を表示 →</button><div class="case-steps" id="case2Steps">
+      <div><small>余弦定理</small><div class="equation">cos β = <span class="frac"><span>3<sup>2</sup> + 4<sup>2</sup> − x<sup>2</sup></span><span>2・3・4</span></span></div></div><b>β &lt; 90° ⇔ cos β &gt; 0</b><div class="equation"><span class="frac"><span>3<sup>2</sup> + 4<sup>2</sup> − x<sup>2</sup></span><span>2・3・4</span></span> &gt; 0</div><p>分母 2・3・4 は正。分子が正になる範囲を調べよう。</p><div class="flow"><span>25 − x<sup>2</sup> &gt; 0</span><i>→</i><span>x<sup>2</sup> &lt; 25 → −5 &lt; x &lt; 5</span><i>→ x ≧ 4</i><strong>4 ≦ x &lt; 5</strong></div>
+    </div></div>
+  </section>
+
+  <section class="panel" id="step6" data-step="6"><div class="section-head"><span>STEP 07</span><div><h2>二次不等式を「形」で確かめる</h2><p>数直線と放物線を切り替えて、正になる場所を確認しよう。</p></div></div>
+    <div class="view-buttons"><button class="primary" id="showCaseLine">数直線を見る</button><button class="ghost" id="showGraphs">グラフを見る</button></div><div id="caseLine" class="case-line"></div>
+    <div class="graphs hidden" id="graphs"><article><h3>y = x<sup>2</sup> − 7</h3><canvas data-graph="up" width="520" height="250"></canvas><p>外側が正 → x &lt; −√7，√7 &lt; x</p></article><article><h3>y = 25 − x<sup>2</sup></h3><canvas data-graph="down" width="520" height="250"></canvas><p>内側が正 → −5 &lt; x &lt; 5</p></article></div>
+  </section>
+
+  <section class="panel finale" id="step7" data-step="7"><div class="section-head"><span>STEP 08</span><div><h2>得られた範囲を、最後に合わせる</h2><p>場合1と場合2は x = 4 でつながり、成立条件の内側にあります。</p></div></div><div id="finalLine" class="final-line"></div><button class="answer-button" id="answerButton">答えを確認</button><div class="answers" id="answers"><div><span>（1）三角形が成立</span><strong>1 &lt; x &lt; 7</strong></div><div><span>（2）鋭角三角形</span><strong>√7 &lt; x &lt; 5</strong></div><p>√7 ≒ 2.65。端では直角三角形になるため、どちらも含みません。</p></div></section>
+  <footer>動かす → 図で考える → 式にする → 共通部分を見る</footer>
+</main><script type="module" src="./script.js"></script></body></html>
