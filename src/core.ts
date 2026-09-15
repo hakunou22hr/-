@@ -1,6 +1,6 @@
 export type TeamId = 'A' | 'B'
 export type EventType = '2P_MADE'|'2P_MISS'|'3P_MADE'|'3P_MISS'|'FT_MADE'|'FT_MISS'|'OREB'|'DREB'|'AST'|'TOV'|'STL'|'BLK'|'FOUL'|'TIMEOUT'
-export interface Player { id:string; number:string; name:string; captain?:boolean; starter?:boolean }
+export interface Player { id:string; number:string; name:string; licenseNo?:string; captain?:boolean; starter?:boolean }
 export interface GameEvent { id:string; teamId:TeamId; playerId?:string; type:EventType; quarter:number; clock:string; createdAt:string; deletedAt?:string; metadata?:Record<string, unknown> }
 export interface Line { pts:number; twoM:number; twoA:number; threeM:number; threeA:number; ftM:number; ftA:number; oreb:number; dreb:number; ast:number; tov:number; stl:number; blk:number; pf:number }
 export const emptyLine=():Line=>({pts:0,twoM:0,twoA:0,threeM:0,threeA:0,ftM:0,ftA:0,oreb:0,dreb:0,ast:0,tov:0,stl:0,blk:0,pf:0})
@@ -17,3 +17,4 @@ export function aggregate(events:GameEvent[], players:Player[]) {
  return {active,lines,score,fouls,periods};
 }
 export const pct=(m:number,a:number)=>a?`${Math.round(m/a*100)}%`:'—';
+export function buildRunningScore(events:GameEvent[]){let A=0,B=0;return events.filter(e=>!e.deletedAt).flatMap(e=>{const points=e.type==='FT_MADE'?1:e.type==='2P_MADE'?2:e.type==='3P_MADE'?3:0;if(!points)return[];if(e.teamId==='A')A+=points;else B+=points;return[{teamId:e.teamId,score:e.teamId==='A'?A:B,playerId:e.playerId,eventId:e.id}]})}
