@@ -124,6 +124,7 @@ export default function App() {
       <footer>
         <b>数学教材ポータル</b>
         <span>高校数学を、もっと視覚的に。</span>
+        <a href="./apps/courtside-scorebook/">COURTSIDE SCOREBOOK</a>
         <small>© Interactive Learning Materials</small>
       </footer>
     </div>
