@@ -29,3 +29,11 @@ Node.js 20 以降で `npm install`、`npm run dev` を実行し、表示され�
 「スコアシート」または「スタッツ」を開いて「A4 PDF出力」か「印刷」を選択します。iPad の印刷プレビューをピンチアウトして共有すると PDF として保存できます。印刷 CSS は A4 縦向けです。
 
 > 本アプリは JBA の競技規則・TO/スタッツ記録の考え方を参考にした独自 UI であり、JBA 公式帳票そのものではありません。大会要項を確認して運用してください。
+
+## 提供された公式スコアシートPDF
+
+提供された `kyoto_highschool_score_sheets_2020(1).pdf` は、ファイル名を `official_scoresheet.pdf` に変更して `public/templates/` へ配置してください。リポジトリへテンプレートが提供されていない状態では、アプリは明確なエラーを表示し、別帳票を生成しません。座標は `src/scoresheet-field-map.json` に集約されています。プレビューではPDF.jsで元ページを描画し、同じFieldMapによるHTMLオーバーレイを重ねます。PDF出力ではpdf-libで元ページを保持したままデータをポイント座標へ描画します。
+
+日本語PDF出力には、再配布と埋め込みが許可された日本語フォントを `public/fonts/NotoSansJP-Regular.ttf` として配置してください。フォントがない場合は文字化けしたPDFを作らずエラーを表示します。
+
+URLへ `?debugScoresheet=true` を付けると、フィールド境界、フィールド名、x/y座標をオーバーレイ表示できます。調整値は `scoresheet-field-map.json` だけを変更してください。
