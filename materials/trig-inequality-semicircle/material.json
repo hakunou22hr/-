@@ -1,7 +1,7 @@
 {
   "id": "trig-inequality-semicircle",
-  "name": "数学Ⅰ｜三角比の不等式（半円で可視化）",
+  "name": "三角比と不等式",
   "subject": "数学Ⅰ",
-  "unit": "三角比・不等式",
-  "description": "半円と関数グラフを連動させ、sin・cos・tan を含む不等式の解を光る弧で確かめます。"
+  "unit": "三角比",
+  "description": "半円・座標と三角比を使って、不等式の解を図から考える。"
 }

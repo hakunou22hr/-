@@ -1,0 +1,7 @@
+{
+  "id": "regular-polygon-area",
+  "name": "正多角形の面積",
+  "subject": "数学Ⅰ",
+  "unit": "三角比",
+  "description": "1辺が1の正5角形〜正10角形を使い、三角比から面積を求める。"
+}

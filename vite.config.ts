@@ -10,8 +10,16 @@ const materialPages = Object.fromEntries(
     .map(entry => [`material-${entry.name}`, resolve(root, 'materials', entry.name, 'index.html')]),
 )
 
+const appPages = {
+  'app-courtside-scorebook': resolve(root, 'apps', 'courtside-scorebook', 'index.html'),
+}
+
 export default defineConfig({
   plugins: [react()],
   base: './',
-  build: { rollupOptions: { input: { portal: resolve(root, 'index.html'), ...materialPages } } },
+  build: {
+    rollupOptions: {
+      input: { portal: resolve(root, 'index.html'), ...materialPages, ...appPages },
+    },
+  },
 })
