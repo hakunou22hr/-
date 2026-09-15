@@ -1,41 +1,34 @@
-import { ArrowRight, BookOpen, LibraryBig, Shapes } from 'lucide-react'
-import { materials } from './materials'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { BarChart3, ChevronRight, ClipboardList, Download, FileText, History, Mic, Plus, Printer, Redo2, RotateCcw, Settings, ShieldCheck, Timer, Users, X } from 'lucide-react'
+import { aggregate, pct } from './core'
+import type { EventType, GameEvent, Player, TeamId } from './core'
 
-export default function App() {
-  return <div className="portal-shell">
-    <header className="portal-header">
-      <a className="brand" href="./" aria-label="数学教材ライブラリのトップ">
-        <LibraryBig aria-hidden="true" />
-        <span>MATH MATERIALS</span>
-      </a>
-      <p>見て、触れて、考える。</p>
-    </header>
-    <main>
-      <section className="hero">
-        <div className="hero-mark"><Shapes aria-hidden="true" /></div>
-        <p className="eyebrow">INTERACTIVE LEARNING PORTAL</p>
-        <h1>数学教材<span>ライブラリ</span></h1>
-        <p className="lead">図を動かし、変化を確かめながら学べる数学教材を集めました。</p>
-        <div className="count"><strong>{materials.length}</strong><span>教材を公開中</span></div>
-      </section>
+const initialPlayers:Record<TeamId,Player[]>={A:[['a4','4','佐藤 蓮'],['a7','7','田中 悠真'],['a10','10','山本 陽翔'],['a12','12','鈴木 蒼']].map(([id,number,name],i)=>({id,number,name,starter:i<3,captain:i===1})),B:[['b5','5','伊藤 湊'],['b8','8','高橋 樹'],['b11','11','渡辺 朝陽'],['b14','14','小林 律']].map(([id,number,name],i)=>({id,number,name,starter:i<3,captain:i===0}))}
+const labels:Record<EventType,string>={'2P_MADE':'2P MADE','2P_MISS':'2P MISS','3P_MADE':'3P MADE','3P_MISS':'3P MISS','FT_MADE':'FT MADE','FT_MISS':'FT MISS',OREB:'OREB',DREB:'DREB',AST:'AST',TOV:'TURNOVER',STL:'STEAL',BLK:'BLOCK',FOUL:'FOUL',TIMEOUT:'TIME OUT'}
+const uid=()=>crypto.randomUUID?.()||`${Date.now()}-${Math.random()}`
+type Tab='game'|'sheet'|'stats'|'plays'
 
-      <section className="library" aria-labelledby="library-heading">
-        <div className="section-title">
-          <div><p>EXPLORE MATERIALS</p><h2 id="library-heading">数学教材一覧</h2></div>
-          <span>{materials.length} MATERIALS</span>
-        </div>
-        <div className="cards">
-          {materials.map((material, index) => <article className="card" key={material.id}>
-            <div className="card-number">{String(index + 1).padStart(2, '0')}</div>
-            <div className="tags"><span>{material.subject}</span><span>{material.unit}</span></div>
-            <BookOpen className="card-icon" aria-hidden="true" />
-            <h3>{material.name}</h3>
-            <p>{material.description}</p>
-            <a href={`./materials/${material.id}/`}>教材を開く <ArrowRight aria-hidden="true" /></a>
-          </article>)}
-        </div>
-      </section>
-    </main>
-    <footer><span>MATHEMATICS MATERIAL LIBRARY</span><p>それぞれの教材は独立したページとして保存されています。</p></footer>
-  </div>
+export default function App(){
+ const [tab,setTab]=useState<Tab>('game'),[quarter,setQuarter]=useState(2),[clock,setClock]=useState('05:43'),[running,setRunning]=useState(false),[selected,setSelected]=useState<{team:TeamId;id:string}>({team:'A',id:'a7'}),[events,setEvents]=useState<GameEvent[]>(()=>{try{return JSON.parse(localStorage.getItem('courtside-events')||'[]')}catch{return[]}}),[redo,setRedo]=useState<GameEvent[]>([]),[history,setHistory]=useState(false),[voice,setVoice]=useState(false),[notice,setNotice]=useState(''),[threeEnabled]=useState(true)
+ const players=[...initialPlayers.A,...initialPlayers.B], totals=useMemo(()=>aggregate(events,players),[events]), selectedPlayer=players.find(p=>p.id===selected.id)!, recognition=useRef<any>(null)
+ useEffect(()=>{localStorage.setItem('courtside-events',JSON.stringify(events));const request=indexedDB.open('courtside-scorebook',1);request.onupgradeneeded=()=>request.result.createObjectStore('games');request.onsuccess=()=>{const tx=request.result.transaction('games','readwrite');tx.objectStore('games').put(events,'current')};const t=setTimeout(()=>setNotice(''),1800);return()=>clearTimeout(t)},[events])
+ const add=(type:EventType,team=selected.team,playerId:string|undefined=selected.id,metadata?:Record<string,unknown>)=>{setEvents(v=>[...v,{id:uid(),teamId:team,playerId,type,quarter,clock,createdAt:new Date().toISOString(),metadata}]);setRedo([]);setNotice(`${labels[type]} を記録しました`)}
+ const undo=()=>setEvents(v=>{const live=[...v].reverse().find(e=>!e.deletedAt);if(!live)return v;setRedo(r=>[...r,live]);return v.map(e=>e.id===live.id?{...e,deletedAt:new Date().toISOString()}:e)})
+ const doRedo=()=>setRedo(r=>{const e=r[r.length-1];if(e)setEvents(v=>v.map(x=>x.id===e.id?{...x,deletedAt:undefined}:x));return r.slice(0,-1)})
+ const startVoice=()=>{const SR=(window as any).SpeechRecognition||(window as any).webkitSpeechRecognition;if(!SR){setNotice('このブラウザでは音声認識を利用できません');return}const rec=new SR();rec.lang='ja-JP';rec.interimResults=false;recognition.current=rec;setVoice(true);rec.onend=()=>setVoice(false);rec.onresult=(x:any)=>{const s=x.results[0][0].transcript;const team:TeamId=/黒|濃/.test(s)?'B':'A';const num=s.match(/(\d+)番/)?.[1];const p=initialPlayers[team].find(x=>x.number===num);let type:EventType|undefined=/3点|スリー|3P/i.test(s)?'3P_MADE':/2点|ツー|2P/i.test(s)?'2P_MADE':/フリー.*失敗/.test(s)?'FT_MISS':/フリー/.test(s)?'FT_MADE':/オフェンス.*リバ/.test(s)?'OREB':/ディフェンス.*リバ/.test(s)?'DREB':/アシスト/.test(s)?'AST':/ターンオーバー/.test(s)?'TOV':/スティール/.test(s)?'STL':/ブロック/.test(s)?'BLK':/ファウル|ファール/.test(s)?'FOUL':undefined;if(p&&type){setSelected({team,id:p.id});if(confirm(`認識：TEAM ${team} #${p.number} ${labels[type]}\n登録しますか？`))add(type,team,p.id)}else setNotice(`確認できませんでした：${s}`)};rec.start()}
+ const nav=[['game','入力',ClipboardList],['sheet','スコアシート',FileText],['stats','スタッツ',BarChart3],['plays','プレイ・バイ・プレイ',History]] as const
+ return <div className="app-shell">
+  <header className="topbar"><div className="brand"><span className="ball">◒</span><div><b>COURTSIDE</b><small>SCOREBOOK</small></div></div><nav>{nav.map(([id,name,Icon])=><button className={tab===id?'active':''} onClick={()=>setTab(id)} key={id}><Icon/>{name}</button>)}</nav><div className="save"><ShieldCheck/> 保存済み</div><button className="icon"><Settings/></button></header>
+  <section className="scorebar"><TeamScore id="A" name="SHIRO WINGS" totals={totals} q={quarter}/><div className="game-clock"><span>第{quarter>4?'OT':quarter}クォーター</span><button onClick={()=>setRunning(v=>!v)}><Timer/>{clock}</button><small>{running?'RUNNING':'PAUSED'}</small></div><TeamScore id="B" name="KURO FALCONS" totals={totals} q={quarter}/></section>
+  {tab==='game'&&<main className="game-grid"><Roster team="A" selected={selected} setSelected={setSelected} totals={totals}/><section className="control-panel"><div className="selected-label"><span>選択中</span><b><i>TEAM {selected.team}</i> #{selectedPlayer.number} {selectedPlayer.name}</b></div><div className="points"><button onClick={()=>add('FT_MADE')}><b>+1</b><span>FT 成功</span></button><button onClick={()=>add('2P_MADE')}><b>+2</b><span>2P 成功</span></button><button disabled={!threeEnabled} onClick={()=>add('3P_MADE')}><b>+3</b><span>3P 成功</span></button></div><div className="misses"><button onClick={()=>add('FT_MISS')}>FT 失敗</button><button onClick={()=>add('2P_MISS')}>2P 失敗</button><button disabled={!threeEnabled} onClick={()=>add('3P_MISS')}>3P 失敗</button></div><div className="stats-actions">{(['OREB','DREB','AST','TOV','STL','BLK'] as EventType[]).map(x=><button onClick={()=>add(x)} key={x}>{x}</button>)}</div><button className="foul" onClick={()=>{const type=prompt('ファウル種類（Personal / Shooting / Offensive / Technical / Unsportsmanlike / Disqualifying）','Personal');if(type)add('FOUL',selected.team,selected.id,{foulType:type,freeThrows:0})}}>FOUL <small>ファウルを記録</small></button><div className="period-actions"><button onClick={()=>add('TIMEOUT',selected.team,undefined)}>TIME OUT</button><button onClick={()=>{if(confirm('現在のクォーターを終了しますか？'))setQuarter(q=>Math.min(5,q+1))}}>クォーター終了 <ChevronRight/></button></div></section><Roster team="B" selected={selected} setSelected={setSelected} totals={totals}/></main>}
+  {tab==='sheet'&&<Sheet totals={totals} players={players}/>} {tab==='stats'&&<Stats totals={totals} players={players}/>} {tab==='plays'&&<Plays totals={totals} players={players}/>}
+  <footer className="commandbar"><button onClick={undo} disabled={!totals.active.length}><RotateCcw/>UNDO</button><button onClick={doRedo} disabled={!redo.length}><Redo2/>REDO</button><button className={`voice ${voice?'listening':''}`} onClick={()=>voice?recognition.current?.stop():startVoice()}><Mic/>{voice?'🔴 聞いています':'音声入力'}<small>タップして話す</small></button><button onClick={()=>setHistory(true)}><History/>履歴 <em>{totals.active.length}</em></button><button onClick={()=>window.print()}><Printer/>印刷 / PDF</button></footer>
+  {notice&&<div className="toast">✓ {notice}</div>}{history&&<div className="modal" onClick={()=>setHistory(false)}><div onClick={e=>e.stopPropagation()}><header><h2>入力履歴</h2><button onClick={()=>setHistory(false)}><X/></button></header>{[...events].reverse().slice(0,20).map(e=><p className={e.deletedAt?'deleted':''} key={e.id}><b>Q{e.quarter} {e.clock}</b> TEAM {e.teamId} {labels[e.type]}<button onClick={()=>setEvents(v=>v.map(x=>x.id===e.id?{...x,deletedAt:x.deletedAt?undefined:new Date().toISOString()}:x))}>{e.deletedAt?'復元':'削除'}</button></p>)}</div></div>}
+ </div>
 }
+function TeamScore({id,name,totals,q}:{id:TeamId;name:string;totals:ReturnType<typeof aggregate>;q:number}){return <div className={`team-score team-${id}`}><div><span>TEAM {id}</span><b>{name}</b><small>チームファウル <strong>{totals.fouls[id][q-1]}</strong> ・ タイムアウト <strong>{totals.active.filter(e=>e.teamId===id&&e.type==='TIMEOUT').length}</strong></small></div><strong>{totals.score[id]}</strong><div className="periods">{['Q1','Q2','Q3','Q4','OT'].map((x,i)=><span key={x}>{x}<b>{totals.periods[id][i]}</b></span>)}</div></div>}
+function Roster({team,selected,setSelected,totals}:{team:TeamId;selected:{team:TeamId;id:string};setSelected:(v:{team:TeamId;id:string})=>void;totals:ReturnType<typeof aggregate>}){return <aside className={`roster roster-${team}`}><header><div><span>TEAM {team}</span><b>{team==='A'?'SHIRO WINGS':'KURO FALCONS'}</b></div><Users/></header><div className="player-list">{initialPlayers[team].map(p=>{const l=totals.lines[p.id];return <button className={selected.id===p.id?'selected':''} onClick={()=>setSelected({team,id:p.id})} key={p.id}><strong>#{p.number}</strong><div><b>{p.name}{p.captain&&<i> C</i>}</b><span>PTS <em>{l.pts}</em>　 PF <em>{l.pf}</em></span></div><ChevronRight/></button>})}</div><button className="add-player"><Plus/>選手を追加</button></aside>}
+function Stats({totals,players}:{totals:ReturnType<typeof aggregate>;players:Player[]}){return <Page title="個人・チームスタッツ" sub="イベントログからリアルタイム集計"><div className="table-wrap"><table><thead><tr>{['PLAYER','PTS','2PM-A','2P%','3PM-A','3P%','FTM-A','FT%','OREB','DREB','REB','AST','TOV','STL','BLK','PF'].map(x=><th>{x}</th>)}</tr></thead><tbody>{players.map(p=>{const l=totals.lines[p.id];return <tr><td>#{p.number} {p.name}</td><td><b>{l.pts}</b></td><td>{l.twoM}-{l.twoA}</td><td>{pct(l.twoM,l.twoA)}</td><td>{l.threeM}-{l.threeA}</td><td>{pct(l.threeM,l.threeA)}</td><td>{l.ftM}-{l.ftA}</td><td>{pct(l.ftM,l.ftA)}</td><td>{l.oreb}</td><td>{l.dreb}</td><td>{l.oreb+l.dreb}</td><td>{l.ast}</td><td>{l.tov}</td><td>{l.stl}</td><td>{l.blk}</td><td>{l.pf}</td></tr>})}</tbody></table></div></Page>}
+function Sheet({totals,players}:{totals:ReturnType<typeof aggregate>;players:Player[]}){return <Page title="公式スコアシート確認" sub="A4印刷プレビュー・リアルタイム反映"><div className="paper"><header><div><small>大会名</small><b>2026 AUTUMN CUP</b></div><h2>OFFICIAL SCORESHEET</h2><div><small>GAME No.</small><b>W-24</b></div></header><div className="final-score"><span>SHIRO WINGS <b>{totals.score.A}</b></span><i>FINAL SCORE</i><span><b>{totals.score.B}</b> KURO FALCONS</span></div><div className="sheet-teams">{(['A','B'] as TeamId[]).map(id=><section><h3>TEAM {id}</h3>{players.filter(p=>p.id.startsWith(id.toLowerCase())).map(p=><p><b>#{p.number}</b><span>{p.name}</span><i>{'●'.repeat(totals.lines[p.id].pf)}{'○'.repeat(Math.max(0,5-totals.lines[p.id].pf))}</i><strong>{totals.lines[p.id].pts}</strong></p>)}</section>)}</div><div className="quarter-table">{['Q1','Q2','Q3','Q4','OT'].map((x,i)=><span>{x}<b>{totals.periods.A[i]} - {totals.periods.B[i]}</b></span>)}</div></div></Page>}
+function Plays({totals,players}:{totals:ReturnType<typeof aggregate>;players:Player[]}){let a=0,b=0;return <Page title="プレイ・バイ・プレイ" sub={`${totals.active.length} EVENTS`}><div className="plays">{totals.active.map((e,i)=>{const points=e.type==='2P_MADE'?2:e.type==='3P_MADE'?3:e.type==='FT_MADE'?1:0;if(e.teamId==='A')a+=points;else b+=points;const p=players.find(p=>p.id===e.playerId);return <article><time>Q{e.quarter}<b>{e.clock}</b></time><span className={`dot ${e.teamId}`}/><div><small>TEAM {e.teamId}</small><b>{p?`#${p.number} ${p.name}`:'TEAM'} — {labels[e.type]}</b></div>{points>0&&<strong>{a} — {b}</strong>}<em>{String(i+1).padStart(2,'0')}</em></article>})}{!totals.active.length&&<div className="empty">記録されたイベントはありません</div>}</div></Page>}
+function Page({title,sub,children}:{title:string;sub:string;children:React.ReactNode}){return <main className="page"><header><div><span>GAME CENTER</span><h1>{title}</h1><p>{sub}</p></div><div><button onClick={()=>window.print()}><Download/>A4 PDF出力</button><button onClick={()=>window.print()}><Printer/>印刷</button></div></header>{children}</main>}

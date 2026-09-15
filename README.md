@@ -1,43 +1,31 @@
-# 数学教材ライブラリ
+# COURTSIDE SCOREBOOK
 
-複数のインタラクティブ数学教材を、互いに上書きせず保存・公開するための GitHub Pages ポータルです。トップページから各教材を独立して起動できます。
+iPad 横向きでのタッチ入力を中心に設計した、バスケットボールのスコア・個人スタッツ・スコアシート・プレイバイプレイ統合 Web アプリです。得点、シュート試投、ファウル、タイムアウト等は単一のイベントログに保存し、全表示をそのログから再計算します。音声認識は補助機能で、利用できない環境でもすべて手入力できます。
 
-## 収録教材
+## 起動方法
 
-| 教材 | 保存場所 | 公開パス |
-| --- | --- | --- |
-| 三角比を図で学べるインタラクティブ教材（PR #1） | `materials/trig-unit-circle/` | `materials/trig-unit-circle/` |
-| 立体風SVGで学ぶ三角比のインタラクティブ教材（PR #3） | `materials/trig-visual-lab/` | `materials/trig-visual-lab/` |
-| cos アニメーションと筆記体マークで学ぶ三角比（PR #4） | `materials/trig-cos-animation/` | `materials/trig-cos-animation/` |
-| 数学A 4領域の塗り分けインタラクティブ教材（PR #6） | `materials/coloring-4areas/` | `materials/coloring-4areas/` |
-| 数学Ⅰ｜三角比の不等式（半円で可視化） | `materials/trig-inequality-semicircle/` | `materials/trig-inequality-semicircle/` |
-| 数学Ⅰ｜三角比で電柱の高さを求める | `materials/pole-height-trigonometry/` | `materials/pole-height-trigonometry/` |
-| 数学Ⅰ 集合ビジュアライザー | `materials/set-visualizer/` | `materials/set-visualizer/` |
-| 数学Ⅰ 3辺が3，4，xの三角形 | `materials/triangle-conditions/` | `materials/triangle-conditions/` |
+Node.js 20 以降で `npm install`、`npm run dev` を実行し、表示された URL を開きます。製品ビルドは `npm run build`、プレビューは `npm run preview` です。
 
-公開パスは GitHub Pages のリポジトリ URL を基準にした相対 URL です。
+## GitHub Pages
 
-## 教材の追加
+`npm run build` で生成した `dist/` を Pages に配置します。Vite の `base: './'` 設定により、リポジトリ配下の URL でも利用できます。GitHub Actions では Node をセットアップし、`npm ci && npm run build` 後に `dist` を Pages artifact としてアップロードしてください。
 
-既存教材を変更せず、次の2点を新しい `materials/<教材ID>/` に追加します。
+## iPad Safari / PWA
 
-1. 教材のエントリーポイント `index.html` と、その教材専用のソース・アセット
-2. 一覧カード用の `material.json`（`id`、`name`、`subject`、`unit`、`description`）
+1. iPad を横向きにし、Safari で HTTPS の公開 URL を開きます。
+2. 共有ボタンから「ホーム画面に追加」を選択します。
+3. ホーム画面の **SCOREBOOK** を起動します。Service Worker により基本画面をキャッシュします。
 
-トップページは `materials/*/material.json` を自動検出し、Vite は各ディレクトリの `index.html` を独立したページとしてビルドします。したがって、一覧コードやビルド設定へ教材ごとの追記は不要です。
+## 音声入力
 
-## 開発
+画面下の「音声入力」をタップした時だけ聞き取りを開始します。初回は Safari のマイク許可で「許可」を選択してください。「白 7番 2点」「黒 8番 ファウル」「白 10番 オフェンスリバウンド」など、一度に一指示を話します。認識結果の確認後に登録されます。設定アプリでマイクを拒否した場合は、Safari の Web サイト設定からマイクを許可してください。非対応時や体育館内が騒がしい場合は、選手タイルを選んで大型ボタンから手入力します。
 
-```bash
-npm install
-npm run dev
-```
+## 保存・バックアップ
 
-## テストとビルド
+イベントは操作ごとに IndexedDB と localStorage へ自動保存され、上部に「保存済み」と表示されます。Safari のサイトデータを消去すると端末内データも消えるため、長期保存時は開発者ツール等から `courtside-events` の JSON をバックアップしてください。JSON はイベント配列として復元できます。
 
-```bash
-npm test
-npm run build
-```
+## PDF / 印刷
 
-`vite.config.ts` の相対ベース設定を利用しているため、生成された `dist/` はリポジトリ名を含む GitHub Pages URL でも動作します。既存の `.github/workflows/deploy.yml` が `main` 更新時に `dist/` を GitHub Pages へ公開します。
+「スコアシート」または「スタッツ」を開いて「A4 PDF出力」か「印刷」を選択します。iPad の印刷プレビューをピンチアウトして共有すると PDF として保存できます。印刷 CSS は A4 縦向けです。
+
+> 本アプリは JBA の競技規則・TO/スタッツ記録の考え方を参考にした独自 UI であり、JBA 公式帳票そのものではありません。大会要項を確認して運用してください。
