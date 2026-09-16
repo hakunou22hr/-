@@ -1,11 +1,19 @@
-import { Html, OrbitControls } from '@react-three/drei'
+import { Html, Line, OrbitControls } from '@react-three/drei'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { generateOrderedTriples, generateUnorderedTriples, sumOf, toUnorderedRepresentative, type DiceTriple } from './diceMath'
 
 export type ViewName = 'front' | 'top' | 'angle'
-type Props = { ordered: boolean; sums: number[]; current: DiceTriple | null; showAll: boolean; view: ViewName; resetKey: number }
+type Props = {
+  ordered: boolean
+  sums: number[]
+  current: DiceTriple | null
+  showAll: boolean
+  emphasizeThirdDie: boolean
+  view: ViewName
+  resetKey: number
+}
 
 const keyOf = (t: DiceTriple) => t.join('-')
 
@@ -18,21 +26,63 @@ function Camera({ view, resetKey }: { view: ViewName; resetKey: number }) {
   return <OrbitControls makeDefault target={[0, 2, 0]} enablePan={false} minDistance={7} maxDistance={22} />
 }
 
-function Point({ triple, active, muted, color, label }: { triple: DiceTriple; active: boolean; muted: boolean; color: string; label: boolean }) {
+function Point({ triple, active, muted, color, label, thirdDieHighlight }: {
+  triple: DiceTriple
+  active: boolean
+  muted: boolean
+  color: string
+  label: boolean
+  thirdDieHighlight: boolean
+}) {
   const ref = useRef<THREE.Mesh>(null)
-  useFrame(({ clock }) => { if (ref.current && active) ref.current.scale.setScalar(1 + Math.sin(clock.elapsedTime * 3) * .1) })
+  const haloRef = useRef<THREE.Group>(null)
+  useFrame(({ clock }) => {
+    const pulse = Math.sin(clock.elapsedTime * (Math.PI * 2 / 1.3))
+    if (ref.current && active) ref.current.scale.setScalar(1 + pulse * .07)
+    if (haloRef.current && thirdDieHighlight) haloRef.current.scale.setScalar(1.05 + pulse * .12)
+  })
   const [hover, setHover] = useState(false)
   const [x,y,z] = triple
   return <group position={[x-3.5,z*.72-.35,y-3.5]}>
     <mesh ref={ref} onPointerOver={(e) => { e.stopPropagation(); setHover(true) }} onPointerOut={() => setHover(false)}>
       <boxGeometry args={[.53,.53,.53]} />
-      <meshPhysicalMaterial color={color} emissive={color} emissiveIntensity={active ? 2.5 : .18} transparent opacity={muted ? .08 : active ? .82 : .27} roughness={.12} metalness={.05} transmission={.25} />
+      <meshPhysicalMaterial
+        color={thirdDieHighlight ? '#ff3b22' : color}
+        emissive={thirdDieHighlight ? '#ff190f' : color}
+        emissiveIntensity={thirdDieHighlight ? 6 : active ? 2.5 : .18}
+        transparent
+        opacity={muted ? .08 : active ? .82 : .27}
+        roughness={.12}
+        metalness={.05}
+        transmission={.25}
+      />
     </mesh>
-    {(label || hover) && <Html center distanceFactor={9}><span className={`point-label ${active ? 'hot' : ''}`}>({triple.join(',')})<b>和={sumOf(triple)}</b><small>代表 {`{${toUnorderedRepresentative(triple).join(',')}}`}</small></span></Html>}
+    {thirdDieHighlight && <group ref={haloRef}>
+      <mesh renderOrder={10}>
+        <sphereGeometry args={[.52,20,20]} />
+        <meshBasicMaterial color="#ff2d1f" transparent opacity={.2} blending={THREE.AdditiveBlending} depthWrite={false} />
+      </mesh>
+      <mesh renderOrder={11}>
+        <boxGeometry args={[.68,.68,.68]} />
+        <meshBasicMaterial color="#ff3b22" wireframe transparent opacity={.95} depthTest={false} />
+      </mesh>
+    </group>}
+    {thirdDieHighlight && <Line points={[[0,-z*.72+.35,0],[0,-.35,0]]} color="#ff513d" lineWidth={1.4} transparent opacity={.8} depthTest={false} />}
+    {(label || hover) && <Html center distanceFactor={9} zIndexRange={[100,0]}>
+      <span className={`point-label ${active ? 'hot' : ''} ${thirdDieHighlight ? 'third-die-label' : ''}`}>
+        <span>({triple.join(',')})</span>
+        <b>和 = {sumOf(triple)}</b>
+        <small>3つ目のさいころ = <strong>{z}</strong></small>
+        {!thirdDieHighlight && <small>代表 {`{${toUnorderedRepresentative(triple).join(',')}}`}</small>}
+      </span>
+    </Html>}
+    {thirdDieHighlight && <Html center position={[0,.62,0]} zIndexRange={[110,0]}>
+      <span className="third-value" aria-label={`3つ目のさいころは${z}`}>{z}</span>
+    </Html>}
   </group>
 }
 
-function World({ ordered, sums, current, showAll }: Omit<Props,'view'|'resetKey'>) {
+function World({ ordered, sums, current, showAll, emphasizeThirdDie }: Omit<Props,'view'|'resetKey'>) {
   const triples = useMemo(() => ordered ? generateOrderedTriples() : generateUnorderedTriples(), [ordered])
   const currentKey = current && keyOf(current)
   return <>
@@ -42,7 +92,9 @@ function World({ ordered, sums, current, showAll }: Omit<Props,'view'|'resetKey'
       const sum = sumOf(triple); const matching = sums.includes(sum)
       const representativeKey = keyOf(toUnorderedRepresentative(triple)); const selected = currentKey === representativeKey
       const visibleMatch = matching && (showAll || selected)
-      return <Point key={keyOf(triple)} triple={triple} active={visibleMatch} muted={sums.length > 0 && !visibleMatch} color={sum === 14 ? '#ff7b82' : visibleMatch ? '#48e4c2' : '#8ad8ff'} label={visibleMatch && (!ordered || keyOf(triple) === representativeKey)} />
+      const isRepresentative = keyOf(triple) === representativeKey
+      const thirdDieHighlight = emphasizeThirdDie && visibleMatch && (!ordered || isRepresentative)
+      return <Point key={keyOf(triple)} triple={triple} active={visibleMatch} muted={sums.length > 0 && !visibleMatch} color={sum === 14 ? '#ff7b82' : visibleMatch ? '#48e4c2' : '#8ad8ff'} label={visibleMatch && (!ordered || isRepresentative)} thirdDieHighlight={thirdDieHighlight} />
     })}
     {['x：1個目','z：3個目','y：2個目'].map((text,i) => <Html key={text} position={i===0?[3.8,0,0]:i===1?[0,4.6,0]:[0,0,3.8]} center><span className="axis-label">{text}</span></Html>)}
   </>
