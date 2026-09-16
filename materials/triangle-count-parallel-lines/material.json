@@ -1,0 +1,7 @@
+{
+  "id": "triangle-count-parallel-lines",
+  "name": "三角形の個数 ― 平行線の交点",
+  "subject": "数学A",
+  "unit": "場合の数・組合せ",
+  "description": "4本と5本の平行線の20個の交点から3点を選び、一直線上の3点を除いて三角形の個数を求める。"
+}
