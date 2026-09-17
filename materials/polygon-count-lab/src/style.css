@@ -9,6 +9,7 @@
 .three-canvas canvas:active{cursor:grabbing}
 .vertex-label{min-width:25px;height:25px;padding:3px 7px;border:1px solid #476578;border-radius:50%;background:#07111de8;color:#d9e9f2;font-size:13px;font-weight:800;text-align:center;line-height:17px;pointer-events:none;box-shadow:0 2px 10px #000b}
 .vertex-label.active{border-color:#6ff7ff;color:#fff;background:#0b3442;box-shadow:0 0 15px #54efff}
+.vertex-label.triangle-active{border-color:#ffd54a;color:#fff;background:#3a2a08;box-shadow:0 0 16px #ffb300}
 .diagonal.all{stroke-width:2;opacity:.22}
 .diagonal.active-halo{stroke:#45efff;stroke-width:13;opacity:.2;filter:url(#glow)}
 .diagonal.active{stroke:#b8fcff;stroke-width:5;opacity:1;filter:url(#glow);stroke-linecap:round}
