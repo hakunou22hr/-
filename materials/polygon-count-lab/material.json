@@ -1,0 +1,7 @@
+{
+  "id": "polygon-count-lab",
+  "name": "正多角形 カウント・ラボ",
+  "subject": "数学A",
+  "unit": "場合の数",
+  "description": "頂点・対角線・三角形を光らせながら、組合せの公式を発見しよう。"
+}
