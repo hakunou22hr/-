@@ -14,3 +14,18 @@
 .diagonal.active{stroke:#b8fcff;stroke-width:5;opacity:1;filter:url(#glow);stroke-linecap:round}
 @media(max-width:850px){.three-canvas{height:480px}}
 @media(max-width:520px){.three-canvas{height:390px}}
+
+/* Explicit SVG stacking is defined by the DOM layer order in Polygon2D. */
+.completed-diagonal-layer .completed{stroke:#45dce9;stroke-width:2.5;opacity:.38;filter:url(#glow);cursor:pointer;pointer-events:stroke}
+.active-diagonal-layer{pointer-events:none}
+.label-layer text{fill:#c9dae7;font-size:18px;font-weight:800;text-anchor:middle;paint-order:stroke;stroke:#07111e;stroke-width:5;pointer-events:none}
+.label-layer text.active{fill:#fff}
+.feedback{white-space:pre-line}
+.controls button.on{border-color:var(--cyan);color:var(--cyan)}
+.diagonal-history{padding:15px 0;border-bottom:1px solid #203147}
+.diagonal-history>div:first-child{display:flex;align-items:center;justify-content:space-between;font-size:10px;color:#91a9bb}
+.diagonal-history>div:first-child span{color:var(--cyan);font-weight:800}
+.diagonal-history>p{margin:10px 0 0;color:#60788c;font-size:9px}
+.history-chips{display:flex;flex-wrap:wrap;gap:5px;max-height:104px;overflow:auto;margin-top:10px}
+.history-chips button{border:1px solid #24465b;border-radius:5px;background:#0b2533;color:#71bdc7;padding:4px 7px;font-size:9px;cursor:pointer}
+.history-chips button:hover,.history-chips button.active{border-color:#89fbff;background:#174457;color:#fff;box-shadow:0 0 10px #45e6f266}
