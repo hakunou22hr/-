@@ -2,11 +2,17 @@ import {Canvas, useFrame, useThree} from '@react-three/fiber'
 import {Html, OrbitControls, PerspectiveCamera} from '@react-three/drei'
 import {useEffect, useMemo, useRef} from 'react'
 import * as THREE from 'three'
-import {diagonals, isAdjacent, oneEdgeTriangles, sharedEdgeCount, triangles, type Pair, type Triple} from './math'
+import {diagonalKey, diagonals, isAdjacent, oneEdgeTriangles, sharedEdgeCount, triangles, type Pair, type Triple} from './math'
 
 const names='ABCDEFGHIJKL'
 type Mode='diag'|'tri'|'edge'
-type Props={n:number,mode:Mode,current:Pair|Triple|null,activePair:Pair|null,activeTriple:Triple|null,showAll:boolean,manual:boolean,base:Pair|null,picked:number[],tilt:boolean,cameraReset:number,onVertex:(x:number)=>void,onEdge:(x:number)=>void}
+type Props={n:number,mode:Mode,current:Pair|Triple|null,activePair:Pair|null,activeTriangleVertices:number[],showAll:boolean,completedDiagonalKeys:Set<string>,manual:boolean,base:Pair|null,tilt:boolean,cameraReset:number,onVertex:(x:number)=>void,onEdge:(x:number)=>void}
+
+export function createTriangleRenderData(vertices:number[],points:THREE.Vector3[]){
+  if(vertices.length!==3)return{triangle:null,key:null,edges:[] as Pair[],shapePoints:[] as [number,number][]}
+  const triangle=[...vertices].sort((a,b)=>a-b) as Triple
+  return{triangle,key:triangle.join('-'),edges:[[triangle[0],triangle[1]],[triangle[1],triangle[2]],[triangle[2],triangle[0]]] as Pair[],shapePoints:triangle.map(i=>[points[i].x,-points[i].z] as [number,number])}
+}
 
 function Segment({a,b,y,color,radius,opacity=1,glow=false,onClick}:{a:THREE.Vector3,b:THREE.Vector3,y:number,color:string,radius:number,opacity?:number,glow?:boolean,onClick?:()=>void}){
   const data=useMemo(()=>{const start=a.clone();start.y=y;const end=b.clone();end.y=y;const delta=end.clone().sub(start);return{mid:start.clone().add(end).multiplyScalar(.5),length:delta.length(),rotation:new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0,1,0),delta.normalize())}},[a,b,y])
@@ -24,10 +30,13 @@ function CameraRig({tilt,reset}:{tilt:boolean,reset:number}){
 
 function Scene(p:Props){
   const pts=useMemo(()=>Array.from({length:p.n},(_,i)=>{const a=-Math.PI/2+i*2*Math.PI/p.n;return new THREE.Vector3(2.25*Math.cos(a),0,2.25*Math.sin(a))}),[p.n])
-  const act=new Set([...(p.activePair||[]),...(p.activeTriple||[]),...p.picked]);const tri=p.activeTriple||(p.picked.length===3?p.picked as Triple:null)
+  const act=new Set([...(p.activePair||[]),...p.activeTriangleVertices])
   const all=p.mode==='diag'?diagonals(p.n):p.mode==='tri'?triangles(p.n):oneEdgeTriangles(p.n)
-  const visible=p.showAll?all:p.current?[p.current]:[]
-  const triShape=useMemo(()=>{if(!tri)return undefined;const shape=new THREE.Shape();tri.forEach((i,k)=>{const point=pts[i];if(k===0)shape.moveTo(point.x,point.z);else shape.lineTo(point.x,point.z)});shape.closePath();return shape},[tri,pts])
+  const completed=p.mode==='diag'?diagonals(p.n).filter(pair=>p.completedDiagonalKeys.has(diagonalKey(...pair))&&(!p.activePair||diagonalKey(...pair)!==diagonalKey(...p.activePair))):[]
+  const visible=p.showAll?all:p.mode==='diag'?[...completed,...(p.activePair?[p.activePair]:[])]:p.current?[p.current]:[]
+  const triangleData=useMemo(()=>createTriangleRenderData(p.activeTriangleVertices,pts),[p.activeTriangleVertices,pts])
+  const tri=triangleData.triangle;const triangleKey=triangleData.key;const triangleEdges=triangleData.edges
+  const triShape=useMemo(()=>{if(!triangleData.shapePoints.length)return undefined;const shape=new THREE.Shape();triangleData.shapePoints.forEach(([x,y],i)=>i===0?shape.moveTo(x,y):shape.lineTo(x,y));shape.closePath();return shape},[triangleData])
   const pulse=useRef<THREE.Group>(null);useFrame(({clock})=>{if(pulse.current)pulse.current.scale.setScalar(1+Math.sin(clock.elapsedTime*4)*.025)})
   return <>
     <PerspectiveCamera makeDefault fov={43} near={.1} far={100}/><CameraRig tilt={p.tilt} reset={p.cameraReset}/>
@@ -37,8 +46,9 @@ function Scene(p:Props){
     <mesh position={[0,-.17,0]} receiveShadow castShadow><cylinderGeometry args={[2.85,2.85,.2,64]}/><meshPhysicalMaterial color="#10283a" transparent opacity={.72} roughness={.32} metalness={.25} transmission={.08}/></mesh>
     <mesh position={[0,-.055,0]}><cylinderGeometry args={[2.66,2.66,.035,64]}/><meshBasicMaterial color="#45e6f2" transparent opacity={.12}/></mesh>
     {pts.map((q,i)=>{const r=pts[(i+1)%p.n];const selected=!!p.activePair&&isAdjacent(p.activePair[0],p.activePair[1],p.n)&&p.activePair.includes(i)&&p.activePair.includes((i+1)%p.n);return <Segment key={'s'+i} a={q} b={r} y={.08} color={selected?'#fff36b':'#b6cad6'} radius={selected?.055:.026} glow={selected} onClick={p.manual?()=>p.onEdge(i):undefined}/>})}
-    {visible.filter(x=>x.length===2).map(line=>{const pair=line as Pair;const active=!!p.activePair&&pair[0]===p.activePair[0]&&pair[1]===p.activePair[1];return <group ref={active?pulse:undefined} key={`d-${pair[0]}-${pair[1]}`}><Segment a={pts[pair[0]]} b={pts[pair[1]]} y={active ? .28 : .19} color={active?'#6ff7ff':'#45dce9'} radius={active ? .047 : .018} opacity={active?1:(p.showAll ? .32 : .72)} glow={active}/></group>})}
-    {tri&&triShape&&<mesh position={[0,.22,0]} rotation={[-Math.PI/2,0,0]}><shapeGeometry args={[triShape]}/><meshBasicMaterial color={sharedEdgeCount([...tri].sort((a,b)=>a-b)as Triple,p.n)!==1&&p.mode==='edge'?'#ff5578':'#49efff'} transparent opacity={.27} side={THREE.DoubleSide} depthWrite={false}/></mesh>}
+    {visible.filter(x=>x.length===2).map(line=>{const pair=line as Pair;const active=!!p.activePair&&diagonalKey(...pair)===diagonalKey(...p.activePair);return <group ref={active?pulse:undefined} key={`d-${pair[0]}-${pair[1]}`}><Segment a={pts[pair[0]]} b={pts[pair[1]]} y={active ? .28 : .19} color={active?'#6ff7ff':'#45dce9'} radius={active ? .047 : .018} opacity={active?1:(p.showAll ? .32 : .72)} glow={active}/></group>})}
+    {triangleEdges.map(([a,b])=><Segment key={`triangle-edge-${triangleKey}-${a}-${b}`} a={pts[a]} b={pts[b]} y={.25} color="#6ff7ff" radius={.032} opacity={.92} glow/>)}
+    {tri&&triShape&&<mesh key={`triangle-fill-${triangleKey}`} position={[0,.22,0]} rotation={[-Math.PI/2,0,0]}><shapeGeometry args={[triShape]}/><meshBasicMaterial color={sharedEdgeCount([...tri].sort((a,b)=>a-b)as Triple,p.n)!==1&&p.mode==='edge'?'#ff5578':'#49efff'} transparent opacity={.27} side={THREE.DoubleSide} depthWrite={false}/></mesh>}
     {pts.map((q,i)=>{const active=act.has(i);return <group key={i} position={[q.x,active ? .31 : .16,q.z]} onClick={e=>{e.stopPropagation();p.onVertex(i)}}>
       {active&&<mesh><sphereGeometry args={[.22,20,20]}/><meshBasicMaterial color="#53f3ff" transparent opacity={.18} depthWrite={false}/></mesh>}
       <mesh castShadow><sphereGeometry args={[active ? .115 : .08,24,24]}/><meshStandardMaterial color="#f4fcff" emissive={active?'#45e6f2':'#213b4b'} emissiveIntensity={active?3:.4}/></mesh>
