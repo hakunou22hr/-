@@ -8,8 +8,8 @@ const descriptions = [
   <>底面の1マスが1個目と2個目の出目を表し，その上の<strong>高さが3個目</strong>の出目を表します。ドラッグして空間を回してみよう。</>,
   <><code>(1,2,4)</code>、<code>(2,1,4)</code>、<code>(4,2,1)</code> は空間では別の点。でも区別できないので，小さい順に並べて<strong>{'{1,2,4}'}という1つの場合</strong>にします。</>,
   <>3個の目の和は <strong>最小 3、最大 18</strong>。この間にある7の倍数は、<span className="cold">7</span> と <span className="warm">14</span> だけです。</>,
-  <>冷たい色に光る点を順に見つけよう。どれも <strong>a ≤ b ≤ c</strong> を満たす代表です。</>,
-  <>暖かい色に光る点を順に見つけよう。順番を入れ替えただけの点は同じ場合です。</>,
+  <><span className="gold-text">金色に強く光る点</span>を順に見つけよう。どれも <strong>a ≤ b ≤ c</strong> を満たす代表です。</>,
+  <><span className="red-text">赤色に強く光る点</span>を順に見つけよう。順番を入れ替えただけの点は同じ場合です。</>,
   <>「和が7」と「和が14」は同時には起こりません。だから<strong>和の法則</strong>で足すことができます。</>,
   <>和が7のとき4通り、和が14のとき4通り。区別できない組は全部で<strong>8通り</strong>です。</>,
 ]
@@ -30,9 +30,9 @@ export default function App() {
     <nav className="steps" aria-label="学習ステップ">{steps.map((name,i)=><button key={name} className={step===i?'active':step>i?'done':''} onClick={()=>setStep(i)}><i>{i+1}</i><span>{name}</span></button>)}</nav>
     <section className="workspace">
       <div className="visual">
-        <div className="canvas-wrap"><DiceScene ordered={ordered} sums={sums} current={current} showAll={showAll} view={view} resetKey={resetKey}/><div className="legend"><span><i className="dot cold-bg"/>和が7</span><span><i className="dot warm-bg"/>和が14</span><span><i className="dot base-bg"/>空間の点</span></div></div>
+        <div className="canvas-wrap"><DiceScene ordered={ordered} sums={sums} current={current} showAll={showAll} view={view} resetKey={resetKey}/><div className="legend" aria-label="色の凡例"><span className="legend-seven"><i className="dot gold-bg"/>金色：和が7</span><span className="legend-fourteen"><i className="dot red-bg"/>赤色：和が14</span><span><i className="dot base-bg"/>その他</span></div></div>
         <div className="controls">
-          <div><label>表示する和</label>{([['normal','通常表示'],['7','和が7'],['14','和が14'],['both','両方']] as const).map(([v,l])=><button className={sumMode===v?'on':''} onClick={()=>setSumMode(v)} key={v}>{l}</button>)}</div>
+          <div><label>表示する和</label>{([['normal','通常表示'],['7','和が7'],['14','和が14'],['both','両方']] as const).map(([v,l])=><button className={`${sumMode===v?'on ':''}mode-${v}`} aria-pressed={sumMode===v} onClick={()=>{setSumMode(v);setItem(0)}} key={v}>{l}</button>)}</div>
           <div><label>見せ方</label><button className={!showAll?'on':''} onClick={()=>setShowAll(false)}>1つずつ表示</button><button className={showAll?'on':''} onClick={()=>setShowAll(true)}>全部表示</button></div>
           <div><label>さいころ</label><button className={ordered?'on':''} onClick={()=>setOrdered(true)}>順序つき</button><button className={!ordered?'on':''} onClick={()=>setOrdered(false)}>区別しない代表</button></div>
           <div><label>視点</label>{([['front','正面'],['top','上から'],['angle','斜め']] as const).map(([v,l])=><button className={view===v?'on':''} onClick={()=>setView(v)} key={v}>{l}</button>)}<button onClick={reset}>リセット</button></div>
@@ -42,8 +42,8 @@ export default function App() {
         <div className="eyebrow">STEP {step+1}</div><h2>{steps[step]}</h2><div className="description">{descriptions[step]}</div>
         {(step===4||step===5||sumMode==='7'||sumMode==='14') && <section className={`case-card sum-${focusedSum}`}><div className="case-head"><span>和が{focusedSum}</span><b>{showAll?'4つすべて':`${item+1} / 4`}</b></div><ul>{combinations.map((t,i)=><li className={showAll||i===item?'found':''} key={formatTriple(t)}><button onClick={()=>{setItem(i);setShowAll(false)}}><span>{formatTriple(t)}</span><small>{t.join(' + ')} = {focusedSum}</small></button></li>)}</ul><p>和が{focusedSum}になる場合は <strong>4通り</strong></p>{!showAll&&<div className="case-nav"><button onClick={()=>setItem((item+3)%4)}>← 前へ</button><button onClick={()=>setItem((item+1)%4)}>次へ →</button></div>}</section>}
         {step===3&&<div className="range"><span>3</span><i/><strong>7</strong><i/><strong>14</strong><i/><span>18</span></div>}
-        {step===6&&<div className="equation"><small>和の法則</small><strong><span>4</span> + <em>4</em> = 8</strong></div>}
-        {step===7&&<div className="answer"><small>ANSWER</small><strong>答え <b>8</b> 通り</strong><p>和が7：4通り ＋ 和が14：4通り</p></div>}
+        {step===6&&<div className="equation"><small>和の法則</small><div className="sum-breakdown"><span>和が7になる場合：4通り</span><em>和が14になる場合：4通り</em></div><strong><span>4</span> + <em>4</em> = 8</strong></div>}
+        {step===7&&<div className="answer"><small>ANSWER</small><div className="sum-breakdown"><span>和が7になる場合：4通り</span><em>和が14になる場合：4通り</em></div><strong><span className="gold-text">4</span> + <span className="red-text">4</span> = <b>8</b> 通り</strong><p>2つの事象は同時に起こらないので、和の法則で足します。</p></div>}
         <div className="tip">☝ 3D画面をドラッグして回転・ピンチして拡大できます</div>
         <div className="step-nav"><button disabled={step===0} onClick={()=>setStep(step-1)}>← 戻る</button><button disabled={step===7} onClick={()=>setStep(step+1)}>次へ →</button></div>
       </aside>
