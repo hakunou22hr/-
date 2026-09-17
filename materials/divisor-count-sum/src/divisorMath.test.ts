@@ -13,7 +13,19 @@ describe('divisor mathematics', () => {
   )
   it('入力する素数を検証して1回だけ割る', () => {
     expect(isPrime(2)).toBe(true); expect(isPrime(4)).toBe(false)
+    for (const prime of [13, 17, 23, 97]) expect(isPrime(prime)).toBe(true)
     expect(divideByPrime(360, 2)).toBe(180); expect(divideByPrime(45, 2)).toBeNull()
+    for (const prime of [13, 17, 23]) expect(divideByPrime(prime, prime)).toBe(1)
+  })
+  it.each([
+    [26, '2 × 13'],
+    [34, '2 × 17'],
+    [39, '3 × 13'],
+    [46, '2 × 23'],
+    [77, '7 × 11'],
+    [97, '97'],
+  ] as const)('%iを大きな素因数まで正しく素因数分解する', (n, formatted) => {
+    expect(formatPrimeFactorization(primeFactorization(n))).toBe(formatted)
   })
   it('不正な自然数を拒否する', () => {
     expect(() => primeFactorization(0)).toThrow(); expect(() => primeFactorization(2.5)).toThrow()
