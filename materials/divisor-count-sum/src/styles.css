@@ -5,13 +5,15 @@
 
 /* 教科書と同じ短除法の筆算表示 */
 .division-chain{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:24px 32px;min-height:360px}
-.short-start{width:5ch;margin:28px 0 0 3.2ch;text-align:right;font:700 clamp(44px,5vw,60px)/1.25 'Roboto Mono',monospace;font-variant-numeric:tabular-nums;color:#f3f7fc}
-.short-row{display:grid;grid-template-columns:3ch 1ch 5ch;align-items:end;font:700 clamp(40px,4.6vw,56px)/1.1 'Roboto Mono',monospace;font-variant-numeric:tabular-nums;color:#f3f7fc}
-.short-prime{text-align:right;padding-right:.18ch;color:#aeeeff}
-.short-bracket{text-align:center;color:#cad7e5;padding-bottom:.12em}
-.short-dividend{width:5ch;text-align:right;border-bottom:3px solid #d8e1eb;padding:0 .08ch .14em 0}
-.short-result{display:grid;grid-template-columns:3ch 1ch 5ch;font:700 clamp(40px,4.6vw,56px)/1.1 'Roboto Mono',monospace;font-variant-numeric:tabular-nums}
-.short-result .number{grid-column:3;width:5ch;text-align:right;padding:.16em .08ch 0 0}
+.short-start{width:5ch;margin:28px 0 0 4ch;text-align:right;font:700 clamp(44px,5vw,60px)/1.25 'Roboto Mono',monospace;font-variant-numeric:tabular-nums;color:#f3f7fc}
+.short-row,.short-result{display:grid;grid-template-columns:4ch 5ch;font:700 clamp(40px,4.6vw,56px)/1.1 'Roboto Mono',monospace;font-variant-numeric:tabular-nums}
+.short-row{align-items:end;color:#f3f7fc}
+.short-divisor{display:grid;grid-template-columns:3ch 1ch;align-items:end;color:#aeeeff}
+.short-divisor span:first-child{text-align:right;padding-right:.18ch}
+.short-divisor span:last-child{text-align:center;color:#cad7e5;padding-bottom:.12em}
+.short-dividend,.short-result .number{display:block;width:5ch;text-align:right;padding-right:.08ch}
+.short-dividend{border-bottom:3px solid #d8e1eb;padding-bottom:.14em}
+.short-result .number{grid-column:2;padding-top:.16em}
 .latest-prime{color:#ffe28a;text-shadow:0 0 10px #ffd85d,0 0 22px #f5a900;animation:primePulse 1.2s ease-out}
 .exponent-check{max-width:620px;margin:22px auto;padding:20px;background:#0a1727;border:1px solid #34506c;border-radius:14px}
 .exponent-check label{display:block;margin-bottom:14px;font-size:19px}.exponent-check label strong{color:#9feaff;font:700 24px 'Roboto Mono'}

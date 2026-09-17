@@ -98,11 +98,10 @@ export default function App() {
           <div className="division-chain" aria-live="polite">
             {chain.length === 0 && <div className="short-start">{target}</div>}
             {chain.map((item, index) => <div className="short-row" key={index}>
-              <span className={index === chain.length - 1 ? 'short-prime latest-prime' : 'short-prime'}>{item.prime}</span>
-              <span className="short-bracket">)</span>
+              <span className={index === chain.length - 1 ? 'short-divisor latest-prime' : 'short-divisor'}><span>{item.prime}</span><span aria-hidden="true">)</span></span>
               <span className="short-dividend">{item.from}</span>
             </div>)}
-            {chain.length > 0 && <div className="short-result"><span className="number latest">{current}</span></div>}
+            {chain.length > 0 && <div className="short-result"><span aria-hidden="true" /><span className="number latest">{current}</span></div>}
           </div>
           <div className="input-card"><label htmlFor="prime">どの素数で割りますか？</label><div><input id="prime" inputMode="numeric" value={primeInput} onChange={e => setPrimeInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && tryDivide()} disabled={complete} placeholder="例：2" /><button className="primary" onClick={tryDivide} disabled={complete}>割る</button></div><p className="feedback">{message}</p><div className="quick">試してみる：{[2, 3, 5, 7].map(p => <button onClick={() => setPrimeInput(String(p))} key={p}>{p}</button>)}</div></div>
         </div>
