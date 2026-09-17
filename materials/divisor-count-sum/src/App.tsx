@@ -31,13 +31,19 @@ export default function App() {
 
   const factors = useMemo(() => primeFactorization(target), [target])
   const complete = current === 1
+  const currentIsPrime = !complete && isPrime(current)
+  const primeChoices = useMemo(() => {
+    const choices = [2, 3, 5, 7]
+    if (currentIsPrime && !choices.includes(current)) choices.push(current)
+    return choices
+  }, [current, currentIsPrime])
   const divisors = useMemo(() => generateDivisors(factors), [factors])
   const choices = selected.length === factors.length ? selected : factors.map(() => 0)
   const selectedDivisor = factors.reduce((value, factor, index) => value * factor.prime ** choices[index], 1)
   const usedPrimes = chain.map(item => item.prime)
 
   const reset = (n = target) => {
-    setTarget(n); setCurrent(n); setChain([]); setPrimeInput(''); setMessage('小さい素数から試してみよう。')
+    setTarget(n); setCurrent(n); setChain([]); setPrimeInput(''); setMessage(isPrime(n) ? `${n}は素数です。どの素数で割れば1になる？` : '小さい素数から試してみよう。')
     setSelected(primeFactorization(n).map(() => 0)); setStep(0); setCountReveal(0); setSumReveal(0); setExpanded(false); setModelOpen(false); setCustomOpen(false); setExponentAnswers([]); setExponentProgress(0)
   }
   const tryDivide = () => {
@@ -46,7 +52,11 @@ export default function App() {
     const result = divideByPrime(current, prime)
     if (result === null) { setMessage(`${prime}は素数ですが、${current}は${prime}では割り切れません。${current}を割り切れる小さい素数を探そう。`); return }
     setChain(items => [...items, { from: current, prime, result }]); setCurrent(result); setPrimeInput('')
-    setMessage(result === 1 ? '素因数分解が完成しました！ 同じ素数を指数でまとめよう。' : `${prime}で1回割ると${result}。次の素数を考えよう。`)
+    setMessage(result === 1
+      ? '素因数分解が完成しました！ 同じ素数を指数でまとめよう。'
+      : isPrime(result)
+        ? `${result}は素数です。最後はどの素数で割ればよい？`
+        : `${prime}で1回割ると${result}。次の素数を考えよう。`)
   }
   const startCustom = () => {
     const n = Number(customInput)
@@ -106,7 +116,7 @@ export default function App() {
             </div>)}
             {chain.length > 0 && <div className="short-step short-result"><span aria-hidden="true" /><span className="short-right-column"><span className="short-quotient latest">{current}</span></span></div>}
           </div>
-          <div className="input-card"><label htmlFor="prime">どの素数で割りますか？</label><div><input id="prime" inputMode="numeric" value={primeInput} onChange={e => setPrimeInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && tryDivide()} disabled={complete} placeholder="例：2" /><button className="primary" onClick={tryDivide} disabled={complete}>割る</button></div><p className="feedback">{message}</p><div className="quick">試してみる：{[2, 3, 5, 7].map(p => <button onClick={() => setPrimeInput(String(p))} key={p}>{p}</button>)}</div></div>
+          <div className="input-card"><label htmlFor="prime">どの素数で割りますか？</label><div><input id="prime" inputMode="numeric" value={primeInput} onChange={e => setPrimeInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && tryDivide()} disabled={complete} placeholder="例：2" /><button className="primary" onClick={tryDivide} disabled={complete}>割る</button></div><p className="feedback">{message}</p><div className="quick">試してみる：{primeChoices.map(p => <button onClick={() => setPrimeInput(String(p))} key={p}>{p}</button>)}</div></div>
         </div>
         {complete && <div className="completion"><Sparkles /><h3>短除法が完成！ 左側の素数を数えよう</h3>
           {exponentProgress < factors.length ? <div className="exponent-check"><label htmlFor="exponent-answer">左側に <strong>{factors[exponentProgress].prime}</strong> はいくつありますか？</label><div><input id="exponent-answer" inputMode="numeric" value={exponentAnswers[exponentProgress] ?? ''} onChange={e => { const next = [...exponentAnswers]; next[exponentProgress] = e.target.value; setExponentAnswers(next) }} onKeyDown={e => e.key === 'Enter' && checkExponent()} /><button className="primary" onClick={checkExponent}>確認する</button></div></div> : <><div className="prime-reorder"><span>{usedPrimes.join('　')}</span><b>↓ 横に並べる</b><strong>{usedPrimes.join(' × ')}</strong></div><Formula n={target} factors={factors} /><button className="primary" onClick={() => setStep(2)}>指数でまとめる <ChevronRight /></button></>}
