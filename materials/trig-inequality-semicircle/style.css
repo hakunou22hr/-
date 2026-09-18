@@ -4,3 +4,24 @@
 .class-mode .problem-strip,.class-mode .coord-card,.class-mode .playbar{display:none}.class-mode .workspace{grid-template-columns:1fr 360px}.class-mode .viewport{height:65vh}.class-mode .current{font-size:38px}.class-mode .answer-arc{stroke-width:17}
 @media(max-width:980px){.topbar{padding:0 18px}.topic{display:none}.topbar{grid-template-columns:1fr auto}.problem-strip{padding:14px 18px}.strip-title{display:none}.workspace{grid-template-columns:1fr;padding:12px 18px}.viewport{height:58vw}.side{display:grid;grid-template-columns:1fr 1fr}.step-card{grid-column:1/-1}.answer-bar,.playbar{margin-left:18px;margin-right:18px}.class-mode .workspace{grid-template-columns:1fr}}
 @media(max-width:600px){.topbar{height:68px;padding:0 12px}.brand small,#classMode{display:none}.problem-strip{padding:10px 12px}.problem-tab{min-width:135px}.free-toggle{padding:7px}.workspace{padding:8px 10px}.card-head{height:auto;align-items:start}.legend{max-width:135px;line-height:2}.viewport{height:67vw;min-height:310px}.slider-row{padding-inline:15px}.side{display:flex}.answer-bar{margin:0 10px 8px;grid-template-columns:1fr auto}.answer-bar strong{grid-column:1/-1;text-align:left;margin-top:10px}.playbar{margin:0 10px 18px;overflow-x:auto}.playbar>div{display:none}.playbar button{white-space:nowrap}.free-panel{padding:10px}.free-panel label{display:inline-block;margin-bottom:8px}.class-mode .coord-card{display:none}}
+
+/* Semantic MathML shared by cards, current problem, exploration copy, hints and guides. */
+math{font-family:'STIX Two Math','Cambria Math','Times New Roman',serif;color:inherit}
+.problem-tab math{display:block}
+.card-condition{font-size:20px;line-height:1.25}
+.current{font-size:clamp(28px,2.4vw,36px);min-height:49px;display:flex;align-items:center}
+.current-condition{font-size:1em}
+.point-formula math{font-size:18px;margin:auto}
+.inline-condition,.inline-value,.boundary-math{display:inline-block;vertical-align:middle;font-size:18px;margin:0 .28em;color:#dce8f7}
+.step-card>p{font-size:13px;line-height:1.9;min-height:42px}
+.svg-math{overflow:visible;color:var(--blue);font-size:18px;font-weight:700}
+.svg-math>div{display:flex;align-items:center;height:100%}
+
+/* The red answer range breathes continuously once STEP 4 makes it visible. */
+.answer-arc{animation:answerArcHeartbeat 1.55s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.overlap-glow{fill:url(#overlapLight);pointer-events:none;animation:answerPointGlow 1.55s ease-in-out infinite}
+.p-pulse-ring{fill:none;stroke:#ff637f;stroke-width:4;filter:url(#redGlow);transform-box:fill-box;transform-origin:center;animation:pointPulseRing 1.55s ease-out infinite;pointer-events:none}
+@keyframes answerArcHeartbeat{0%,100%{stroke-width:12;opacity:.82;filter:drop-shadow(0 0 3px #ff2c50) drop-shadow(0 0 7px #ff2c5066)}45%{stroke-width:15;opacity:1;filter:drop-shadow(0 0 8px #ff4968) drop-shadow(0 0 18px #ff2c50)}}
+@keyframes answerPointGlow{0%,100%{opacity:.38;transform:scale(.82)}45%{opacity:1;transform:scale(1.15)}}
+@keyframes pointPulseRing{0%{opacity:.9;transform:scale(.65);stroke:#fff}70%,100%{opacity:0;transform:scale(2.15);stroke:#ff2c50}}
+@media(prefers-reduced-motion:reduce){.answer-arc,.overlap-glow,.p-pulse-ring{animation:none}.overlap-glow{opacity:.7}.p-pulse-ring{opacity:.45;transform:scale(1.45)}}
