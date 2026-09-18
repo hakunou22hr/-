@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 // @ts-expect-error standalone browser module has no declaration file
-import { solve, formatSolution, trig } from '../materials/trig-inequality-semicircle/script.js'
+import { solve, formatSolution, trig, mathHTML, formatFraction, formatTrigCondition } from '../materials/trig-inequality-semicircle/script.js'
 
 const f=(mode:string,op:string,c:number)=>formatSolution(solve(mode,op,c))
 describe('半円上の三角比不等式',()=>{
@@ -12,4 +12,9 @@ describe('半円上の三角比不等式',()=>{
   ])('%sθ %s %s', (m,o,c,want)=>expect(f(m,o,c)).toBe(want))
   it('90°のtanは未定義',()=>expect(trig('tan',90)).toBeNull())
   it('代表角の値が正しい',()=>{expect(trig('sin',30)).toBeCloseTo(.5);expect(trig('cos',120)).toBeCloseTo(-.5);expect(trig('tan',45)).toBeCloseTo(1)})
+  it('分数と根号を共通の縦型分数で表示する',()=>{
+    expect(mathHTML('1/2')).toBe(formatFraction('1','2'))
+    expect(mathHTML('−√3/2')).toContain('<span class="math-frac"><span>√3</span><span>2</span></span>')
+    expect(formatTrigCondition('cos','<=','1/2')).toContain('cosθ ≦ <span class="math-frac">')
+  })
 })
