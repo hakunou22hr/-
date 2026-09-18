@@ -1,6 +1,6 @@
 import {describe,expect,it} from 'vitest'
 import * as THREE from 'three'
-import {createTriangleRenderData,TRIANGLE_GOLD} from './Polygon3D'
+import {createTriangleRenderData,SHARED_EDGE_ORANGE,TRIANGLE_GOLD} from './Polygon3D'
 
 const decagonPoints=Array.from({length:10},(_,i)=>{
  const angle=-Math.PI/2+i*2*Math.PI/10
@@ -10,6 +10,7 @@ const decagonPoints=Array.from({length:10},(_,i)=>{
 describe('3D active triangle render data',()=>{
  it('uses the dedicated gold palette for triangle edges, cores, glows and fills',()=>{
   expect(TRIANGLE_GOLD).toEqual({main:'#FFD54A',core:'#FFF4B0',glow:'#FFB300',fill:'#FFC107'})
+  expect(SHARED_EDGE_ORANGE).toEqual({main:'#FF6B3D',core:'#FFF4B0',glow:'#FF8A00'})
  })
  it.each([[[0,1,3],'0-1-3'],[[2,4,5],'2-4-5']] as const)('derives vertices, all three edges and fill from %j',(vertices,key)=>{
   const data=createTriangleRenderData([...vertices],decagonPoints)
