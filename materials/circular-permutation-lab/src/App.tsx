@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowLeft, ChevronLeft, ChevronRight, FlipVertical2, Fullscreen, Lightbulb, LockKeyhole, Pause, Play, RotateCcw, RotateCw, Sparkles } from 'lucide-react'
-import { rotations, sameCircular, sameNecklace } from './permutation'
+import { reflectAcrossYAxis, rotations, sameCircular, sameNecklace } from './permutation'
 import { Ring3D } from './Ring3D'
 
 const colors=['#ff5d72','#27d9ff','#ffd15c','#a778ff','#54e59a','#ff8c42','#ee65d5','#6e8cff']
@@ -21,9 +21,9 @@ const lessons=[
 
 function Fraction({top,bottom}:{top:string,bottom:string}){return <span className="frac"><span>{top}</span><span>{bottom}</span></span>}
 
-function Ring({items, angle=0, small=false, fixed=false, flipped=false, mode3d=false, interactive=false, onSwap}:{items:number[],angle?:number,small?:boolean,fixed?:boolean,flipped?:boolean,mode3d?:boolean,interactive?:boolean,onSwap?:(a:number,b:number)=>void}){
+function Ring({items, angle=0, small=false, fixed=false, flipped=false, mode3d=false, interactive=false, flipping=false, completing=false, onFlipEnd, onSwap}:{items:number[],angle?:number,small?:boolean,fixed?:boolean,flipped?:boolean,mode3d?:boolean,interactive?:boolean,flipping?:boolean,completing?:boolean,onFlipEnd?:()=>void,onSwap?:(a:number,b:number)=>void}){
  const drag=useRef<number|null>(null)
- return <div className={`ring ${small?'small':''} ${fixed?'has-fixed':''} ${flipped?'flipped':''} ${mode3d?'three':''}`}>
+ return <div className={`ring ${small?'small':''} ${fixed?'has-fixed':''} ${flipped?'flipped':''} ${mode3d?'three':''} ${flipping?'flipping-y':''} ${completing?'flip-complete':''}`} onAnimationEnd={event=>{if(event.animationName==='flipAroundY')onFlipEnd?.()}}>
   <div className="orbit"/>{items.map((n,i)=>{const displayAngle=(i*360/items.length+angle-90)*Math.PI/180;const radius=small?57:135;return <button draggable={interactive} onDragStart={()=>drag.current=i} onDragOver={e=>e.preventDefault()} onDrop={()=>{if(drag.current!==null&&onSwap)onSwap(drag.current,i)}} aria-label={`宝石${n}`} className={`gem gem-${n} ${fixed&&n===1?'locked':''}`} style={{'--c':colors[n-1],transform:`translate(${Math.cos(displayAngle)*radius}px, ${Math.sin(displayAngle)*radius}px)`} as React.CSSProperties} key={`${n}-${i}`}><span className="gem-label">{n}</span>{fixed&&n===1&&<LockKeyhole/>}</button>})}
  </div>
 }
@@ -31,12 +31,14 @@ function Ring({items, angle=0, small=false, fixed=false, flipped=false, mode3d=f
 function RotationCards({merged}:{merged:boolean}){return <div className={`rotation-cards ${merged?'merged':''}`}>{rotations([1,2,3,4,5]).map((r,i)=><article key={i}><b>{i*72}°</b><Ring items={r} small/></article>)}</div>}
 
 export default function App(){
- const [step,setStep]=useState(0), [circle,setCircle]=useState(false), [angle,setAngle]=useState(0), [mode3d,set3d]=useState(false), [flipped,setFlipped]=useState(false), [fixed,setFixed]=useState(false), [merged,setMerged]=useState(false), [teacher,setTeacher]=useState(false), [free,setFree]=useState(false), [count,setCount]=useState(5), [items,setItems]=useState([1,2,3,4,5]), [playing,setPlaying]=useState(false), [quiz,setQuiz]=useState(''), [general,setGeneral]=useState(false), [pulse,setPulse]=useState(0), [resetView,setResetView]=useState(0), [threeReady,setThreeReady]=useState(false), [threeError,setThreeError]=useState('')
+ const [step,setStep]=useState(0), [circle,setCircle]=useState(false), [angle,setAngle]=useState(0), [mode3d,set3d]=useState(false), [flipped,setFlipped]=useState(false), [fixed,setFixed]=useState(false), [merged,setMerged]=useState(false), [teacher,setTeacher]=useState(false), [free,setFree]=useState(false), [count,setCount]=useState(5), [items,setItems]=useState([1,2,3,4,5]), [playing,setPlaying]=useState(false), [quiz,setQuiz]=useState(''), [general,setGeneral]=useState(false), [pulse,setPulse]=useState(0), [resetView,setResetView]=useState(0), [threeReady,setThreeReady]=useState(false), [threeError,setThreeError]=useState(''), [freeFlip,setFreeFlip]=useState<'idle'|'turning'|'complete'>('idle'), [flipMessage,setFlipMessage]=useState('')
  useEffect(()=>{if(!playing)return;const id=setInterval(()=>setStep(s=>s>=lessons.length-1?(setPlaying(false),s):s+1),2600);return()=>clearInterval(id)},[playing])
  useEffect(()=>setGeneral(step>=7),[step])
  const rotate=(d:number)=>{setCircle(true);setAngle(a=>a+d*360/items.length);setPulse(p=>p+1)}
  const setN=(n:number)=>{setCount(n);setItems(Array.from({length:n},(_,i)=>i+1));setAngle(0)}
  const swap=(a:number,b:number)=>setItems(v=>{const x=[...v];[x[a],x[b]]=[x[b],x[a]];return x})
+ const finishFreeFlip=()=>{setItems(current=>{const reflected=reflectAcrossYAxis(current);setFlipMessage(sameNecklace(current,reflected)?'裏返しても同じ！':'裏返しました');return reflected});setFlipped(v=>!v);setFreeFlip('complete');window.setTimeout(()=>setFreeFlip('idle'),850)}
+ const startFreeFlip=()=>{if(freeFlip!=='idle')return;setFlipMessage('');setFreeFlip('turning');window.setTimeout(finishFreeFlip,1200)}
  const comparison=useMemo(()=>sameCircular([1,2,3,4,5],[2,3,4,5,1]),[])
  return <div className={`app ${teacher?'teacher':''}`}>
   <header><a href="../../"><ArrowLeft/> 教材一覧</a><div className="eyebrow"><Sparkles/> MATHEMATICS A · DISCOVERY LAB</div><div className="top-actions"><button onClick={()=>setTeacher(v=>!v)}><Fullscreen/>授業モード</button></div></header>
@@ -71,7 +73,7 @@ export default function App(){
 
    <section className="quiz"><small>CHECK YOUR IDEA</small><h2>AとBは同じ円順列？</h2><div className="quiz-rings"><div><label>A</label><Ring items={[1,2,3,4,5]} small/></div><div><label>B</label><Ring items={[2,3,4,5,1]} small/></div></div><div className="choice"><button onClick={()=>setQuiz('不正解。Aを72°回して重ねてみよう。')}>違う</button><button className="primary" onClick={()=>setQuiz(comparison?'正解！ Aを72°回すとBに完全一致します。':'')}>同じ</button></div></section>
 
-   <section className="free"><div className="section-title"><small>FREE LAB</small><h2>自由に試す</h2><p>宝石をドラッグして交換。個数を変えて同値グループを観察しよう。</p></div><div className="free-layout"><div><div className="count-select">{[3,4,5,6,7,8].map(n=><button className={n===count?'on':''} onClick={()=>setN(n)} key={n}>{n}</button>)}</div><div className="free-ring"><Ring items={items} interactive onSwap={swap} fixed={fixed} flipped={flipped}/></div></div><div className="free-tools"><button onClick={()=>setItems(v=>[...v.slice(1),v[0]])}><RotateCcw/>左回転</button><button onClick={()=>setItems(v=>[v.at(-1)!,...v.slice(0,-1)])}><RotateCw/>右回転</button><button onClick={()=>setFlipped(v=>!v)}><FlipVertical2/>裏返す</button><button onClick={()=>setFixed(v=>!v)}><LockKeyhole/>1つ固定</button><button onClick={()=>setFree(v=>!v)}><Sparkles/>この並びと同じもの</button><button onClick={()=>setN(count)}><RotateCcw/>リセット</button></div></div>{free&&<div className="equiv"><b>この {count} 個は1種類</b>{rotations(items).map((r,i)=><span key={i}>{r.join(' → ')}</span>)}</div>}</section>
+   <section className="free"><div className="section-title"><small>FREE LAB</small><h2>自由に試す</h2><p>宝石をドラッグして交換。個数を変えて同値グループを観察しよう。</p></div><div className="free-layout"><div><div className="count-select">{[3,4,5,6,7,8].map(n=><button disabled={freeFlip==='turning'} className={n===count?'on':''} onClick={()=>setN(n)} key={n}>{n}</button>)}</div><div className={`free-ring ${freeFlip==='turning'?'axis-active':''} ${freeFlip==='complete'?'match-pulse':''}`}><i className="flip-axis" aria-hidden="true"/><Ring items={items} interactive={freeFlip==='idle'} onSwap={swap} fixed={fixed} flipping={freeFlip==='turning'} completing={freeFlip==='complete'}/>{flipMessage&&<output className="flip-message" aria-live="polite">{flipMessage}</output>}</div></div><div className="free-tools"><button disabled={freeFlip!=='idle'} onClick={()=>setItems(v=>[...v.slice(1),v[0]])}><RotateCcw/>左回転</button><button disabled={freeFlip!=='idle'} onClick={()=>setItems(v=>[v.at(-1)!,...v.slice(0,-1)])}><RotateCw/>右回転</button><button disabled={freeFlip!=='idle'} onClick={startFreeFlip}><FlipVertical2/>裏返す</button><button disabled={freeFlip!=='idle'} onClick={()=>setFixed(v=>!v)}><LockKeyhole/>1つ固定</button><button disabled={freeFlip!=='idle'} onClick={()=>setFree(v=>!v)}><Sparkles/>この並びと同じもの</button><button disabled={freeFlip!=='idle'} onClick={()=>{setN(count);setFlipMessage('')}}><RotateCcw/>リセット</button></div></div>{free&&<div className="equiv"><b>この {count} 個は1種類</b>{rotations(items).map((r,i)=><span key={i}>{r.join(' → ')}</span>)}</div>}</section>
 
    <section className="challenge"><div><small>CHALLENGE 03</small><h2>5個から3個を選ぶと？</h2><p><b>1, 2, 3</b>　<b>2, 3, 1</b>　<b>3, 1, 2</b><br/>この3つも、回転すると同じ円順列。</p></div><div className="big-formula"><Fraction top="₅P₃" bottom="3"/><span>=</span><mark>20</mark><small>3個ずつまとめる</small></div></section>
 

@@ -44,7 +44,9 @@ function Jewelry({ items, angle, flipped, fixed, colors, pulse }: Omit<Ring3DPro
   useFrame(() => {
     if (!group.current) return
     group.current.rotation.z = THREE.MathUtils.lerp(group.current.rotation.z, -THREE.MathUtils.degToRad(angle), 0.12)
-    group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, flipped ? Math.PI : 0, 0.1)
+    // Rotate the jewelry about the screen's vertical axis. Html labels are
+    // camera-facing sprites, so the digits remain readable rather than mirrored.
+    group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, flipped ? Math.PI : 0, 0.1)
     const elapsed = performance.now() - pulseStarted.current
     const flash = elapsed < 700 ? 1 + Math.sin(elapsed / 700 * Math.PI) * 0.12 : 1
     group.current.scale.setScalar(flash)
