@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowLeft, ChevronLeft, ChevronRight, FlipVertical2, Fullscreen, Lightbulb, LockKeyhole, Pause, Play, RotateCcw, RotateCw, Sparkles } from 'lucide-react'
 import { rotations, sameCircular, sameNecklace } from './permutation'
+import { Ring3D } from './Ring3D'
 
 const colors=['#ff5d72','#27d9ff','#ffd15c','#a778ff','#54e59a','#ff8c42','#ee65d5','#6e8cff']
 const lessons=[
@@ -22,19 +23,18 @@ function Fraction({top,bottom}:{top:string,bottom:string}){return <span classNam
 
 function Ring({items, angle=0, small=false, fixed=false, flipped=false, mode3d=false, interactive=false, onSwap}:{items:number[],angle?:number,small?:boolean,fixed?:boolean,flipped?:boolean,mode3d?:boolean,interactive?:boolean,onSwap?:(a:number,b:number)=>void}){
  const drag=useRef<number|null>(null)
- return <div className={`ring ${small?'small':''} ${fixed?'has-fixed':''} ${flipped?'flipped':''} ${mode3d?'three':''}`} style={{transform:`rotateZ(${angle}deg) ${mode3d?'rotateX(58deg)':''}`}}>
-  <div className="orbit"/>{items.map((n,i)=>{const a=i*360/items.length;return <button draggable={interactive} onDragStart={()=>drag.current=i} onDragOver={e=>e.preventDefault()} onDrop={()=>{if(drag.current!==null&&onSwap)onSwap(drag.current,i)}} aria-label={`宝石${n}`} className={`gem gem-${n} ${fixed&&n===1?'locked':''}`} style={{'--a':`${a}deg`,'--c':colors[n-1]} as React.CSSProperties} key={`${n}-${i}`}><span>{n}</span>{fixed&&n===1&&<LockKeyhole/>}</button>})}
+ return <div className={`ring ${small?'small':''} ${fixed?'has-fixed':''} ${flipped?'flipped':''} ${mode3d?'three':''}`}>
+  <div className="orbit"/>{items.map((n,i)=>{const displayAngle=(i*360/items.length+angle-90)*Math.PI/180;const radius=small?57:135;return <button draggable={interactive} onDragStart={()=>drag.current=i} onDragOver={e=>e.preventDefault()} onDrop={()=>{if(drag.current!==null&&onSwap)onSwap(drag.current,i)}} aria-label={`宝石${n}`} className={`gem gem-${n} ${fixed&&n===1?'locked':''}`} style={{'--c':colors[n-1],transform:`translate(${Math.cos(displayAngle)*radius}px, ${Math.sin(displayAngle)*radius}px)`} as React.CSSProperties} key={`${n}-${i}`}><span className="gem-label">{n}</span>{fixed&&n===1&&<LockKeyhole/>}</button>})}
  </div>
 }
 
 function RotationCards({merged}:{merged:boolean}){return <div className={`rotation-cards ${merged?'merged':''}`}>{rotations([1,2,3,4,5]).map((r,i)=><article key={i}><b>{i*72}°</b><Ring items={r} small/></article>)}</div>}
 
 export default function App(){
- const [step,setStep]=useState(0), [circle,setCircle]=useState(false), [angle,setAngle]=useState(0), [mode3d,set3d]=useState(false), [flipped,setFlipped]=useState(false), [fixed,setFixed]=useState(false), [merged,setMerged]=useState(false), [teacher,setTeacher]=useState(false), [free,setFree]=useState(false), [count,setCount]=useState(5), [items,setItems]=useState([1,2,3,4,5]), [playing,setPlaying]=useState(false), [quiz,setQuiz]=useState(''), [view,setView]=useState({x:0,y:0,z:1}), [general,setGeneral]=useState(false)
- const drag=useRef<{x:number,y:number}|null>(null)
+ const [step,setStep]=useState(0), [circle,setCircle]=useState(false), [angle,setAngle]=useState(0), [mode3d,set3d]=useState(false), [flipped,setFlipped]=useState(false), [fixed,setFixed]=useState(false), [merged,setMerged]=useState(false), [teacher,setTeacher]=useState(false), [free,setFree]=useState(false), [count,setCount]=useState(5), [items,setItems]=useState([1,2,3,4,5]), [playing,setPlaying]=useState(false), [quiz,setQuiz]=useState(''), [general,setGeneral]=useState(false), [pulse,setPulse]=useState(0), [resetView,setResetView]=useState(0), [threeReady,setThreeReady]=useState(false), [threeError,setThreeError]=useState('')
  useEffect(()=>{if(!playing)return;const id=setInterval(()=>setStep(s=>s>=lessons.length-1?(setPlaying(false),s):s+1),2600);return()=>clearInterval(id)},[playing])
  useEffect(()=>setGeneral(step>=7),[step])
- const rotate=(d:number)=>{setCircle(true);setAngle(a=>a+d*360/items.length)}
+ const rotate=(d:number)=>{setCircle(true);setAngle(a=>a+d*360/items.length);setPulse(p=>p+1)}
  const setN=(n:number)=>{setCount(n);setItems(Array.from({length:n},(_,i)=>i+1));setAngle(0)}
  const swap=(a:number,b:number)=>setItems(v=>{const x=[...v];[x[a],x[b]]=[x[b],x[a]];return x})
  const comparison=useMemo(()=>sameCircular([1,2,3,4,5],[2,3,4,5,1]),[])
@@ -45,18 +45,20 @@ export default function App(){
    <nav className="progress" aria-label="探究ステップ">{lessons.map((_,i)=><button aria-label={`ステップ${i+1}`} className={i===step?'active':i<step?'done':''} onClick={()=>setStep(i)} key={i}>{i+1}</button>)}</nav>
    <section className="question"><small>DISCOVERY {String(step+1).padStart(2,'0')} / {lessons.length}</small><h2>{lessons[step][0]}</h2><p>{lessons[step][1]}</p></section>
    <section className="lab">
-    <div className="stage" onPointerDown={e=>drag.current={x:e.clientX-view.x,y:e.clientY-view.y}} onPointerMove={e=>{if(drag.current&&mode3d)setView(v=>({...v,x:e.clientX-drag.current!.x,y:e.clientY-drag.current!.y}))}} onPointerUp={()=>drag.current=null} onPointerLeave={()=>drag.current=null} onWheel={e=>mode3d&&setView(v=>({...v,z:Math.max(.65,Math.min(1.5,v.z-e.deltaY*.001))}))} onDoubleClick={()=>setView({x:0,y:0,z:1})}>
-      <div className={`scene ${circle?'circle':''} ${mode3d?'mode3d':''}`} style={{transform:`translate(${view.x/8}px,${view.y/8}px) scale(${view.z})`}}>
-       {!circle?<div className="line-gems">{items.map(n=><div className="loose-gem" style={{'--c':colors[n-1]} as React.CSSProperties} key={n}>{n}</div>)}</div>:<Ring items={items} angle={angle} fixed={fixed} flipped={flipped} mode3d={mode3d}/>} 
-       {circle&&<button className="center-action" onClick={()=>rotate(1)}>回して<br/><b>{Math.round(360/items.length)}°</b></button>}
+    <div className={`stage ${mode3d?'stage-3d':''}`}>
+      <div className={`scene ${circle?'circle':''} ${mode3d?'mode3d':''}`}>
+       {mode3d ? <Ring3D items={items} angle={angle} fixed={fixed} flipped={flipped} colors={colors} pulse={pulse} resetView={resetView} onReady={()=>{setThreeReady(true);setThreeError('')}} onFailure={()=>{setThreeError('3D表示を初期化できませんでした。2D表示に戻ります。');set3d(false)}}/> : !circle?<div className="line-gems">{items.map(n=><div className="loose-gem" style={{'--c':colors[n-1]} as React.CSSProperties} key={n}>{n}</div>)}</div>:<Ring items={items} angle={angle} fixed={fixed} flipped={flipped}/>}
+       {circle&&!mode3d&&<button className="center-action" onClick={()=>rotate(1)}>回して<br/><b>{Math.round(360/items.length)}°</b></button>}
       </div>
-      <div className="stage-label">{mode3d?'3D SPACE — ドラッグ・ホイール・ダブルクリック':'TOP VIEW — 2D'}</div>
+      {threeError&&<div className="three-error" role="alert">{threeError}</div>}
+      {mode3d&&!threeReady&&<div className="three-loading">3Dを初期化中…</div>}
+      <div className="stage-label">{mode3d?'3D SPACE — ドラッグで回転・ホイールでズーム':'TOP VIEW — 2D'}</div>
     </div>
     <aside className="panel">
-      <div className="seg"><button className={!mode3d?'on':''} onClick={()=>set3d(false)}>2D</button><button className={mode3d?'on':''} onClick={()=>{set3d(true);setCircle(true)}}>3D</button></div>
+      <div className="seg"><button className={!mode3d?'on':''} onClick={()=>set3d(false)}>2D</button><button className={mode3d?'on':''} onClick={()=>{setThreeReady(false);setThreeError('');set3d(true);setCircle(true)}}>3D</button></div>
       <h3>操作して確かめる</h3><p>宝石の順序に注目しながら、円全体を動かしてみよう。</p>
       {!circle&&<button className="primary" onClick={()=>{setCircle(true);setStep(1)}}>円形にする <Sparkles/></button>}
-      {circle&&<><div className="button-row"><button onClick={()=>rotate(-1)}><RotateCcw/>左回転</button><button onClick={()=>rotate(1)}><RotateCw/>右回転</button></div><button className={`flip ${flipped?'active':''}`} onClick={()=>{set3d(true);setFlipped(v=>!v);setStep(s=>Math.max(s,9))}}><FlipVertical2/>首飾りを裏返す</button><button className="fix" onClick={()=>{setFixed(true);setStep(s=>Math.max(s,6))}}><Lightbulb/>ヒント：1を固定</button><button onClick={()=>setView({x:0,y:0,z:1})}>表示リセット</button></>}
+      {circle&&<><div className="button-row"><button onClick={()=>rotate(-1)}><RotateCcw/>左回転</button><button onClick={()=>rotate(1)}><RotateCw/>右回転</button></div><button className={`flip ${flipped?'active':''}`} onClick={()=>{set3d(true);setFlipped(v=>!v);setStep(s=>Math.max(s,9))}}><FlipVertical2/>首飾りを裏返す</button><button className="fix" onClick={()=>{setFixed(true);setStep(s=>Math.max(s,6))}}><Lightbulb/>ヒント：1を固定</button><button onClick={()=>setResetView(v=>v+1)}>表示リセット</button></>}
       <div className="angle"><span>現在の回転</span><b>{((angle%360)+360)%360}°</b></div>
     </aside>
    </section>
