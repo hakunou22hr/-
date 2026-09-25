@@ -2,12 +2,23 @@ export type Op='<'|'<='|'>'|'>='|'='
 export type Inequality={op:Op,value:number}
 export type Bound={value:number,inclusive:boolean}
 export type Solution={lower:Bound|null,upper:Bound|null,empty:boolean,point:boolean}
+export type Direction='left'|'right'|'point'
+export type EndpointType='open'|'closed'
+export type InequalityVisual={direction:Direction,endpoint:EndpointType,boundary:number}
 
 export function parseInequality(raw:string):Inequality|null{
  const s=raw.trim().replace(/≤/g,'<=').replace(/≥/g,'>=').replace(/\s/g,'')
  const m=s.match(/^x(<=|>=|<|>|=)([-+]?(?:\d+(?:\.\d*)?|\.\d+))$/)
  if(!m)return null
  return{op:m[1] as Op,value:Number(m[2])}
+}
+/** 数学表示の唯一の規則。2D と 3D はどちらもこの結果を使う。 */
+export function inequalityVisual(q:Inequality):InequalityVisual{
+ return{
+  direction:q.op==='='?'point':q.op.startsWith('>')?'right':'left',
+  endpoint:q.op.includes('=')?'closed':'open',
+  boundary:q.value,
+ }
 }
 export function solve(items:Inequality[]):Solution{
  let lower:Bound|null=null,upper:Bound|null=null
