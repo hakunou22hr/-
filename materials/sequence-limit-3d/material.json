@@ -1,0 +1,7 @@
+{
+  "id": "sequence-limit-3d",
+  "name": "数列の極限 3Dラボ",
+  "subject": "数学Ⅲ",
+  "unit": "数列の極限",
+  "description": "分子・分母・商の変化を3Dで比較し、n→∞の意味を探究します。"
+}
