@@ -1,0 +1,3 @@
+import{describe,it,expect}from'vitest'
+import{answer,parseInequality,solve}from'./math'
+describe('compound inequalities',()=>{it('parses ASCII and unicode',()=>{expect(parseInequality('x >= -2')).toEqual({op:'>=',value:-2});expect(parseInequality('x ≤ 1.5')).toEqual({op:'<=',value:1.5})});it('finds interval',()=>expect(answer(solve([parseInequality('x>1')!,parseInequality('x<5')!]))).toBe('1 < x < 5'));it('finds point and empty',()=>{expect(answer(solve([parseInequality('x>=1')!,parseInequality('x<=1')!]))).toBe('x = 1');expect(answer(solve([parseInequality('x<-2')!,parseInequality('x>3')!]))).toBe('解なし')})})
