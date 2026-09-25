@@ -66,6 +66,7 @@ function Scene({step,flat,reset}:{step:number,flat:TriangleName|null,reset:numbe
       {flat && <><Triangle names={flatNames!} opacity={flat==='LMN'?.32:.16}/>{flatNames!.map((n,i)=><GlowLine key={n} a={n} b={flatNames![(i+1)%3]} color={flat==='LMN'?'#ffc843':'#9fbbd2'} width={3}/>)}</>}
       {(!flat||flat==='LMN') && step>=3 && <><Triangle names={triangles.LMN} opacity={.32}/>{triangles.LMN.map((n,i)=><GlowLine key={n} a={n} b={triangles.LMN[(i+1)%3]} color="#ffc843" width={4}/>)}</>}
       {(!flat||flat==='LMN') && step>=1 && <><GlowLine a="L" b="M" color="#ff3f5f" width={6}/><GlowLine a="L" b="N" color="#2f8fff" width={6}/></>}
+      {(!flat||flat==='LMN') && step>=2 && <GlowLine a="M" b="N" color="#ffe29a" width={6}/>}
       {(!flat||flat==='LMN') && step>=2 && <AngleArc/>}
     </group>
     <OrbitControls makeDefault enableDamping dampingFactor={.08} minDistance={5} maxDistance={25}/>
@@ -75,7 +76,7 @@ function Scene({step,flat,reset}:{step:number,flat:TriangleName|null,reset:numbe
 const stepData=[
   {title:'中点＝3',body:<><b>1辺 6</b> の半分は <strong>3</strong>。L・M・Nはそれぞれの辺の中央です。</>},
   {title:'LM・LN',body:<><span className="red">LM = 3√2</span><span className="blue">LN = 3√6</span><span>MN = 3√2</span></>},
-  {title:'∠LMN',body:<><span>余弦定理より</span><strong>∠LMN = 120°</strong></>},
+  {title:'∠LMN',body:<><span className="red">LM = 3√2</span><span className="gold">MN = 3√2</span><span className="blue">LN = 3√6</span><span>余弦定理より</span><strong>∠LMN = 120°</strong></>},
   {title:'△LMNの面積',body:<><span>S = <span className="frac"><i>1</i><i>2</i></span>・LM・MN・sin 120°</span><strong>S = <span className="frac"><i>9√3</i><i>2</i></span></strong></>},
 ]
 
