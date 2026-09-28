@@ -1,0 +1,7 @@
+{
+  "id": "cos-sin-extrema",
+  "name": "関数 cos x(1+sin x) の極値を探る",
+  "subject": "数学Ⅱ",
+  "unit": "微分法",
+  "description": "導関数の符号と増減・極値のつながりを、発光する2D・3Dグラフで探究します。"
+}
