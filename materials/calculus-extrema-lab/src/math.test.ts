@@ -13,6 +13,28 @@ describe('極値探究の数学モデル', () => {
     expect(trigonometric(trigonometricCritical[0])).toBeCloseTo(Math.PI / 6 + Math.sqrt(3))
     expect(trigonometric(trigonometricCritical[1])).toBeCloseTo(5 * Math.PI / 6 - Math.sqrt(3))
   })
+  it('②三角関数の極値を表示する初期スナップショットが完全かつ有限である', () => {
+    const snapshot = getTrigonometricSnapshot(.15)
+    expect(snapshot).toEqual(expect.objectContaining({
+      x: .15,
+      sine: expect.any(Number),
+      twiceSine: expect.any(Number),
+      derivative: expect.any(Number),
+      state: 'positive',
+      movement: '増加',
+      comparison: 'below',
+      extremum: null,
+    }))
+    expect([snapshot.x, snapshot.sine, snapshot.twiceSine, snapshot.derivative]).toSatisfy(
+      (values: number[]) => values.every(Number.isFinite),
+    )
+
+    const qx = 150 + 105 * Math.cos(snapshot.x)
+    const qy = 145 - 105 * Math.sin(snapshot.x)
+    expect([qx, qy, snapshot.sine, snapshot.derivative]).toSatisfy(
+      (values: number[]) => values.every(Number.isFinite),
+    )
+  })
   it('導関数の重要値と全ビュー共通状態を数値検算する', () => {
     const samples = [
       [0, 0, 1, 'positive'], [Math.PI / 6, .5, 0, 'zero'],

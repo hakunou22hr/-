@@ -15,3 +15,5 @@
 @media(max-width:620px){.current-card{grid-template-columns:1fr 1fr}.current-card .current-conclusion{grid-column:1/-1}.tick-label{font-size:8px!important}}
 .moving.zero{animation:pulse 2.2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
 .current-card.negative .current-conclusion strong{color:var(--neg)}.current-card.positive .current-conclusion strong{color:var(--pos)}.current-card.zero .current-conclusion strong{color:var(--gold)}
+.error-fallback{text-align:center;border-color:var(--neg)}.error-fallback h2{font-size:20px}.error-fallback .primary{margin:16px auto 0}
+.scene-label{display:block;color:#eaf6ff;font-size:12px;white-space:nowrap;text-shadow:0 1px 4px #000}
