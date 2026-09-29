@@ -1,0 +1,2 @@
+import{describe,expect,it}from'vitest';import{critical,df,f,sign}from'./math';
+describe('x-2sin x',()=>{it('has correct stationary points',()=>{expect(df(critical[0])).toBeCloseTo(0);expect(df(critical[1])).toBeCloseTo(0)});it('has - 0 + 0 - signs',()=>expect([sign(.2),sign(critical[0]),sign(Math.PI),sign(critical[1]),sign(6)]).toEqual(['-','0','+','0','-']));it('has correct extrema',()=>{expect(f(critical[0])).toBeCloseTo(Math.PI/3-Math.sqrt(3));expect(f(critical[1])).toBeCloseTo(5*Math.PI/3+Math.sqrt(3))})});
