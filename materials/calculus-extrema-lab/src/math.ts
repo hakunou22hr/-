@@ -1,5 +1,9 @@
 export const TAU = 2 * Math.PI
 
+/** Maps a mathematical coordinate to the percentage used by a horizontal scale. */
+export const rangePositionPercent = (value: number, start: number, end: number) =>
+  ((value - start) / (end - start)) * 100
+
 export const polynomial = (x: number) => 3 * x ** 4 - 4 * x ** 3 - 12 * x ** 2 + 1
 export const polynomialDerivative = (x: number) => 12 * x * (x - 2) * (x + 1)
 export const polynomialCritical = [-1, 0, 2] as const

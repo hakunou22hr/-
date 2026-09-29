@@ -1,7 +1,18 @@
 import { describe, expect, it } from 'vitest'
-import { getTrigonometricSnapshot, polynomial, polynomialCritical, polynomialDerivative, polynomialSign, TAU, trigonometric, trigonometricCritical, trigonometricDerivative, trigonometricSign, trigonometricState } from './math'
+import { getTrigonometricSnapshot, polynomial, polynomialCritical, polynomialDerivative, polynomialSign, rangePositionPercent, TAU, trigonometric, trigonometricCritical, trigonometricDerivative, trigonometricSign, trigonometricState } from './math'
 
 describe('極値探究の数学モデル', () => {
+  it('三角関数の符号数直線を0から2πの実座標に比例させる', () => {
+    const position = (x: number) => rangePositionPercent(x, 0, TAU)
+    const positions = [0, Math.PI / 6, 5 * Math.PI / 6, TAU].map(position)
+    const expectedPositions = [0, 100 / 12, 500 / 12, 100]
+    expectedPositions.forEach((expected, index) => expect(positions[index]).toBeCloseTo(expected))
+    expect(position(Math.PI / 6) - position(0)).toBeCloseTo(100 / 12)
+    expect(position(5 * Math.PI / 6) - position(Math.PI / 6)).toBeCloseTo(100 / 3)
+    expect(position(TAU) - position(5 * Math.PI / 6)).toBeCloseTo(700 / 12)
+    expect(position(.54)).toBeGreaterThan(position(Math.PI / 6))
+    expect(trigonometricState(.54)).toBe('negative')
+  })
   it('多項式の臨界点、符号、極値が正しい', () => {
     polynomialCritical.forEach((x) => expect(polynomialDerivative(x)).toBeCloseTo(0))
     expect([-2, -.5, 1, 3].map(polynomialSign)).toEqual(['−', '＋', '−', '＋'])
@@ -12,6 +23,28 @@ describe('極値探究の数学モデル', () => {
     expect([.1, 1, 3].map(trigonometricSign)).toEqual(['＋', '−', '＋'])
     expect(trigonometric(trigonometricCritical[0])).toBeCloseTo(Math.PI / 6 + Math.sqrt(3))
     expect(trigonometric(trigonometricCritical[1])).toBeCloseTo(5 * Math.PI / 6 - Math.sqrt(3))
+  })
+  it('②三角関数の極値を表示する初期スナップショットが完全かつ有限である', () => {
+    const snapshot = getTrigonometricSnapshot(.15)
+    expect(snapshot).toEqual(expect.objectContaining({
+      x: .15,
+      sine: expect.any(Number),
+      twiceSine: expect.any(Number),
+      derivative: expect.any(Number),
+      state: 'positive',
+      movement: '増加',
+      comparison: 'below',
+      extremum: null,
+    }))
+    expect([snapshot.x, snapshot.sine, snapshot.twiceSine, snapshot.derivative]).toSatisfy(
+      (values: number[]) => values.every(Number.isFinite),
+    )
+
+    const qx = 150 + 105 * Math.cos(snapshot.x)
+    const qy = 145 - 105 * Math.sin(snapshot.x)
+    expect([qx, qy, snapshot.sine, snapshot.derivative]).toSatisfy(
+      (values: number[]) => values.every(Number.isFinite),
+    )
   })
   it('導関数の重要値と全ビュー共通状態を数値検算する', () => {
     const samples = [
@@ -32,5 +65,10 @@ describe('極値探究の数学モデル', () => {
     })
     expect(getTrigonometricSnapshot(Math.PI / 6).extremum).toBe('maximum')
     expect(getTrigonometricSnapshot(5 * Math.PI / 6).extremum).toBe('minimum')
+    const nearMinimum = getTrigonometricSnapshot(2.62)
+    expect(nearMinimum.sine).toBeLessThan(.5)
+    expect(nearMinimum.derivative).toBeGreaterThan(0)
+    expect(nearMinimum.state).toBe('positive')
+    expect(nearMinimum.movement).toBe('増加')
   })
 })
