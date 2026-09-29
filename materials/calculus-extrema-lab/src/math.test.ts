@@ -1,2 +1,16 @@
-import{describe,expect,it}from'vitest';import{critical,df,f,sign}from'./math';
-describe('x-2sin x',()=>{it('has correct stationary points',()=>{expect(df(critical[0])).toBeCloseTo(0);expect(df(critical[1])).toBeCloseTo(0)});it('has - 0 + 0 - signs',()=>expect([sign(.2),sign(critical[0]),sign(Math.PI),sign(critical[1]),sign(6)]).toEqual(['-','0','+','0','-']));it('has correct extrema',()=>{expect(f(critical[0])).toBeCloseTo(Math.PI/3-Math.sqrt(3));expect(f(critical[1])).toBeCloseTo(5*Math.PI/3+Math.sqrt(3))})});
+import { describe, expect, it } from 'vitest'
+import { polynomial, polynomialCritical, polynomialDerivative, polynomialSign, trigonometric, trigonometricCritical, trigonometricDerivative, trigonometricSign } from './math'
+
+describe('極値探究の数学モデル', () => {
+  it('多項式の臨界点、符号、極値が正しい', () => {
+    polynomialCritical.forEach((x) => expect(polynomialDerivative(x)).toBeCloseTo(0))
+    expect([-2, -.5, 1, 3].map(polynomialSign)).toEqual(['−', '＋', '−', '＋'])
+    expect(polynomialCritical.map(polynomial)).toEqual([-4, 1, -31])
+  })
+  it('三角関数の臨界点、符号、極値が正しい', () => {
+    trigonometricCritical.forEach((x) => expect(trigonometricDerivative(x)).toBeCloseTo(0))
+    expect([.1, 1, 3].map(trigonometricSign)).toEqual(['＋', '−', '＋'])
+    expect(trigonometric(trigonometricCritical[0])).toBeCloseTo(Math.PI / 6 + Math.sqrt(3))
+    expect(trigonometric(trigonometricCritical[1])).toBeCloseTo(5 * Math.PI / 6 - Math.sqrt(3))
+  })
+})
