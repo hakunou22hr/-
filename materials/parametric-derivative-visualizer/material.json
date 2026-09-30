@@ -1,0 +1,7 @@
+{
+  "id": "parametric-derivative-visualizer",
+  "name": "数学Ⅲ｜媒介変数表示と微分",
+  "subject": "数学Ⅲ",
+  "unit": "微分法",
+  "description": "媒介変数tで動く点の軌跡・速度ベクトル・接線を2D/3Dで可視化し、dy/dx=(dy/dt)/(dx/dt)の意味を探究する教材"
+}
