@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#071a33" />
+  <meta name="description" content="接点・接線・割線を動かして学ぶ数学Ⅲの教材" />
+  <title>数学Ⅲ｜接線の方程式</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700;900&family=Shippori+Mincho:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css" />
+  <script>window.MathJax={tex:{inlineMath:[['\\(','\\)']]},svg:{fontCache:'global'}};</script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+  <header class="topbar"><a href="../../" class="back">← 教材一覧</a><div class="brand">TANGENT LAB <span>数学Ⅲ</span></div><button id="guideBtn" class="ghost">使い方</button></header>
+  <section class="hero"><div><p class="eyebrow">微分法の応用 / INTERACTIVE LESSON</p><h1>接線の方程式</h1><p>図が動く <b>→</b> 傾きが変わる <b>→</b> 式が変わる <b>→</b> 接線が決まる</p></div><div class="hero-formula">\(y-f(a)=f'(a)(x-a)\)</div></section>
+  <nav id="tabs" class="tabs" aria-label="教材の章"></nav>
+  <main id="app"></main>
+  <dialog id="guide"><button class="close" aria-label="閉じる">×</button><p class="eyebrow">HOW TO USE</p><h2>手を動かして発見しよう</h2><ol><li>上のタブで章を選ぶ</li><li>スライダーで金色の接点を動かす</li><li>図と右側の式が同時に変わることを観察する</li></ol><button class="primary close">はじめる</button></dialog>
+  <footer><span>TANGENT LAB</span><p>接線は、曲線の「その瞬間の向き」。</p></footer>
+  <script type="module" src="./script.js"></script>
+</body>
+</html>
