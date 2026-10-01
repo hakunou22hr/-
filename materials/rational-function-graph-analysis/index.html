@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#07131f"><title>数学Ⅲ｜分数関数のグラフの概形</title><link rel="stylesheet" href="./style.css"></head>
+<body>
+<header class="hero"><a href="../../" class="back">← 教材一覧</a><div><p class="eyebrow">MATHEMATICS III · DIFFERENTIAL CALCULUS</p><h1>分数関数のグラフの概形</h1><p>微分・凹凸・漸近線から形を読み解く</p></div><div class="formula">f(x) = <span>x²</span><i>x − 1</i></div></header>
+<nav id="tabs" aria-label="学習ステップ"></nav>
+<main>
+  <section class="workspace">
+    <aside class="lesson panel" id="lesson"></aside>
+    <section class="graph-panel panel">
+      <div class="graph-head"><div><small>INTERACTIVE GRAPH</small><h2 id="graphTitle">まだ完成させないグラフ</h2></div><div class="legend"><span class="function">● f(x)</span><span class="vertical">┊ x=1</span><span class="oblique">┄ y=x+1</span></div></div>
+      <canvas id="graph" role="img" aria-label="分数関数の動的グラフ"></canvas>
+      <div class="range-row"><button data-range="5">±5</button><button data-range="10" class="active">±10</button><button data-range="20">±20</button><button data-range="50">±50</button><button id="zoom">x=1 付近を拡大</button></div>
+    </section>
+    <aside class="monitor panel">
+      <p class="eyebrow">LIVE ANALYSIS</p><div class="readout"><div><span>x</span><b id="xVal">−2.00</b></div><div><span>f(x)</span><b id="fVal">−1.33</b></div><div><span>f′(x)</span><b id="dVal">0.89</b></div><div><span>f″(x)</span><b id="ddVal">−0.07</b></div></div>
+      <div id="undefined" class="undefined">定義されない<small>x = 1 は通過できない境界</small></div>
+      <label class="slider-label"><span>点 P を動かす</span><output id="sliderOut">x = −2.00</output><input id="xSlider" type="range" min="-6" max="8" step="0.01" value="-2"></label>
+      <div class="distance">斜漸近線までの縦の距離<em>|f(x)−(x+1)|</em><strong id="distance">0.333</strong></div>
+      <div id="insight" class="insight"></div>
+    </aside>
+  </section>
+  <section id="below" class="below"></section>
+</main>
+<footer>数学Ⅲ · 微分法とその応用 <span>式 → 符号 → 形を、自分の手でつなぐ。</span></footer>
+<script type="module" src="./script.js"></script></body></html>
