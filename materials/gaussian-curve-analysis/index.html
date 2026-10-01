@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#071426" />
+  <title>数学Ⅲ｜関数のグラフの概形</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+<header class="hero">
+  <a href="../../" class="back">← 教材一覧</a><span class="eyebrow">MATHEMATICS III · DIFFERENTIAL CALCULUS</span>
+  <h1>関数のグラフの概形</h1><p>― 微分・2次微分から形を読み解く ―</p>
+  <div class="formula">\(f(x)=e^{-2x^2}\)</div>
+</header>
+<nav class="tabs" aria-label="学習ステップ">
+  <button class="active" data-tab="observe">1. まずグラフを見る</button><button data-tab="first">2. \(y'\) と増減</button>
+  <button data-tab="second">3. \(y''\) と凹凸</button><button data-tab="table">4. 増減・凹凸表</button>
+  <button data-tab="complete">5. グラフ完成</button><button data-tab="three">6. 3D解析</button>
+  <button data-tab="real">7. 現実世界</button><button data-tab="quiz">8. 確認問題</button>
+</nav>
+<main>
+  <section class="workspace">
+    <div class="graph-card">
+      <div class="graph-head"><div><small>LIVE ANALYSIS</small><h2 id="graphTitle">点を動かして、形を予想しよう</h2></div><div class="legend"><span>● \(f\)</span><span class="green">● \(f'\)</span><span class="blue">● \(f''\)</span></div></div>
+      <canvas id="graph" aria-label="関数と導関数の動的グラフ"></canvas>
+      <div class="control"><label for="xRange">現在位置 \(x\)</label><input id="xRange" type="range" min="-3" max="3" step="0.01" value="-3"><output id="xOut">−3.00</output><button id="play">▶ 自動再生</button></div>
+      <div class="control explore"><label for="aRange">自由探究 \(a\)</label><input id="aRange" type="range" min="0.25" max="4" step="0.05" value="2"><output id="aOut">2.00</output><span>\(f_a(x)=e^{-ax^2}\)</span></div>
+      <p class="question">？ 係数 \(a\) を大きくすると山は広がる？ 狭くなる？</p>
+    </div>
+    <aside class="readout">
+      <h2>現在の値</h2><div class="values"><div><span>\(x\)</span><b id="vx">−3.000</b></div><div><span>\(f(x)\)</span><b id="vf">0.000</b></div><div><span>\(f'(x)\)</span><b id="vfp">0.000</b></div><div><span>\(f''(x)\)</span><b id="vfpp">0.000</b></div></div>
+      <div id="status" class="status">左から曲線を描いてみよう</div>
+      <div class="mini-table" id="miniTable"><span>増減</span><b id="motion">増加 ↑</b><span>曲がり方</span><b id="curve">下に凸（\(f''&gt;0\)）</b></div>
+    </aside>
+  </section>
+
+  <section id="observe" class="panel active">
+    <div class="two-col"><article><small>STEP 01 · 観察</small><h2>このグラフはどんな形になりそうか？</h2><p>スライダーを左から右へ動かすと、点Pの軌跡が少しずつ現れます。完成形を見る前に、高さの変化を予想しましょう。</p></article><article class="symmetry"><h3>左右対称性を確かめる</h3><p>金色のPと紫の鏡像点はいつも同じ高さです。</p><div>\(f(-x)=e^{-2(-x)^2}=e^{-2x^2}=f(x)\)</div><strong>したがって、グラフは \(y\) 軸について対称</strong></article></div>
+  </section>
+  <section id="first" class="panel">
+    <small>STEP 02 · 1階導関数</small><h2>傾きから増減を読む</h2>
+    <div class="steps"><div>\(y'=e^{-2x^2}\times(-2x^2)'\)</div><i>↓</i><div>\(y'=e^{-2x^2}\times(-4x)\)</div><i>↓</i><div class="answer">\(y'=-4xe^{-2x^2}\)</div></div>
+    <div class="reason">常に \(e^{-2x^2}>0\)。したがって、\(y'\) の符号を決めるのは <b>\(-4x\)</b>。</div>
+    <div class="sign-cards"><div class="inc">\(x&lt;0\)<b>\(y'&gt;0\)</b><span>増加 ↗</span></div><div>\(x=0\)<b>\(y'=0\)</b><span>水平</span></div><div class="dec">\(x&gt;0\)<b>\(y'&lt;0\)</b><span>減少 ↘</span></div></div>
+    <p class="question">？ \(y'=0\) だけで極大と判断してよいだろうか？ 前後の符号も調べよう。</p>
+  </section>
+  <section id="second" class="panel">
+    <small>STEP 03 · 2階導関数</small><h2>傾きの変化から凹凸を読む</h2>
+    <div class="steps"><div>\(y'=-4xe^{-2x^2}\)</div><i>↓ 積の微分</i><div>\(y''=-4\{e^{-2x^2}+x(-4xe^{-2x^2})\}\)</div><i>↓</i><div class="answer">\(y''=4(4x^2-1)e^{-2x^2}\)</div></div>
+    <div class="reason">\(e^{-2x^2}>0\) より、符号を決めるのは <b>\(4x^2-1\)</b>。</div>
+    <div class="steps compact"><div>\(y''=0\iff4x^2-1=0\)</div><i>↓</i><div>\(x^2=\frac14\)</div><i>↓</i><div class="answer">\(x=\pm\frac12\)</div></div>
+    <p>その高さは \(e^{-2(1/2)^2}=e^{-1/2}=\frac1{\sqrt e}\)。変曲点は \(\left(-\frac12,\frac1{\sqrt e}\right),\left(\frac12,\frac1{\sqrt e}\right)\) です。</p>
+    <p class="question">？ \(x=\pm\frac12\) の前後で \(y''\) の符号と接線の傾きはどう変わる？</p>
+  </section>
+  <section id="table" class="panel">
+    <small>STEP 04 · 全体像</small><h2>増減・凹凸表とグラフをつなぐ</h2><p>見出しの値をタップすると点Pが移動します。金色の列が現在位置です。</p>
+    <div class="table-wrap"><table id="variation"><thead><tr><th>\(x\)</th><th>\(-\infty\)</th><th>…</th><th><button data-x="-.5">\(-\frac12\)</button></th><th>…</th><th><button data-x="0">\(0\)</button></th><th>…</th><th><button data-x=".5">\(\frac12\)</button></th><th>…</th><th>\(+\infty\)</th></tr></thead><tbody><tr><th>\(y'\)</th><td></td><td>＋</td><td>＋</td><td>＋</td><td>0</td><td>−</td><td>−</td><td>−</td><td></td></tr><tr><th>\(y''\)</th><td></td><td>＋</td><td>0</td><td>−</td><td>−</td><td>−</td><td>0</td><td>＋</td><td></td></tr><tr><th>\(y\)</th><td>\(0\)</td><td>↗<small>増加・下に凸</small></td><td>変曲点<br>\(\frac1{\sqrt e}\)</td><td>↗<small>増加・上に凸</small></td><td>極大<br>\(1\)</td><td>↘<small>減少・上に凸</small></td><td>変曲点<br>\(\frac1{\sqrt e}\)</td><td>↘<small>減少・下に凸</small></td><td>\(0\)</td></tr></tbody></table></div>
+    <h3>3つのグラフを同期比較</h3><div class="triptych"><canvas data-kind="f"></canvas><canvas data-kind="fp"></canvas><canvas data-kind="fpp"></canvas></div><p class="question">？ \(f'\), \(f''\) のグラフから元の \(f\) の形を予想できるか？</p>
+  </section>
+  <section id="complete" class="panel">
+    <small>STEP 05 · 統合</small><h2>根拠を1つずつ重ねて完成させる</h2><button id="reveal" class="primary">1つずつ表示</button><button id="resetReveal">リセット</button><ol id="revealList"><li>① \(f(-x)=f(x)\)：\(y\) 軸対称</li><li>② \(x&lt;0\) で増加、\(x&gt;0\) で減少</li><li>③ 極大点 \((0,1)\)</li><li>④ 外側で \(y''&gt;0\)、中央で \(y''&lt;0\)</li><li>⑤ 変曲点 \(\left(\pm\frac12,\frac1{\sqrt e}\right)\)</li><li>⑥ 水平漸近線 \(y=0\)</li></ol>
+    <div class="limit"><button data-far="-1">← \(x\to-\infty\)</button><div>\(\displaystyle\lim_{x\to-\infty}e^{-2x^2}=0\)<br>\(\displaystyle\lim_{x\to+\infty}e^{-2x^2}=0\)<strong>水平漸近線 \(y=0\)</strong></div><button data-far="1">\(x\to+\infty\) →</button></div><p class="note">有限の \(x\) では \(e^{-2x^2}>0\) なので、グラフは \(x\) 軸に近づきますが交わりません。</p>
+  </section>
+  <section id="three" class="panel">
+    <small>STEP 06 · 1Dから2Dへ</small><h2>Gaussian型曲面を解析する</h2><p class="warning">これは元の1変数関数そのものではなく、<b>1次元のグラフを2次元方向へ拡張した例</b>です。</p>
+    <div class="three-layout"><canvas id="surface" aria-label="z=e^{-2(x²+y²)}の操作可能な3D曲面"></canvas><div><div class="formula">\(z=e^{-2(x^2+y^2)}\)</div><p>中央が最も高く、半径方向へ進むほど0に近づきます。ドラッグで回転、ホイール／ピンチで拡大縮小できます。</p><button id="slice" class="primary">断面を見る</button><p id="sliceText">中央断面 \(y=0\) を切ると<br><b>\(z=e^{-2x^2}\)</b></p></div></div>
+  </section>
+  <section id="real" class="panel">
+    <small>STEP 07 · MODELING</small><h2>数式・現象・グラフを同期する</h2><div class="real-grid"><article><h3>A. 光の強度分布</h3><div class="beam" id="beam"><i></i></div><p>中心が明るく外側ほど暗いGaussian型の断面。現在の中心からの距離 <b id="distance">3.00</b>、相対強度 <b id="intensity">0.000</b></p></article><article><h3>B. Gaussian型分布</h3><p>左右対称の山型は測定誤差や統計の正規分布に似ています。ただし \(e^{-2x^2}\) 自体は正規化した確率密度関数ではありません。</p></article><article><h3>C. 拡散・濃度分布</h3><div class="diffusion"><i id="particle"></i></div><p>ある瞬間の熱や物質の濃度を、中心で高く離れるほど低い分布として模式化できます。</p></article></div>
+  </section>
+  <section id="quiz" class="panel">
+    <small>STEP 08 · CHECK</small><h2>確認問題 \(y=e^{-x^2/2}\)</h2><div class="quiz"><div><span id="qnum">1 / 8</span><h3 id="qtitle">\(y'\) を求める</h3><p id="qprompt">合成関数の微分を使い、指数部分も微分しよう。</p><div id="qanswer" hidden></div><button id="hint">ヒント</button><button id="answer">解答を見る</button><button id="next" class="primary">次へ →</button></div><ol id="progress"><li>\(y'\)</li><li>\(y'=0\)</li><li>増減</li><li>\(y''\)</li><li>\(y''=0\)</li><li>凹凸</li><li>極限</li><li>グラフ</li></ol></div>
+  </section>
+</main>
+<footer>数学教材ポータル · 数学Ⅲ「微分法とその応用」</footer>
+<script type="module" src="./script.js"></script>
+</body></html>
