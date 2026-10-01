@@ -3,3 +3,8 @@
 /* Range interaction: keep horizontal thumb dragging responsive on mouse/iPad/iPhone. */
 input[type=range]{touch-action:pan-y;cursor:grab}
 input[type=range]:active{cursor:grabbing}
+
+/* MathJax step rendering */
+.step-math{font-size:1.12rem;line-height:1.65;min-height:1.8em}
+.step.active .step-math{font-size:1.2rem}
+.step-math mjx-container{margin:.15rem 0!important}
