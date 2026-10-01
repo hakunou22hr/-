@@ -21,10 +21,40 @@ function standardPage(kind='square'){
  bindRange('a',v=>a=v);if(tab===0)bindRange('h',v=>h=v);startGraph({fn,secant:tab===0,external});
 }
 
-const lessonData={2:{title:'例：y=log x',desc:'A(e, 1) における接線を、微分から1段ずつ導こう。',fn:'log',a:Math.E,steps:['f(x)=\\log x',"f'(x)=\\dfrac{1}{x}","f'(e)=\\dfrac{1}{e}",'y-1=\\dfrac{1}{e}(x-e)','y=\\dfrac{1}{e}x']},4:{title:'例：y=eˣ と原点',desc:'候補を動かし、「原点を通る」という条件から a=1 を発見しよう。',fn:'exp',a:1,steps:['A(a,e^a) とおく','傾きは e^a','y-e^a=e^a(x-a)','y=e^ax+e^a(1-a)','0=e^a(1-a)','e^a\\ne0 より a=1','接点は (1,e)','y=ex']}};
+const lessonData={
+  2:{
+    title:'例：y=log x',
+    desc:'A(e, 1) における接線を、微分から1段ずつ導こう。',
+    fn:'log',
+    a:Math.E,
+    steps:[
+      '\\(\\displaystyle f(x)=\\log x\\)',
+      '\\(\\displaystyle f\'(x)=\\frac{1}{x}\\)',
+      '\\(\\displaystyle f\'(e)=\\frac{1}{e}\\)',
+      '\\(\\displaystyle y-1=\\frac{1}{e}(x-e)\\)',
+      '\\(\\displaystyle y=\\frac{x}{e}\\)'
+    ]
+  },
+  4:{
+    title:'例：y=eˣ と原点',
+    desc:'候補を動かし、「原点を通る」という条件から a=1 を発見しよう。',
+    fn:'exp',
+    a:1,
+    steps:[
+      '接点を \\(\\displaystyle A(a,e^a)\\) とおく',
+      '接線の傾きは \\(\\displaystyle m=e^a\\)',
+      '\\(\\displaystyle y-e^a=e^a(x-a)\\)',
+      '\\(\\displaystyle y=e^a x+e^a(1-a)\\)',
+      '原点を通るので \\(\\displaystyle 0=e^a(1-a)\\)',
+      '\\(\\displaystyle e^a\\neq0\\) より \\(\\displaystyle a=1\\)',
+      '接点は \\(\\displaystyle (1,e)\\)',
+      '接線は \\(\\displaystyle y=ex\\)'
+    ]
+  }
+};
 function examplePage(which){const d=lessonData[which],fn=funcs[d.fn],isExp=which===4;if(!isExp)a=d.a; const shownA=isExp?a:d.a;const matched=isExp&&Math.abs(a-1)<.035;
- app.innerHTML=head(which+1,d.title,d.desc)+`<div class="workspace">${graphPanel(fn.label,`${isExp?range('a','接点候補 a',a,-1,2,.01):'<p><span class="glow-sample"></span> 接点 A(e, 1) を固定して観察</p>'}`)}<section class="panel math-panel"><p class="eyebrow">STEP BY STEP</p><div class="step-list">${d.steps.map((x,i)=>`<div class="step ${i===step?'active':''}"><b>STEP ${i+1}</b>\\(${x}\\)</div>`).join('')}</div><div class="step-controls"><button id="prev" class="secondary">← 戻る</button><button id="next" class="primary">次の式へ →</button></div>${matched?'<div class="formula-big">条件成立！ ここが接点 A(1, e)</div>':''}${question(isExp?'「原点を通る条件」は、式のどこに使われている？':'なぜ最後の式は原点を通ると分かる？')}</section></div>`;
- if(isExp)bindRange('a',v=>a=v);document.querySelector('#prev').onclick=()=>{step=Math.max(0,step-1);examplePage(which)};document.querySelector('#next').onclick=()=>{step=Math.min(d.steps.length-1,step+1);examplePage(which)};startGraph({fn,a:isExp?undefined:shownA,external:isExp,origin:true,matched,thick:true});
+ app.innerHTML=head(which+1,d.title,d.desc)+`<div class="workspace">${graphPanel(fn.label,`${isExp?range('a','接点候補 a',a,-1,2,.01):'<p><span class="glow-sample"></span> 接点 A(e, 1) を固定して観察</p>'}`)}<section class="panel math-panel"><p class="eyebrow">STEP BY STEP</p><div class="step-list">${d.steps.map((x,i)=>`<div class="step ${i===step?'active':''}"><b>STEP ${i+1}</b><div class="step-math">${x}</div></div>`).join('')}</div><div class="step-controls"><button id="prev" class="secondary">← 戻る</button><button id="next" class="primary">次の式へ →</button></div>${matched?'<div class="formula-big">条件成立！ ここが接点 A(1, e)</div>':''}${question(isExp?'「原点を通る条件」は、式のどこに使われている？':'なぜ最後の式は原点を通ると分かる？')}</section></div>`;
+ if(isExp)bindRange('a',v=>a=v);document.querySelector('#prev').onclick=()=>{step=Math.max(0,step-1);examplePage(which);typeset()};document.querySelector('#next').onclick=()=>{step=Math.min(d.steps.length-1,step+1);examplePage(which);typeset()};startGraph({fn,a:isExp?undefined:shownA,external:isExp,origin:true,matched,thick:true});typeset();
 }
 function practice(){const ps=[['練習22 (1)','y=\\dfrac{x^2}{4}-\\dfrac{1}{2},\\ A(2,1)',"f'(2)=1\\text{ より }y=x-1"],['練習22 (2)','y=x^3,\\ A(0,0)',"f'(0)=0\\text{ より }y=0"],['練習23 (1)','y=\\log x,\\ P(0,0)','a=e,\\quad y=\\dfrac{x}{e}'],['練習23 (2)','y=\\sqrt{x},\\ P(0,1)','a=4,\\quad y=\\dfrac{x}{4}+1']];app.innerHTML=head(6,'練習22・23','まず自分で考える「問題モード」と、接点まで確認する「解説モード」。')+`<div class="practice-grid">${ps.map((p,i)=>`<article class="problem"><p class="eyebrow">${p[0]}</p><h3>\\(${p[1]}\\)</h3><button class="secondary reveal">ヒント・解説を見る</button><div class="answer"><b>解説</b><p>\\(${p[2]}\\)</p><p>接点と傾きを点傾き形式へ代入しよう。</p></div></article>`).join('')}</div>${question('答えを開く前に、接点の x 座標を a とおいた式を作れる？')}`;document.querySelectorAll('.reveal').forEach(b=>b.onclick=()=>b.closest('.problem').classList.toggle('open'));typeset()}
 function realWorld(){app.innerHTML=head(7,'現実世界の「その瞬間の向き」','接線は計算の道具だけでなく、動いているものの今の向きを表します。')+`<div class="cards"><article class="info-card"><p class="eyebrow">A / ROAD</p><h3>曲がった道と車</h3><p>車の前方はいつも進行方向、つまり道路の接線方向を向きます。</p><div class="road"><span class="car" aria-label="右向きの車">🚙</span><span class="direction">接線方向 →</span></div></article><article class="info-card"><p class="eyebrow">B / SLOPE</p><h3>コースター</h3><p>小球が曲線上を移動する瞬間、その進む向きは接線の矢印です。</p><div class="road"><span class="car">●</span><span class="direction">瞬間の向き →</span></div></article><article class="info-card"><p class="eyebrow">C / LIGHT</p><h3>ライトと反射</h3><p>曲面の「その場の向き」を接線で捉えることが、反射を考える入口になります。</p><div class="formula-big">曲線 → 接点 → その場の向き</div></article></div>${question('道のカーブが急になると、接線の向きはどのように変わる？')}`}
@@ -34,7 +64,24 @@ function quiz(){const qs=[['第1問','\\(y=x^2\\) の \\(x=1\\) における接�
 
 function bindRange(id,callback){const input=document.querySelector(`#${id}`),out=document.querySelector(`#${id}Out`);if(!input)return;input.addEventListener('input',e=>{const value=+e.target.value;callback(value);if(out)out.textContent=fmt(value)});input.addEventListener('change',()=>render())}
 function render(){cancelAnimationFrame(animation);if(tab<=1||tab===3)standardPage();else if(tab===2||tab===4)examplePage(tab);else if(tab===5)practice();else if(tab===6)realWorld();else if(tab===7)threeD();else if(tab===8)free();else quiz();typeset()}
-function typeset(){if(window.MathJax?.typesetPromise)window.MathJax.typesetPromise([app]).catch(()=>{})}
+let mathRetry=0;
+function typeset(){
+  const run=()=>window.MathJax?.typesetPromise?.([app]).catch(()=>{});
+  if(window.MathJax?.startup?.promise){
+    window.MathJax.startup.promise.then(run).catch(()=>{});
+    mathRetry=0;
+    return;
+  }
+  if(window.MathJax?.typesetPromise){
+    run();
+    mathRetry=0;
+    return;
+  }
+  if(mathRetry<30){
+    mathRetry++;
+    setTimeout(typeset,100);
+  }
+}
 
 function startGraph(o){const canvas=document.querySelector('#graph');if(!canvas)return;const ctx=canvas.getContext('2d'),fn=o.fn;let t=0;function draw(){const rect=canvas.getBoundingClientRect(),dpr=Math.min(devicePixelRatio,2);if(canvas.width!==rect.width*dpr||canvas.height!==rect.height*dpr){canvas.width=rect.width*dpr;canvas.height=rect.height*dpr}ctx.setTransform(dpr,0,0,dpr,0,0);const w=rect.width,hg=rect.height;ctx.clearRect(0,0,w,hg);const xMin=fn.domain[0],xMax=fn.domain[1];let samples=[];for(let i=0;i<=250;i++){let x=xMin+(xMax-xMin)*i/250,y=fn.f(x);if(Number.isFinite(y)&&Math.abs(y)<30)samples.push([x,y])}let ys=samples.map(p=>p[1]);let yMin=Math.min(...ys,0),yMax=Math.max(...ys,0);let pad=(yMax-yMin)*.18+.3;yMin-=pad;yMax+=pad;const X=x=>40+(x-xMin)/(xMax-xMin)*(w-65),Y=y=>hg-32-(y-yMin)/(yMax-yMin)*(hg-55);ctx.strokeStyle='#dfe7ef';ctx.lineWidth=1;for(let i=0;i<7;i++){let x=40+i*(w-65)/6;ctx.beginPath();ctx.moveTo(x,15);ctx.lineTo(x,hg-32);ctx.stroke()}for(let i=0;i<6;i++){let y=15+i*(hg-47)/5;ctx.beginPath();ctx.moveTo(40,y);ctx.lineTo(w-25,y);ctx.stroke()}ctx.strokeStyle='#7d8b9d';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(40,Y(0));ctx.lineTo(w-25,Y(0));ctx.moveTo(X(0),15);ctx.lineTo(X(0),hg-32);ctx.stroke();ctx.strokeStyle='#2387d8';ctx.lineWidth=3;ctx.beginPath();samples.forEach((p,i)=>i?ctx.lineTo(X(p[0]),Y(p[1])):ctx.moveTo(X(p[0]),Y(p[1])));ctx.stroke();let aa=o.a??a;if(aa<xMin)aa=xMin;if(aa>xMax)aa=xMax;const ay=fn.f(aa),slope=fn.d(aa);line(aa,ay,slope,'#18c89b',5,o.matched);if(o.secant){let bx=Math.min(xMax,aa+h),by=fn.f(bx),m=(by-ay)/(bx-aa);line(aa,ay,m,`rgb(255,${Math.round(138+(1-Math.min(h/2,1))*62)},${Math.round(61+(1-Math.min(h/2,1))*90)})`,3);point(bx,by,'B','#ff8a3d',false)}if(o.external||o.origin){point(0,0,o.origin?'O':'P','#ff5d62',false)}point(aa,ay,'A','#ffc84a',true);if(o.matched){document.querySelector('#match').innerHTML='<span class="match">✦ 条件成立・ここが接点！</span>'}function line(px,py,m,c,l,glow){let x1=xMin,x2=xMax;ctx.save();ctx.strokeStyle=c;ctx.lineWidth=l;ctx.shadowBlur=glow?22:8;ctx.shadowColor=c;ctx.beginPath();ctx.moveTo(X(x1),Y(py+m*(x1-px)));ctx.lineTo(X(x2),Y(py+m*(x2-px)));ctx.stroke();ctx.restore()}function point(x,y,label,c,pulse){let r=(pulse?7+Math.sin(t)*2:6);ctx.save();ctx.fillStyle=c;ctx.shadowBlur=pulse?20:12;ctx.shadowColor=c;ctx.beginPath();ctx.arc(X(x),Y(y),r,0,7);ctx.fill();ctx.shadowBlur=0;ctx.fillStyle='#10243d';ctx.font='700 12px sans-serif';ctx.fillText(label,X(x)+11,Y(y)-10);ctx.restore()}t+=.08;animation=requestAnimationFrame(draw)}draw()}
 render();
