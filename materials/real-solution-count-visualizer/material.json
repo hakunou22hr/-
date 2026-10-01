@@ -1,0 +1,7 @@
+{
+  "id": "real-solution-count-visualizer",
+  "name": "数学Ⅲ｜方程式の実数解の個数",
+  "subject": "数学Ⅲ",
+  "unit": "微分法の応用",
+  "description": "関数の増減と水平線y=aの共有点を動的に可視化し、パラメータaによる異なる実数解の個数の変化を探究する教材"
+}
