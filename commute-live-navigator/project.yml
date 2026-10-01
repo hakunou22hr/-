@@ -1,0 +1,59 @@
+name: CommuteLiveNavigator
+options:
+  bundleIdPrefix: jp.example
+  deploymentTarget:
+    iOS: "17.0"
+settings:
+  base:
+    SWIFT_VERSION: 5.10
+    CURRENT_PROJECT_VERSION: 1
+    MARKETING_VERSION: 0.1.0
+    DEVELOPMENT_TEAM: ""
+configs:
+  Debug: debug
+  Release: release
+targets:
+  CommuteLiveNavigator:
+    type: application
+    platform: iOS
+    sources:
+      - path: App
+      - path: Models
+      - path: Providers
+      - path: Services
+      - path: ViewModels
+      - path: Views
+      - path: Resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: jp.example.commutelive
+        INFOPLIST_FILE: Configuration/Info.plist
+        CODE_SIGN_ENTITLEMENTS: Configuration/CommuteLiveNavigator.entitlements
+      configs:
+        Debug:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG DEMO_AVAILABLE
+        Release:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: RELEASE
+    preBuildScripts:
+      - name: Reject committed API keys
+        script: |
+          if grep -R -E 'AIza[0-9A-Za-z_-]{30,}' "$SRCROOT" --exclude-dir=.git --exclude='*.md'; then
+            echo "error: Google API key must not be committed"; exit 1
+          fi
+  CommuteLiveNavigatorTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [Tests]
+    dependencies:
+      - target: CommuteLiveNavigator
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: jp.example.commutelive.tests
+schemes:
+  CommuteLiveNavigator:
+    build:
+      targets:
+        CommuteLiveNavigator: all
+        CommuteLiveNavigatorTests: [test]
+    test:
+      targets: [CommuteLiveNavigatorTests]

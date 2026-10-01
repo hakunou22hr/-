@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+<key>CFBundleDisplayName</key><string>通勤ルート LIVE</string>
+<key>CFBundleIdentifier</key><string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+<key>CFBundleExecutable</key><string>$(EXECUTABLE_NAME)</string>
+<key>CFBundlePackageType</key><string>APPL</string>
+<key>CFBundleShortVersionString</key><string>$(MARKETING_VERSION)</string>
+<key>CFBundleVersion</key><string>$(CURRENT_PROJECT_VERSION)</string>
+<key>UILaunchScreen</key><dict/>
+<key>NSLocationWhenInUseUsageDescription</key><string>現在地から目的地までの経路表示と、走行中の案内に使用します。</string>
+<key>NSLocationAlwaysAndWhenInUseUsageDescription</key><string>ナビ開始中に限り、画面ロック中も経路案内と交通変化の確認を続けるために使用します。</string>
+<key>UIBackgroundModes</key><array><string>location</string></array>
+<key>GOOGLE_MAPS_API_KEY</key><string>$(GOOGLE_MAPS_API_KEY)</string>
+<key>GOOGLE_ROUTES_API_KEY</key><string>$(GOOGLE_ROUTES_API_KEY)</string>
+</dict></plist>

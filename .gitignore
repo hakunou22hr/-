@@ -2,3 +2,8 @@ node_modules/
 dist/
 *.local
 *.tsbuildinfo
+
+# Commute Live Navigator secrets / generated project
+commute-live-navigator/Configuration/Secrets.xcconfig
+commute-live-navigator/*.xcodeproj/
+commute-live-navigator/DerivedData/
