@@ -28,7 +28,7 @@ function updateConcept(){
  $('#conceptValues').innerHTML=[['t',fmt(conceptT)],['x(t)',fmt(p.x)],['y(t)',fmt(p.y)],['dx/dt',fmt(p.dx)],['dy/dt',fmt(p.dy)],['dy/dx',isFinite(m)?fmt(m):'定義なし']].map(v=>`<div>${v[0]}<b>${v[1]}</b></div>`).join('');
  draw2d($('#conceptGraph'),conceptDef,conceptT,{trace:true,tangent:true,velocity:true,xcomp:conceptStage==='x',ycomp:conceptStage==='y'});
 }
-$('[data-concept-stage]').forEach(b=>b.onclick=()=>{setConceptStage(b.dataset.conceptStage);updateConcept()});
+$$('[data-concept-stage]').forEach(b=>b.onclick=()=>{setConceptStage(b.dataset.conceptStage);updateConcept()});
 $('#conceptRange').oninput=e=>{conceptT=+e.target.value;conceptPlaying=false;$('#conceptPlay').textContent='▶ 再生';updateConcept()};
 $('#conceptPlay').onclick=()=>{conceptPlaying=!conceptPlaying;$('#conceptPlay').textContent=conceptPlaying?'⏸ 一時停止':'▶ 再生'};
 $('#conceptReset').onclick=()=>{conceptT=conceptDef.min;$('#conceptRange').value=conceptT;conceptPlaying=false;$('#conceptPlay').textContent='▶ 再生';setConceptStage('t');updateConcept()};
