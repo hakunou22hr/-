@@ -19,7 +19,7 @@ const conceptMessages={
 function math(){window.MathJax?.typesetPromise?.().catch(()=>{})}
 function setConceptStage(stage){
  conceptStage=stage;
- $('[data-concept-stage]').forEach(b=>b.classList.toggle('active',b.dataset.conceptStage===stage));
+ $$('[data-concept-stage]').forEach(b=>b.classList.toggle('active',b.dataset.conceptStage===stage));
  $('#conceptStageText').textContent=conceptMessages[stage]||conceptMessages.t;
 }
 function updateConcept(){
