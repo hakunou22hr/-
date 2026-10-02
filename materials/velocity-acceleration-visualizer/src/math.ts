@@ -10,3 +10,5 @@ export const motions: Record<string, Motion> = {
 }
 export const averageVelocity = (m:Motion,t:number,dt:number)=>(m.x(t+dt)-m.x(t))/dt
 export const signs = (v:number,a:number) => ({ direction: Math.abs(v)<.005?'停止':v>0?'右向き':'左向き', speed:Math.abs(v)<.005?'一瞬停止':v*a>0?'速さが増える':'速さが減る' })
+export type HorizontalDirection = 'right' | 'left'
+export const directionFromVelocity = (v:number,previous:HorizontalDirection):HorizontalDirection => v>0?'right':v<0?'left':previous
