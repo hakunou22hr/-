@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#071526"><title>数学Ⅲ｜平面上の点の運動</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header><a href="../../" aria-label="教材一覧へ">← 教材一覧</a><div><span class="eyebrow">MATHEMATICS III · INTERACTIVE LAB</span><h1>平面上の点の運動</h1><p>速度ベクトル・加速度ベクトルを動きから理解する</p></div><span class="badge">例22</span></header>
+<nav id="tabs" aria-label="学習内容"></nav>
+<main>
+  <section class="stage card">
+    <div class="stage-title"><div><span id="modeLabel" class="eyebrow">EXAMPLE 22</span><h2 id="panelTitle">点 P の動きとベクトル</h2></div><div class="legend"><span class="gold">● P</span><span class="cyan">━ 速度</span><span class="orange">━ 加速度</span></div></div>
+    <canvas id="plane" aria-label="点P、Q、Rと速度・加速度を示す座標平面"></canvas>
+    <div class="controls">
+      <label class="time"><b>時刻 <i>t</i> = <output id="tOut">1.50</output></b><input id="time" type="range" min="0" max="5" step="0.01" value="1.5"></label>
+      <div class="buttons"><button id="play">▶ 再生</button><button id="pause">⏸ 一時停止</button><button id="reset">↺ 最初に戻る</button><button id="jump" class="accent">t = 3 を確認</button></div>
+      <label>速度倍率 <select id="rate"><option>.25</option><option>.5</option><option selected>1</option><option>2</option></select> 倍</label>
+    </div>
+  </section>
+  <aside class="card data-panel">
+    <div class="snapshot"><span>現在の座標</span><strong id="pos">P (3.00, 0.75)</strong></div>
+    <div class="formula-grid"><div><span>x 系列</span><div id="xChain"></div></div><div><span>y 系列</span><div id="yChain"></div></div></div>
+    <div class="vector-card velocity"><span>速度ベクトル</span><div id="vFormula"></div><b id="speed"></b></div>
+    <div class="vector-card acceleration"><span>加速度ベクトル</span><div id="aFormula"></div><b id="accMag"></b></div>
+    <div class="toggles"><button id="components" aria-pressed="true">成分を見る</button><button id="compose">合成する</button><label><input id="tangent" type="checkbox"> 接線を表示</label></div>
+    <div id="insight" class="question">問い：速度ベクトルは、軌跡のどちら向きを向いている？</div>
+  </aside>
+  <section id="lesson" class="card lesson"></section>
+</main>
+<footer>速度は「1つの数」ではなく、平面では向きと大きさを持つ。</footer>
+<script type="module" src="./script.js"></script>
+</body></html>
