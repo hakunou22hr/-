@@ -1,0 +1,2 @@
+import{describe,it,expect}from'vitest';import{magnitude,motions}from'./math'
+describe('練習41',()=>{it('(1) t=2',()=>{expect(motions.one.v(2)).toEqual({x:1,y:6});expect(motions.one.a(2)).toEqual({x:0,y:2});expect(magnitude(motions.one.v(2))).toBeCloseTo(Math.sqrt(37))});it('(2) t=2',()=>{expect(motions.two.v(2)).toEqual({x:3,y:4});expect(motions.two.a(2)).toEqual({x:0,y:4});expect(magnitude(motions.two.v(2))).toBe(5)});it('円運動の加速度は中心方向',()=>{expect(motions.circle.a(0).x).toBe(-1);expect(motions.circle.a(0).y).toBeCloseTo(0)})})
