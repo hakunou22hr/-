@@ -66,3 +66,28 @@
  .speed-control{justify-content:center}
  .triangle{gap:4px}
 }
+
+/* PR107: keep the time scrubber physically attached to the plot. */
+.plot-stage{display:flex;flex-direction:column;gap:0;min-width:0}
+.plot-stage>.plot{border-radius:12px 12px 0 0;border-bottom-left-radius:0;border-bottom-right-radius:0}
+.plot-stage__scrubber{margin:0;background:#081b30;border:1px solid #3f6382;border-top:0;border-radius:0 0 12px 12px;padding:8px 10px 9px}
+.plot-stage__scrubber .graph-time{margin:0;padding:7px 8px;background:transparent;border:0;border-radius:0;grid-template-columns:auto minmax(220px,1fr) auto;gap:10px}
+.plot-stage__scrubber .graph-time__label small{display:none}
+.plot-stage__scrubber .graph-time input{min-height:24px}
+.plot-stage__scrubber .controls{margin:6px 0 0;padding:6px 0 0;border:0;border-top:1px solid #284762;border-radius:0;background:transparent;width:100%;justify-content:flex-start}
+.plot-stage__scrubber .controls button{padding:.38rem .6rem;font-size:.92rem}
+.plot-stage__scrubber .speed-control{margin-left:auto}
+.graph-panel>.triangle{margin-top:10px}
+@media(max-width:900px){
+ .plot-stage__scrubber .graph-time{grid-template-columns:1fr}
+ .plot-stage__scrubber .graph-time__label{justify-content:space-between}
+ .plot-stage__scrubber .graph-time input{width:100%}
+ .plot-stage__scrubber .controls{flex-direction:row;flex-wrap:wrap}
+ .plot-stage__scrubber .speed-control{margin-left:0}
+}
+@media(max-width:600px){
+ .plot-stage__scrubber{padding:7px 8px}
+ .plot-stage__scrubber .controls{flex-direction:column;align-items:stretch}
+ .plot-stage__scrubber .playback-buttons{display:grid;grid-template-columns:1fr 1fr}
+ .plot-stage__scrubber .playback-buttons button:last-child{grid-column:1/-1}
+}
