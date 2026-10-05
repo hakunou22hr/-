@@ -3,3 +3,12 @@
 @media(max-width:850px){.workspace,.world{grid-template-columns:1fr}.app>header{height:76px}.app>header>b{display:none}.tabs{top:76px}.quiz{grid-template-columns:1fr}.graph-wrap svg{max-height:none}.questions{grid-template-columns:1fr}}
 @media(max-width:520px){.app>header{padding:0 14px;gap:1rem}.app>header h1{font-size:1.1rem}.app>header small{font-size:.65rem}.tabs{padding:.5rem 12px}.tabs button{font-size:.72rem}.panel>h2{font-size:1.8rem}.slider label{min-width:100%}.slider button{flex:1;font-size:.78rem}.guide>div{display:grid}.formula-hero{padding:1rem}.formula-hero>svg{transform:rotate(90deg)}.compare{align-items:stretch}.compare>.math{width:100%}.three{height:480px}.steps>div:last-child{flex-wrap:wrap}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* Runtime safety: never replace the whole lesson with a blank screen. */
+.runtime-fallback{margin:2rem auto;max-width:900px;padding:1.3rem 1.5rem;border:1px solid #d9a23b;border-radius:14px;background:#241d0f;color:#ffe7a8}
+.runtime-fallback h3{margin-top:0;color:#ffd86a}
+.invalid-region{margin-top:1rem;padding:1rem;border-left:4px solid #ffb347;background:#2a2112;color:#ffd998;border-radius:8px}
+.invalid-region p{margin-bottom:0;color:#d6bd8f}
+.invalid-region-svg{fill:#ffcf75!important;font-size:18px!important;font-weight:800}
+.three-legend{position:absolute;top:12px;left:12px;display:flex;gap:12px;flex-wrap:wrap;padding:.45rem .65rem;background:#071522cc;border:1px solid #294b63;border-radius:9px;font-size:.85rem}
+.legend-h{color:#53f28f}.legend-a{color:#ff5570}
