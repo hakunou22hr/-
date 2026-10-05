@@ -91,3 +91,20 @@
  .plot-stage__scrubber .playback-buttons{display:grid;grid-template-columns:1fr 1fr}
  .plot-stage__scrubber .playback-buttons button:last-child{grid-column:1/-1}
 }
+
+/* PR109: readable vector labels and an explicit guide to the graph. */
+.plot .vector-label{font-size:16px;letter-spacing:.02em}
+.plot .origin-label{fill:#95abc0;font-size:13px;font-weight:700}
+.graph-guide{margin-top:10px;padding:12px 14px;background:#0a2239;border:1px solid #31516f;border-radius:11px}
+.graph-guide__title{font-weight:900;color:#fff;margin-bottom:8px}
+.graph-guide__items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 14px;color:#d5e6f4;font-size:.94rem}
+.graph-guide__items span{display:flex;align-items:center;gap:8px;line-height:1.5}
+.guide-dot{width:11px;height:11px;border-radius:50%;display:inline-block;flex:0 0 auto}
+.guide-dot--p{background:var(--gold);box-shadow:0 0 9px var(--gold)}
+.guide-line{width:25px;height:4px;border-radius:4px;display:inline-block;flex:0 0 auto}
+.guide-line--trail{background:#b5ecff;box-shadow:0 0 5px #6dc9e8}
+.guide-line--v{background:var(--blue);box-shadow:0 0 5px var(--blue)}
+.guide-line--a{background:var(--orange);box-shadow:0 0 5px var(--orange)}
+.graph-guide__now{margin:10px 0 4px;padding:8px 10px;background:#071a2d;border-left:4px solid var(--gold);line-height:1.7}
+.graph-guide__hint{margin:4px 0 0;color:#a9c4da;line-height:1.65;font-size:.92rem}
+@media(max-width:700px){.graph-guide__items{grid-template-columns:1fr}.graph-guide{padding:10px 12px}}
