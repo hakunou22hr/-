@@ -66,3 +66,28 @@
  .speed-control{justify-content:center}
  .triangle{gap:4px}
 }
+
+/* Dock the moving-time slider directly to the graph so graph + control are seen together. */
+.graph-panel{padding-top:10px}
+.graph-panel>.graph-time--docked{
+  margin:0 0 6px;
+  border-radius:10px 10px 6px 6px;
+  border-color:#4f7898;
+  background:#0a2138;
+  padding:8px 12px;
+  grid-template-columns:auto minmax(260px,1fr) auto;
+}
+.graph-panel>.graph-time--docked + .plot{
+  border-radius:6px 6px 12px 12px;
+}
+.graph-time--docked .graph-time__label small{display:none}
+.graph-time--docked .graph-time__label{min-width:118px}
+.graph-time--docked input{min-height:24px}
+@media(max-width:900px){
+  .graph-panel>.graph-time--docked{grid-template-columns:auto 1fr;gap:8px}
+  .graph-panel>.graph-time--docked .star{grid-column:1/-1;text-align:center}
+}
+@media(max-width:600px){
+  .graph-panel>.graph-time--docked{grid-template-columns:1fr;margin-bottom:5px}
+  .graph-time--docked .graph-time__label{min-width:0}
+}
