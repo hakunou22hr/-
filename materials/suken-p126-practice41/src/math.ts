@@ -1,4 +1,5 @@
 export type Vec={x:number,y:number}
+export type LabelPoint={x:number,y:number}
 export type Motion={id:string;name:string;xTex:string;yTex:string;vTex:string;aTex:string;p:(t:number)=>Vec;v:(t:number)=>Vec;a:(t:number)=>Vec;max?:number}
 export const motions:Record<string,Motion>={
  one:{id:'one',name:'(1)',xTex:'x=t',yTex:'y=t^2+2t',vTex:'(1,2t+2)',aTex:'(0,2)',p:t=>({x:t,y:t*t+2*t}),v:t=>({x:1,y:2*t+2}),a:()=>({x:0,y:2})},
@@ -9,3 +10,40 @@ export const motions:Record<string,Motion>={
  ellipse:{id:'ellipse',name:'楕円運動',xTex:'x=3\\cos t',yTex:'y=2\\sin t',vTex:'(-3\\sin t,2\\cos t)',aTex:'(-3\\cos t,-2\\sin t)',p:t=>({x:3*Math.cos(t),y:2*Math.sin(t)}),v:t=>({x:-3*Math.sin(t),y:2*Math.cos(t)}),a:t=>({x:-3*Math.cos(t),y:-2*Math.sin(t)}),max:6.28}
 }
 export const magnitude=(q:Vec)=>Math.hypot(q.x,q.y)
+
+const clamp=(value:number,min:number,max:number)=>Math.max(min,Math.min(max,value))
+
+/**
+ * Place P, velocity, and acceleration labels inside the plot.  Each label has
+ * a different preferred direction, then a small collision pass separates
+ * labels whose vector tips happen to be close together.
+ */
+export function vectorLabelPositions(
+ point:LabelPoint,
+ velocityTip:LabelPoint,
+ accelerationTip:LabelPoint,
+ width:number,
+ height:number,
+):Record<'p'|'v'|'a',LabelPoint>{
+ const inset=22
+ const labels={
+  p:{x:point.x+15,y:point.y-16},
+  v:{x:velocityTip.x+8,y:velocityTip.y-14},
+  a:{x:accelerationTip.x+15,y:accelerationTip.y+20},
+ }
+ const order=['p','v','a'] as const
+ for(const key of order){
+  labels[key].x=clamp(labels[key].x,inset,width-inset)
+  labels[key].y=clamp(labels[key].y,inset,height-inset)
+ }
+ for(let pass=0;pass<3;pass++){
+  for(let i=0;i<order.length;i++)for(let j=i+1;j<order.length;j++){
+   const first=labels[order[i]],second=labels[order[j]]
+   if(Math.abs(first.x-second.x)<34&&Math.abs(first.y-second.y)<24){
+    second.y=clamp(second.y+28,inset,height-inset)
+    if(Math.abs(first.y-second.y)<24)second.x=clamp(second.x+42,inset,width-inset)
+   }
+  }
+ }
+ return labels
+}
