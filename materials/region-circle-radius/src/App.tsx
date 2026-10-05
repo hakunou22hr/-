@@ -1,4 +1,4 @@
-import {lazy,Suspense,useMemo,useState} from 'react'
+import {Component,lazy,Suspense,useMemo,useState} from 'react'
 import katex from 'katex'
 import 'katex/dist/katex.min.css'
 import {ChevronLeft,ChevronRight,Home,Lightbulb,RotateCcw} from 'lucide-react'
@@ -20,6 +20,13 @@ function Graph({radius=0,showCircle=true,enabled=[true,true,true],showD=true,foc
 }
 function Guide(){return <section className="guide"><h3>この図の見方</h3><div><span>🔴 赤い直線：<M>x-y+2=0</M></span><span>🔵 青い直線：<M>2x+y-8=0</M></span><span>🟢 緑の直線：<M>x+2y-4=0</M></span><span>🟨 金色部分：3条件の共通部分 D</span><span>🟣 紫の円：<M>x^2+y^2=k</M></span><span>O：円の中心　H：最初の接点　A：最遠点</span></div></section>}
 const ThreeDLesson=lazy(()=>import('./ThreeD'))
+
+class MaterialErrorBoundary extends Component<{children:React.ReactNode},{failed:boolean}>{
+ state={failed:false}
+ static getDerivedStateFromError(){return{failed:true}}
+ componentDidCatch(error:unknown){console.error('region-circle-radius runtime error',error)}
+ render(){return this.state.failed?<section className="runtime-fallback"><h3>表示を安全に停止しました</h3><p>この表示で描画エラーが起きました。上のタブから別の学習項目へ移動できます。</p><p>3Dの場合は、2D表示を使って同じ内容を確認してください。</p></section>:this.props.children}
+}
 
 const derivations=[['STEP 1','3直線の共通部分が三角形 D。'],['STEP 2',String.raw`x^2+y^2=k\ とおく。`],['STEP 3',String.raw`O(0,0),\quad r=\sqrt{k}`],['STEP 4','最大値は原点から最も遠い点を考える。'],['STEP 5',String.raw`A(2,4):\quad k=2^2+4^2=20`],['STEP 6','最小値は原点から領域 D への最短距離。'],['STEP 7',String.raw`OH=\frac{|0+0-4|}{\sqrt{1^2+2^2}}=\frac4{\sqrt5}`],['STEP 8',String.raw`k=\left(\frac4{\sqrt5}\right)^2=\frac{16}{5}`],['STEP 9',String.raw`H\left(\frac45,\frac85\right)`]]
 const qs=[['x²+y²=k はどんな図形？','原点中心、半径 √k の円。'],['k が大きくなると？','半径 √k が大きくなり、円が広がる。'],['なぜ直線への距離を考える？','最初の接点では、半径が辺に垂直になるから。'],['A(2,4) での値は？','2²+4²=20。'],['原点を含む領域の最小値は？','原点で 0。']]
