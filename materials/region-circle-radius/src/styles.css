@@ -12,3 +12,8 @@
 .invalid-region-svg{fill:#ffcf75!important;font-size:18px!important;font-weight:800}
 .three-legend{position:absolute;top:12px;left:12px;display:flex;gap:12px;flex-wrap:wrap;padding:.45rem .65rem;background:#071522cc;border:1px solid #294b63;border-radius:9px;font-size:.85rem}
 .legend-h{color:#53f28f}.legend-a{color:#ff5570}
+
+/* Startup fallback: a failed JS chunk must never look like an unexplained black screen. */
+.boot-error{min-height:100vh;display:grid;align-content:center;justify-items:center;gap:.6rem;padding:2rem;background:#07111f;color:#eaf6ff;text-align:center}
+.boot-error h2{margin:0;color:#ffd86a}
+.boot-error p{max-width:760px;margin:.25rem 0;color:#bdd4e4;line-height:1.7}
