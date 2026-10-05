@@ -1,0 +1,1 @@
+export const source='https://www.takarakuji-official.jp/special/kougaku-tousen/archive/archive2023/';export const aomoriWins=[{city:'つがる市',shop:'イオンモールつがる柏チャンスセンター',first:1,adjacent:2,x:34,y:32},{city:'十和田市',shop:'トライアル十和田店吉金宝くじBOX',first:1,adjacent:1,x:67,y:65}];export const allJumbo=[{year:2020,count:1},{year:2021,count:3}];
