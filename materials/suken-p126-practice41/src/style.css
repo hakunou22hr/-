@@ -22,3 +22,47 @@
 .plot .point-label{fill:var(--gold)}
 
 @media(max-width:600px){.values>.math.block,.derivative-row .math.block{font-size:.9rem}.formula{grid-template-columns:1fr}.math.block{padding-block:.5rem}}
+
+/* Keep time navigation visually attached to the graph while leaving playback compact. */
+.lab{grid-template-columns:minmax(0,1.85fr) minmax(310px,.65fr);align-items:start}
+.graph-panel,.values{min-width:0}
+.graph-panel>.plot{height:auto;max-height:none;aspect-ratio:620/430}
+.graph-time{display:grid;grid-template-columns:minmax(180px,auto) minmax(220px,1fr) auto;align-items:center;gap:14px;margin-top:12px;padding:12px 14px;background:#081b30;border:1px solid #3f6382;border-radius:11px}
+.graph-time__label{display:flex;align-items:baseline;gap:9px}
+.graph-time__label span{color:#a9c3d9;font-size:.82rem;font-weight:700}
+.graph-time__label strong{color:var(--gold);font-size:1.08rem;font-variant-numeric:tabular-nums}
+.graph-time__label small{color:#9eb7cc;white-space:nowrap}
+.graph-time input{width:100%;min-height:28px;accent-color:var(--gold);cursor:ew-resize;touch-action:pan-y}
+.controls{justify-content:center;gap:18px;margin:12px auto 18px;padding:9px 12px;width:max-content;max-width:100%;background:#0d233a;border-radius:11px}
+.playback-buttons{display:flex;gap:7px}
+.controls button{padding:.5rem .75rem}
+.controls button:disabled{opacity:.45;cursor:default}
+.speed-control{display:flex;align-items:center;gap:6px;white-space:nowrap}
+.speed-control select{padding:.45rem .6rem}
+.graph-time .star{white-space:nowrap}
+.triangle{margin-top:14px;padding-top:10px}
+.world-stack{min-width:0}
+.world-stack .graph-time{margin-top:10px}
+
+@media(max-width:1100px){
+ .lab{grid-template-columns:minmax(0,1.55fr) minmax(290px,.75fr)}
+ .graph-time{grid-template-columns:auto 1fr}
+ .graph-time__label small{display:none}
+ .graph-time .star{grid-column:1/-1;text-align:center}
+}
+@media(max-width:900px){
+ .lab{grid-template-columns:1fr}
+ .graph-panel>.plot{min-height:0}
+ .values{display:grid;grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+ .graph-time{grid-template-columns:1fr;gap:7px;padding:10px 12px}
+ .graph-time__label{justify-content:space-between}
+ .graph-time input{min-height:34px}
+ .graph-time .star{grid-column:auto}
+ .controls{width:100%;align-items:stretch;gap:8px;flex-direction:column}
+ .playback-buttons{display:grid;grid-template-columns:1fr 1fr}
+ .playback-buttons button:last-child{grid-column:1/-1}
+ .speed-control{justify-content:center}
+ .triangle{gap:4px}
+}
