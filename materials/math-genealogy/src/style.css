@@ -23,3 +23,5 @@
 @media(prefers-reduced-motion:reduce){.value-flash{animation:none}.lab-stage.interacting #math-model{box-shadow:none}}
 
 #math-model[data-focus="sin"] [data-part="point"],#math-model[data-focus="cos"] [data-part="point"],#math-model[data-focus="area"] [data-part="point"]{opacity:1}
+
+.tour-launch{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding-bottom:18px;margin-bottom:20px;border-bottom:1px solid #3f637044}.tour-launch>div{flex:1;min-width:200px}.tour-launch strong{display:block;font-size:18px;color:#d9f4f8}.tour-launch span{display:block;font-size:11px;color:#94acbe;margin-top:6px}#video-dialog{width:min(1100px,95vw);max-width:95vw}#tour-video{display:block;width:100%;max-height:70vh;background:#071525}#video-dialog p{font-size:12px;line-height:1.7;color:#9db6ca}

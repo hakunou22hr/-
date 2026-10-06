@@ -1,0 +1,2 @@
+import fs from 'node:fs';import {tourIds,sceneSeconds} from '../src/tour.js';import {byId} from '../src/data.js';
+const root=new URL('../public/videos/',import.meta.url);const stamp=t=>new Date(t*1000).toISOString().slice(11,23);const rows=tourIds.map((id,i)=>({id,title:byId[id].title,seconds:i*sceneSeconds}));fs.writeFileSync(new URL('chapters.json',root),JSON.stringify(rows,null,2));fs.writeFileSync(new URL('chapters.vtt',root),'WEBVTT\n\n'+rows.map(r=>`${stamp(r.seconds)} --> ${stamp(r.seconds+sceneSeconds)}\n${r.title}\n${byId[r.id].description}\n`).join('\n'));
