@@ -108,3 +108,45 @@
 .graph-guide__now{margin:10px 0 4px;padding:8px 10px;background:#071a2d;border-left:4px solid var(--gold);line-height:1.7}
 .graph-guide__hint{margin:4px 0 0;color:#a9c4da;line-height:1.65;font-size:.92rem}
 @media(max-width:700px){.graph-guide__items{grid-template-columns:1fr}.graph-guide{padding:10px 12px}}
+
+
+/* Dock the moving-time slider directly to the graph so graph + control are seen together. */
+.graph-panel{padding-top:10px}
+.graph-panel>.graph-time--docked{
+  margin:0 0 6px;
+  border-radius:10px 10px 6px 6px;
+  border-color:#4f7898;
+  background:#0a2138;
+  padding:8px 12px;
+  grid-template-columns:auto minmax(260px,1fr) auto;
+}
+.graph-panel>.graph-time--docked + .plot{
+  border-radius:6px 6px 12px 12px;
+}
+.graph-time--docked .graph-time__label small{display:none}
+.graph-time--docked .graph-time__label{min-width:118px}
+.graph-time--docked input{min-height:24px}
+@media(max-width:900px){
+  .graph-panel>.graph-time--docked{grid-template-columns:auto 1fr;gap:8px}
+  .graph-panel>.graph-time--docked .star{grid-column:1/-1;text-align:center}
+}
+@media(max-width:600px){
+  .graph-panel>.graph-time--docked{grid-template-columns:1fr;margin-bottom:5px}
+  .graph-time--docked .graph-time__label{min-width:0}
+}
+
+
+/* The same top dock is shared by the three labs and free exploration. */
+.plot-stage>.graph-time--docked{
+ margin:0 0 6px;padding:8px 12px;
+ border-radius:10px 10px 6px 6px;border-color:#4f7898;background:#0a2138;
+ grid-template-columns:auto minmax(0,1fr) auto;min-width:0;
+}
+.plot-stage>.graph-time--docked+.plot{border-top-left-radius:6px;border-top-right-radius:6px}
+@media(max-width:900px){
+ .plot-stage>.graph-time--docked{grid-template-columns:auto minmax(0,1fr);gap:8px}
+ .plot-stage>.graph-time--docked .star{grid-column:1/-1;text-align:center}
+}
+@media(max-width:600px){
+ .plot-stage>.graph-time--docked{grid-template-columns:minmax(0,1fr)}
+}
