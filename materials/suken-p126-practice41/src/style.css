@@ -67,6 +67,49 @@
  .triangle{gap:4px}
 }
 
+/* PR107: keep the time scrubber physically attached to the plot. */
+.plot-stage{display:flex;flex-direction:column;gap:0;min-width:0}
+.plot-stage>.plot{border-radius:12px 12px 0 0;border-bottom-left-radius:0;border-bottom-right-radius:0}
+.plot-stage__scrubber{margin:0;background:#081b30;border:1px solid #3f6382;border-top:0;border-radius:0 0 12px 12px;padding:8px 10px 9px}
+.plot-stage__scrubber .graph-time{margin:0;padding:7px 8px;background:transparent;border:0;border-radius:0;grid-template-columns:auto minmax(220px,1fr) auto;gap:10px}
+.plot-stage__scrubber .graph-time__label small{display:none}
+.plot-stage__scrubber .graph-time input{min-height:24px}
+.plot-stage__scrubber .controls{margin:6px 0 0;padding:6px 0 0;border:0;border-top:1px solid #284762;border-radius:0;background:transparent;width:100%;justify-content:flex-start}
+.plot-stage__scrubber .controls button{padding:.38rem .6rem;font-size:.92rem}
+.plot-stage__scrubber .speed-control{margin-left:auto}
+.graph-panel>.triangle{margin-top:10px}
+@media(max-width:900px){
+ .plot-stage__scrubber .graph-time{grid-template-columns:1fr}
+ .plot-stage__scrubber .graph-time__label{justify-content:space-between}
+ .plot-stage__scrubber .graph-time input{width:100%}
+ .plot-stage__scrubber .controls{flex-direction:row;flex-wrap:wrap}
+ .plot-stage__scrubber .speed-control{margin-left:0}
+}
+@media(max-width:600px){
+ .plot-stage__scrubber{padding:7px 8px}
+ .plot-stage__scrubber .controls{flex-direction:column;align-items:stretch}
+ .plot-stage__scrubber .playback-buttons{display:grid;grid-template-columns:1fr 1fr}
+ .plot-stage__scrubber .playback-buttons button:last-child{grid-column:1/-1}
+}
+
+/* PR109: readable vector labels and an explicit guide to the graph. */
+.plot .vector-label{font-size:16px;letter-spacing:.02em}
+.plot .origin-label{fill:#95abc0;font-size:13px;font-weight:700}
+.graph-guide{margin-top:10px;padding:12px 14px;background:#0a2239;border:1px solid #31516f;border-radius:11px}
+.graph-guide__title{font-weight:900;color:#fff;margin-bottom:8px}
+.graph-guide__items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 14px;color:#d5e6f4;font-size:.94rem}
+.graph-guide__items span{display:flex;align-items:center;gap:8px;line-height:1.5}
+.guide-dot{width:11px;height:11px;border-radius:50%;display:inline-block;flex:0 0 auto}
+.guide-dot--p{background:var(--gold);box-shadow:0 0 9px var(--gold)}
+.guide-line{width:25px;height:4px;border-radius:4px;display:inline-block;flex:0 0 auto}
+.guide-line--trail{background:#b5ecff;box-shadow:0 0 5px #6dc9e8}
+.guide-line--v{background:var(--blue);box-shadow:0 0 5px var(--blue)}
+.guide-line--a{background:var(--orange);box-shadow:0 0 5px var(--orange)}
+.graph-guide__now{margin:10px 0 4px;padding:8px 10px;background:#071a2d;border-left:4px solid var(--gold);line-height:1.7}
+.graph-guide__hint{margin:4px 0 0;color:#a9c4da;line-height:1.65;font-size:.92rem}
+@media(max-width:700px){.graph-guide__items{grid-template-columns:1fr}.graph-guide{padding:10px 12px}}
+
+
 /* Dock the moving-time slider directly to the graph so graph + control are seen together. */
 .graph-panel{padding-top:10px}
 .graph-panel>.graph-time--docked{
@@ -90,4 +133,20 @@
 @media(max-width:600px){
   .graph-panel>.graph-time--docked{grid-template-columns:1fr;margin-bottom:5px}
   .graph-time--docked .graph-time__label{min-width:0}
+}
+
+
+/* The same top dock is shared by the three labs and free exploration. */
+.plot-stage>.graph-time--docked{
+ margin:0 0 6px;padding:8px 12px;
+ border-radius:10px 10px 6px 6px;border-color:#4f7898;background:#0a2138;
+ grid-template-columns:auto minmax(0,1fr) auto;min-width:0;
+}
+.plot-stage>.graph-time--docked+.plot{border-top-left-radius:6px;border-top-right-radius:6px}
+@media(max-width:900px){
+ .plot-stage>.graph-time--docked{grid-template-columns:auto minmax(0,1fr);gap:8px}
+ .plot-stage>.graph-time--docked .star{grid-column:1/-1;text-align:center}
+}
+@media(max-width:600px){
+ .plot-stage>.graph-time--docked{grid-template-columns:minmax(0,1fr)}
 }
