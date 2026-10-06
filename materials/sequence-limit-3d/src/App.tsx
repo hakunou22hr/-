@@ -24,7 +24,27 @@ function Scene({p,n,controlsRef}:{p:Problem,n:number,controlsRef:React.RefObject
  <Line points={[[ -4,0,-4],[6.6,0,-4]]} color="#ffd45c" lineWidth={3} depthTest={false}/><Line points={[[ -4,0,0],[6.6,0,0]]} color="#ffd45c" lineWidth={2.5} depthTest={false}/><Billboard position={[5.9,.35,-4]}><Text fontSize={.31} color="#ffd45c">y = 0</Text></Billboard><Billboard position={[-4,6.2,0]}><Text fontSize={.38} color="#ffffff">y（値）</Text></Billboard><Text rotation={[-Math.PI/2,0,0]} position={[6.2,.05,1.2]} fontSize={.32} color="#aec9e8">n →（対数目盛）</Text>
  <OrbitControls ref={controlsRef} enableDamping dampingFactor={.08} minDistance={6} maxDistance={28} target={[1,2,0]}/></Canvas>
 }
-function Graph2D({p,n,nearZero}:{p:Problem,n:number,nearZero:boolean}){const xs=nSteps.filter(x=>x<=n); const values=xs.map(x=>p.values(x)[2]);const max=nearZero?Math.max(...values.map(Math.abs),.001):Math.max(...xs.flatMap(x=>p.values(x).map(Math.abs)),1);return <svg className="graph2d" viewBox="0 0 760 420" role="img" aria-label="自然数nにおける数列の値"><path d="M55 210H735M55 20V395"/><text x="720" y="202">n</text><text x="20" y="30">値</text>{p.parts.map((_,lane)=>{const pts=xs.map((x,i)=>{const val=nearZero&&lane!==2?0:p.values(x)[lane];return `${55+i*(655/Math.max(xs.length-1,1))},${210-val/max*175}`}).join(' ');return nearZero&&lane!==2?null:<g key={lane}><polyline points={pts} style={{stroke:colors[lane]}}/>{pts.split(' ').map((pt,i)=>{const[a,b]=pt.split(',');return <circle key={i} cx={a} cy={b} r="5" style={{fill:colors[lane]}}/>})}</g>})}<text x="70" y="385">● 実際の数列は整数 n の点（線は変化を見るための補助）</text></svg>}
+function Graph2D({p,n,nearZero}:{p:Problem,n:number,nearZero:boolean}){
+  const xs=nSteps.filter(x=>x<=n);
+  const values=xs.map(x=>p.values(x)[2]);
+  const max=nearZero?Math.max(...values.map(Math.abs),.001):Math.max(...xs.flatMap(x=>p.values(x).map(Math.abs)),1);
+  const zeroY=210;
+  const xPos=(i:number)=>104+i*(606/Math.max(xs.length-1,1));
+  const ticks=[-1,-.5,.5,1];
+  return <svg className="graph2d" viewBox="0 0 760 420" role="img" aria-label="横軸n、縦軸y（値）。表示する自然数nを等間隔に配置した数列のグラフ">
+    <defs><filter id="sequenceAxisGlow"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+    <g className="grid-lines">{ticks.map(t=><line key={t} x1="90" y1={zeroY-t*175} x2="724" y2={zeroY-t*175}/>)}</g>
+    <g className="axes" filter="url(#sequenceAxisGlow)"><line x1="90" y1={zeroY} x2="735" y2={zeroY}/><line className="y-axis" x1="90" y1="22" x2="90" y2="390"/><path d="M735 210l-10-5v10zM90 22l-5 10h10z"/></g>
+    <g className="axis-labels"><text x="724" y="198">n</text><text className="y-label" x="104" y="23">y（値）</text><text x="80" y="228" textAnchor="end">0</text>{ticks.map(t=><g key={t}><line x1="85" x2="95" y1={zeroY-t*175} y2={zeroY-t*175}/><text x="80" y={zeroY-t*175+4} textAnchor="end">{formatValue(t*max)}</text></g>)}</g>
+    {p.parts.map((_,lane)=>{
+      const pts=xs.map((x,i)=>`${xPos(i)},${zeroY-p.values(x)[lane]/max*175}`).join(' ');
+      return nearZero&&lane!==2?null:<g key={lane}><polyline points={pts} style={{stroke:colors[lane]}}/>{pts.split(' ').map((pt,i)=>{const[a,b]=pt.split(',');return <circle key={i} cx={a} cy={b} r="5" style={{fill:colors[lane]}}/>})}</g>;
+    })}
+    <g className="n-ticks">{xs.map((x,i)=><text key={x} className="n-tick" x={xPos(i)} y="246" textAnchor="middle">{x}</text>)}</g>
+    <text className="sequence-note" x="104" y="397">● 整数 n の点（線は変化を見るための補助）</text>
+    <text className="sequence-note" x="104" y="414">横軸は表示する n を等間隔に配置</text>
+  </svg>
+}
 
 const quiz=[{q:'nを大きくしても、分子1はどうなっていますか？',a:['大きくなる','小さくなる','変わらない'],ok:2},{q:'分母 n²+1 はどうなっていますか？',a:['大きくなる','小さくなる','ほぼ変わらない'],ok:0},{q:'1を、とても大きな数で割ると、値はどこへ近づきそうですか？',a:['0','1','∞','−∞'],ok:0}]
 function Inquiry({onComplete}:{onComplete:()=>void}){const[step,setStep]=useState(0);const[result,setResult]=useState('');const q=quiz[step];return <section className="inquiry"><small>THINK FIRST · {step+1}/3</small><h3>{q.q}</h3><div>{q.a.map((a,i)=><button key={a} onClick={()=>{if(i===q.ok){setResult('正解です。グラフの変化と一致しています。');setTimeout(()=>{if(step<2){setStep(step+1);setResult('')}else onComplete()},500)}else setResult('もう一度、色の軌跡を観察してみよう。')}}>{a}</button>)}</div><output>{result}</output></section>}
