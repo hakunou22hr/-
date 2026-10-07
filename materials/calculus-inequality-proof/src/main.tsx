@@ -86,7 +86,7 @@ function App(){
  useEffect(()=>{if(phase>=0)setCard(phase+1)},[phase])
  const restart=()=>{go(0);setX(0);setPhase(-1);setCard(0);setPrediction('');setNegative('');setExperiment(false);setTangentStep(0);setAnswer('')}
  return <main><header><a href="../../">← 教材ライブラリ</a><div className="header-actions"><button onClick={()=>setMap(true)}>関連する知識</button><button onClick={()=>setTeacher(!teacher)}>教師用表示</button></div></header>
- <div className="title"><span className="eyebrow">数学Ⅲ / 微分法とその応用</span><h1>微分法で不等式を証明する</h1><p><M s="e^x>1+x"/> を、グラフ・導関数・接線から探究する</p></div>
+ <div className="title"><span className="eyebrow">数学Ⅲ / 微分法とその応用</span><h1><M s="e^x>1+x"/> を、グラフ・導関数・接線から探究する</h1><p>予想・実験・証明で、指数関数と直線の関係を見つけよう</p></div>
  <nav aria-label="学習段階">{labels.map((l,i)=><button key={l} aria-current={i===step?'step':undefined} className={i===step?'selected':''} onClick={()=>go(i)}><small>STEP {i+1}</small>{l}</button>)}</nav>
  <h2>{step===0?<span>なぜ <M s="x>0"/> なら <M s="e^x>1+x"/> になるのだろう？</span>:questions[step]}</h2>
  <div className="layout"><section className="visual"><div className="toolbar"><div><button className={!mode?'selected':''} onClick={()=>setMode(false)}>2D</button><button className={mode?'selected':''} onClick={()=>{setMode(true);setShow([true,true,true,true,true,true])}}>3D</button></div><div><button onClick={()=>{setFront(n=>n+1)}} disabled={!mode}>正面表示</button><button onClick={()=>{setX(0);setReset(n=>n+1)}}>グラフリセット</button></div></div>
