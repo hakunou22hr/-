@@ -22,7 +22,7 @@ function MaterialCard({ material, index }: { material: Material; index: number }
         <span>{material.subject}</span>
         <span>{material.unit}</span>
       </div>
-      <div className="icon" aria-hidden="true"><BookOpen /></div>
+      {material.thumbnail ? <img className="material-thumbnail" src={material.thumbnail} alt="" loading="lazy" /> : <div className="icon" aria-hidden="true"><BookOpen /></div>}
       <h3>{material.name}</h3>
       <p>{material.description}</p>
       <a href={href} aria-label={`${material.name}を開く`}>

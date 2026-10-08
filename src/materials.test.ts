@@ -5,6 +5,7 @@ const list:Material[]=[{id:'trig',name:'単位円と三角比',subject:'数学�
 describe('portal filters',()=>{it('filters by subject',()=>expect(filterMaterials(list,'数学Ⅱ','').map(x=>x.id)).toEqual(['region']));it('filters the combined set category',()=>expect(filterMaterials(list,'集合・命題','')).toHaveLength(1));it('searches all metadata in real time',()=>expect(filterMaterials(list,'すべて','領域').map(x=>x.id)).toEqual(['region']));it('normalizes middle dots and spaces',()=>expect(filterMaterials(list,'すべて','集合 ベン図')).toHaveLength(1))})
 
 describe('material catalog',()=>{
+  it('registers the antiderivative explorer with a bundled thumbnail',()=>{const lesson=materials.find(x=>x.id==='antiderivative-explorer');expect(lesson?.subject).toBe('数学Ⅲ');expect(lesson?.thumbnail).toBeTruthy()})
   it('loads material metadata files',()=>expect(materials.length).toBeGreaterThan(0))
   it('contains the preserved regular polygon lesson',()=>expect(materials.some(x=>x.id==='regular-polygon-area')).toBe(true))
   it('has unique ids and complete card metadata',()=>{
