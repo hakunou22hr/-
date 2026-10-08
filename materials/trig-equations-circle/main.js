@@ -22,7 +22,8 @@ g+=p.kind==='cos'?line(level,-2.4,level,3.3,'condition'):p.kind==='tan'?line(0,0
 g+=label(p.kind==='cos'?.14:2.15,p.kind==='sin'?level+.15:3.05,p.kind==='tan'?'y = −x':`${p.kind==='cos'?'x':'y'} = ${fmt(level)}`,'pink');
 g+=line(0,0,v.x,0,'xedge')+line(v.x,0,v.x,v.y,'yedge')+line(0,0,v.x,v.y,'radiusline');
 if(Math.abs(v.x)>.15&&v.y>.15)g+=`<path d="M ${X(v.x-Math.sign(v.x)*.14)} ${Y(0)} L ${X(v.x-Math.sign(v.x)*.14)} ${Y(.14)} L ${X(v.x)} ${Y(.14)}" class="rightangle"/>`;
-g+=label(v.x/2-.1,-.4,'x = r cosθ','xcolor')+label(v.x+.12,v.y/2,'y','gold')+label(v.x/2+.12,v.y/2+.12,`r = ${exactR()}`,'cyan');
+// 辺のそばに実際の有向座標を表示。θと半径の変更で2D・3Dとも連動する。
+g+=label(v.x/2-.45,-.4,`x = ${fmt(v.x)}`,'xcolor')+label(v.x>2?v.x-1.15:v.x+.15,Math.max(.28,v.y/2),`y = ${fmt(v.y)}`,'gold')+label(v.x/2+.12,v.y/2+.12,`r = ${exactR()}`,'cyan');
 if(index===3){g+=line(0,0,-v.x,v.y,'mirror')+point(-v.x,v.y,'mirrorpoint')+label(-v.x-.35,v.y+.32,'Q (補角)','purple')+line(v.x,v.y,-v.x,v.y,'mirror')+label(-2.9,-1.55,`φ = 180° − θ = ${(180-theta).toFixed(1)}°`,'purple');}
 p.solutions.forEach(a=>{const s=values(a,r);g+=point(s.x,s.y,'halo',13)+point(s.x,s.y,'solution',6);if(showSolutions||found.has(a))g+=label(s.x+(s.x<0?-.65:.15),s.y+.25,`${a}°`,'gold');});
 g+=point(v.x,v.y,'moving',7)+label(v.x+.15,v.y-.25,'P','cyan');$('#graph').innerHTML=g;
