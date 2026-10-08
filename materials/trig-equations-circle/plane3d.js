@@ -18,6 +18,7 @@ export function buildDiagram(items) {
       );
       halo.position.set(...item.position);
       halo.userData.pulse = true;
+      halo.userData.impact = Boolean(item.impact);
       group.add(halo);
     } else if (item.type === 'line') {
       const points = item.points.map(p => new THREE.Vector3(...p));
@@ -63,7 +64,7 @@ function readDiagram(svg) {
     }
     if (node.tagName.toLowerCase() === 'circle' && fill !== 'none' && !cls.includes('circle')) {
       const position = toWorld(Number(node.getAttribute('cx')), Number(node.getAttribute('cy')), cls.includes('halo') ? .015 : .06);
-      items.push({ type: cls.includes('halo') ? 'halo' : 'point', position, radius: Number(node.getAttribute('r')) / 100, color: cls.includes('halo') ? '#ffcf76' : fill });
+      items.push({ type: cls.includes('halo') ? 'halo' : 'point', position, radius: Number(node.getAttribute('r')) / 100, color: cls.includes('impact-halo') ? '#ff303f' : cls.includes('halo') ? '#ffcf76' : fill, impact: cls.includes('impact-halo') });
       continue;
     }
     // SVGGeometryElementの標準APIで、半円・円・扇形を同じ座標系にサンプルする。
@@ -158,7 +159,7 @@ export function createPlaneView(stage, svg) {
       camera.aspect = width / height; camera.updateProjectionMatrix();
       if (dirty) refresh();
       diagram?.children.forEach(object => {
-        if (object.userData.pulse) { object.scale.setScalar(1 + .22 * Math.sin(time / 240)); object.material.opacity = .25 + .12 * Math.sin(time / 240); }
+        if (object.userData.pulse) { object.scale.setScalar(1 + (object.userData.impact ? .3 : .22) * Math.sin(time / 240)); object.material.opacity = (object.userData.impact ? .55 : .25) + .12 * Math.sin(time / 240); }
       });
       controls.update(); renderer.render(scene, camera);
       raf = requestAnimationFrame(render);
