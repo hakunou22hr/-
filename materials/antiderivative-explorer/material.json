@@ -1,0 +1,8 @@
+{
+  "id": "antiderivative-explorer",
+  "name": "不定積分と原始関数 2D・3D探究",
+  "subject": "数学Ⅲ",
+  "unit": "積分法／不定積分",
+  "description": "原始関数、導関数、絶対値、積分定数を動的グラフで探究する教材",
+  "thumbnail": "thumbnail.svg"
+}
