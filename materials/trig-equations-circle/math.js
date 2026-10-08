@@ -7,3 +7,9 @@ export const problems = [
 ];
 export function values(theta,r){const t=theta*Math.PI/180;const sin=Math.sin(t),cos=Math.cos(t);return {sin,cos,tan:Math.abs(cos)<1e-10?null:sin/cos,x:r*cos,y:r*sin};}
 export function satisfies(index,theta){const {sin,cos,tan}=values(theta,1);return Math.abs([cos,Math.SQRT2*sin-1,tan===null?Infinity:tan+1,2*Math.sin((180-theta)*Math.PI/180)-1][index])<1e-8;}
+// 描画上の点（Pの半径7px、交点の半径6px）が触れる距離で発光を始める。
+// 方程式の厳密な解判定とは分離し、近い角度を解そのものとは扱わない。
+export function collisionSolution(index,theta,r){
+ const p=values(theta,r);
+ return problems[index].solutions.find(angle=>{const q=values(angle,r);return Math.hypot(p.x-q.x,p.y-q.y)*82<=13;});
+}

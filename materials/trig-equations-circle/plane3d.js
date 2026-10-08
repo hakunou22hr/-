@@ -62,7 +62,7 @@ function readDiagram(svg) {
       labels.push({ text: node.textContent, position: toWorld(Number(node.getAttribute('x')), Number(node.getAttribute('y')), .08), color: fill === 'none' ? '#dceaf7' : fill });
       continue;
     }
-    if (node.tagName.toLowerCase() === 'circle' && fill !== 'none' && !cls.includes('circle')) {
+    if (node.tagName.toLowerCase() === 'circle' && (fill !== 'none' || cls.includes('halo')) && !cls.includes('circle')) {
       const position = toWorld(Number(node.getAttribute('cx')), Number(node.getAttribute('cy')), cls.includes('halo') ? .015 : .06);
       items.push({ type: cls.includes('halo') ? 'halo' : 'point', position, radius: Number(node.getAttribute('r')) / 100, color: cls.includes('impact-halo') ? '#ff303f' : cls.includes('halo') ? '#ffcf76' : fill, impact: cls.includes('impact-halo') });
       continue;
