@@ -3,5 +3,6 @@
   "name": "三角比 Visual Lab",
   "subject": "数学Ⅰ",
   "unit": "三角比",
-  "description": "三角形を動かしながらsin・cos・tanの意味を探究する。"
+  "description": "三角形を動かしながらsin・cos・tanの意味を探究する。",
+  "thumbnail": "thumbnail.svg"
 }

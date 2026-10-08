@@ -1,1 +1,8 @@
-{"id":"lottery-probability-expected-value","name":"宝くじの確率、期待値","subject":"数学A・数学Ⅰ","unit":"場合の数と確率・期待値・データの分析","description":"2020～2025年の年末ジャンボ公式賞金データで、確率・期待値・大数の法則・分布を2D／3Dと実験で探究します。"}
+{
+  "id": "lottery-probability-expected-value",
+  "name": "宝くじの確率、期待値",
+  "subject": "数学A・数学Ⅰ",
+  "unit": "場合の数と確率・期待値・データの分析",
+  "description": "2020～2025年の年末ジャンボ公式賞金データで、確率・期待値・大数の法則・分布を2D／3Dと実験で探究します。",
+  "thumbnail": "thumbnail.svg"
+}

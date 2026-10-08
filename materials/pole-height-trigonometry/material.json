@@ -3,5 +3,6 @@
   "name": "三角比で電柱の高さを求める",
   "subject": "数学Ⅰ",
   "unit": "三角比",
-  "description": "仰角・水平距離・tanを使って高さを求める考え方を学ぶ。"
+  "description": "仰角・水平距離・tanを使って高さを求める考え方を学ぶ。",
+  "thumbnail": "thumbnail.svg"
 }

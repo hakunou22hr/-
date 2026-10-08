@@ -3,5 +3,6 @@
   "name": "cosを動かして理解する",
   "subject": "数学Ⅰ",
   "unit": "三角比",
-  "description": "三角形を動かしながらcosの意味を視覚的に理解する。"
+  "description": "三角形を動かしながらcosの意味を視覚的に理解する。",
+  "thumbnail": "thumbnail.svg"
 }

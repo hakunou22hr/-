@@ -3,5 +3,6 @@
   "name": "三角比と不等式",
   "subject": "数学Ⅰ",
   "unit": "三角比",
-  "description": "半円・座標と三角比を使って、不等式の解を図から考える。"
+  "description": "半円・座標と三角比を使って、不等式の解を図から考える。",
+  "thumbnail": "thumbnail.svg"
 }

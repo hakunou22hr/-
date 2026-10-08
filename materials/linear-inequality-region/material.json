@@ -3,5 +3,6 @@
   "name": "連立不等式と領域",
   "subject": "数学Ⅱ",
   "unit": "図形と方程式",
-  "description": "不等式が表す領域を色で確認し、共通部分を視覚化する。"
+  "description": "不等式が表す領域を色で確認し、共通部分を視覚化する。",
+  "thumbnail": "thumbnail.svg"
 }

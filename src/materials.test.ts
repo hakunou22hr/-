@@ -6,6 +6,7 @@ describe('portal filters',()=>{it('filters by subject',()=>expect(filterMaterial
 
 describe('material catalog',()=>{
   it('registers the antiderivative explorer with a bundled thumbnail',()=>{const lesson=materials.find(x=>x.id==='antiderivative-explorer');expect(lesson?.subject).toBe('数学Ⅲ');expect(lesson?.thumbnail).toBeTruthy()})
+  it('gives every material a bundled illustration',()=>{materials.forEach(material=>expect(material.thumbnail,material.id).toBeTruthy())})
   it('loads material metadata files',()=>expect(materials.length).toBeGreaterThan(0))
   it('contains the preserved regular polygon lesson',()=>expect(materials.some(x=>x.id==='regular-polygon-area')).toBe(true))
   it('has unique ids and complete card metadata',()=>{

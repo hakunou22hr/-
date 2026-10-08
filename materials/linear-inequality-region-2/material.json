@@ -3,5 +3,6 @@
   "name": "連立不等式と領域 Ⅱ",
   "subject": "数学Ⅱ",
   "unit": "図形と方程式",
-  "description": "複数の不等式から共通領域を見つける発展教材。"
+  "description": "複数の不等式から共通領域を見つける発展教材。",
+  "thumbnail": "thumbnail.svg"
 }

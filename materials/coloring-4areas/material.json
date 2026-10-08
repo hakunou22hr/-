@@ -3,5 +3,6 @@
   "name": "4領域の塗り分け",
   "subject": "数学A",
   "unit": "場合の数",
-  "description": "4つの領域を条件に従って塗り分け、場合の数を視覚的に考える。"
+  "description": "4つの領域を条件に従って塗り分け、場合の数を視覚的に考える。",
+  "thumbnail": "thumbnail.svg"
 }

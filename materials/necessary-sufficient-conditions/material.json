@@ -3,5 +3,6 @@
   "name": "必要条件・十分条件",
   "subject": "数学Ⅰ",
   "unit": "集合と命題",
-  "description": "身近な例と問題を通して、必要条件・十分条件を理解する。"
+  "description": "身近な例と問題を通して、必要条件・十分条件を理解する。",
+  "thumbnail": "thumbnail.svg"
 }

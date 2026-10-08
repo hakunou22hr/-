@@ -3,5 +3,6 @@
   "name": "集合・ベン図",
   "subject": "数学Ⅰ",
   "unit": "集合",
-  "description": "集合、共通部分、和集合、補集合を図で確認する。"
+  "description": "集合、共通部分、和集合、補集合を図で確認する。",
+  "thumbnail": "thumbnail.svg"
 }

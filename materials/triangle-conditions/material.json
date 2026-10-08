@@ -3,5 +3,6 @@
   "name": "三角形の成立条件",
   "subject": "数学Ⅰ",
   "unit": "図形と計量",
-  "description": "3辺の長さを動かし、三角形ができる条件を視覚的に発見する。"
+  "description": "3辺の長さを動かし、三角形ができる条件を視覚的に発見する。",
+  "thumbnail": "thumbnail.svg"
 }
