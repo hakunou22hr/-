@@ -1,0 +1,22 @@
+name: Check Birth of e material
+on:
+  pull_request:
+    paths:
+      - 'materials/birth-of-e/**'
+      - 'public/media/birth-of-e*'
+      - '.github/workflows/birth-of-e-check.yml'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx tsc -p materials/birth-of-e/tsconfig.json
+      - run: npx vitest run materials/birth-of-e/src/model.test.ts
+      - run: npm run build
