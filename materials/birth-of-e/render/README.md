@@ -9,7 +9,7 @@
 
 Chromiumのパスは環境変数 `CHROMIUM_PATH`、教材URLは `BIRTH_E_URL` で変更できます。URLには `?render` を付けず、教材の末尾 `/` を含めます。WindowsではChrome/Chromiumの実行ファイルをCHROMIUM_PATHで指定してください。Linux向けの既定は `/usr/bin/chromium` です。
 
-レンダラーは同じアプリの `window.__renderAt(t)` に0, 1/30, …, 2699/30秒を渡します。WebのSceneをそのまま撮影し、MP4にエンコードします。HTMLの数式・字幕は1920×1080で撮影し、3D内部の描画解像度は負荷軽減のため0.75倍。合成出力は1920×1080・30fpsです。
+レンダラーは同じアプリの `window.__renderAt(t)` に0, 1/30, …, 2699/30秒を渡します。WebのSceneをそのまま撮影し、MP4にエンコードします。30フレームごとに描画環境を再作成して、ソフトウェアWebGLでの出力を安定化しています。HTMLの数式・字幕は1920×1080で撮影し、3D内部の描画解像度は負荷軽減のため0.75倍。合成出力は1920×1080・30fpsです。
 
 入力音声：`public/media/birth-of-e-narration.m4a`。出力：`public/media/birth-of-e-90s.mp4`。2700フレーム、H.264、yuv420p、AAC、90秒、faststart。音声は無圧縮の台本区間を固定長に揃えてからAACにしています。再生成にかかる時間はGPUやCPUに依存します。
 
