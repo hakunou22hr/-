@@ -1,5 +1,5 @@
 :root {
-  font-family: Inter, 'Noto Sans CJK JP', 'Yu Gothic', sans-serif;
+  font-family: Inter, "Noto Sans CJK JP", "Yu Gothic", sans-serif;
   color: #edf1f5;
   background: #080e18;
   font-synthesis: none;
@@ -290,7 +290,7 @@ aside.panel {
   color: var(--gold);
   font-variant-numeric: tabular-nums;
 }
-input[type='range'] {
+input[type="range"] {
   display: block;
   width: 100%;
   height: 26px;
@@ -773,7 +773,7 @@ footer {
     font-size: 13px;
     margin: 20px 0;
   }
-  input[type='range'] {
+  input[type="range"] {
     height: 32px;
   }
   .presets button {
@@ -841,4 +841,76 @@ footer {
 .movie-only > p {
   font-size: 12px;
   color: #a3b6c7;
+}
+
+/* Clear narration-led film: one question, one comparison, one graph. */
+.capture .film-title h2 {
+  font-size: 42px;
+}
+.capture .formula-overlay {
+  top: 640px;
+  left: 70px;
+  font-size: 28px;
+  padding: 18px 24px;
+}
+.explain-panel {
+  position: absolute;
+  top: 250px;
+  left: 70px;
+  width: 520px;
+  background: rgba(8, 18, 29, 0.96);
+  padding: 28px;
+  border: 1px solid #294652;
+  border-radius: 18px;
+  font-size: 25px;
+  line-height: 1.6;
+}
+.explain-panel b {
+  display: block;
+  font-size: 26px;
+  color: #e8bc73;
+  margin-bottom: 20px;
+}
+.explain-panel div {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  border-bottom: 1px solid #243640;
+}
+.explain-panel .selected {
+  background: #344634;
+  color: #fff;
+  border-left: 4px solid #e8bc73;
+}
+.explain-panel p {
+  font-size: 25px;
+  margin: 18px 0 0;
+}
+.explain-panel small {
+  font-size: 19px;
+}
+.capture .math-caption {
+  font-size: 23px;
+}
+.capture .subtitles {
+  bottom: 195px;
+  left: 8%;
+  right: 8%;
+  font-size: 30px;
+  line-height: 1.6;
+}
+
+.capture .formula-overlay {
+  top: 735px;
+  font-size: 24px;
+  padding: 10px 24px;
+}
+.capture .subtitles {
+  font-size: 28px;
+  line-height: 1.5;
+  bottom: 205px;
+}
+.explain-panel p {
+  font-size: 23px;
 }

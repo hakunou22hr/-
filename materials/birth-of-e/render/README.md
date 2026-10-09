@@ -34,4 +34,6 @@ python materials/birth-of-e/render/synthesize.py
 ffmpeg -y -i work/birth-of-e/tts/narration.wav -c:a aac -b:a 128k public/media/birth-of-e-narration.m4a
 ```
 
-同梱の台本は各区間に0.55秒以上の余白を確保し、超過する区間だけtempoを調整します。現在の最大調整は約1.04倍です。ライセンスとクレジットは `../THIRD-PARTY.md` を参照してください。
+改訂版の最終出力は30fpsです。再生成は既定で30fpsの描画。低負荷の `CAPTURE_FPS=15` は15回/秒でシーンを描画して各画像を2フレーム保持し、30fpsで出力します。今回の改訂版はこの方式で生成しました。
+
+同梱の台本は各区間に0.55秒以上の余白を確保し、超過する区間だけtempoを調整します。改訂版の最大調整は約1.06倍です。ライセンスとクレジットは `../THIRD-PARTY.md` を参照してください。
