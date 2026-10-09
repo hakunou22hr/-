@@ -1,0 +1,7 @@
+{
+  "id": "triangle-trig-inquiry",
+  "name": "三角形の角と三角比 ― 光る探究ラボ",
+  "subject": "数学Ⅰ",
+  "unit": "三角比",
+  "description": "角A・B・Cを入力し、頂点をドラッグ。内角の和、sin(A/2)=cos((B+C)/2)、sin A=sin(B+C)を発光・単位円・段階的証明で探究します。"
+}
