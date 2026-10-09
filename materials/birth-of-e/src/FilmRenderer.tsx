@@ -1,8 +1,8 @@
-import React, { Component, useEffect, useRef, useState } from "react";
-import { flushSync } from "react-dom";
-import katex from "katex";
-import "katex/dist/katex.min.css";
-import { Scene } from "./Scene";
+import React, { Component, useEffect, useRef, useState } from 'react'
+import { flushSync } from 'react-dom'
+import katex from 'katex'
+import 'katex/dist/katex.min.css'
+import { Scene } from './Scene'
 import {
   chapters,
   chapterAt,
@@ -16,28 +16,25 @@ import {
   movieParameters,
   DURATION,
   type Parameters,
-} from "./model";
-import "./style.css";
-const capture = new URLSearchParams(location.search).has("render");
+} from './model'
+import './style.css'
+const capture = new URLSearchParams(location.search).has('render')
 function Formula({ s }: { s: string }) {
   return (
     <span
       dangerouslySetInnerHTML={{
         __html: katex.renderToString(s, {
           throwOnError: false,
-          strict: "ignore",
+          strict: 'ignore',
         }),
       }}
     />
-  );
+  )
 }
-class Guard extends Component<
-  { children: React.ReactNode },
-  { error: boolean }
-> {
-  state = { error: false };
+class Guard extends Component<{ children: React.ReactNode }, { error: boolean }> {
+  state = { error: false }
   static getDerivedStateFromError() {
-    return { error: true };
+    return { error: true }
   }
   render() {
     return this.state.error ? (
@@ -46,28 +43,26 @@ class Guard extends Component<
       </div>
     ) : (
       this.props.children
-    );
+    )
   }
 }
-const number = (v: number) => (Number.isFinite(v) ? v.toFixed(4) : "未定義");
+const number = (v: number) => (Number.isFinite(v) ? v.toFixed(4) : '未定義')
 type RecordRow = Parameters & {
-  hypothesis: string;
-  compound: number;
-  positive: number;
-  negative: number;
-  slope: number;
-};
+  hypothesis: string
+  compound: number
+  positive: number
+  negative: number
+  slope: number
+}
 function load<T>(key: string, fallback: T): T {
   try {
-    return JSON.parse(localStorage.getItem(key) || "null") ?? fallback;
+    return JSON.parse(localStorage.getItem(key) || 'null') ?? fallback
   } catch {
-    return fallback;
+    return fallback
   }
 }
 function App() {
-  const [mode, setMode] = useState<"inquiry" | "movie" | "mp4">(
-      capture ? "movie" : "inquiry",
-    ),
+  const [mode, setMode] = useState<'inquiry' | 'movie' | 'mp4'>(capture ? 'movie' : 'inquiry'),
     [t, setT] = useState(0),
     [playing, setPlaying] = useState(false),
     [chapter, setChapter] = useState(0),
@@ -76,152 +71,129 @@ function App() {
     [teacher, setTeacher] = useState(false),
     [flat, setFlat] = useState(false),
     [large, setLarge] = useState(false),
-    [highlight, setHighlight] = useState(""),
-    [effects, setEffects] = useState(
-      !matchMedia("(prefers-reduced-motion: reduce)").matches,
-    ),
+    [highlight, setHighlight] = useState(''),
+    [effects, setEffects] = useState(!matchMedia('(prefers-reduced-motion: reduce)').matches),
     [voice, setVoice] = useState(true),
-    [node, setNode] = useState("ln"),
-    [hypothesis, setHypothesis] = useState(() =>
-      load("birth-e-hypothesis", ""),
-    ),
-    [reflection, setReflection] = useState(() =>
-      load("birth-e-reflection", ""),
-    ),
-    [records, setRecords] = useState<RecordRow[]>(() =>
-      load("birth-e-records", []),
-    ),
-    [status, setStatus] = useState(""),
-    [videoAvailable, setVideoAvailable] = useState(false);
+    [node, setNode] = useState('ln'),
+    [hypothesis, setHypothesis] = useState(() => load('birth-e-hypothesis', '')),
+    [reflection, setReflection] = useState(() => load('birth-e-reflection', '')),
+    [records, setRecords] = useState<RecordRow[]>(() => load('birth-e-records', [])),
+    [status, setStatus] = useState(''),
+    [videoAvailable, setVideoAvailable] = useState(false)
   const video = useRef<HTMLVideoElement>(null),
     audio = useRef<HTMLAudioElement>(null),
     raf = useRef(0),
-    c = mode === "movie" ? chapterAt(t) : chapter,
-    params = mode === "movie" ? movieParameters(t) : p,
-    show = reveal || mode === "movie",
-    q = chapters[c];
+    c = mode === 'movie' ? chapterAt(t) : chapter,
+    params = mode === 'movie' ? movieParameters(t) : p,
+    show = reveal || mode === 'movie',
+    q = chapters[c]
   useEffect(() => {
-    fetch("../../media/birth-of-e-90s.mp4", { method: "HEAD" })
+    fetch('../../media/birth-of-e-90s.mp4', { method: 'HEAD' })
       .then((r) =>
-        setVideoAvailable(
-          r.ok && Boolean(r.headers.get("content-type")?.includes("video")),
-        ),
+        setVideoAvailable(r.ok && Boolean(r.headers.get('content-type')?.includes('video'))),
       )
-      .catch(() => {});
-  }, []);
+      .catch(() => {})
+  }, [])
   useEffect(() => {
     try {
-      localStorage.setItem("birth-e-hypothesis", JSON.stringify(hypothesis));
-      localStorage.setItem("birth-e-reflection", JSON.stringify(reflection));
-      localStorage.setItem("birth-e-records", JSON.stringify(records));
+      localStorage.setItem('birth-e-hypothesis', JSON.stringify(hypothesis))
+      localStorage.setItem('birth-e-reflection', JSON.stringify(reflection))
+      localStorage.setItem('birth-e-records', JSON.stringify(records))
     } catch {
-      setStatus("端末への保存ができません。記録をJSONで書き出してください。");
+      setStatus('端末への保存ができません。記録をJSONで書き出してください。')
     }
-  }, [hypothesis, reflection, records]);
+  }, [hypothesis, reflection, records])
   useEffect(() => {
     if (capture) {
-      (window as any).__renderAt = (time: number) => {
+      ;(window as any).__renderAt = (time: number) => {
         flushSync(() => {
-          setT(time);
-          setMode("movie");
-          setReveal(true);
-        });
+          setT(time)
+          setMode('movie')
+          setReveal(true)
+        })
         return new Promise<void>((resolve) =>
           requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
-        );
-      };
-      (window as any).__birthReady = true;
+        )
+      }
+      ;(window as any).__birthReady = true
     }
     return () => {
-      delete (window as any).__renderAt;
-    };
-  }, []);
+      delete (window as any).__renderAt
+    }
+  }, [])
   useEffect(() => {
-    if (!playing || mode !== "movie") return;
-    let prev = performance.now();
+    if (!playing || mode !== 'movie') return
+    let prev = performance.now()
     const tick = (now: number) => {
-      const dt = Math.min(0.1, (now - prev) / 1000);
-      prev = now;
+      const dt = Math.min(0.1, (now - prev) / 1000)
+      prev = now
       setT((v) => {
         const next = Math.min(
           DURATION,
-          audio.current &&
-            audio.current.readyState >= 2 &&
-            !audio.current.paused
+          audio.current && audio.current.readyState >= 2 && !audio.current.paused
             ? audio.current.currentTime
             : v + dt,
-        );
-        if (next === DURATION) setPlaying(false);
-        return next;
-      });
-      raf.current = requestAnimationFrame(tick);
-    };
-    raf.current = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf.current);
-  }, [playing, mode]);
+        )
+        if (next === DURATION) setPlaying(false)
+        return next
+      })
+      raf.current = requestAnimationFrame(tick)
+    }
+    raf.current = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf.current)
+  }, [playing, mode])
   useEffect(() => {
-    if (!audio.current || capture) return;
-    if (playing && mode === "movie") {
-      audio.current.currentTime = t;
+    if (!audio.current || capture) return
+    if (playing && mode === 'movie') {
+      audio.current.currentTime = t
       audio.current
         .play()
-        .catch(() =>
-          setStatus(
-            "音声の再生を許可するため、再生ボタンをもう一度押してください。",
-          ),
-        );
-    } else audio.current.pause();
-  }, [playing, mode]);
+        .catch(() => setStatus('音声の再生を許可するため、再生ボタンをもう一度押してください。'))
+    } else audio.current.pause()
+  }, [playing, mode])
   useEffect(() => {
-    if (capture || mode !== "inquiry" || !effects) return;
+    if (capture || mode !== 'inquiry' || !effects) return
     let prev = performance.now(),
-      id = 0;
+      id = 0
     const tick = (now: number) => {
       if (now - prev > 45) {
-        setT((v) => v + (now - prev) / 1000);
-        prev = now;
+        setT((v) => v + (now - prev) / 1000)
+        prev = now
       }
-      id = requestAnimationFrame(tick);
-    };
-    id = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(id);
-  }, [mode, effects]);
+      id = requestAnimationFrame(tick)
+    }
+    id = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(id)
+  }, [mode, effects])
   const update = (key: keyof Parameters, v: number) => {
-    setP((prev) => ({ ...prev, [key]: v }));
-    setStatus("");
-  };
+    setP((prev) => ({ ...prev, [key]: v }))
+    setStatus('')
+  }
   const stop = () => {
-    setPlaying(false);
-    if (video.current) video.current.pause();
-    if ("speechSynthesis" in window) speechSynthesis.cancel();
-  };
+    setPlaying(false)
+    if (video.current) video.current.pause()
+    if ('speechSynthesis' in window) speechSynthesis.cancel()
+  }
   const select = (i: number) => {
-    stop();
-    setChapter(i);
-    if (i === 4) setP((v) => ({ ...v, x: 1 }));
-    setT(chapters[i].start);
-    if (mode === "mp4" && video.current)
-      video.current.currentTime = chapters[i].start;
-  };
-  const enter = (next: "inquiry" | "movie" | "mp4") => {
-    stop();
-    setMode(next);
-    if (next === "inquiry") setReveal(false);
-    if (next === "movie") setT(0);
-  };
-  const slider = (
-    label: string,
-    key: keyof Parameters,
-    min: number,
-    max: number,
-    step: number,
-  ) => (
+    stop()
+    setChapter(i)
+    if (i === 4) setP((v) => ({ ...v, x: 1 }))
+    setT(chapters[i].start)
+    if (mode === 'mp4' && video.current) video.current.currentTime = chapters[i].start
+  }
+  const enter = (next: 'inquiry' | 'movie' | 'mp4') => {
+    stop()
+    setMode(next)
+    if (next === 'inquiry') setReveal(false)
+    if (next === 'movie') setT(0)
+  }
+  const slider = (label: string, key: keyof Parameters, min: number, max: number, step: number) => (
     <label className="slider">
       {label}
       <output>
-        {key === "h"
+        {key === 'h'
           ? params.h.toExponential(2)
-          : params[key].toFixed(key === "a" ? 3 : key === "n" ? 0 : 2)}
+          : params[key].toFixed(key === 'a' ? 3 : key === 'n' ? 0 : 2)}
       </output>
       <input
         aria-label={label}
@@ -230,15 +202,15 @@ function App() {
         max={max}
         step={step}
         value={params[key]}
-        disabled={mode !== "inquiry" || (key === "x" && c === 4)}
+        disabled={mode !== 'inquiry' || (key === 'x' && c === 4)}
         onChange={(e) => update(key, +e.target.value)}
       />
     </label>
-  );
+  )
   const record = () => {
     if (!hypothesis.trim()) {
-      setStatus("まず仮説を書いてから、結果を記録しましょう。");
-      return;
+      setStatus('まず仮説を書いてから、結果を記録しましょう。')
+      return
     }
     setRecords((v) => [
       ...v,
@@ -250,43 +222,43 @@ function App() {
         negative: limitExperiment(-Math.abs(p.h)),
         slope: secant(p.x, p.h, p.a),
       },
-    ]);
-    setStatus("仮説と現在の条件・測定結果を記録しました。");
-  };
+    ])
+    setStatus('仮説と現在の条件・測定結果を記録しました。')
+  }
   const exportRecords = () => {
     const url = URL.createObjectURL(
       new Blob([JSON.stringify({ hypothesis, reflection, records }, null, 2)], {
-        type: "application/json",
+        type: 'application/json',
       }),
-    );
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "birth-of-e-inquiry.json";
-    a.click();
-    URL.revokeObjectURL(url);
-  };
+    )
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'birth-of-e-inquiry.json'
+    a.click()
+    URL.revokeObjectURL(url)
+  }
   const displayFormula =
     c === 0
-      ? "(1+1/n)^n"
+      ? '(1+1/n)^n'
       : c === 1
-        ? "(1+h)^{1/h}"
+        ? '(1+h)^{1/h}'
         : c === 2
-          ? "y=\\log_a x"
+          ? 'y=\\log_a x'
           : c === 3
-            ? "\\frac{\\log_a(x+h)-\\log_a x}{h}"
+            ? '\\frac{\\log_a(x+h)-\\log_a x}{h}'
             : c === 4
               ? show
-                ? mode === "movie" && t < 70
-                  ? "e:=\\lim_{h\\to0}(1+h)^{1/h}"
-                  : "\\left.\\frac{d}{dx}\\log_a x\\right|_{x=1}=\\frac{1}{\\ln a}"
-                : "y=\\log_a x"
+                ? mode === 'movie' && t < 70
+                  ? 'e:=\\lim_{h\\to0}(1+h)^{1/h}'
+                  : '\\left.\\frac{d}{dx}\\log_a x\\right|_{x=1}=\\frac{1}{\\ln a}'
+                : 'y=\\log_a x'
               : show
                 ? params.a === Math.E
-                  ? "\\frac{d}{dx}\\ln x=\\frac1x"
-                  : "\\frac{d}{dx}\\log_a x=\\frac1{x\\ln a}"
-                : "y=\\log_a x";
+                  ? '\\frac{d}{dx}\\ln x=\\frac1x'
+                  : '\\frac{d}{dx}\\log_a x=\\frac1{x\\ln a}'
+                : 'y=\\log_a x'
   return (
-    <div className={`app ${capture ? "capture" : ""} ${large ? "large" : ""}`}>
+    <div className={`app ${capture ? 'capture' : ''} ${large ? 'large' : ''}`}>
       <audio
         ref={audio}
         src="../../media/birth-of-e-narration.m4a"
@@ -299,17 +271,15 @@ function App() {
         <span>数学Ⅱ · 数学Ⅲ</span>
         <button
           onClick={() => {
-            stop();
-            setTeacher((v) => !v);
-            setReveal(false);
-            setMode("inquiry");
+            stop()
+            setTeacher((v) => !v)
+            setReveal(false)
+            setMode('inquiry')
           }}
         >
-          {teacher ? "生徒モード" : "教師モード"}
+          {teacher ? '生徒モード' : '教師モード'}
         </button>
-        <button onClick={() => setLarge((v) => !v)}>
-          文字 {large ? "標準" : "拡大"}
-        </button>
+        <button onClick={() => setLarge((v) => !v)}>文字 {large ? '標準' : '拡大'}</button>
       </header>
       <section className="intro">
         <div>
@@ -329,51 +299,48 @@ function App() {
         </div>
       </section>
       <div className="modebar">
-        <button
-          className={mode === "inquiry" ? "active" : ""}
-          onClick={() => enter("inquiry")}
-        >
+        <button className={mode === 'inquiry' ? 'active' : ''} onClick={() => enter('inquiry')}>
           01　探究する
         </button>
         <button
-          className={mode === "movie" ? "active" : ""}
+          className={mode === 'movie' ? 'active' : ''}
           disabled={!reveal && !teacher}
-          onClick={() => enter("movie")}
+          onClick={() => enter('movie')}
         >
           02　90秒の自動映像
         </button>
         {videoAvailable && (
           <button
-            className={mode === "mp4" ? "active" : ""}
+            className={mode === 'mp4' ? 'active' : ''}
             disabled={!reveal && !teacher}
-            onClick={() => enter("mp4")}
+            onClick={() => enter('mp4')}
           >
             03　MP4を再生
           </button>
         )}
         <span>
           {!reveal && !teacher
-            ? "解答を隠しています · 映像は解答公開後に視聴できます"
-            : "同じ数値モデルで、映像と実験を同期"}
+            ? '解答を隠しています · 映像は解答公開後に視聴できます'
+            : '同じ数値モデルで、映像と実験を同期'}
         </span>
       </div>
       <main>
         <section className="stage">
           <div className="stage-top">
             <span>
-              <i /> {mode === "movie" ? "DOCUMENTARY" : "LIVE EXPERIMENT"}
+              <i /> {mode === 'movie' ? 'DOCUMENTARY' : 'LIVE EXPERIMENT'}
             </span>
-            <span>{String(c + 1).padStart(2, "0")} / 06</span>
+            <span>{String(c + 1).padStart(2, '0')} / 06</span>
           </div>
-          {mode === "mp4" ? (
+          {mode === 'mp4' ? (
             <video
               ref={video}
               controls
               playsInline
               src="../../media/birth-of-e-90s.mp4"
               onTimeUpdate={(e) => {
-                setT(e.currentTarget.currentTime);
-                setChapter(chapterAt(e.currentTarget.currentTime));
+                setT(e.currentTarget.currentTime)
+                setChapter(chapterAt(e.currentTarget.currentTime))
               }}
             />
           ) : (
@@ -382,7 +349,7 @@ function App() {
                 chapter={c}
                 p={params}
                 time={t}
-                movie={mode === "movie"}
+                movie={mode === 'movie'}
                 flat={flat}
                 reveal={show}
                 highlight={highlight}
@@ -398,14 +365,14 @@ function App() {
           <div
             className="formula-overlay"
             style={
-              mode === "movie"
+              mode === 'movie'
                 ? {
                     transform: `perspective(800px) rotateY(${Math.max(0, 1 - (t - q.start) / 0.8) * 35}deg) scale(${1 - Math.max(0, 1 - (t - q.start) / 0.8) * 0.12})`,
-                    transformOrigin: "left center",
+                    transformOrigin: 'left center',
                   }
                 : undefined
             }
-            onClick={() => setHighlight(highlight ? "" : "curve")}
+            onClick={() => setHighlight(highlight ? '' : 'curve')}
           >
             <Formula s={displayFormula} />
           </div>
@@ -415,13 +382,9 @@ function App() {
                 <>
                   <b>元金 10,000円・年利100%（仮想）</b>
                   {[1, 2, 365].map((n) => (
-                    <div className={params.n === n ? "selected" : ""} key={n}>
-                      <span>
-                        {n === 1 ? "年1回" : n === 2 ? "半年ごと" : "毎日"}
-                      </span>
-                      <strong>
-                        {Math.round(10000 * compound(n)).toLocaleString()}円
-                      </strong>
+                    <div className={params.n === n ? 'selected' : ''} key={n}>
+                      <span>{n === 1 ? '年1回' : n === 2 ? '半年ごと' : '毎日'}</span>
+                      <strong>{Math.round(10000 * compound(n)).toLocaleString()}円</strong>
                     </div>
                   ))}
                   <p>利息にも、次の利息がつく。</p>
@@ -498,9 +461,9 @@ function App() {
                 <>
                   <b>自然対数：ln x = logₑ x</b>
                   {[1, 2, 3].map((x) => (
-                    <div className={params.x === x ? "selected" : ""} key={x}>
+                    <div className={params.x === x ? 'selected' : ''} key={x}>
                       <span>x = {x}</span>
-                      <strong>傾き = {x === 1 ? "1" : `1/${x}`}</strong>
+                      <strong>傾き = {x === 1 ? '1' : `1/${x}`}</strong>
                     </div>
                   ))}
                   <p>
@@ -523,40 +486,40 @@ function App() {
                     ? `割線の傾き ${number(secant(params.x, params.h, params.a))}　｜　h = ${params.h.toExponential(2)}`
                     : c === 4
                       ? show
-                        ? `${params.a === Math.E ? "e ≈ 2.718281828459045　｜　" : ""}a ≈ ${params.a.toFixed(9)}　接線の傾き ≈ ${number(derivative(1, params.a))}`
-                        : "底を変え、割線の傾きが1に近づく条件を探そう"
+                        ? `${params.a === Math.E ? 'e ≈ 2.718281828459045　｜　' : ''}a ≈ ${params.a.toFixed(9)}　接線の傾き ≈ ${number(derivative(1, params.a))}`
+                        : '底を変え、割線の傾きが1に近づく条件を探そう'
                       : show
                         ? `x = ${params.x.toFixed(3)}　接線の傾き ≈ ${number(derivative(params.x, params.a))}`
-                        : "xを動かし、傾きの変化を比べよう"}
+                        : 'xを動かし、傾きの変化を比べよう'}
           </div>
-          {mode === "movie" && <div className="subtitles">{cueAt(t)}</div>}
+          {mode === 'movie' && <div className="subtitles">{cueAt(t)}</div>}
           <div className="stage-bottom">
             <span>
               {c === 1
-                ? "右へ進むほど h は0に接近／縦は式の値を拡大／青：正側　桃：負側"
-                : "曲線は z=0 の同じ平面／奥行きは視点と比較のため"}
+                ? '右へ進むほど h は0に接近／縦は式の値を拡大／青：正側　桃：負側'
+                : '曲線は z=0 の同じ平面／奥行きは視点と比較のため'}
             </span>
             <span>
-              {mode === "movie" && t >= 86
-                ? "音声：NITech HTS Voice / CC BY 3.0"
-                : mode === "movie"
+              {mode === 'movie' && t >= 86
+                ? '音声：NITech HTS Voice / CC BY 3.0'
+                : mode === 'movie'
                   ? `${t.toFixed(1)} / 90.0 s`
-                  : "ドラッグ：回転 · ピンチ：拡大 · 2本指：移動"}
+                  : 'ドラッグ：回転 · ピンチ：拡大 · 2本指：移動'}
             </span>
           </div>
         </section>
         <aside className="panel">
           <small>YOUR MATHEMATICS LAB</small>
-          <h2>{teacher ? "教師の操作室" : "問いから、実験へ"}</h2>
+          <h2>{teacher ? '教師の操作室' : '問いから、実験へ'}</h2>
           <p className="question">{q.question}</p>
-          {slider("底 a", "a", 0.2, 5, 0.001)}
+          {slider('底 a', 'a', 0.2, 5, 0.001)}
           {Math.abs(params.a - 1) < 0.02 && (
             <p className="warning">
               a=1は対数の底にできません。1の近くでは傾きが非常に大きくなります。
             </p>
           )}
-          {slider("接点 x", "x", 0.2, 4, 0.01)}
-          {slider("増分 h", "h", -0.8, 0.8, 0.001)}
+          {slider('接点 x', 'x', 0.2, 4, 0.01)}
+          {slider('増分 h', 'h', -0.8, 0.8, 0.001)}
           <label className="slider">
             |h| の桁<output>{Math.abs(params.h).toExponential(1)}</output>
             <input
@@ -565,49 +528,35 @@ function App() {
               min={-9}
               max={-0.1}
               step={0.1}
-              disabled={mode !== "inquiry"}
+              disabled={mode !== 'inquiry'}
               value={Math.log10(Math.max(1e-9, Math.abs(params.h)))}
-              onChange={(e) =>
-                update("h", (params.h < 0 ? -1 : 1) * 10 ** +e.target.value)
-              }
+              onChange={(e) => update('h', (params.h < 0 ? -1 : 1) * 10 ** +e.target.value)}
             />
           </label>
-          {slider("複利の分割 n", "n", 1, 365, 1)}
+          {slider('複利の分割 n', 'n', 1, 365, 1)}
           <div className="presets">
             {[1, 2, 4, 12, 365, 10000].map((n) => (
-              <button
-                key={n}
-                disabled={mode !== "inquiry"}
-                onClick={() => update("n", n)}
-              >
+              <button key={n} disabled={mode !== 'inquiry'} onClick={() => update('n', n)}>
                 {n}
               </button>
             ))}
           </div>
           <div className="actions">
-            <button onClick={() => setFlat((v) => !v)}>
-              {flat ? "3Dへ" : "2Dへ"}
-            </button>
-            <button onClick={() => setEffects((v) => !v)}>
-              光・鼓動 {effects ? "ON" : "OFF"}
-            </button>
+            <button onClick={() => setFlat((v) => !v)}>{flat ? '3Dへ' : '2Dへ'}</button>
+            <button onClick={() => setEffects((v) => !v)}>光・鼓動 {effects ? 'ON' : 'OFF'}</button>
             <button
               onClick={() => {
-                setP({ a: 2, x: 1, h: 0.1, n: 1 });
-                setStatus("条件を初期化しました。記録は保持しています。");
+                setP({ a: 2, x: 1, h: 0.1, n: 1 })
+                setStatus('条件を初期化しました。記録は保持しています。')
               }}
-              disabled={mode !== "inquiry"}
+              disabled={mode !== 'inquiry'}
             >
               条件を戻す
             </button>
           </div>
-          {params.h === 0 && (
-            <p className="warning">h=0は未定義。接線は極限から求めます。</p>
-          )}
-          {params.x + params.h <= 0 && (
-            <p className="warning">x+h≤0では対数が定義できません。</p>
-          )}
-          {mode === "inquiry" && (
+          {params.h === 0 && <p className="warning">h=0は未定義。接線は極限から求めます。</p>}
+          {params.x + params.h <= 0 && <p className="warning">x+h≤0では対数が定義できません。</p>}
+          {mode === 'inquiry' && (
             <>
               <label>
                 仮説
@@ -621,25 +570,23 @@ function App() {
                 この条件で結果を記録 ↗
               </button>
               <button className="reveal" onClick={() => setReveal((v) => !v)}>
-                {reveal ? "解答を隠す" : "考察を終えて解答を公開する"}
+                {reveal ? '解答を隠す' : '考察を終えて解答を公開する'}
               </button>
               {show && (
-                <button onClick={() => update("a", Math.E)}>
-                  底を正確な e の計算値に設定
-                </button>
+                <button onClick={() => update('a', Math.E)}>底を正確な e の計算値に設定</button>
               )}
             </>
           )}
-          {mode === "movie" && (
+          {mode === 'movie' && (
             <>
               <button
                 className="primary"
                 onClick={() => {
-                  if (t >= 90) setT(0);
-                  setPlaying((v) => !v);
+                  if (t >= 90) setT(0)
+                  setPlaying((v) => !v)
                 }}
               >
-                {playing ? "一時停止" : "90秒の映像を再生"}
+                {playing ? '一時停止' : '90秒の映像を再生'}
               </button>
               <label className="check">
                 <input
@@ -655,7 +602,7 @@ function App() {
           {status && <p role="status">{status}</p>}
         </aside>
       </main>
-      {mode === "movie" && (
+      {mode === 'movie' && (
         <label className="timeline">
           タイムライン
           <input
@@ -666,21 +613,17 @@ function App() {
             step=".1"
             value={t}
             onChange={(e) => {
-              stop();
-              setT(+e.target.value);
+              stop()
+              setT(+e.target.value)
             }}
           />
         </label>
       )}
       <nav className="chapters" aria-label="シーン選択">
         {chapters.map((v, i) => (
-          <button
-            className={c === i ? "selected" : ""}
-            onClick={() => select(i)}
-            key={v.start}
-          >
+          <button className={c === i ? 'selected' : ''} onClick={() => select(i)} key={v.start}>
             <small>
-              {String(i + 1).padStart(2, "0")}　{v.start}–{v.end}s
+              {String(i + 1).padStart(2, '0')}　{v.start}–{v.end}s
             </small>
             <span>{v.title}</span>
           </button>
@@ -712,8 +655,7 @@ function App() {
           </div>
           <ConvergenceChart reveal={show} />
           <p>
-            有限の計算は近似値です。この表だけでは極限の証明になりません。定義域は
-            h&gt;−1、h≠0。
+            有限の計算は近似値です。この表だけでは極限の証明になりません。定義域は h&gt;−1、h≠0。
           </p>
         </div>
         <div className="panel">
@@ -721,14 +663,14 @@ function App() {
           <h2>数式と図形を結ぶ</h2>
           <div className="formula-buttons">
             {[
-              ["curve", "曲線", "y=\\log_a x"],
-              ["h", "2点の差", "\\Delta x=h"],
-              ["slope", "接線", "\\Delta y/\\Delta x"],
+              ['curve', '曲線', 'y=\\log_a x'],
+              ['h', '2点の差', '\\Delta x=h'],
+              ['slope', '接線', '\\Delta y/\\Delta x'],
             ].map(([key, label, s]) => (
               <button
                 key={key}
-                className={highlight === key ? "selected" : ""}
-                onClick={() => setHighlight(highlight === key ? "" : key)}
+                className={highlight === key ? 'selected' : ''}
+                onClick={() => setHighlight(highlight === key ? '' : key)}
               >
                 {label}
                 <Formula s={s} />
@@ -736,19 +678,17 @@ function App() {
             ))}
           </div>
           <p>
-            {highlight === "curve"
-              ? "青い曲線は、各xに対してlogₐxを対応させます。"
-              : highlight === "h"
-                ? "赤い2点の横方向の差がh。赤い割線の傾きはΔy/Δxです。"
-                : highlight === "slope"
-                  ? "金の線は曲線に接する接線。割線と接線はh≠0では別の直線です。"
-                  : "要素を選択すると、対応する図形が強調されます。"}
+            {highlight === 'curve'
+              ? '青い曲線は、各xに対してlogₐxを対応させます。'
+              : highlight === 'h'
+                ? '赤い2点の横方向の差がh。赤い割線の傾きはΔy/Δxです。'
+                : highlight === 'slope'
+                  ? '金の線は曲線に接する接線。割線と接線はh≠0では別の直線です。'
+                  : '要素を選択すると、対応する図形が強調されます。'}
           </p>
           {show && (
             <div className="answer">
-              <Formula
-                s={`m_{\\mathrm{sec}}=${number(secant(params.x, params.h, params.a))}`}
-              />
+              <Formula s={`m_{\\mathrm{sec}}=${number(secant(params.x, params.h, params.a))}`} />
               <br />
               <Formula
                 s={`m_{\\mathrm{tan}}=\\frac1{x\\ln a}=${number(derivative(params.x, params.a))}`}
@@ -803,9 +743,7 @@ function App() {
           </table>
         </div>
         {!records.length && (
-          <p>
-            仮説を書いて「この条件で結果を記録」を押すと、比較表に追加されます。
-          </p>
+          <p>仮説を書いて「この条件で結果を記録」を押すと、比較表に追加されます。</p>
         )}
         <button onClick={exportRecords}>記録をJSONで書き出す</button>
       </section>
@@ -815,22 +753,22 @@ function App() {
           <h2>数学の系譜</h2>
           <div className="nodes">
             {[
-              ["ln", "自然対数"],
-              ["exp", "指数関数"],
-              ["diff", "微分"],
-              ["integral", "積分"],
-              ["growth", "連続成長"],
+              ['ln', '自然対数'],
+              ['exp', '指数関数'],
+              ['diff', '微分'],
+              ['integral', '積分'],
+              ['growth', '連続成長'],
             ].map(([key, title]) => (
               <button
-                className={node === key ? "selected" : ""}
+                className={node === key ? 'selected' : ''}
                 key={key}
                 onClick={() => {
-                  setNode(key);
-                  setChapter(key === "growth" ? 0 : key === "exp" ? 2 : 5);
-                  setMode("inquiry");
-                  stop();
-                  setP((v) => ({ ...v, a: Math.E, x: 2 }));
-                  setReveal(true);
+                  setNode(key)
+                  setChapter(key === 'growth' ? 0 : key === 'exp' ? 2 : 5)
+                  setMode('inquiry')
+                  stop()
+                  setP((v) => ({ ...v, a: Math.E, x: 2 }))
+                  setReveal(true)
                 }}
               >
                 {title}
@@ -838,25 +776,25 @@ function App() {
             ))}
           </div>
           <p>
-            {node === "ln"
-              ? "ln x は底がeの対数。定義域はx>0。"
-              : node === "exp"
-                ? "eˣとln xは逆関数。同じ平面上で直線y=xに関して反射した位置にあります。"
-                : node === "diff"
-                  ? "自然対数の接線の傾きは1/x。指数関数eˣの接線の傾きはeˣです。"
-                  : node === "integral"
-                    ? "赤い曲線はy=1/x。金の短冊は1からxまでの符号付き面積の近似。この積分はln xに等しく、元の青い曲線はln xです。"
-                    : "成長速度が現在量に比例すると、y′=ry。解y=Ceʳᵗが連続成長を表します。年利100%の無限分割はr=1、期間1の例です。"}
+            {node === 'ln'
+              ? 'ln x は底がeの対数。定義域はx>0。'
+              : node === 'exp'
+                ? 'eˣとln xは逆関数。同じ平面上で直線y=xに関して反射した位置にあります。'
+                : node === 'diff'
+                  ? '自然対数の接線の傾きは1/x。指数関数eˣの接線の傾きはeˣです。'
+                  : node === 'integral'
+                    ? '赤い曲線はy=1/x。金の短冊は1からxまでの符号付き面積の近似。この積分はln xに等しく、元の青い曲線はln xです。'
+                    : '成長速度が現在量に比例すると、y′=ry。解y=Ceʳᵗが連続成長を表します。年利100%の無限分割はr=1、期間1の例です。'}
           </p>
           <Formula
             s={
-              node === "integral"
-                ? "\\int_1^x\\frac1t\\,dt=\\ln x"
-                : node === "exp"
-                  ? "\\ln(e^x)=x,\\quad e^{\\ln x}=x\\ (x>0)"
-                  : node === "growth"
+              node === 'integral'
+                ? '\\int_1^x\\frac1t\\,dt=\\ln x'
+                : node === 'exp'
+                  ? '\\ln(e^x)=x,\\quad e^{\\ln x}=x\\ (x>0)'
+                  : node === 'growth'
                     ? "y'=ry\\quad\\Longrightarrow\\quad y=Ce^{rt}"
-                    : "\\frac{d}{dx}e^x=e^x,\\quad\\frac{d}{dx}\\ln x=1/x"
+                    : '\\frac{d}{dx}e^x=e^x,\\quad\\frac{d}{dx}\\ln x=1/x'
             }
           />
           <details open={teacher}>
@@ -866,19 +804,16 @@ function App() {
             </p>
             <Formula
               s={
-                "\\frac{\\log_a(x+h)-\\log_a x}{h}=\\frac{\\log_a(1+h/x)}h=\\frac1x\\log_a(1+k)^{1/k}"
+                '\\frac{\\log_a(x+h)-\\log_a x}{h}=\\frac{\\log_a(1+h/x)}h=\\frac1x\\log_a(1+k)^{1/k}'
               }
             />
             <p>h→0ならk→0。金色の極限が、xによらない定数を与えます。</p>
             <div className="gold">
-              <Formula s={"e:=\\lim_{k\\to0}(1+k)^{1/k}"} />
+              <Formula s={'e:=\\lim_{k\\to0}(1+k)^{1/k}'} />
             </div>
-            <Formula
-              s={"\\frac{d}{dx}\\log_a x=\\frac{\\log_a e}{x}=\\frac1{x\\ln a}"}
-            />
+            <Formula s={'\\frac{d}{dx}\\log_a x=\\frac{\\log_a e}{x}=\\frac1{x\\ln a}'} />
             <p>
-              a=eとすればlogₑe=1なので、(ln
-              x)′=1/x。底aは選べるパラメータ、eは固定された定数です。
+              a=eとすればlogₑe=1なので、(ln x)′=1/x。底aは選べるパラメータ、eは固定された定数です。
             </p>
           </details>
           <details open={teacher}>
@@ -902,15 +837,15 @@ function App() {
         <span>原作PDF照合待ち · 仕様に基づく制作版</span>
       </footer>
     </div>
-  );
+  )
 }
 function ConvergenceChart({ reveal }: { reveal: boolean }) {
   const path = (sign: number) =>
     Array.from({ length: 100 }, (_, i) => {
       const l = 1 + (i / 99) * 5,
-        h = sign * 10 ** -l;
-      return `${40 + ((l - 1) / 5) * 470},${145 - ((limitExperiment(h) - 2.58) / 0.3) * 125}`;
-    }).join(" L");
+        h = sign * 10 ** -l
+      return `${40 + ((l - 1) / 5) * 470},${145 - ((limitExperiment(h) - 2.58) / 0.3) * 125}`
+    }).join(' L')
   return (
     <svg
       className="convergence-chart"
@@ -921,22 +856,14 @@ function ConvergenceChart({ reveal }: { reveal: boolean }) {
       <path d="M40 15V145H520" stroke="#758493" fill="none" />
       {[2.6, 2.7, 2.8].map((v) => (
         <g key={v}>
-          <text
-            x="2"
-            y={150 - ((v - 2.58) / 0.3) * 125}
-            fill="#a9b8c7"
-            fontSize="11"
-          >
+          <text x="2" y={150 - ((v - 2.58) / 0.3) * 125} fill="#a9b8c7" fontSize="11">
             {v}
           </text>
-          <path
-            d={`M40 ${145 - ((v - 2.58) / 0.3) * 125}H520`}
-            stroke="#243444"
-          />
+          <path d={`M40 ${145 - ((v - 2.58) / 0.3) * 125}H520`} stroke="#243444" />
         </g>
       ))}
-      <path d={"M" + path(1)} stroke="#69d7dc" strokeWidth="3" fill="none" />
-      <path d={"M" + path(-1)} stroke="#ee8a93" strokeWidth="3" fill="none" />
+      <path d={'M' + path(1)} stroke="#69d7dc" strokeWidth="3" fill="none" />
+      <path d={'M' + path(-1)} stroke="#ee8a93" strokeWidth="3" fill="none" />
       {reveal && (
         <path
           d={`M40 ${145 - ((Math.E - 2.58) / 0.3) * 125}H520`}
@@ -960,7 +887,7 @@ function ConvergenceChart({ reveal }: { reveal: boolean }) {
         赤：h&lt;0
       </text>
     </svg>
-  );
+  )
 }
 
-export { App as FilmRenderer };
+export { App as FilmRenderer }

@@ -1,5 +1,5 @@
 :root {
-  font-family: Inter, "Noto Sans CJK JP", "Yu Gothic", sans-serif;
+  font-family: Inter, 'Noto Sans CJK JP', 'Yu Gothic', sans-serif;
   color: #edf1f5;
   background: #080e18;
   font-synthesis: none;
@@ -290,7 +290,7 @@ aside.panel {
   color: var(--gold);
   font-variant-numeric: tabular-nums;
 }
-input[type="range"] {
+input[type='range'] {
   display: block;
   width: 100%;
   height: 26px;
@@ -773,7 +773,7 @@ footer {
     font-size: 13px;
     margin: 20px 0;
   }
-  input[type="range"] {
+  input[type='range'] {
     height: 32px;
   }
   .presets button {
