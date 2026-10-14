@@ -40,3 +40,8 @@ Node.js 22以上を使用します。表示されたHTTPのURLを開いて再生
 - 今回の調査ではブラウザ再生、実際の音声、書き出した動画の尺、Windows・iPhoneの実機確認は実施していません。既存の検証記録と今回の検証を区別してください。
 
 元の映像を新作に置き換えていません。書き出しや短縮版は、この保管済みの版を基に進めるものとします。
+
+
+## 追記：30秒MP4の作成完了（2026-10-15）
+
+元の90秒版を基にした30秒版を作成し、[MP4をGitHub Releasesに保存](https://github.com/hakunou22hr/-/releases/tag/trig-integral-cinema-30s-v1)しました。[再生・ダウンロードページ](https://hakunou22hr.github.io/-/materials/trig-integral-cinema/video.html)も公開済みです。[今回の検証記録](./SHORT_VALIDATION.md)を参照してください。上記の未完了項目は保管時点の記録です。90秒版の完全MP4書き出しと過去環境の調査は引き続き未完了です。
