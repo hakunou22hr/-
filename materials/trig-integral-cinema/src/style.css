@@ -1,0 +1,1046 @@
+* {
+  box-sizing: border-box;
+}
+html,
+body,
+#root {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+body {
+  background: #030917;
+  color: #edf6ff;
+  font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+}
+button,
+input {
+  font: inherit;
+}
+button {
+  cursor: pointer;
+  color: inherit;
+}
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 5px;
+}
+main {
+  height: 100%;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 70% 45%, #0d2438 0%, #030917 65%);
+}
+.space {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+}
+.space canvas {
+  width: 100%;
+  height: 100%;
+}
+.nebula {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 72% 50%, #4fa6cf15, transparent 50%),
+    radial-gradient(ellipse at 40% 85%, #2094b41a, transparent 40%);
+  pointer-events: none;
+}
+.vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse, transparent 15%, #020612bb 95%);
+}
+.brand {
+  position: absolute;
+  top: 35px;
+  left: 48px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  z-index: 20;
+  font-size: 12px;
+  letter-spacing: 0.13em;
+  color: #c4d6e3;
+}
+.brand-symbol {
+  font-family: serif;
+  font-size: 35px;
+  color: var(--gold);
+}
+.brand small {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 0.23em;
+  color: #6b859b;
+  margin-top: 6px;
+}
+.edition {
+  position: absolute;
+  top: 46px;
+  right: 48px;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: #8ca4b9;
+  z-index: 20;
+}
+.edition span {
+  margin: 0 15px;
+  color: #345166;
+}
+.title-screen {
+  position: absolute;
+  inset: 0;
+  padding: 0 9vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.title-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.title-eyebrow > span {
+  width: 30px;
+  height: 1px;
+  background: var(--gold);
+}
+.title-copy p {
+  font-family: serif;
+  color: #a9c4d6;
+  font-size: 17px;
+  letter-spacing: 0.3em;
+  margin: 0 0 16px;
+}
+.title-copy h1 {
+  font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+  font-weight: 400;
+  font-size: clamp(35px, 4.7vw, 75px);
+  line-height: 1.35;
+  letter-spacing: 0.07em;
+  margin: 0;
+}
+.gold-dot {
+  color: var(--gold);
+}
+.subtitle {
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  color: #a8b6c4;
+  margin-top: 22px;
+}
+.subtitle span {
+  color: #415c70;
+  margin: 0 14px;
+}
+.title-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 36px;
+}
+.primary {
+  border: 1px solid #a89160;
+  background: linear-gradient(120deg, #e8d09d, #b89b65);
+  color: #132030;
+  min-height: 50px;
+  padding: 14px 25px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  box-shadow: 0 0 35px #dfbe7c16;
+  transition:
+    filter 0.2s,
+    transform 0.2s;
+}
+.primary:hover {
+  filter: brightness(1.12);
+  transform: translateY(-2px);
+}
+.play-icon {
+  font-size: 11px;
+  margin-right: 20px;
+}
+.duration {
+  font-size: 9px;
+  letter-spacing: 0.17em;
+  margin-left: 36px;
+  opacity: 0.6;
+}
+.text-button {
+  border: 0;
+  background: none;
+  font-size: 11px;
+  color: #a1b6c8;
+  letter-spacing: 0.1em;
+  padding: 12px;
+}
+.lesson-topics {
+  display: flex;
+  gap: 22px;
+  margin-top: 42px;
+  align-items: center;
+  font-size: 10px;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+}
+.lesson-topics b {
+  margin-left: 11px;
+  color: #99adbf;
+  font-weight: 400;
+  font-size: 12px;
+}
+.lesson-topics i {
+  height: 14px;
+  width: 1px;
+  background: #375165;
+}
+.title-formula {
+  position: absolute;
+  right: 8%;
+  top: 34%;
+  font-size: clamp(27px, 3.7vw, 64px);
+  transform: rotate(-9deg);
+  color: #daf3ff;
+  text-shadow: 0 0 22px #54b9d7b0;
+  animation: titleFloat 10s ease-in-out infinite;
+  opacity: 0.75;
+}
+.title-orbit {
+  position: absolute;
+  width: 44vw;
+  height: 44vw;
+  right: -3vw;
+  top: 10%;
+  border: 1px solid #78d9ff25;
+  border-radius: 50%;
+  transform: rotateX(68deg) rotate(-25deg);
+  box-shadow:
+    0 0 60px #78d9ff12,
+    inset 0 0 50px #78d9ff0b;
+  pointer-events: none;
+}
+.title-footer {
+  position: absolute;
+  bottom: 102px;
+  left: 9vw;
+  right: 9vw;
+  font-size: 9px;
+  letter-spacing: 0.19em;
+  color: #6b859b;
+}
+.title-footer span {
+  float: right;
+}
+.formula {
+  font-size: clamp(25px, 3.4vw, 56px);
+  text-shadow: 0 0 24px #78d9ff25;
+  white-space: nowrap;
+}
+.katex-display {
+  margin: 0.35em 0;
+}
+.gold {
+  color: var(--gold);
+  text-shadow: 0 0 26px #e6c58045;
+}
+.film-frame {
+  position: absolute;
+  inset: 0;
+}
+.scene-meta {
+  position: absolute;
+  top: 111px;
+  left: 5vw;
+  z-index: 2;
+  color: #7d9cb4;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+}
+.scene-meta span {
+  color: var(--gold);
+  margin-right: 24px;
+}
+.scene-stage {
+  position: absolute;
+  inset: 0;
+}
+.scene-body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 130px 5vw 145px;
+  position: relative;
+}
+.scene-label {
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  color: #8ca8bc;
+  margin-bottom: 30px;
+  text-align: center;
+}
+.orbit-line {
+  position: absolute;
+  width: 58vw;
+  height: 58vw;
+  border: 1px solid #78d9ff35;
+  border-radius: 50%;
+  transform: rotateX(75deg);
+  z-index: -1;
+}
+.subtitle-overlay {
+  position: absolute;
+  bottom: 110px;
+  left: 8%;
+  right: 8%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.subtitle-overlay p {
+  font-family: serif;
+  font-size: clamp(16px, 1.6vw, 24px);
+  letter-spacing: 0.17em;
+  text-align: center;
+  padding: 12px 25px;
+  color: #e3edf6;
+  text-shadow: 0 2px 12px #000;
+  background: linear-gradient(90deg, transparent, #030917a0, transparent);
+}
+.controls {
+  position: absolute;
+  bottom: 26px;
+  left: 4vw;
+  right: 4vw;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  z-index: 30;
+  border-top: 1px solid #547b9225;
+  padding-top: 18px;
+}
+.control-left,
+.control-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+.control-right {
+  margin-left: auto;
+}
+.controls button {
+  border: 0;
+  background: transparent;
+  padding: 5px 8px;
+  color: #879fb3;
+  font-size: 11px;
+  white-space: nowrap;
+}
+.controls button.active {
+  color: #d8e6f0;
+}
+.controls button span {
+  font-size: 8px;
+  color: var(--gold);
+  margin-left: 5px;
+}
+.time {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: #c2d7e6;
+  white-space: nowrap;
+}
+.time em {
+  font-style: normal;
+  color: #526c80;
+}
+.progress-wrap {
+  flex: 1;
+  position: relative;
+}
+.progress-wrap input {
+  display: block;
+  width: 100%;
+  height: 2px;
+  accent-color: var(--gold);
+  cursor: pointer;
+}
+.scene-ticks {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.scene-ticks i {
+  position: absolute;
+  width: 1px;
+  height: 5px;
+  top: -1px;
+  background: #a3b8c080;
+}
+.intro-space {
+  position: absolute;
+  inset: 0;
+  perspective: 600px;
+}
+.floating-formula {
+  position: absolute;
+  font-size: 30px;
+  color: #8fcee8;
+  opacity: 0.35;
+  animation: float 14s ease-in-out infinite;
+}
+.floating-formula .formula {
+  font-size: clamp(24px, 3vw, 44px);
+}
+.vanishing-point {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 3px;
+  height: 3px;
+  background: white;
+  box-shadow: 0 0 50px 15px #78d9ff80;
+}
+.pulse-square {
+  animation: pulse 2.8s ease-in-out infinite;
+}
+.pulse-square .formula {
+  font-size: clamp(50px, 7vw, 110px);
+}
+.stopped-light {
+  height: 1px;
+  width: 180px;
+  margin: 35px auto 20px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  box-shadow: 0 0 15px var(--cyan);
+}
+.formula-fragments {
+  display: flex;
+  gap: 90px;
+  transition: opacity 0.4s;
+  color: #79a8bc;
+}
+.formula-fragments .formula,
+.whisper .formula {
+  font-size: 24px;
+  opacity: 0.5;
+}
+.whisper {
+  margin-top: 20px;
+}
+.morph-source {
+  position: absolute;
+  top: 42%;
+  pointer-events: none;
+}
+.gold-halo {
+  position: absolute;
+  width: 60%;
+  height: 2px;
+  top: 50%;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  box-shadow: 0 0 100px 15px #e6c58028;
+  z-index: -1;
+  animation: halo 2s ease-out both;
+}
+.graph-scene .scene-label {
+  margin-bottom: 14px;
+}
+.graph {
+  width: min(850px, 85vw);
+  position: relative;
+  margin-top: 20px;
+}
+.graph svg {
+  display: block;
+  width: 100%;
+  overflow: visible;
+}
+.graph svg text {
+  fill: #7893a8;
+  font: 12px serif;
+}
+.graph-legend {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  align-items: center;
+}
+.graph-legend > span {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.graph-legend i {
+  width: 17px;
+  height: 2px;
+  box-shadow: 0 0 8px currentColor;
+}
+.graph-legend .formula {
+  font-size: 21px;
+}
+.graph-note,
+.match {
+  display: block;
+  text-align: center;
+  color: #6d8a9f;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  margin-top: 12px;
+}
+.match {
+  color: #d8edf7;
+}
+.calculation > .formula {
+  margin: 0;
+}
+.calculation .formula {
+  font-size: clamp(23px, 3vw, 46px);
+}
+.coefficient {
+  margin: 12px 0;
+  color: #abc3d3;
+  display: flex;
+  gap: 35px;
+  justify-content: center;
+}
+.coefficient .formula {
+  font-size: clamp(15px, 1.65vw, 25px);
+}
+.receding-answer {
+  position: absolute;
+  top: 21%;
+  transform: perspective(500px) translateZ(-350px);
+  transition: opacity 0.2s;
+}
+.cross-waves {
+  max-width: 650px;
+  opacity: 0.7;
+}
+.general-formula .formula {
+  font-size: clamp(15px, 2.15vw, 32px);
+  color: #a8c2d4;
+}
+.branches {
+  display: flex;
+  justify-content: center;
+  gap: 75px;
+  margin: 25px 0;
+}
+.branches .formula {
+  font-size: clamp(23px, 3vw, 45px);
+}
+.merge-lines {
+  width: 42%;
+  height: 35px;
+  border-left: 1px solid #78d9ff50;
+  border-right: 1px solid #e6c58050;
+  clip-path: polygon(0 0, 100% 0, 65% 100%, 35% 100%);
+  margin-bottom: 20px;
+}
+.product-scene > .formula {
+  font-size: 35px;
+}
+.product-scene > div:last-of-type .formula {
+  font-size: clamp(22px, 3.1vw, 48px);
+}
+.ending {
+  padding-top: 115px;
+  padding-bottom: 200px;
+}
+.light-pillar {
+  position: absolute;
+  top: -30%;
+  left: 46%;
+  width: 8%;
+  height: 115%;
+  background: linear-gradient(90deg, transparent, #f6dc9c25, transparent);
+  filter: blur(9px);
+  box-shadow: 0 0 150px 35px #f6d99419;
+  z-index: -1;
+  animation: pillar 2s ease-out both;
+}
+.constellation {
+  position: absolute;
+  top: 15%;
+  display: flex;
+  gap: 90px;
+  opacity: 0.17;
+  z-index: -1;
+}
+.constellation:after {
+  content: "";
+  position: absolute;
+  left: 15%;
+  right: 15%;
+  top: 50%;
+  height: 1px;
+  background: var(--gold);
+  transform: rotate(-5deg);
+}
+.constellation .formula {
+  font-size: 18px;
+}
+.ending-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.ending-title span {
+  font-family: serif;
+  font-size: 14px;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+}
+.ending-title h1 {
+  font-family: serif;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  font-size: clamp(25px, 3.5vw, 50px);
+  margin: 16px 0 18px;
+}
+.answers {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+}
+.answers > div {
+  text-align: center;
+}
+.answers .formula {
+  font-size: clamp(18px, 2.4vw, 35px);
+}
+.answers > div > .formula:first-child {
+  font-size: clamp(15px, 1.7vw, 24px);
+  opacity: 0.65;
+}
+.replay {
+  position: absolute;
+  bottom: 156px;
+  left: 0;
+  right: 0;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+.replay span {
+  font-size: 11px;
+  color: #9cb3c4;
+}
+.scene-10 .subtitle-overlay {
+  bottom: 96px;
+}
+.audio-error {
+  position: absolute;
+  bottom: 86px;
+  left: 5%;
+  font-size: 11px;
+  color: var(--gold);
+}
+.fallback-stars {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(#78d9ff70 1px, transparent 1px);
+  background-size: 67px 71px;
+}
+.is-paused * {
+  animation-play-state: paused !important;
+}
+.is-title .title-formula {
+  animation-play-state: running !important;
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, -50px) rotate(-6deg);
+    opacity: 0.22;
+  }
+  50% {
+    transform: translate3d(10px, -22px, 25px) rotate(4deg);
+    opacity: 0.48;
+  }
+}
+@keyframes titleFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-9deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(-7deg);
+  }
+}
+@keyframes pulse {
+  50% {
+    filter: drop-shadow(0 0 18px #e6c58070);
+    transform: scale(1.045);
+  }
+}
+@keyframes halo {
+  0% {
+    opacity: 0;
+    transform: scaleX(0.1);
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.1;
+    transform: scaleX(1.4);
+  }
+}
+@keyframes pillar {
+  0% {
+    opacity: 0;
+    transform: scaleX(0.05);
+  }
+  45% {
+    opacity: 1;
+    transform: scaleX(2);
+  }
+  100% {
+    opacity: 0.7;
+    transform: scaleX(1);
+  }
+}
+@media (max-width: 850px) {
+  .title-formula {
+    right: 6%;
+    top: 22%;
+    font-size: 28px;
+    opacity: 0.23;
+  }
+  .title-copy h1 {
+    font-size: clamp(36px, 7vw, 60px);
+  }
+  .brand {
+    left: 25px;
+    top: 22px;
+  }
+  .edition {
+    right: 25px;
+    top: 35px;
+  }
+  .title-screen {
+    padding: 0 8vw;
+  }
+  .title-footer {
+    left: 8vw;
+    right: 8vw;
+  }
+  .answers {
+    gap: 25px;
+  }
+  .coefficient {
+    gap: 15px;
+  }
+  .controls {
+    gap: 10px;
+    left: 3vw;
+    right: 3vw;
+  }
+  .control-left,
+  .control-right {
+    gap: 4px;
+  }
+  .branches {
+    gap: 35px;
+  }
+  .constellation {
+    gap: 20px;
+  }
+  .scene-body {
+    padding-left: 4vw;
+    padding-right: 4vw;
+  }
+  .general-formula .formula {
+    font-size: 17px;
+  }
+  .scene-meta {
+    top: 90px;
+  }
+}
+@media (max-width: 560px) {
+  .title-eyebrow {
+    font-size: 8px;
+    letter-spacing: 0.14em;
+  }
+  .title-copy p {
+    font-size: 14px;
+  }
+  .subtitle {
+    font-size: 10px;
+    letter-spacing: 0.05em;
+  }
+  .title-actions {
+    gap: 10px;
+  }
+  .primary {
+    padding: 12px 18px;
+  }
+  .duration {
+    margin-left: 18px;
+  }
+  .text-button {
+    font-size: 10px;
+  }
+  .title-footer span {
+    display: none;
+  }
+  .scene-body {
+    padding-top: 110px;
+    padding-bottom: 160px;
+  }
+  .scene-label {
+    font-size: 8px;
+    letter-spacing: 0.14em;
+    margin-bottom: 20px;
+  }
+  .formula {
+    font-size: 29px;
+  }
+  .calculation .formula {
+    font-size: 24px;
+  }
+  .coefficient {
+    flex-direction: column;
+    gap: 0;
+  }
+  .coefficient .formula {
+    font-size: 17px;
+  }
+  .general-formula .formula {
+    font-size: 11px;
+  }
+  .branches {
+    gap: 15px;
+  }
+  .branches .formula {
+    font-size: 24px;
+  }
+  .product-scene > div:last-of-type .formula {
+    font-size: 20px;
+  }
+  .graph-legend {
+    gap: 16px;
+  }
+  .graph-legend .formula {
+    font-size: 14px;
+  }
+  .answers {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .answers .formula {
+    font-size: 23px;
+  }
+  .answers > div > .formula:first-child {
+    font-size: 16px;
+  }
+  .ending {
+    padding-bottom: 210px;
+  }
+  .ending-title {
+    margin-bottom: 10px;
+  }
+  .ending-title h1 {
+    font-size: 27px;
+  }
+  .replay {
+    bottom: 150px;
+  }
+  .replay span {
+    display: none;
+  }
+  .control-left .time {
+    display: none;
+  }
+  .controls button {
+    padding: 5px;
+    font-size: 10px;
+  }
+  .subtitle-overlay {
+    left: 2%;
+    right: 2%;
+    bottom: 105px;
+  }
+  .subtitle-overlay p {
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    padding: 12px 8px;
+  }
+  .title-formula {
+    right: 7%;
+    top: 18%;
+    font-size: 26px;
+  }
+  .constellation {
+    display: none;
+  }
+}
+@media (max-height: 600px) and (min-width: 561px) {
+  .title-eyebrow {
+    margin-bottom: 10px;
+  }
+  .title-copy h1 {
+    font-size: 38px;
+  }
+  .title-copy p {
+    margin-bottom: 8px;
+    font-size: 13px;
+  }
+  .subtitle {
+    margin-top: 12px;
+  }
+  .title-actions {
+    margin-top: 20px;
+  }
+  .lesson-topics {
+    margin-top: 20px;
+  }
+  .title-footer {
+    display: none;
+  }
+  .scene-body {
+    padding-top: 100px;
+    padding-bottom: 115px;
+  }
+  .scene-label {
+    margin-bottom: 12px;
+  }
+  .formula,
+  .calculation .formula {
+    font-size: 29px;
+  }
+  .coefficient {
+    margin: 5px 0;
+  }
+  .coefficient .formula {
+    font-size: 17px;
+  }
+  .graph {
+    max-width: 560px;
+    margin-top: 0;
+  }
+  .graph-legend .formula {
+    font-size: 16px;
+  }
+  .subtitle-overlay {
+    bottom: 76px;
+  }
+  .ending {
+    padding-bottom: 150px;
+  }
+  .ending-title h1 {
+    font-size: 29px;
+  }
+  .answers .formula {
+    font-size: 23px;
+  }
+  .replay {
+    bottom: 105px;
+  }
+  .replay .primary {
+    min-height: 35px;
+    padding: 7px 15px;
+  }
+  .scene-10 .subtitle-overlay {
+    bottom: 61px;
+  }
+  .scene-meta {
+    top: 84px;
+  }
+  .branches {
+    margin: 12px 0;
+  }
+  .general-formula .formula {
+    font-size: 22px;
+  }
+  .product-scene > div:last-of-type .formula {
+    font-size: 29px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .title-formula,
+  .floating-formula,
+  .pulse-square {
+    animation: none !important;
+  }
+}
+
+.formula-debris {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  z-index: -1;
+}
+.formula-debris > div {
+  position: absolute;
+}
+.formula-debris .formula {
+  font-size: 25px;
+  color: var(--cyan);
+  text-shadow: 0 0 20px #78d9ff80;
+}
+.tunnel-wall {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.4;
+  transform: perspective(650px) rotateY(15deg);
+}
+.tunnel-wall .floating-formula {
+  animation-duration: 6s;
+}
+.tunnel-wall .formula {
+  font-size: 24px;
+}
+
+.product-result .formula {
+  font-size: clamp(22px, 3.1vw, 48px);
+}
+.light-pillar {
+  opacity: 0.7;
+  animation: pillar 2s ease-out forwards;
+}
+@media (max-width: 560px) {
+  .product-result .formula {
+    font-size: 18px;
+  }
+}
+@media (max-height: 600px) and (min-width: 561px) {
+  .product-result .formula {
+    font-size: 29px;
+  }
+}
+.scene-10 .nebula {
+  background:
+    linear-gradient(
+      90deg,
+      transparent 40%,
+      #e6c58012 46%,
+      #ffe9b53d 50%,
+      #e6c58012 54%,
+      transparent 60%
+    ),
+    radial-gradient(ellipse at 50% 18%, #e6c58035, transparent 62%);
+  mix-blend-mode: screen;
+}

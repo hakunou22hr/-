@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "tsc -b --pretty false",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:trig-cinema": "tsc --noEmit -p materials/trig-integral-cinema/tsconfig.json && node materials/trig-integral-cinema/tests/mathematics.check.mjs"
   },
   "dependencies": {
     "@pdf-lib/fontkit": "^1.1.1",
@@ -21,7 +22,8 @@
     "pdfjs-dist": "^6.3.289",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "three": "^0.186.0"
+    "three": "^0.186.0",
+    "framer-motion": "^12.23.0"
   },
   "devDependencies": {
     "@types/react": "^19.1.12",

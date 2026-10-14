@@ -1,0 +1,11 @@
+{
+  "id": "trig-integral-cinema",
+  "name": "三角関数の不定積分 映画型90秒版",
+  "subject": "数学Ⅲ",
+  "unit": "積分法／三角関数の不定積分",
+  "description": "数式空間を進む90秒の導入映像。半角公式・積和公式の変形と波形の一致から、積分できる形への入口を体験する。",
+  "thumbnail": "thumbnail.svg",
+  "durationSeconds": 90,
+  "language": "ja",
+  "version": "1.0.0"
+}

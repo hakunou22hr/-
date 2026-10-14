@@ -36,6 +36,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Verify trig integral cinema
+        run: npm run test:trig-cinema
+
       - name: Build
         run: npm run build
 
