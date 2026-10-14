@@ -17,6 +17,23 @@ async function data(file) {
 }
 const { formulas } = await data("formulas.ts");
 const { timeline, sceneAt, DURATION } = await data("timeline.ts");
+const { shortTimeline, sourceTimeAt, SHORT_DURATION } = await data("shortTimeline.ts");
+test("30 second edit retains every original scene and both complete calculations", () => {
+  assert.equal(SHORT_DURATION, 30);
+  assert.equal(shortTimeline.length, 10);
+  shortTimeline.forEach((s, i) => {
+    assert.equal(s.start, i ? shortTimeline[i - 1].end : 0);
+    assert.ok(s.end > s.start);
+    assert.equal(s.sourceStart, timeline[i].start);
+    assert.equal(s.sourceEnd, timeline[i].end);
+    assert.equal(sceneAt(sourceTimeAt(s.start)).id, s.id);
+    assert.equal(sceneAt(sourceTimeAt(s.end - 1e-5)).id, s.id);
+  });
+  assert.equal(sourceTimeAt(30), 90);
+  assert.equal(shortTimeline.at(-1).end, 30);
+  assert.ok(shortTimeline[5].end - shortTimeline[5].start >= 4);
+  assert.ok(shortTimeline[8].end - shortTimeline[8].start >= 4);
+});
 test("every lesson formula renders with KaTeX without errors", () => {
   for (const [key, value] of Object.entries(formulas)) {
     for (const tex of typeof value === "string" ? [value] : value)

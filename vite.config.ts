@@ -19,7 +19,9 @@ export default defineConfig({
   base: './',
   build: {
     rollupOptions: {
-      input: { portal: resolve(root, 'index.html'), ...materialPages, ...appPages },
+      input: { portal: resolve(root, 'index.html'), ...materialPages, ...appPages,
+        'trig-cinema-video': resolve(root, 'materials/trig-integral-cinema/video.html'),
+      },
     },
   },
 })

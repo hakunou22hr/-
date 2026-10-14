@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#030917" />
+  <title>三角関数の不定積分｜30秒MP4</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#030917;color:#edf6ff;font-family:"Yu Gothic","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;line-height:1.8}main{max-width:1120px;margin:auto;padding:48px 24px 60px}.eyebrow{color:#e6c580;font-size:12px;letter-spacing:.2em}h1{font-size:clamp(25px,5vw,44px);line-height:1.4;margin:16px 0}p{color:#b0c8db}video{display:block;width:100%;aspect-ratio:16/9;background:#000;border:1px solid #294054;border-radius:12px;margin:28px 0 20px}.actions{display:flex;gap:12px;flex-wrap:wrap}.button{display:inline-block;border:1px solid #bba36a;border-radius:7px;padding:12px 20px;text-decoration:none;background:#e6c580;color:#121a25;font:inherit;font-weight:700;cursor:pointer}.secondary{background:transparent;color:#e6c580}a{color:#86d9ff}a:focus-visible,button:focus-visible{outline:3px solid #86d9ff;outline-offset:4px}.note{font-size:14px}.links{margin-top:28px;display:flex;gap:24px;flex-wrap:wrap}#status{min-height:1.8em;font-size:14px}@media(max-width:560px){main{padding:28px 16px}.button{width:100%;text-align:center}}
+  </style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">MATHEMATICS III · 30 SECOND CINEMA</div>
+  <h1>三角関数の不定積分</h1>
+  <p>数式が、空間になる。<br />元の90秒版から、半角公式・積和公式と2問の積分を30秒に。</p>
+  <video id="film" controls playsinline preload="metadata" aria-label="三角関数の不定積分 映画型30秒版">
+    <source src="https://github.com/hakunou22hr/-/releases/download/trig-integral-cinema-30s-v1/trig-integral-cinema-30s.mp4" type="video/mp4" />
+    MP4をダウンロードして再生してください。
+  </video>
+  <div class="actions">
+    <button id="play" class="button" type="button">▶ 30秒版を再生</button>
+    <a class="button secondary" href="https://github.com/hakunou22hr/-/releases/download/trig-integral-cinema-30s-v1/trig-integral-cinema-30s.mp4" download="trig-integral-cinema-30s.mp4">↓ MP4をダウンロード</a>
+  </div>
+  <p id="status" role="status"></p>
+  <p class="note">30秒 ／ 1920×1080 ／ 30fps ／ H.264・AAC ／ 合成BGM・効果音付き</p>
+  <p class="note">WindowsではダウンロードしたMP4を開いて再生できます。iPhoneで動画が開いた場合は、共有メニューから「ファイルに保存」を選んでください。</p>
+  <div class="links">
+    <a href="./index.html">90秒のブラウザ教材</a>
+    <a href="./index.html?edition=30">30秒のブラウザ教材</a>
+    <a href="https://github.com/hakunou22hr/-/releases/tag/trig-integral-cinema-30s-v1">動画の保存先</a>
+  </div>
+</main>
+<script type="module">
+  const film = document.querySelector('#film');
+  const status = document.querySelector('#status');
+  document.querySelector('#play').addEventListener('click', async () => {
+    try {
+      if (film.ended) film.currentTime = 0;
+      await film.play(); status.textContent = '';
+    } catch { status.textContent = '下の「MP4をダウンロード」から保存して再生できます。'; }
+  });
+  film.addEventListener('error', () => { status.textContent = '動画を読み込めませんでした。MP4のダウンロード、または動画の保存先をお試しください。'; });
+</script>
+</body>
+</html>

@@ -5,6 +5,7 @@ export default defineConfig({
   base: "./",
   build: {
     rollupOptions: {
+      input: { lesson: "index.html", video: "video.html" },
       output: {
         manualChunks: {
           three: ["three", "@react-three/fiber"],

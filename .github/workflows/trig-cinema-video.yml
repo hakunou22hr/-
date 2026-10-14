@@ -1,0 +1,70 @@
+name: Render and release 30-second trig cinema
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'materials/trig-integral-cinema/src/**'
+      - 'materials/trig-integral-cinema/render/**'
+      - 'materials/trig-integral-cinema/tests/**'
+      - '.github/workflows/trig-cinema-video.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: trig-cinema-video
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install source dependencies
+        run: npm ci
+      - name: Check formulas and both timelines
+        run: npm run test:trig-cinema
+      - name: Build the original cinema and short edition
+        run: npm run build --prefix materials/trig-integral-cinema
+      - name: Install renderer and Japanese fonts
+        run: |
+          npm install --prefix /tmp/cinema-render-tools playwright@1.62.1
+          node /tmp/cinema-render-tools/node_modules/playwright/cli.js install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg fonts-noto-cjk
+      - name: Render 900 frames and verify MP4
+        env:
+          PLAYWRIGHT_MODULE_PATH: /tmp/cinema-render-tools/node_modules/playwright
+          CINEMA_OUTPUT: ${{ github.workspace }}/work/trig-cinema-30s
+        run: |
+          npm run preview --prefix materials/trig-integral-cinema -- --host 127.0.0.1 --port 4173 > /tmp/cinema-preview.log 2>&1 &
+          for attempt in $(seq 1 30); do
+            if curl --silent --fail http://127.0.0.1:4173/ > /dev/null; then break; fi
+            sleep 1
+          done
+          node materials/trig-integral-cinema/render/render-short.mjs
+          cd work/trig-cinema-30s
+          sha256sum trig-integral-cinema-30s.mp4 > SHA256SUMS.txt
+      - name: Keep render evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: trig-cinema-30s-validation
+          path: |
+            work/trig-cinema-30s/ffprobe.json
+            work/trig-cinema-30s/sample-*.jpg
+            work/trig-cinema-30s/SHA256SUMS.txt
+      - name: Publish MP4 in GitHub Releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag=trig-integral-cinema-30s-v1
+          if ! gh release view "$tag" > /dev/null 2>&1; then
+            gh release create "$tag" --target "$GITHUB_SHA" --title '三角関数の不定積分 — 映画型30秒版' --notes-file materials/trig-integral-cinema/docs/SHORT_RELEASE.md
+          fi
+          gh release upload "$tag" work/trig-cinema-30s/trig-integral-cinema-30s.mp4 work/trig-cinema-30s/ffprobe.json work/trig-cinema-30s/SHA256SUMS.txt --clobber

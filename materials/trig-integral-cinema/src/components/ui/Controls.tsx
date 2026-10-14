@@ -10,8 +10,11 @@ type Props = {
   toggleCaptions: () => void;
   toggleSound: () => void;
   seek: (t: number) => void;
+  duration?: number;
+  markers?: ReadonlyArray<{ id: number; start: number }>;
 };
 export function Controls(p: Props) {
+  const duration = p.duration ?? DURATION;
   const format = (t: number) =>
     `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, "0")}`;
   return (
@@ -29,7 +32,7 @@ export function Controls(p: Props) {
               ↺
             </button>
             <span className="time">
-              {format(p.time)} <em>/ 1:30</em>
+              {format(p.time)} <em>/ {format(duration)}</em>
             </span>
           </>
         )}
@@ -39,17 +42,17 @@ export function Controls(p: Props) {
           <input
             type="range"
             min="0"
-            max={DURATION}
+            max={duration}
             step=".1"
             value={p.time}
             onChange={(e) => p.seek(Number(e.target.value))}
             aria-label="再生位置"
           />
           <div className="scene-ticks">
-            {timeline.slice(1).map((s) => (
+            {(p.markers ?? timeline).slice(1).map((s) => (
               <i
                 key={s.id}
-                style={{ left: `${(s.start / DURATION) * 100}%` }}
+                style={{ left: `${(s.start / duration) * 100}%` }}
               />
             ))}
           </div>

@@ -4,9 +4,11 @@ import { formulas as f } from "../../data/formulas";
 export function TitleScreen({
   play,
   restart,
+  duration = 90,
 }: {
   play: () => void;
   restart: () => void;
+  duration?: number;
 }) {
   return (
     <motion.section
@@ -30,14 +32,15 @@ export function TitleScreen({
           不定積分<span className="gold-dot">.</span>
         </h1>
         <div className="subtitle">
-          映画型90秒版 <span>／</span> 変形が、答えをひらく。
+          映画型{duration}秒版 <span>／</span> 変形が、答えをひらく。
         </div>
       </div>
       <div className="title-actions">
         <button className="primary" onClick={play}>
           <span className="play-icon">▶</span> 再生{" "}
-          <span className="duration">90 SEC</span>
+          <span className="duration">{duration} SEC</span>
         </button>
+        <a className="text-button video-link" href="./video.html">30秒MP4・ダウンロード ↗</a>
         <button className="text-button" onClick={restart}>
           最初から再生 ↗
         </button>

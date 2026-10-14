@@ -8,6 +8,10 @@ import { GoldenRelease } from "./cinema/GoldenRelease";
 import { Bloom } from "./cinema/Bloom";
 import { glowTexture, seeded } from "./cinema/textures";
 import { cinema } from "../data/cinema";
+function ExportMarker({ time }: { time: number }) {
+  useFrame(() => { window.cinemaFrameRendered = time; }, 2);
+  return null;
+}
 function World({ time, scene }: { time: number; scene: number }) {
   const points = useRef<THREE.Points>(null);
   const positions = useMemo(() => {
@@ -83,21 +87,24 @@ class SpaceBoundary extends Component<
     );
   }
 }
-export function Space({ time, scene }: { time: number; scene: number }) {
+export function Space({ time, scene, exportMode = false }: { time: number; scene: number; exportMode?: boolean }) {
   return (
     <div className="space" aria-hidden="true">
       <SpaceBoundary>
         <Suspense fallback={null}>
           <Canvas
-            dpr={[1, cinema.maxDpr]}
+            dpr={exportMode ? 1 : [1, cinema.maxDpr]}
+            frameloop={exportMode ? "demand" : "always"}
             camera={{ position: [0, 0, 14], fov: 58, near: 0.1, far: 120 }}
             gl={{
               antialias: false,
               alpha: true,
+              preserveDrawingBuffer: exportMode,
               powerPreference: "high-performance",
             }}
           >
             <World time={time} scene={scene} />
+            {exportMode && <ExportMarker time={time} />}
           </Canvas>
         </Suspense>
       </SpaceBoundary>

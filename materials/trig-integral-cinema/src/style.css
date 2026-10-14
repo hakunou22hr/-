@@ -1,6 +1,9 @@
 * {
   box-sizing: border-box;
 }
+.video-link { color: #e6c580; text-decoration: none; }
+.is-render .controls, .is-render .replay { display: none; }
+.is-render .subtitle-overlay { bottom: 75px; }
 html,
 body,
 #root {
