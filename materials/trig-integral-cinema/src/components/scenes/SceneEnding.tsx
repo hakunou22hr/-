@@ -1,8 +1,12 @@
 import { formulas as f } from "../../data/formulas";
 import { Formula } from "../Formula";
-export default function SceneEnding() {
+export default function SceneEnding({ local }: { local: number }) {
   return (
     <div className="scene-body ending">
+      <div
+        className="release-flash"
+        style={{ opacity: Math.exp(-Math.pow((local - 0.35) * 2.4, 2)) * 0.6 }}
+      />
       <div className="light-pillar" />
       <div className="constellation">
         <Formula tex={f.half} />

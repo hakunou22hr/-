@@ -10,6 +10,7 @@ import { sceneAt } from "./data/timeline";
 import { theme } from "./data/theme";
 import { usePlayback } from "./hooks/usePlayback";
 import { CinemaAudio } from "./utils/audio";
+import { cinema } from "./data/cinema";
 const sceneComponents = [
   Scenes.SceneIntro,
   Scenes.SceneTunnel,
@@ -51,9 +52,9 @@ export default function App() {
   useEffect(() => {
     const phase =
       scene.id === 4 || scene.id === 8
-        ? local < 2
+        ? local < cinema.morph.split
           ? "split"
-          : local < 4.5
+          : local < cinema.morph.assemble
             ? "merge"
             : "gold"
         : scene.id === 10

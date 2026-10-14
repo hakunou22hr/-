@@ -92,8 +92,8 @@ Viteの`base: './'`により `https://user.github.io/repository/` のサブパ�
 - `src/data/captions.ts`：必須の日本語テロップ。
 - `src/data/timeline.ts`：開始・終了秒とシーン名。最終終了時刻とDURATIONを揃えてください。
 - `src/data/theme.ts`：背景・白・金・シアン・グラフの色。`style.css`には低不透明度の装飾色も定義しています。
-- `src/components/Space.tsx`：Three.jsの粒子1200点、トンネル、グリッド、分解用粒子800点。DPRは最大1.5で負荷を抑えます。
-- `src/components/FormulaDebris.tsx`：数式断片が分裂し合流するFramer Motion演出。
+- `src/components/Space.tsx`：3Dシーンの統合。数式の壁・鏡面床・発光波形・粒子変形・金色の解放光をシーンに応じて表示します。DPRは最大1.25です。
+- `src/components/cinema/FormulaFlow.tsx`：実際の文字の輪郭から4200点の粒子を生成。分解→螺旋の光流→変形後の文字への集合を再生時刻で制御します。
 - `src/components/Graph.tsx`：SVGグラフ。数式から401点を直接計算します。
 - `src/hooks/usePlayback.ts`：requestAnimationFrameと単調時計に基づく再生、シーク、一時停止。
 - `src/utils/audio.ts`：Web Audioによるオリジナル合成音。
@@ -105,4 +105,15 @@ Viteの`base: './'`により `https://user.github.io/repository/` のサブパ�
 
 WebGLが使えない場合は星空のCSS背景へ切り替え、数式・字幕・グラフの教材内容を継続します。減らした動きを希望する設定では鼓動と装飾の浮遊を抑えます。上映用の変形演出は保持します。
 
-参考画像4枚は今回の添付に含まれなかったため、依頼文の色調・世界観に基づき制作しています。大型モニタでの実機上映と音量調整は、教室のブラウザ・GPU・音響機器で確認してください。
+参考画像4枚に合わせた演出強化版です。壁の数式・反射床・3D発光波形・粒子による式の再構成・金色の光柱を、静止画像ではなくブラウザ内の3D描画で実装しています。大型モニタでの実機上映と音量調整は、教室のブラウザ・GPU・音響機器で確認してください。
+
+## 演出強化版（1.1）
+
+- `src/data/cinema.ts`：光の強さ、粒子数、波形の密度、変形のタイミングをまとめた設定。
+- `cinema/FormulaTunnel.tsx`：左右の数式壁、金色のゲート、Three.js Reflectorによる鏡面床、奥への移動。
+- `cinema/FormulaFlow.tsx`：実際の式の文字輪郭から別の式の文字輪郭への粒子変形。30〜42秒と72〜84秒。
+- `cinema/WaveSculpture.tsx`：赤・シアンの3D波形を重ね、共通の波形へ一致。奥行きzは表示上の複製で、関数の変数ではありません。下部のSVGは共通のx・y座標を表示します。
+- `cinema/GoldenRelease.tsx`：金色の光柱、粒子、立方体、床の同心光輪。解答は暗いパネルに表示して可読性を確保します。
+- `cinema/Bloom.tsx`：UnrealBloomPassによる光のにじみ。数式はこの処理の外でKaTeX表示するため、文字はぼけません。
+
+再生・一時停止・シークは共通の秒数に同期し、式の変形と3Dの動きがずれない設計です。新しい外部画像・音源・CDNは追加していません。

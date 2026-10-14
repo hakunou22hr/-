@@ -1,4 +1,4 @@
-import { FormulaDebris } from "../FormulaDebris";
+import { cinema } from "../../data/cinema";
 import { formulas as f } from "../../data/formulas";
 import { Reveal, Label, type SceneProps } from "./shared";
 export default function SceneProductToSum({ local }: SceneProps) {
@@ -15,14 +15,14 @@ export default function SceneProductToSum({ local }: SceneProps) {
         <Reveal tex={f.difference} visible={local > 2.6} />
       </div>
       <div className="merge-lines" />
-      <FormulaDebris local={local} product />
+
       <Reveal
         tex={f.product}
-        visible={local > 4.5}
+        visible={local >= cinema.morph.assemble}
         gold
         className="product-result"
       />
-      {local > 4.5 && <div className="gold-halo" />}
+      {local >= cinema.morph.assemble && <div className="gold-halo" />}
     </div>
   );
 }

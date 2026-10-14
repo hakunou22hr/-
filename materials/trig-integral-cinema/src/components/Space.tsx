@@ -1,106 +1,69 @@
 import { Component, Suspense, useMemo, useRef, type ReactNode } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import { theme } from "../data/theme";
+import { FormulaTunnel } from "./cinema/FormulaTunnel";
+import { FormulaFlow } from "./cinema/FormulaFlow";
+import { WaveSculpture } from "./cinema/WaveSculpture";
+import { GoldenRelease } from "./cinema/GoldenRelease";
+import { Bloom } from "./cinema/Bloom";
+import { glowTexture, seeded } from "./cinema/textures";
+import { cinema } from "../data/cinema";
 function World({ time, scene }: { time: number; scene: number }) {
-  const dust = useRef<THREE.Points>(null);
-  const rings = useRef<THREE.Group>(null);
-  const cloud = useRef<THREE.Points>(null);
+  const points = useRef<THREE.Points>(null);
   const positions = useMemo(() => {
-    const a = new Float32Array(1200 * 3);
-    let seed = 37;
-    const random = () => {
-      seed = (seed * 16807) % 2147483647;
-      return seed / 2147483647;
-    };
-    for (let i = 0; i < a.length; i += 3) {
-      a[i] = (random() - 0.5) * 50;
-      a[i + 1] = (random() - 0.5) * 32;
-      a[i + 2] = -random() * 95;
+    const a = new Float32Array(1400 * 3);
+    for (let i = 0; i < 1400; i++) {
+      a[i * 3] = (seeded(i + 1) - 0.5) * 42;
+      a[i * 3 + 1] = (seeded(i + 4) - 0.5) * 28;
+      a[i * 3 + 2] = -seeded(i + 7) * 65;
     }
     return a;
   }, []);
-  const bursts = useMemo(() => {
-    const a = new Float32Array(800 * 3);
-    for (let i = 0; i < 800; i++) {
-      const angle = i * 2.39996323;
-      const radius = Math.sqrt(i / 800) * 6;
-      a[i * 3] = Math.cos(angle) * radius;
-      a[i * 3 + 1] = Math.sin(angle) * radius * 0.6;
-      a[i * 3 + 2] = Math.sin(i * 0.37) * 3;
-    }
-    return a;
-  }, []);
+  const map = useMemo(() => glowTexture(), []);
   useFrame(({ camera }) => {
     camera.position.set(
-      Math.sin(time * 0.055) * 0.28,
-      Math.cos(time * 0.08) * 0.15,
-      6 - time * 0.035,
+      Math.sin(time * 0.09) * 0.3,
+      Math.cos(time * 0.07) * 0.12,
+      14,
     );
-    camera.lookAt(0, 0, -18);
-    if (dust.current) {
-      dust.current.position.z = (time * 0.45) % 16;
-      dust.current.rotation.z = time * 0.003;
-    }
-    if (rings.current) {
-      rings.current.position.z = scene === 2 ? (time - 8) * 1.5 : time * 0.15;
-      rings.current.rotation.z = Math.sin(time * 0.07) * 0.04;
-    }
-    if (cloud.current) {
-      const local = scene === 4 ? time - 30 : time - 72;
-      const burst = scene === 4 || scene === 8;
-      cloud.current.visible = burst && local < 6;
-      const spread =
-        local < 2 ? 1 + local * 2 : Math.max(0.05, 5 - (local - 2) * 1.5);
-      cloud.current.scale.setScalar(spread);
-      cloud.current.rotation.z = local * 0.3;
+    camera.lookAt(0, 0, -15);
+    if (points.current) {
+      points.current.position.z = (time * 0.35) % 10;
+      points.current.rotation.z = time * 0.003;
     }
   });
   return (
     <>
-      <fog attach="fog" args={[theme.background, 20, 90]} />
-      <points ref={dust}>
+      <fog attach="fog" args={["#030917", 38, 95]} />
+      <points ref={points}>
         <bufferGeometry>
           <bufferAttribute attach="attributes-position" args={[positions, 3]} />
         </bufferGeometry>
         <pointsMaterial
-          size={0.035}
-          color={scene === 10 ? theme.gold : theme.cyan}
+          map={map}
+          size={0.09}
+          color="#80d8ff"
           transparent
-          opacity={0.65}
+          opacity={0.6}
           blending={THREE.AdditiveBlending}
           depthWrite={false}
         />
       </points>
-      <group ref={rings}>
-        {Array.from({ length: 14 }, (_, i) => (
-          <mesh key={i} position={[0, 0, -i * 6]}>
-            <torusGeometry args={[5.6, 0.012, 4, 80]} />
-            <meshBasicMaterial
-              color={scene === 10 ? theme.gold : theme.cyan}
-              transparent
-              opacity={0.13 + (i % 3) * 0.03}
-            />
-          </mesh>
-        ))}
-      </group>
-      <gridHelper
-        args={[90, 36, theme.cyan, theme.navy]}
-        position={[0, -4, -28]}
-      />
-      <points ref={cloud}>
-        <bufferGeometry>
-          <bufferAttribute attach="attributes-position" args={[bursts, 3]} />
-        </bufferGeometry>
-        <pointsMaterial
-          color={theme.gold}
-          size={0.055}
-          transparent
-          opacity={0.85}
-          blending={THREE.AdditiveBlending}
-          depthWrite={false}
+      <FormulaTunnel time={time} scene={scene} />
+      {(scene === 4 || scene === 8) && (
+        <FormulaFlow key={scene} time={time} scene={scene} />
+      )}
+      {(scene === 5 || scene === 7) && (
+        <WaveSculpture key={scene} time={time} scene={scene} />
+      )}
+      {scene === 10 && <GoldenRelease time={time} />}
+      {scene === 6 || scene === 9 ? (
+        <gridHelper
+          args={[60, 30, "#376d81", "#122334"]}
+          position={[0, -4.5, -14]}
         />
-      </points>
+      ) : null}
+      <Bloom time={time} scene={scene} />
     </>
   );
 }
@@ -126,10 +89,10 @@ export function Space({ time, scene }: { time: number; scene: number }) {
       <SpaceBoundary>
         <Suspense fallback={null}>
           <Canvas
-            dpr={[1, 1.5]}
-            camera={{ position: [0, 0, 6], fov: 62 }}
+            dpr={[1, cinema.maxDpr]}
+            camera={{ position: [0, 0, 14], fov: 58, near: 0.1, far: 120 }}
             gl={{
-              antialias: true,
+              antialias: false,
               alpha: true,
               powerPreference: "high-performance",
             }}
