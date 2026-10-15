@@ -1,3 +1,4 @@
+import {createBackdrop} from './background.js';
 // Deterministic layered renderer. CPU perspective projection allows the same film
 // in Canvas2D and offline full-HD rendering, without a GPU or paid API.
 // seeded() and glyph sampling adapted from trig-integral-cinema/cinema/textures.ts.
@@ -10,6 +11,8 @@ export const titles=['積分の覚醒','円の出現','三角関数への置換'
 export function state(t,duration=90){const cuts=duration===90?cuts90:cuts30;t=clamp(t,0,duration-1e-6);let scene=0;while(t>=cuts[scene+1])scene++;return {scene,u:(t-cuts[scene])/(cuts[scene+1]-cuts[scene]),t,duration,cuts};}
 export function createFilm(makeCanvas,w=1920,h=1080){
  const layers=Array.from({length:3},()=>makeCanvas(w,h));const contexts=layers.map(c=>c.getContext('2d'));const portrait=h>w;const W=portrait?1080:1920,H=portrait?1920:1080;
+ const backdrop=createBackdrop(makeCanvas,W,H);
+ const atmospheric=makeCanvas(Math.round(w*2/3),Math.round(h*2/3)),atmosphericContext=atmospheric.getContext('2d');
  const blue='#69dcff',gold='#ffd482',white='#f5f2e9';let g;let textBounds=[];const glowMaps=new Map();const glyphCache=new Map();
  function text(s,x,y,size=48,color=white,alpha=1,font='serif'){g.save();g.globalAlpha=clamp(alpha);g.fillStyle=color;g.font=`${size}px ${font==='serif'?'"DejaVu Serif", Georgia, serif':'"Noto Sans CJK JP", sans-serif'}`;g.textAlign='center';g.textBaseline='middle';g.fillText(s,x,y);if(g!==contexts[0]&&alpha>.05){const m=g.measureText(s);textBounds.push({layer:g===contexts[2]?'formula':'geometry',text:s,left:x-m.width/2,right:x+m.width/2,top:y-size*.85,bottom:y+size*.55});}g.restore();}
  function line(points,color=blue,width=2,alpha=1){g.save();g.globalAlpha=clamp(alpha);g.strokeStyle=color;g.lineWidth=width;g.beginPath();points.forEach((p,i)=>i?g.lineTo(...p):g.moveTo(...p));g.stroke();if(alpha>.4&&width>=2){g.globalAlpha=clamp(alpha*.12);g.lineWidth=width*5;g.stroke();g.globalAlpha=clamp(alpha*.07);g.lineWidth=width*12;g.stroke();}g.restore();}
@@ -19,19 +22,7 @@ export function createFilm(makeCanvas,w=1920,h=1080){
  function centeredIntegral(y,size,lo,hi,body,color=white){g.font=`${size}px "DejaVu Serif",Georgia,serif`;integral(W/2-(g.measureText(body).width+size)/2,y,size,lo,hi,body,color);}
  function glyphs(s){if(glyphCache.has(s))return glyphCache.get(s);const c=makeCanvas(1000,180),c2=c.getContext('2d');c2.fillStyle='white';c2.font='68px "DejaVu Serif",serif';c2.textAlign='center';c2.fillText(s,500,112);const a=c2.getImageData(0,0,1000,180).data,pts=[];for(let y=0;y<180;y+=4)for(let x=0;x<1000;x+=4)if(a[(y*1000+x)*4+3]>150)pts.push([x-500,y-90]);glyphCache.set(s,pts);return pts;}
  function camera(t,scene,u){const yaw=Math.sin(t*.071)*.19+(scene===1?Math.sin(u*Math.PI)*.2:0);const travel=t*.85+Math.sin(t*.18)*3;const zoom=scene===0?1+ease(u)*.22:1+Math.sin(t*.12)*.06;return (x,y,z)=>{z-=travel;z=((z%70)+70)%70+5;const xx=x*Math.cos(yaw)-z*Math.sin(yaw);const zz=x*Math.sin(yaw)+z*Math.cos(yaw);const k=800*zoom/Math.max(4,zz+12);return [W/2+xx*k,H*.48+(y+Math.sin(t*.09)*.5)*k,k];};}
- function background(q){const {t,scene,u}=q;g=contexts[0];const grad=g.createRadialGradient(W*.56,H*.47,0,W*.5,H*.5,W*.8);grad.addColorStop(0,scene===6?'#19222c':'#082236');grad.addColorStop(.46,'#061222');grad.addColorStop(1,'#01040c');g.fillStyle=grad;g.fillRect(0,0,W,H);const proj=camera(t,scene,u);
- // FormulaTunnel's moving section grid, projected through a moving camera.
- for(let z=0;z<70;z+=5){for(const side of [-1,1])line([proj(side*17,-10,z),proj(side*17,10,z)],blue,1,.14);line([proj(-17,10,z),proj(17,10,z)],blue,1,.16);line([proj(-17,-10,z),proj(17,-10,z)],gold,1,.08);}
- for(let x=-17;x<=17;x+=3.4)for(let z=0;z<65;z+=5)line([proj(x,10,z),proj(x,10,z+5)],blue,.8,.14);
- for(let i=0;i<680;i++){const p=proj((seeded(i+1)-.5)*52,(seeded(i+4)-.5)*32,seeded(i+7)*70);dot(p[0],p[1],Math.max(.5,p[2]*.025),i%5?blue:gold,.2+seeded(i+9)*.6);}
- // GoldenRelease rings and rotating wireframe polyhedra, adapted to time sampling.
- for(let j=0;j<5;j++){const a=t*(.06+j*.018)+j*.6;const pts=[];for(let i=0;i<=140;i++){const v=i/140*Math.PI*2,r=8+j*1.6;const x=Math.cos(v)*r,y=Math.sin(v)*r;pts.push(proj(x, y*Math.cos(a),30+y*Math.sin(a)));}line(pts,j%2?blue:gold,1.8,.40);const v=t*(.25+j*.09),r=8+j*1.6;const p=proj(Math.cos(v)*r,Math.sin(v)*r*Math.cos(a),30+Math.sin(v)*r*Math.sin(a));dot(p[0],p[1],3,j%2?blue:gold,.8);}
- for(let j=0;j<14;j++){const a=t*.13+j;const center=[(seeded(j+29)-.5)*42,(seeded(j+80)-.5)*22,seeded(j+41)*70];const pts=Array.from({length:8},(_,i)=>{const x=(i&1?1:-1),y=(i&2?1:-1),z=(i&4?1:-1);return proj(center[0]+x*Math.cos(a)-z*Math.sin(a),center[1]+y*Math.cos(a*.7)-z*Math.sin(a*.7),center[2]+x*Math.sin(a)+z*Math.cos(a));});for(let i=0;i<8;i++)for(const bit of [1,2,4])if(!(i&bit))line([pts[i],pts[i|bit]],j%2?gold:blue,1,.19);}
- const fragments=['sin²θ + cos²θ = 1','x² + y² = 4','x = 2 sin θ','cos 2θ = 2 cos²θ − 1','dx = 2 cos θ dθ'];for(let i=0;i<12;i++){const p=proj((i%2?1:-1)*(14+seeded(i)*8),(seeded(i+4)-.5)*26,seeded(i+8)*70);text(fragments[i%5],p[0],p[1],clamp(p[2]*.32,10,27),i%3?blue:gold,.09+.06*Math.sin(t+i));}
- const burst=Math.exp(-u*12);glow(W/2,H*.5,Math.max(W,H)*.7,gold,burst*.10);if(u<.3){const rr=70+u*2400;const wave=[];for(let i=0;i<=100;i++){const a=i/100*Math.PI*2;wave.push([W/2+rr*Math.cos(a),H*.5+rr*.45*Math.sin(a)]);}line(wave,gold,2,burst*.8);}
- // Travelling curved golden energy filaments, never a pre-rendered background.
- for(let j=0;j<3;j++){const pts=[];for(let i=0;i<=120;i++){const v=i/120*Math.PI*3+t*.24+j*2;pts.push([W/2+Math.cos(v)*(W*.43+i*.5),H*.49+Math.sin(v)*H*.30+Math.sin(v*2+t*.2)*55]);}line(pts,gold,1,.10);const v=t*.7+j*2;dot(W/2+Math.cos(v)*W*.43,H*.49+Math.sin(v)*H*.30,3,gold,.7);}
- }
+ function background(q){g=contexts[0];atmosphericContext.setTransform(atmospheric.width/W,0,0,atmospheric.height/H,0,0);backdrop.render(atmosphericContext,q);g.drawImage(atmospheric,0,0,W,H);}
  function geometry(q){g=contexts[1];const {scene,u,t}=q;if(scene===0||scene===3||scene===4||scene===5)return;const cx=portrait?W/2:1300,cy=portrait?(scene===6?1180:1080):610,r=portrait?295:280;
  // Mathematical plane stays orthographic so x/y and the angle are exact.
  const P=(x,y)=>[cx+x*r/2,cy-y*r/2];const arcGlow=.65+.2*Math.sin(t*1.1);const reveal=scene===1?ease(u*1.8):1;

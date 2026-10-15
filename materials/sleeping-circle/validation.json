@@ -1,11 +1,24 @@
 {
   "title": "数学Ⅲ｜積分の中に眠る円",
+  "version": "1.1.0",
   "validatedDateJST": "2026-10-15",
-  "baselineCommit": "f18cf5ffd369225c10820a01a44a38397badc83a",
+  "previousVersionCommit": "8c021176a8f88a92b70a07cd58a79f8a4c8b8090",
+  "reference": "今回ユーザーが提示した星雲・金色光流・数式回廊・発光する極座標グリッドの画像",
+  "background": [
+    "ノイズから生成した雲の層を時刻に応じて変形",
+    "粒子と数式が螺旋曲線に沿って移動",
+    "数式の壁と床を3D座標から透視投影",
+    "回転する極座標グリッドの走査光"
+  ],
+  "foregroundMathAndGeometryUnchanged": true,
   "originalFilesPreserved": 62,
-  "layoutMotionSeekChecks": "passed (84 sampled layout times; all seven scenes in three editions)",
-  "mathematics": "passed",
-  "originalMaterialTests": "6 passed",
+  "layoutMotionSeekChecks": "84 foreground layout samples passed; browser motion and deterministic seek passed",
+  "backgroundBrowser": {
+    "passed": true,
+    "motion": true,
+    "seek": true
+  },
+  "mathematics": "passed; decorative indefinite-integral formulas include + C",
   "libraryBuild": "passed",
   "browser": {
     "passed": true,
@@ -39,26 +52,40 @@
       },
       {
         "download": "sleeping-circle-90s.mp4",
-        "bytes": 41781290,
-        "sha256": "a29e29383c58c0125b754f0e02115b2f333d6b89bbb2b351c73a287674b2330f"
+        "bytes": 70864329,
+        "sha256": "6a41c8d6acc9a9ca813e365783ae3033301e5eaf60bf7dbaebe0fe2171e216c5"
       },
       {
         "download": "sleeping-circle-30s.mp4",
-        "bytes": 17127753,
-        "sha256": "ed3f4f15bf27b8e3f25ecb0bd9cbcf25c08bea33142ce5f101e5e3b3394d7283"
+        "bytes": 24256916,
+        "sha256": "a1121c66f1a27c337a13c35cccccf8742811f0871d0fad1411eac6eda028855b"
       },
       {
         "download": "sleeping-circle-30s-vertical.mp4",
-        "bytes": 15833670,
-        "sha256": "080ac18ec450d0d1d992ef2a200a393a8c05cdfeef6607708d9f241fdadb0845"
+        "bytes": 20796214,
+        "sha256": "edcbc8df567d3e101e0d5b18c4c99453f6334cc4378569c5395b82f78ca00549"
       }
     ]
+  },
+  "audioUnchanged": {
+    "30s": {
+      "decodedAudioSame": true,
+      "hash": "SHA256=13d0e4049a565354524b876478dc55c4a769bbde4e54201b7e610c832daa4631"
+    },
+    "30s-vertical": {
+      "decodedAudioSame": true,
+      "hash": "SHA256=13d0e4049a565354524b876478dc55c4a769bbde4e54201b7e610c832daa4631"
+    },
+    "90s": {
+      "decodedAudioSame": true,
+      "hash": "SHA256=9e8dfaee43c39975fe6106866481410c636c8aa2d68d6538e9294723ed4fd432"
+    }
   },
   "media": [
     {
       "file": "sleeping-circle-90s.mp4",
-      "bytes": 41781290,
-      "sha256": "a29e29383c58c0125b754f0e02115b2f333d6b89bbb2b351c73a287674b2330f",
+      "bytes": 70864329,
+      "sha256": "6a41c8d6acc9a9ca813e365783ae3033301e5eaf60bf7dbaebe0fe2171e216c5",
       "duration": "90.000000",
       "width": 1920,
       "height": 1080,
@@ -72,8 +99,8 @@
     },
     {
       "file": "sleeping-circle-30s.mp4",
-      "bytes": 17127753,
-      "sha256": "ed3f4f15bf27b8e3f25ecb0bd9cbcf25c08bea33142ce5f101e5e3b3394d7283",
+      "bytes": 24256916,
+      "sha256": "a1121c66f1a27c337a13c35cccccf8742811f0871d0fad1411eac6eda028855b",
       "duration": "30.000000",
       "width": 1920,
       "height": 1080,
@@ -87,8 +114,8 @@
     },
     {
       "file": "sleeping-circle-30s-vertical.mp4",
-      "bytes": 15833670,
-      "sha256": "080ac18ec450d0d1d992ef2a200a393a8c05cdfeef6607708d9f241fdadb0845",
+      "bytes": 20796214,
+      "sha256": "edcbc8df567d3e101e0d5b18c4c99453f6334cc4378569c5395b82f78ca00549",
       "duration": "30.000000",
       "width": 1080,
       "height": 1920,
@@ -100,6 +127,5 @@
       "sampleRate": "48000",
       "fullDecode": "passed"
     }
-  ],
-  "limitation": "過去の四分円・宇宙的軌道の背景画像原本は作業環境で未確認。指定要素を動的に再構成し、原画像との一致検証は未実施。"
+  ]
 }
