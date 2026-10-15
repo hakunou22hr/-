@@ -11,7 +11,7 @@ permissions:
   contents: write
 concurrency:
   group: integral-differentiation-cinema
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   prepare:
     runs-on: ubuntu-latest
@@ -22,7 +22,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           if ! gh release view integral-differentiation-cinema-v2 >/dev/null 2>&1; then
-            gh release create integral-differentiation-cinema-v2 --draft --target "$GITHUB_SHA" --title '定積分と微分法 — 数式大聖堂・曲面ウォール — PC90秒・Instagram30秒' --notes-file materials/integral-differentiation-cinema/README.md
+            gh release create integral-differentiation-cinema-v2 --draft --target "$GITHUB_SHA" --title '定積分と微分法 — 数式大聖堂・曲面ウォール' --notes-file materials/integral-differentiation-cinema/README.md
           fi
   render:
     needs: prepare
@@ -31,12 +31,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        edition: [lesson, instagram]
+        include:
+          - {edition: instagram, part: instagram, start: 0, frames: 900}
+          - {edition: lesson, part: part-0, start: 0, frames: 675}
+          - {edition: lesson, part: part-1, start: 675, frames: 675}
+          - {edition: lesson, part: part-2, start: 1350, frames: 675}
+          - {edition: lesson, part: part-3, start: 2025, frames: 675}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with:
-          node-version: 22
+        with: {node-version: 22}
       - run: npm ci
       - run: npm test --prefix materials/integral-differentiation-cinema
       - run: npm run build --prefix materials/integral-differentiation-cinema
@@ -49,7 +53,10 @@ jobs:
       - name: Render and check every frame
         env:
           CINEMA_EDITION: ${{ matrix.edition }}
-          CINEMA_OUTPUT: work/integral-${{ matrix.edition }}
+          CINEMA_PART: ${{ matrix.part }}
+          CINEMA_START_FRAME: ${{ matrix.start }}
+          CINEMA_RENDER_FRAMES: ${{ matrix.frames }}
+          CINEMA_OUTPUT: work/integral-v2-${{ matrix.part }}
           PLAYWRIGHT_MODULE_PATH: /tmp/cinema-tools/node_modules/playwright
         run: |
           npm run preview --prefix materials/integral-differentiation-cinema -- --host 127.0.0.1 --port 4175 >/tmp/integral-preview.log 2>&1 &
@@ -58,27 +65,52 @@ jobs:
             sleep 1
           done
           node materials/integral-differentiation-cinema/render/render.mjs
-          cd "work/integral-$CINEMA_EDITION"
-          sha256sum *.mp4 > SHA256SUMS-${CINEMA_EDITION}.txt
+          if [ "$CINEMA_EDITION" = lesson ]; then
+            mv "$CINEMA_OUTPUT/integral-differentiation-cinema-90s.mp4" "$CINEMA_OUTPUT/$CINEMA_PART.mp4"
+          else
+            cd "$CINEMA_OUTPUT"
+            sha256sum *.mp4 > SHA256SUMS-instagram.txt
+          fi
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: integral-cinema-${{ matrix.edition }}
+          name: ${{ matrix.part }}
           path: |
-            work/integral-${{ matrix.edition }}/*.mp4
-            work/integral-${{ matrix.edition }}/ffprobe.json
-            work/integral-${{ matrix.edition }}/layout-validation.json
-            work/integral-${{ matrix.edition }}/*.txt
-            work/integral-${{ matrix.edition }}/sample-*.jpg
-            work/integral-${{ matrix.edition }}/layout-error.png
-      - name: Save validated video to draft Release
+            work/integral-v2-${{ matrix.part }}/*.mp4
+            work/integral-v2-${{ matrix.part }}/soundtrack.wav
+            work/integral-v2-${{ matrix.part }}/ffprobe.json
+            work/integral-v2-${{ matrix.part }}/layout-validation.json
+            work/integral-v2-${{ matrix.part }}/*.txt
+            work/integral-v2-${{ matrix.part }}/sample-*.jpg
+            work/integral-v2-${{ matrix.part }}/layout-error.png
+      - name: Save Instagram MP4 to draft Release
+        if: matrix.edition == 'instagram'
         env:
           GH_TOKEN: ${{ github.token }}
-          CINEMA_EDITION: ${{ matrix.edition }}
-        run: |
-          gh release upload integral-differentiation-cinema-v2 work/integral-$CINEMA_EDITION/*.mp4 work/integral-$CINEMA_EDITION/*.txt --clobber
-  publish:
+        run: gh release upload integral-differentiation-cinema-v2 work/integral-v2-instagram/*.mp4 work/integral-v2-instagram/*.txt --clobber
+  assemble:
     needs: render
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: part-*
+          path: work/integral-v2-parts
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - run: node materials/integral-differentiation-cinema/render/assemble.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: integral-v2-lesson-final
+          path: work/integral-v2-lesson/
+      - name: Save complete lesson to draft Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload integral-differentiation-cinema-v2 work/integral-v2-lesson/*.mp4 work/integral-v2-lesson/SHA256SUMS-lesson.txt --clobber
+  publish:
+    needs: assemble
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
