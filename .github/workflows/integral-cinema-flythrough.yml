@@ -1,0 +1,58 @@
+name: Instagram perspective flythrough review
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'preview-src/integral-cinema-v3/src/**'
+      - '.github/workflows/integral-cinema-flythrough.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: integral-instagram-flythrough
+  cancel-in-progress: true
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - run: npm ci
+      - run: npm test --prefix preview-src/integral-cinema-v3
+      - run: npm run build --prefix preview-src/integral-cinema-v3
+      - name: Install rendering tools
+        run: |
+          npm install --prefix /tmp/cinema-tools playwright@1.62.1
+          node /tmp/cinema-tools/node_modules/playwright/cli.js install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg fonts-noto-cjk
+      - name: Render and validate 30 seconds
+        env:
+          CINEMA_EDITION: instagram
+          CINEMA_OUTPUT: work/integral-flythrough-v5
+          PLAYWRIGHT_MODULE_PATH: /tmp/cinema-tools/node_modules/playwright
+        run: |
+          npm run preview --prefix preview-src/integral-cinema-v3 -- --host 127.0.0.1 --port 4175 >/tmp/flythrough-preview.log 2>&1 &
+          for attempt in $(seq 1 30); do
+            if curl --silent --fail http://127.0.0.1:4175/ >/dev/null; then break; fi
+            sleep 1
+          done
+          node preview-src/integral-cinema-v3/render/render.mjs
+          cd work/integral-flythrough-v5
+          sha256sum *.mp4 > SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: integral-flythrough-v5
+          path: work/integral-flythrough-v5/
+      - name: Publish checked MP4 for review
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! gh release view integral-differentiation-instagram-flythrough-v5 >/dev/null 2>&1; then
+            gh release create integral-differentiation-instagram-flythrough-v5 --draft --target "$GITHUB_SHA" --prerelease --title '定積分と微分法：奥へ進むカメラ・30秒確認版' --notes '壁・床・数式を奥行きに配置し、カメラが前進する30秒確認用動画。保管済み90秒版は変更しません。'
+          fi
+          gh release upload integral-differentiation-instagram-flythrough-v5 work/integral-flythrough-v5/*.mp4 work/integral-flythrough-v5/SHA256SUMS.txt --clobber
+          gh release edit integral-differentiation-instagram-flythrough-v5 --draft=false --target "$GITHUB_SHA"

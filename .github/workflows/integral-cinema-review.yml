@@ -1,11 +1,5 @@
 name: Temporary review videos for integral differentiation
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'preview-src/integral-cinema-v3/src/**'
-      - 'preview-src/integral-cinema-v3/render/**'
-      - '.github/workflows/integral-cinema-review.yml'
   workflow_dispatch:
 permissions:
   contents: write

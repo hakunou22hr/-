@@ -1,3 +1,4 @@
+import {drawFlythrough} from './Flythrough.js';
 import landscapeURL from '../assets/reference-atlas.jpg';
 import portraitURL from '../assets/reference-atlas-portrait.jpg';
 
@@ -12,6 +13,7 @@ export function createImageSpace(canvas,portrait) {
  const clamp=v=>Math.max(0,Math.min(1,v)),ease=v=>{v=clamp(v);return v*v*(3-2*v);};
  function resize(width,height){w=width;h=height;canvas.width=w;canvas.height=h;}
  function tile(index,t,p,alpha){
+  if(portrait){drawFlythrough(ctx,image,index,t,w,h,alpha);return;}
   const sw=Math.floor(image.naturalWidth/2),sh=Math.floor(image.naturalHeight/2);
   const sx=index%2*sw+2,sy=Math.floor(index/2)*sh+2,sourceW=sw-4,sourceH=sh-4;
   const scale=Math.max(w/sourceW,h/sourceH)*(1.025+.05*ease(p));
@@ -35,8 +37,9 @@ export function createImageSpace(canvas,portrait) {
   ctx.globalAlpha=1;ctx.fillStyle='#030713';ctx.fillRect(0,0,w,h);
   if(!image.complete||!image.naturalWidth)return;
   const i=Math.max(0,ids.indexOf(id)),panel=panels[i],previous=panels[Math.max(0,i-1)],transition=ease(p/.08);
-  if(previous!==panel&&transition<1){tile(previous,t,1,1);tile(panel,t,p,transition);}else tile(panel,t,p,1);
+  if(previous!==panel&&transition<1){tile(previous,t,p,1);tile(panel,t,p,transition);}else tile(panel,t,p,1);
   ctx.globalAlpha=1;
+  if(portrait){window.mathematicalSpaceRendered=true;return;}
   // Depth-projected flow, coherent waves and moving equation planes.
   ctx.save();ctx.globalCompositeOperation='screen';
   const gold=panel===1||panel===2, color=gold?'255,208,120':'100,235,255';
