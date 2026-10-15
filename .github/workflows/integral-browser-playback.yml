@@ -1,0 +1,38 @@
+name: Prepare integral lesson browser MP4
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/integral-browser-playback.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Download preserved original and verify
+        run: |
+          mkdir -p work/browser-playback
+          curl --fail --location --retry 3 'https://github.com/hakunou22hr/-/releases/download/integral-differentiation-cinema-review-v4/integral-differentiation-cinema-90s.mp4' -o work/browser-playback/original.mp4
+          echo '9c45a5432a67c49dd90ddac91ad218c32f98789b5b993817317999abb55d96f9  work/browser-playback/original.mp4' | sha256sum -c -
+      - name: Encode a continuous browser-compatible stream
+        run: |
+          ffmpeg -v warning -y -i work/browser-playback/original.mp4 -map 0:v:0 -map 0:a:0 -c:v libx264 -preset fast -profile:v main -level:v 4.0 -pix_fmt yuv420p -crf 25 -maxrate 2500k -bufsize 5000k -r 30 -g 60 -keyint_min 60 -sc_threshold 0 -c:a aac -b:a 128k -ar 48000 -ac 2 -movflags +faststart work/browser-playback/integral-differentiation-cinema-90s-web-v1.mp4
+          ffprobe -v error -show_format -show_streams -of json work/browser-playback/integral-differentiation-cinema-90s-web-v1.mp4 > work/browser-playback/probe.json
+          ffmpeg -v error -i work/browser-playback/integral-differentiation-cinema-90s-web-v1.mp4 -f null -
+          cd work/browser-playback
+          sha256sum integral-differentiation-cinema-90s-web-v1.mp4 > SHA256SUMS-web-v1.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: integral-browser-playback
+          path: |
+            work/browser-playback/*web-v1.mp4
+            work/browser-playback/probe.json
+            work/browser-playback/SHA256SUMS-web-v1.txt
+      - name: Add playback copy without changing the original
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload integral-differentiation-cinema-review-v4 work/browser-playback/*web-v1.mp4 work/browser-playback/SHA256SUMS-web-v1.txt
