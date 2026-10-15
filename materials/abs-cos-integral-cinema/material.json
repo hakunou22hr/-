@@ -1,0 +1,11 @@
+{
+  "id": "abs-cos-integral-cinema",
+  "name": "絶対値の定積分 映画型90秒版",
+  "subject": "数学Ⅲ",
+  "unit": "積分法／絶対値を含む定積分",
+  "description": "∫₀^π |cos x| dx＝2。星の海・鏡の世界・波と面積の海・金色の舞台を巡り、符号による区間分けと面積の和を体験する90秒映像。分数表記・音楽・字幕付き。MP4保存対応。",
+  "thumbnail": "thumbnail.svg",
+  "durationSeconds": 90,
+  "language": "ja",
+  "version": "1.0.0"
+}
