@@ -28,7 +28,7 @@
 
 ## 再生成（有料API不要）
 
-Node.js、FFmpeg、Python+NumPy、Noto CJK・DejaVuフォントが必要。Linuxフォントパスは `render/render.mjs` / `render/check.mjs` に記載。`@napi-rs/canvas` が解決できる環境で次を実行する（必要なら `npm install --prefix materials/sleeping-circle/render`）。
+Node.js、FFmpeg、Python+NumPy、Noto CJKフォントが必要。Linuxフォントパスは `render/render.mjs` / `render/check.mjs` に記載。`@napi-rs/canvas` が解決できる環境で次を実行する（必要なら `npm install --prefix materials/sleeping-circle/render`）。
 
 ```sh
 mkdir -p work/sleeping-circle
@@ -45,7 +45,7 @@ MP4は全フレームを実時間に依存せず描画し、音声を同時に�
 
 ## 検証
 
-`render/check.mjs` は全場面・各レイアウトの数式境界、背景の時刻間差分、シーク前後の画像一致、座標と三角置換、符号条件、積分値πを検査。`render/render.mjs` は正確なフレーム数、サイズ、尺、音声・映像形式を確認し、全ファイルを再デコードする。フォントはシステムのNoto CJK（SIL OFL）/ DejaVu（Bitstream系ライセンス）を使用。音楽・効果音はこの作品用に数式合成した。
+`render/check.mjs` は全場面・各レイアウトの数式境界、背景の時刻間差分、シーク前後の画像一致、座標と三角置換、符号条件、積分値πを検査。`render/render.mjs` は正確なフレーム数、サイズ、尺、音声・映像形式を確認し、全ファイルを再デコードする。日本語はシステムのNoto CJK（SIL OFL）、数式は既存教材と同じKaTeXの組版を使用。音楽・効果音はこの作品用に数式合成した。
 
 ## 背景改訂 1.1（2026-10-15）
 
@@ -58,3 +58,18 @@ MP4は全フレームを実時間に依存せず描画し、音声を同時に�
 - 前景数式はフルHDの独立レイヤーで描画し、背後の柔らかい遮光で可読性を確保。星雲などの柔らかい大気層は1280×720で描画してフルHDへ合成する。
 
 画像を背景として固定表示する構成ではない。数式・図形・BGM・効果音・編集尺は保持し、90秒・30秒・縦型30秒を同じ新しい背景コードから再出力する。初版はGitのコミット `8c021176a8f88a92b70a07cd58a79f8a4c8b8090` に保存される。プレーヤーとダウンロードURLには改訂識別子を付けて旧映像のキャッシュを避ける。
+
+
+## 数式・照明改訂 1.2（2026-10-16）
+
+既存の `trig-integral-cinema/src/components/Formula.tsx` と同じKaTeXを使って数式を組版。`math-source.js` のTeXを `render/generate-math.mjs` で透過PNGへ生成する。根号は `\sqrt{4-x^2}` のように被開平式全体を包み、指数・分数・積分区間・評価式の上下端もTeXで組み立てる。πは小文字の数学記号を使う。`math.js` は同じ透過素材をブラウザとMP4へ描画し、背景の数式と粒子の形状にも再利用する。静的なのは個々の文字の素材であり、数式・壁面・光流の位置と形状は時刻から動的に計算する。
+
+素材を再生成する場合は、Playwrightと `/usr/bin/chromium` が使える環境で、開発サーバーをポート4173に起動して次を実行する。KaTeXはルートの依存関係を使用。通常の再生・動画出力ではKaTeXの実行やネット接続は不要。
+
+```sh
+node materials/sleeping-circle/render/generate-math.mjs
+```
+
+`loadMath()` 完了後に `createFilm()` を呼ぶ。動的な数値ラベルにもKaTeX Mainを読み込む。ライセンスは `math/LICENSE-KaTeX.txt` に同梱。
+
+背景は星雲・基調色を明るくし、中央の遮光と周辺の減光を調整。壁・天井・床の境界に光が奥行き方向へ走り、発光する四角いゲートが手前へ通過する。左右の壁には枝分かれする青白い稲妻と、周囲を照らす減衰光を加えた。式の変形に合わせた金色の光も重ねる。すべて絶対時刻から再現し、既存のBGM・効果音、数学的な座標対応、90秒・30秒の編集尺を保持する。旧教材62ファイルはハッシュ照合で保護する。

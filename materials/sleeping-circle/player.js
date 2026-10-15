@@ -1,4 +1,7 @@
+import {loadMath} from './math.js';
+await loadMath(url=>new Promise((resolve,reject)=>{const image=new Image();image.onload=()=>resolve(image);image.onerror=reject;image.src=url;}));
 import {createFilm,state,titles} from './film.js';
+await document.fonts.load('24px "KaTeX Main"');
 const $=s=>document.querySelector(s),video=$('#video');let duration=90,film,raf,lastDraw=-1;
 const make=(w,h)=>{const c=document.createElement('canvas');c.width=w;c.height=h;return c};
 const fmt=t=>`${String(Math.floor(t/60)).padStart(2,'0')}:${String(Math.floor(t%60)).padStart(2,'0')}`;
@@ -6,7 +9,7 @@ function setup(){const p=$('#portrait').checked;film=createFilm(make,p?720:1280,
 function draw(){const t=video.currentTime;if($('#procedural').checked&&t!==lastDraw){film.render(t,duration);lastDraw=t;}$('#time').value=`${fmt(t)} / ${fmt(duration)}`;$('#seek').value=t;const q=state(t,duration);$('#chapter').textContent=`0${q.scene+1} / ${titles[q.scene]}`;}
 function loop(){if($('#procedural').checked)draw();raf=requestAnimationFrame(loop)}
 async function play(){try{if(video.paused){if(video.currentTime>=duration-.05)video.currentTime=0;await video.play()}else video.pause()}catch(e){$('#status').textContent='動画を読み込めませんでした。ページを再読み込みしてください。'}}
-function edition(d){duration=d;video.pause();$('#portrait').disabled=d!==30;if(d===90)$('#portrait').checked=false;const p=$('#portrait').checked;video.src=`../../media/sleeping-circle/sleeping-circle-${d}s${p?'-vertical':''}.mp4?v=bg2`;video.load();$('#seek').max=d;$('#stage').classList.toggle('portrait',p);document.querySelectorAll('[data-edition]').forEach(b=>{const on=+b.dataset.edition===d;b.classList.toggle('selected',on);b.setAttribute('aria-pressed',on)});setup();}
+function edition(d){duration=d;video.pause();$('#portrait').disabled=d!==30;if(d===90)$('#portrait').checked=false;const p=$('#portrait').checked;video.src=`../../media/sleeping-circle/sleeping-circle-${d}s${p?'-vertical':''}.mp4?v=math3`;video.load();$('#seek').max=d;$('#stage').classList.toggle('portrait',p);document.querySelectorAll('[data-edition]').forEach(b=>{const on=+b.dataset.edition===d;b.classList.toggle('selected',on);b.setAttribute('aria-pressed',on)});setup();}
 $('#play').onclick=play;$('#bigplay').onclick=play;video.onclick=play;$('#live').onclick=play;
 video.onplay=()=>{$('#play').textContent='Ⅱ 一時停止';$('#play').setAttribute('aria-label','一時停止');$('#bigplay').hidden=true};
 video.onpause=()=>{$('#play').textContent='▶ 再生';$('#play').setAttribute('aria-label','再生')};

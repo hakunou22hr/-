@@ -1,3 +1,4 @@
+import {loadMath} from '../math.js';
 import {createRequire} from 'node:module';
 import {spawn} from 'node:child_process';
 import {once} from 'node:events';
@@ -6,6 +7,8 @@ import {createFilm} from '../film.js';
 async function run(cmd,args){const p=spawn(cmd,args,{stdio:['ignore','pipe','inherit']});let data='';p.stdout.on('data',v=>data+=v);const [code]=await once(p,'close');if(code)throw Error(cmd+' '+code);return data;}
 const require=createRequire(import.meta.url);const {createCanvas,GlobalFonts}=require('@napi-rs/canvas');
 GlobalFonts.registerFromPath('/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc','Noto Sans CJK JP');
+GlobalFonts.registerFromPath(new URL('../math/KaTeX_Main-Regular.woff2',import.meta.url).pathname,'KaTeX Main');
+await loadMath(url=>require('@napi-rs/canvas').loadImage(new URL(url).pathname));
 const duration=Number(process.argv[2]||90),portrait=process.argv[3]==='portrait';
 const start=Number(process.argv[4]||0),end=Number(process.argv[5]||duration);const frames=(end-start)*30;
 const w=portrait?1080:1920,h=portrait?1920:1080,tag=`${duration}s${portrait?'-vertical':''}`;

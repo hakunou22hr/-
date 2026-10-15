@@ -1,25 +1,98 @@
 {
   "title": "数学Ⅲ｜積分の中に眠る円",
-  "version": "1.1.0",
-  "validatedDateJST": "2026-10-15",
-  "previousVersionCommit": "8c021176a8f88a92b70a07cd58a79f8a4c8b8090",
-  "reference": "今回ユーザーが提示した星雲・金色光流・数式回廊・発光する極座標グリッドの画像",
+  "version": "1.2.0",
+  "validatedDateJST": "2026-10-16",
+  "previousVersionCommit": "2a6a4f70ed3df6df4314c067a56a4a2bd5c2a245",
+  "reference": "ユーザー提示の奥行きある数式回廊と、既存教材のKaTeX数式書体",
+  "typography": {
+    "renderer": "KaTeX, same as trig-integral-cinema",
+    "radicals": "Complete TeX radicands, including x^2, with vinculum",
+    "fractionsAndLimits": true,
+    "sharedBrowserExportAssets": true
+  },
   "background": [
-    "ノイズから生成した雲の層を時刻に応じて変形",
-    "粒子と数式が螺旋曲線に沿って移動",
-    "数式の壁と床を3D座標から透視投影",
-    "回転する極座標グリッドの走査光"
+    "星雲・空間の明るさ向上と減光の調整",
+    "壁・床・天井の境界を走る発光",
+    "奥から手前へ移動する発光ゲート",
+    "分岐する稲妻と壁面を照らす減衰光",
+    "既存の光流・透視投影・極座標リングを保持"
   ],
-  "foregroundMathAndGeometryUnchanged": true,
+  "mathematicalCoordinatesUnchanged": true,
   "originalFilesPreserved": 62,
-  "layoutMotionSeekChecks": "84 foreground layout samples passed; browser motion and deterministic seek passed",
+  "layoutMotionSeekChecks": "84 samples, all 3 layouts; background motion and deterministic seek passed; final TeX evaluation limits checked",
   "backgroundBrowser": {
     "passed": true,
     "motion": true,
     "seek": true
   },
-  "mathematics": "passed; decorative indefinite-integral formulas include + C",
+  "productionBrowser": {
+    "passed": true,
+    "motion": true,
+    "seek": true
+  },
+  "mathematics": "substitution, positive-y-axis theta, nonnegative radical, integral pi passed; decorative indefinite integrals retain + C",
   "libraryBuild": "passed",
+  "audioUnchanged": {
+    "90s": {
+      "decodedAudioSame": true,
+      "hash": "SHA256=9e8dfaee43c39975fe6106866481410c636c8aa2d68d6538e9294723ed4fd432"
+    },
+    "30s": {
+      "decodedAudioSame": true,
+      "hash": "SHA256=13d0e4049a565354524b876478dc55c4a769bbde4e54201b7e610c832daa4631"
+    },
+    "30s-vertical": {
+      "decodedAudioSame": true,
+      "hash": "SHA256=13d0e4049a565354524b876478dc55c4a769bbde4e54201b7e610c832daa4631"
+    }
+  },
+  "media": [
+    {
+      "file": "sleeping-circle-90s.mp4",
+      "bytes": 99724901,
+      "sha256": "53b4ce6e741aba812daa37f777aaa25456455ad0608f7b6d867249b28d2ad97c",
+      "duration": "90.000000",
+      "width": 1920,
+      "height": 1080,
+      "frames": "2700",
+      "fps": "30/1",
+      "video": "h264",
+      "pixelFormat": "yuv420p",
+      "audio": "aac",
+      "sampleRate": "48000",
+      "fullDecode": "passed"
+    },
+    {
+      "file": "sleeping-circle-30s.mp4",
+      "bytes": 33332668,
+      "sha256": "8728b0ec5a722f179cb81a07f23c3434a40d5ca5bb222103a197e6fa067f77cf",
+      "duration": "30.000000",
+      "width": 1920,
+      "height": 1080,
+      "frames": "900",
+      "fps": "30/1",
+      "video": "h264",
+      "pixelFormat": "yuv420p",
+      "audio": "aac",
+      "sampleRate": "48000",
+      "fullDecode": "passed"
+    },
+    {
+      "file": "sleeping-circle-30s-vertical.mp4",
+      "bytes": 25737951,
+      "sha256": "2630efb082114b383a921377a8c36d7972734bce06fb7460cd6e10f081a83ebe",
+      "duration": "30.000000",
+      "width": 1080,
+      "height": 1920,
+      "frames": "900",
+      "fps": "30/1",
+      "video": "h264",
+      "pixelFormat": "yuv420p",
+      "audio": "aac",
+      "sampleRate": "48000",
+      "fullDecode": "passed"
+    }
+  ],
   "browser": {
     "passed": true,
     "result": [
@@ -52,80 +125,65 @@
       },
       {
         "download": "sleeping-circle-90s.mp4",
-        "bytes": 70864329,
-        "sha256": "6a41c8d6acc9a9ca813e365783ae3033301e5eaf60bf7dbaebe0fe2171e216c5"
+        "bytes": 99724901,
+        "sha256": "53b4ce6e741aba812daa37f777aaa25456455ad0608f7b6d867249b28d2ad97c"
       },
       {
         "download": "sleeping-circle-30s.mp4",
-        "bytes": 24256916,
-        "sha256": "a1121c66f1a27c337a13c35cccccf8742811f0871d0fad1411eac6eda028855b"
+        "bytes": 33332668,
+        "sha256": "8728b0ec5a722f179cb81a07f23c3434a40d5ca5bb222103a197e6fa067f77cf"
       },
       {
         "download": "sleeping-circle-30s-vertical.mp4",
-        "bytes": 20796214,
-        "sha256": "edcbc8df567d3e101e0d5b18c4c99453f6334cc4378569c5395b82f78ca00549"
+        "bytes": 25737951,
+        "sha256": "2630efb082114b383a921377a8c36d7972734bce06fb7460cd6e10f081a83ebe"
       }
     ]
   },
-  "audioUnchanged": {
-    "30s": {
-      "decodedAudioSame": true,
-      "hash": "SHA256=13d0e4049a565354524b876478dc55c4a769bbde4e54201b7e610c832daa4631"
-    },
-    "30s-vertical": {
-      "decodedAudioSame": true,
-      "hash": "SHA256=13d0e4049a565354524b876478dc55c4a769bbde4e54201b7e610c832daa4631"
-    },
-    "90s": {
-      "decodedAudioSame": true,
-      "hash": "SHA256=9e8dfaee43c39975fe6106866481410c636c8aa2d68d6538e9294723ed4fd432"
-    }
-  },
-  "media": [
+  "brightnessComparison": [
     {
-      "file": "sleeping-circle-90s.mp4",
-      "bytes": 70864329,
-      "sha256": "6a41c8d6acc9a9ca813e365783ae3033301e5eaf60bf7dbaebe0fe2171e216c5",
-      "duration": "90.000000",
-      "width": 1920,
-      "height": 1080,
-      "frames": "2700",
-      "fps": "30/1",
-      "video": "h264",
-      "pixelFormat": "yuv420p",
-      "audio": "aac",
-      "sampleRate": "48000",
-      "fullDecode": "passed"
+      "seconds": 5,
+      "previous": {
+        "mean": 40.27,
+        "median": 35.55
+      },
+      "revised": {
+        "mean": 61.07,
+        "median": 58.3
+      }
     },
     {
-      "file": "sleeping-circle-30s.mp4",
-      "bytes": 24256916,
-      "sha256": "a1121c66f1a27c337a13c35cccccf8742811f0871d0fad1411eac6eda028855b",
-      "duration": "30.000000",
-      "width": 1920,
-      "height": 1080,
-      "frames": "900",
-      "fps": "30/1",
-      "video": "h264",
-      "pixelFormat": "yuv420p",
-      "audio": "aac",
-      "sampleRate": "48000",
-      "fullDecode": "passed"
+      "seconds": 16,
+      "previous": {
+        "mean": 46.42,
+        "median": 39.85
+      },
+      "revised": {
+        "mean": 67.44,
+        "median": 63.42
+      }
     },
     {
-      "file": "sleeping-circle-30s-vertical.mp4",
-      "bytes": 20796214,
-      "sha256": "edcbc8df567d3e101e0d5b18c4c99453f6334cc4378569c5395b82f78ca00549",
-      "duration": "30.000000",
-      "width": 1080,
-      "height": 1920,
-      "frames": "900",
-      "fps": "30/1",
-      "video": "h264",
-      "pixelFormat": "yuv420p",
-      "audio": "aac",
-      "sampleRate": "48000",
-      "fullDecode": "passed"
+      "seconds": 76,
+      "previous": {
+        "mean": 27.83,
+        "median": 23.19
+      },
+      "revised": {
+        "mean": 42.89,
+        "median": 36.35
+      }
+    },
+    {
+      "seconds": 86,
+      "previous": {
+        "mean": 46.26,
+        "median": 34.39
+      },
+      "revised": {
+        "mean": 62.43,
+        "median": 54.58
+      }
     }
   ]
 }
