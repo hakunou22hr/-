@@ -25,5 +25,18 @@
     "fullDecode": "passed",
     "browserPlaybackAudioSeekDownload": "passed",
     "allFrameLayout": "passed"
+  },
+  "browserPlayback": {
+    "url": "../../media/integral-differentiation-cinema-90s-web-v1.mp4",
+    "storage": "https://github.com/hakunou22hr/-/releases/download/integral-differentiation-cinema-review-v4/integral-differentiation-cinema-90s-web-v1.mp4",
+    "sha256": "d786ed5efd37cada9f9acdbd7e720e42c5506296d266c43ee146a273bc3e7949",
+    "bytes": 29844572,
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "durationSeconds": 90,
+    "videoCodec": "H.264 Main, level 4.0",
+    "audioCodec": "AAC",
+    "note": "Same frames re-encoded as one continuous stream; original preservation video unchanged."
   }
 }

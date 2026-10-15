@@ -1,8 +1,21 @@
 <!doctype html>
 <html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>定積分と微分法｜90秒映画型教材</title><style>
 :root{color-scheme:dark;font-family:system-ui,"Yu Gothic",sans-serif;background:#06101b;color:#edf8ff}*{box-sizing:border-box}body{margin:0}main{max-width:1120px;margin:auto;padding:30px 20px 50px}a{color:#9cf6e6}h1{font-size:clamp(24px,4vw,36px);line-height:1.5}p{line-height:1.8;color:#bacfdf}.label{color:#eac78b;font-size:13px;letter-spacing:.12em}video{display:block;width:100%;aspect-ratio:16/9;background:#000;border:1px solid #294354;border-radius:12px}.actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:20px}button,.download{display:block;flex:1;min-width:220px;padding:16px;border-radius:9px;border:1px solid #76dfd1;background:#174a40;color:#eefffc;font:inherit;text-align:center;text-decoration:none;cursor:pointer}.download{background:transparent;color:#9cf6e6}:focus-visible{outline:3px solid #eac78b;outline-offset:4px}#status{min-height:28px}.details{border-top:1px solid #294354;margin-top:24px;padding-top:16px;font-size:14px}@media(max-width:500px){main{padding:22px 14px}.actions{gap:10px}button,.download{min-width:100%}}
-</style></head><body><main><a href="../../">← 教材ライブラリへ</a><p class="label">数学Ⅲ · 積分法 · 90秒</p><h1>定積分と微分法<br>映画型教材</h1><p>面積を微分すると、何が現れる？ 光の波と動く数式空間で、定積分と微分法を学びます。</p>
-<video id="lesson-video" controls playsinline preload="metadata" aria-label="定積分と微分法 90秒動画"><source src="https://github.com/hakunou22hr/-/releases/download/integral-differentiation-cinema-review-v4/integral-differentiation-cinema-90s.mp4" type="video/mp4">動画を再生できない場合は、下のボタンからMP4をダウンロードしてください。</video>
-<div class="actions"><button id="play" type="button">▶ 90秒動画を再生</button><a class="download" href="https://github.com/hakunou22hr/-/releases/download/integral-differentiation-cinema-review-v4/integral-differentiation-cinema-90s.mp4" download="integral-differentiation-cinema-90s.mp4">MP4をダウンロード</a></div><p id="status" role="status" aria-live="polite"></p>
+[hidden]{display:none!important}.retry{flex-basis:100%;background:#574322;border-color:#eac78b}</style></head><body><main><a href="../../">← 教材ライブラリへ</a><p class="label">数学Ⅲ · 積分法 · 90秒</p><h1>定積分と微分法<br>映画型教材</h1><p>面積を微分すると、何が現れる？ 光の波と動く数式空間で、定積分と微分法を学びます。</p>
+<video id="lesson-video" controls playsinline preload="auto" aria-label="定積分と微分法 90秒動画"><source src="../../media/integral-differentiation-cinema-90s-web-v1.mp4" type="video/mp4">動画を再生できない場合は、下のボタンからMP4をダウンロードしてください。</video>
+<div class="actions"><button id="play" type="button">▶ 90秒動画を再生</button><a class="download" href="https://github.com/hakunou22hr/-/releases/download/integral-differentiation-cinema-review-v4/integral-differentiation-cinema-90s.mp4" download="integral-differentiation-cinema-90s.mp4">MP4をダウンロード</a><button id="retry" type="button" class="retry" hidden>読み直して再生</button></div><p id="status" role="status" aria-live="polite"></p>
 <div class="details"><p>1920×1080 · 30fps · 90秒 · MP4（約87.4 MB）<br>背景音楽付き。音量は動画のコントロールで調整できます。</p></div></main>
-<script>const v=document.getElementById('lesson-video'),s=document.getElementById('status');document.getElementById('play').addEventListener('click',async()=>{if(v.ended)v.currentTime=0;s.textContent='動画を読み込んでいます…';try{await v.play();s.textContent='再生中です。';}catch{s.textContent='動画内の再生ボタン、またはMP4のダウンロードをお試しください。';}});v.addEventListener('ended',()=>s.textContent='再生が終了しました。');v.addEventListener('error',()=>s.textContent='動画を読み込めません。MP4をダウンロードして再生してください。');</script></body></html>
+<script>
+const v=document.getElementById('lesson-video'),s=document.getElementById('status'),play=document.getElementById('play'),retry=document.getElementById('retry');
+let waitingTimer;
+function clearWaiting(){clearTimeout(waitingTimer);retry.hidden=true;}
+function failure(){clearTimeout(waitingTimer);s.textContent='再生が止まっています。「読み直して再生」を押してください。';retry.hidden=false;play.textContent='▶ 90秒動画を再生';}
+async function start(){if(v.ended)v.currentTime=0;s.textContent='動画を読み込んでいます…';try{await v.play();}catch(error){if(error.name!=='AbortError')failure();}}
+play.addEventListener('click',()=>{if(!v.paused&&!v.ended)v.pause();else start();});
+retry.addEventListener('click',()=>{const time=v.currentTime||0;clearWaiting();v.addEventListener('loadedmetadata',()=>{if(time>0&&time<v.duration)v.currentTime=time;},{once:true});v.load();start();});
+v.addEventListener('playing',()=>{clearWaiting();s.textContent='再生中です。';play.textContent='⏸ 一時停止';});
+v.addEventListener('pause',()=>{clearTimeout(waitingTimer);if(!v.ended){s.textContent='一時停止中です。再生ボタンで続きから再生できます。';play.textContent='▶ 続きから再生';}});
+for(const event of ['waiting','stalled'])v.addEventListener(event,()=>{if(v.paused)return;s.textContent='動画を読み込んでいます…';clearTimeout(waitingTimer);waitingTimer=setTimeout(()=>{retry.hidden=false;s.textContent='読み込みに時間がかかっています。「読み直して再生」もお試しいただけます。';},8000);});
+v.addEventListener('ended',()=>{clearWaiting();s.textContent='再生が終了しました。';play.textContent='▶ 最初から再生';});
+v.addEventListener('error',failure);
+</script></body></html>

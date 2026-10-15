@@ -42,6 +42,12 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Include verified same-origin lesson video
+        run: |
+          mkdir -p dist/media
+          curl --fail --location --retry 3 'https://github.com/hakunou22hr/-/releases/download/integral-differentiation-cinema-review-v4/integral-differentiation-cinema-90s-web-v1.mp4' -o dist/media/integral-differentiation-cinema-90s-web-v1.mp4
+          echo 'd786ed5efd37cada9f9acdbd7e720e42c5506296d266c43ee146a273bc3e7949  dist/media/integral-differentiation-cinema-90s-web-v1.mp4' | sha256sum -c -
+
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
@@ -57,3 +63,23 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  verify-integral-playback:
+    needs: deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Install playback browser
+        run: |
+          npm install --prefix /tmp/integral-browser-tools playwright@1.62.1
+          node /tmp/integral-browser-tools/node_modules/playwright/cli.js install --with-deps chromium
+      - name: Verify published lesson through its real URL
+        run: node scripts/verify-integral-browser-playback.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: integral-live-playback-check
+          path: work/playback-check/
