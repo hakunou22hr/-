@@ -10,7 +10,7 @@
 どちらもH.264・yuv420p、AAC・48kHzステレオのMP4です。元の合成BGMと効果音を使用します。人物映像・ナレーション・外部楽曲は追加していません。
 
 - [再生・MP4ダウンロードページ](https://hakunou22hr.github.io/-/materials/trig-integral-cinema/video.html)
-- [Instagram用30秒MP4](https://github.com/hakunou22hr/-/releases/download/trig-integral-cinema-instagram-30s-v1/trig-integral-cinema-instagram-30s.mp4)
+- [Instagram用30秒MP4](https://github.com/hakunou22hr/-/releases/download/trig-integral-cinema-instagram-30s-v2/trig-integral-cinema-instagram-30s.mp4)
 - [授業用90秒MP4](https://github.com/hakunou22hr/-/releases/download/trig-integral-cinema-90s-v1/trig-integral-cinema-90s.mp4)
 
 ## 元の教材の保持

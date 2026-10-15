@@ -76,6 +76,7 @@ main.is-instagram {
 .is-instagram .ending-title { position: absolute; top: 28%; left: 6%; right: 18%; padding: 1cqw; margin: 0; text-align: center; }
 .is-instagram .ending-title h1 { font-size: 5.3cqw; margin: 1.5cqw 0; }
 .is-instagram .ending-title > span { font-size: 2.7cqw; }
-.is-instagram .ending .answers { position: absolute; top: 40%; left: 6%; right: 18%; display: flex; flex-direction: column; gap: 2cqw; width: auto; max-width: none; margin: 0; }
-.is-instagram .ending .answers > div { width: 100%; padding: 1.8cqw 2cqw; }
-.is-instagram .ending .answers .formula { font-size: 4.6cqw; }
+.is-instagram .ending .answers { position: absolute; top: 39%; left: 6%; right: 18%; display: flex; flex-direction: column; gap: 1.6cqw; width: auto; max-width: none; margin: 0; }
+.is-instagram .ending .answers > div { width: 100%; padding: 1cqw 2cqw; }
+.is-instagram .ending .answers .formula { font-size: 4.4cqw; }
+.is-instagram.scene-10 .subtitle-overlay { display: none; }

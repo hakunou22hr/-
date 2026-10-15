@@ -25,7 +25,7 @@ jobs:
         include:
           - edition: instagram
             file: trig-integral-cinema-instagram-30s.mp4
-            tag: trig-integral-cinema-instagram-30s-v1
+            tag: trig-integral-cinema-instagram-30s-v2
             title: '三角関数の不定積分 — Instagram縦型30秒版'
     runs-on: ubuntu-latest
     timeout-minutes: 120

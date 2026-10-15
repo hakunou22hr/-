@@ -87,15 +87,18 @@ try {
         const outside = rects.filter((r) => r.left < safe.left - 2 || r.right > safe.right + 2 || r.top < safe.top - 2 || r.bottom > safe.bottom + 2);
         const graphs = [...document.querySelectorAll(".graph svg")].filter(visible).map((e) => e.getBoundingClientRect());
         const intersects = (a, b) => a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+        const formulas = [...document.querySelectorAll(".scene-body .katex-html > .base")].filter(visible).map((e) => ({ rect: e.getBoundingClientRect(), text: e.textContent }));
+        const captions = [...document.querySelectorAll(".subtitle-overlay p")].filter(visible).map((e) => e.getBoundingClientRect());
+        const captionOverlap = captions.flatMap((c) => formulas.filter((f) => intersects(c, f.rect)).map((f) => f.text));
         const graphOverlap = graphs.flatMap((g) => rects.filter((r) => intersects(g, r)).map((r) => r.text));
         const wave = window.cinemaWaveBounds;
         const outsideWave = Boolean(wave && (wave.left < safe.left - 2 || wave.right > safe.right + 2 || wave.top < safe.top - 2 || wave.bottom > safe.bottom + 2));
         const waveOverlap = wave ? rects.filter((r) => intersects(wave, r)).map((r) => r.text) : [];
         const waveGraphOverlap = Boolean(wave && graphs.some((g) => intersects(wave, g)));
-        return { outside, graphOverlap, waveOverlap, waveGraphOverlap, outsideWave };
+        return { outside, graphOverlap, waveOverlap, waveGraphOverlap, outsideWave, captionOverlap };
       });
       layoutChecks.push({ frame, ...layout });
-      if (layout.outside.length || layout.graphOverlap.length || layout.waveOverlap.length || layout.waveGraphOverlap || layout.outsideWave) {
+      if (layout.outside.length || layout.graphOverlap.length || layout.waveOverlap.length || layout.waveGraphOverlap || layout.outsideWave || layout.captionOverlap.length) {
         await writeFile(resolve(output, "layout-validation.json"), JSON.stringify(layoutChecks, null, 2));
         throw new Error(`Instagram safe-area/graph overlap at frame ${frame}: ${JSON.stringify(layout)}`);
       }
