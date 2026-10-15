@@ -17,6 +17,8 @@ if (!profile) throw new Error(`Unknown edition: ${edition}`);
 const output = resolve(process.env.CINEMA_OUTPUT || `work/trig-cinema-${edition}`);
 const url = process.env.CINEMA_URL || "http://127.0.0.1:4173/";
 const frameCount = Number(process.env.CINEMA_RENDER_FRAMES || profile.duration * 30);
+const startFrame = Number(process.env.CINEMA_START_FRAME || 0);
+if (!Number.isInteger(startFrame) || !Number.isInteger(frameCount) || startFrame < 0 || frameCount < 1 || startFrame + frameCount > profile.duration * 30) throw new Error("Invalid render frame range");
 await mkdir(output, { recursive: true });
 const browser = await chromium.launch({
   executablePath: process.env.CHROMIUM_PATH || (existsSync("/usr/bin/chromium") ? "/usr/bin/chromium" : undefined),
@@ -52,7 +54,8 @@ try {
   const started = Date.now();
   const layoutChecks = [];
   const sampleFrames = new Set(edition === "lesson" ? [0, 240, 540, 990, 1200, 1500, 1800, 2100, 2280, 2520, 2670] : [0, 90, 180, 210, 270, 330, 450, 510, 570, 600, 660, 780, 870]);
-  for (let frame = 0; frame < frameCount; frame++) {
+  // Pre-roll lets the original scene transitions settle before a parallel segment starts.
+  for (let frame = Math.max(0, startFrame - 90); frame < startFrame + frameCount; frame++) {
     const filmTime = frame / 30;
     await page.evaluate((time) => window.cinemaRender.frame(time), filmTime);
     await page.clock.runFor(1000 / 30);
@@ -103,11 +106,12 @@ try {
         throw new Error(`Instagram safe-area/graph overlap at frame ${frame}: ${JSON.stringify(layout)}`);
       }
     }
+    if (frame < startFrame) continue;
     const shot = await cdp.send("Page.captureScreenshot", { format: "jpeg", quality: 95, fromSurface: true, captureBeyondViewport: false });
     const jpeg = Buffer.from(shot.data, "base64");
-    if (sampleFrames.has(frame)) await writeFile(resolve(output, `sample-${String(frame).padStart(4, "0")}.jpg`), jpeg);
+    if (sampleFrames.has(frame) || frame === startFrame || frame === startFrame + frameCount - 1) await writeFile(resolve(output, `sample-${String(frame).padStart(4, "0")}.jpg`), jpeg);
     if (!encoder.stdin.write(jpeg)) await once(encoder.stdin, "drain");
-    if (frame % 30 === 0) console.log(`Frame ${frame}/${frameCount}, film ${filmTime.toFixed(1)}s, elapsed ${((Date.now() - started) / 1000).toFixed(1)}s`);
+    if (frame % 30 === 0) console.log(`Frame ${frame - startFrame}/${frameCount}, film ${filmTime.toFixed(1)}s, elapsed ${((Date.now() - started) / 1000).toFixed(1)}s`);
     if (errors.length) throw new Error(errors.join("\n"));
   }
   encoder.stdin.end();

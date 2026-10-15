@@ -11,7 +11,7 @@
 
 - [再生・MP4ダウンロードページ](https://hakunou22hr.github.io/-/materials/trig-integral-cinema/video.html)
 - [Instagram用30秒MP4](https://github.com/hakunou22hr/-/releases/download/trig-integral-cinema-instagram-30s-v2/trig-integral-cinema-instagram-30s.mp4)
-- [授業用90秒MP4](https://github.com/hakunou22hr/-/releases/download/trig-integral-cinema-90s-v1/trig-integral-cinema-90s.mp4)
+- [授業用90秒MP4](https://github.com/hakunou22hr/-/releases/download/trig-integral-cinema-90s-v2/trig-integral-cinema-90s.mp4)
 
 ## 元の教材の保持
 
@@ -41,4 +41,4 @@ PLAYWRIGHT_MODULE_PATH=/tmp/cinema-render-tools/node_modules/playwright \
 node materials/trig-integral-cinema/render/render-short.mjs
 ```
 
-`.github/workflows/trig-cinema-editions.yml` の手動実行で2つのMP4をそれぞれ描画・検証してGitHub Releasesへ保存します。縦型版のみを更新する `.github/workflows/trig-cinema-instagram.yml` はソース更新時に自動実行します。大きな動画を通常のGit履歴に含めません。以前の横型30秒用ワークフローは手動実行として保持しています。
+授業用90秒版は `.github/workflows/trig-cinema-lesson.yml`、縦型版は `.github/workflows/trig-cinema-instagram.yml` で描画・検証してGitHub Releasesへ保存します。90秒版は最初に下書きの保存先を確保し、3秒の事前再生を付けた4区間を並列描画します。完成フレームは重複・欠落なしで2700枚を連結し、映像を再圧縮せずに90秒の合成音を通して付けます。区間ごとの動画と完成MP4をActions Artifactsへ先に保管し、その後にReleasesへ公開します。大きな動画を通常のGit履歴に含めません。以前の横型30秒用ワークフローは手動実行として保持しています。

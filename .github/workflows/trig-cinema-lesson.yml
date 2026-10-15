@@ -1,0 +1,107 @@
+name: Render and preserve complete 90-second trig cinema
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/trig-cinema-lesson.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: trig-cinema-lesson
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare draft release before rendering
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag=trig-integral-cinema-90s-v2
+          if ! gh release view "$tag" > /dev/null 2>&1; then
+            gh release create "$tag" --target "$GITHUB_SHA" --draft --title '三角関数の不定積分 — 授業用90秒完全版' --notes-file materials/trig-integral-cinema/docs/INSTAGRAM_AND_LESSON.md
+          fi
+  render:
+    needs: prepare
+    strategy:
+      fail-fast: false
+      matrix:
+        part: [0, 1, 2, 3]
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm run test:trig-cinema
+      - run: npm run build --prefix materials/trig-integral-cinema
+      - name: Install renderer
+        run: |
+          npm install --prefix /tmp/cinema-render-tools playwright@1.62.1
+          node /tmp/cinema-render-tools/node_modules/playwright/cli.js install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg fonts-noto-cjk
+      - name: Render original frames with scene pre-roll
+        env:
+          PLAYWRIGHT_MODULE_PATH: /tmp/cinema-render-tools/node_modules/playwright
+          CINEMA_EDITION: lesson
+          CINEMA_RENDER_FRAMES: "675"
+          CINEMA_OUTPUT: ${{ github.workspace }}/work/lesson-part
+          PART: ${{ matrix.part }}
+        run: |
+          npm run preview --prefix materials/trig-integral-cinema -- --host 127.0.0.1 --port 4173 > /tmp/preview.log 2>&1 &
+          for attempt in $(seq 1 30); do
+            if curl --silent --fail http://127.0.0.1:4173/ > /dev/null; then break; fi
+            sleep 1
+          done
+          export CINEMA_START_FRAME=$((PART * 675))
+          node materials/trig-integral-cinema/render/render-short.mjs
+          mv work/lesson-part/trig-integral-cinema-90s.mp4 "work/lesson-part/part-$PART.mp4"
+          if [ "$PART" != 0 ]; then rm work/lesson-part/soundtrack.wav; fi
+      - name: Preserve rendered segment immediately
+        uses: actions/upload-artifact@v4
+        with:
+          name: part-${{ matrix.part }}
+          path: work/lesson-part/
+          compression-level: 0
+          if-no-files-found: error
+  assemble:
+    needs: render
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: part-*
+          path: work/lesson-parts
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Assemble without re-encoding pictures and verify all 2700 frames
+        run: node materials/trig-integral-cinema/render/assemble-lesson.mjs
+      - name: Preserve complete MP4 before publishing
+        uses: actions/upload-artifact@v4
+        with:
+          name: complete-trig-cinema-90s
+          path: |
+            work/trig-cinema-lesson/trig-integral-cinema-90s.mp4
+            work/trig-cinema-lesson/ffprobe.json
+            work/trig-cinema-lesson/SHA256SUMS.txt
+          compression-level: 0
+          if-no-files-found: error
+      - name: Upload and publish preserved MP4
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag=trig-integral-cinema-90s-v2
+          gh release upload "$tag" work/trig-cinema-lesson/trig-integral-cinema-90s.mp4 work/trig-cinema-lesson/ffprobe.json work/trig-cinema-lesson/SHA256SUMS.txt --clobber
+          gh release edit "$tag" --draft=false

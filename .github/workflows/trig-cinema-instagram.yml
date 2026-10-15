@@ -1,13 +1,6 @@
 name: Render Instagram trig cinema
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'materials/trig-integral-cinema/src/**'
-      - 'materials/trig-integral-cinema/render/**'
-      - 'materials/trig-integral-cinema/tests/**'
-      - '.github/workflows/trig-cinema-instagram.yml'
   workflow_dispatch:
 
 permissions:
@@ -65,6 +58,7 @@ jobs:
         with:
           name: trig-cinema-${{ matrix.edition }}-validation
           path: |
+            work/trig-cinema-${{ matrix.edition }}/*.mp4
             work/trig-cinema-${{ matrix.edition }}/ffprobe.json
             work/trig-cinema-${{ matrix.edition }}/sample-*.jpg
             work/trig-cinema-${{ matrix.edition }}/SHA256SUMS.txt

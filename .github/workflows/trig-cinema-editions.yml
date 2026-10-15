@@ -22,7 +22,7 @@ jobs:
             title: '三角関数の不定積分 — Instagram縦型30秒版'
           - edition: lesson
             file: trig-integral-cinema-90s.mp4
-            tag: trig-integral-cinema-90s-v1
+            tag: trig-integral-cinema-90s-v2
             title: '三角関数の不定積分 — 授業用90秒完全版'
     runs-on: ubuntu-latest
     timeout-minutes: 120
@@ -62,6 +62,7 @@ jobs:
         with:
           name: trig-cinema-${{ matrix.edition }}-validation
           path: |
+            work/trig-cinema-${{ matrix.edition }}/*.mp4
             work/trig-cinema-${{ matrix.edition }}/ffprobe.json
             work/trig-cinema-${{ matrix.edition }}/sample-*.jpg
             work/trig-cinema-${{ matrix.edition }}/SHA256SUMS.txt
