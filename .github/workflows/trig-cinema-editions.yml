@@ -1,13 +1,6 @@
 name: Render lesson and Instagram trig cinema
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'materials/trig-integral-cinema/src/**'
-      - 'materials/trig-integral-cinema/render/**'
-      - 'materials/trig-integral-cinema/tests/**'
-      - '.github/workflows/trig-cinema-editions.yml'
   workflow_dispatch:
 
 permissions:

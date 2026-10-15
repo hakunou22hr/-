@@ -1,0 +1,83 @@
+name: Render Instagram trig cinema
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'materials/trig-integral-cinema/src/**'
+      - 'materials/trig-integral-cinema/render/**'
+      - 'materials/trig-integral-cinema/tests/**'
+      - '.github/workflows/trig-cinema-instagram.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: trig-cinema-instagram
+  cancel-in-progress: false
+
+jobs:
+  render:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - edition: instagram
+            file: trig-integral-cinema-instagram-30s.mp4
+            tag: trig-integral-cinema-instagram-30s-v1
+            title: '三角関数の不定積分 — Instagram縦型30秒版'
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install source dependencies
+        run: npm ci
+      - name: Check formulas and preserved timelines
+        run: npm run test:trig-cinema
+      - name: Build cinema and download page
+        run: npm run build --prefix materials/trig-integral-cinema
+      - name: Install renderer and fonts
+        run: |
+          npm install --prefix /tmp/cinema-render-tools playwright@1.62.1
+          node /tmp/cinema-render-tools/node_modules/playwright/cli.js install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg fonts-noto-cjk
+      - name: Render and verify complete MP4
+        env:
+          PLAYWRIGHT_MODULE_PATH: /tmp/cinema-render-tools/node_modules/playwright
+          CINEMA_EDITION: ${{ matrix.edition }}
+          CINEMA_OUTPUT: ${{ github.workspace }}/work/trig-cinema-${{ matrix.edition }}
+        run: |
+          npm run preview --prefix materials/trig-integral-cinema -- --host 127.0.0.1 --port 4173 > /tmp/cinema-preview.log 2>&1 &
+          for attempt in $(seq 1 30); do
+            if curl --silent --fail http://127.0.0.1:4173/ > /dev/null; then break; fi
+            sleep 1
+          done
+          node materials/trig-integral-cinema/render/render-short.mjs
+          cd "work/trig-cinema-$CINEMA_EDITION"
+          sha256sum *.mp4 > SHA256SUMS.txt
+      - name: Keep verification evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: trig-cinema-${{ matrix.edition }}-validation
+          path: |
+            work/trig-cinema-${{ matrix.edition }}/ffprobe.json
+            work/trig-cinema-${{ matrix.edition }}/sample-*.jpg
+            work/trig-cinema-${{ matrix.edition }}/SHA256SUMS.txt
+            work/trig-cinema-${{ matrix.edition }}/layout-validation.json
+      - name: Store MP4 in GitHub Releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ matrix.tag }}
+          RELEASE_TITLE: ${{ matrix.title }}
+          EDITION: ${{ matrix.edition }}
+          VIDEO_FILE: ${{ matrix.file }}
+        run: |
+          if ! gh release view "$RELEASE_TAG" > /dev/null 2>&1; then
+            gh release create "$RELEASE_TAG" --target "$GITHUB_SHA" --title "$RELEASE_TITLE" --notes-file materials/trig-integral-cinema/docs/INSTAGRAM_AND_LESSON.md
+          fi
+          gh release upload "$RELEASE_TAG" "work/trig-cinema-$EDITION/$VIDEO_FILE" "work/trig-cinema-$EDITION/ffprobe.json" "work/trig-cinema-$EDITION/SHA256SUMS.txt" --clobber

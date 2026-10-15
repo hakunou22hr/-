@@ -80,7 +80,7 @@ try {
           }
           return el.getBoundingClientRect().width > 0;
         }
-        const rects = [...document.querySelectorAll(".scene-body .katex-html,.subtitle-overlay p,.scene-label,.ending-title h1,.ending-title > span")].filter(visible).map((e) => {
+        const rects = [...document.querySelectorAll(".scene-body .katex-html > .base,.subtitle-overlay p,.scene-label,.ending-title h1,.ending-title > span")].filter(visible).map((e) => {
           const r = e.getBoundingClientRect();
           return { text: e.textContent, left: r.left, right: r.right, top: r.top, bottom: r.bottom };
         });

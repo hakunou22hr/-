@@ -41,4 +41,4 @@ PLAYWRIGHT_MODULE_PATH=/tmp/cinema-render-tools/node_modules/playwright \
 node materials/trig-integral-cinema/render/render-short.mjs
 ```
 
-`.github/workflows/trig-cinema-editions.yml` は2つのMP4をそれぞれ描画・検証してGitHub Releasesへ保存します。大きな動画を通常のGit履歴に含めません。以前の横型30秒用ワークフローは手動実行として保持しています。
+`.github/workflows/trig-cinema-editions.yml` の手動実行で2つのMP4をそれぞれ描画・検証してGitHub Releasesへ保存します。縦型版のみを更新する `.github/workflows/trig-cinema-instagram.yml` はソース更新時に自動実行します。大きな動画を通常のGit履歴に含めません。以前の横型30秒用ワークフローは手動実行として保持しています。
