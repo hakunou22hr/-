@@ -1,0 +1,76 @@
+{
+  "dateJapan": "2026-10-15",
+  "sourceCommit": "f253f817c55d39b327242678b9f043b13ca672f3",
+  "release": "https://github.com/hakunou22hr/-/releases/tag/integral-differentiation-cinema-v1",
+  "workflowRun": "https://github.com/hakunou22hr/-/actions/runs/38686938734",
+  "releaseSHA256Verified": true,
+  "files": [
+    {
+      "file": "integral-differentiation-cinema-90s.mp4",
+      "bytes": 26170788,
+      "sha256": "83a64a68cda38cbda8d96d61456aab811c13088900726187074f2f21c0b94c05",
+      "duration": "90.000000",
+      "width": 1920,
+      "height": 1080,
+      "fps": "30/1",
+      "frames": "2700",
+      "videoCodec": "h264",
+      "pixelFormat": "yuv420p",
+      "audioCodec": "aac",
+      "audioRate": "48000",
+      "audioChannels": 2,
+      "fullDecodePassed": true
+    },
+    {
+      "file": "integral-differentiation-cinema-instagram-30s.mp4",
+      "bytes": 8545661,
+      "sha256": "ab1dfd3654a430e0a4f2ea4be0590e8f86a9f0d14a521ba440d8b54d4f26549f",
+      "duration": "30.000000",
+      "width": 1080,
+      "height": 1920,
+      "fps": "30/1",
+      "frames": "900",
+      "videoCodec": "h264",
+      "pixelFormat": "yuv420p",
+      "audioCodec": "aac",
+      "audioRate": "48000",
+      "audioChannels": 2,
+      "fullDecodePassed": true
+    }
+  ],
+  "browserChecks": {
+    "results": [
+      {
+        "file": "integral-differentiation-cinema-instagram-30s.mp4",
+        "duration": 30,
+        "width": 1080,
+        "height": 1920,
+        "time": 0.532251,
+        "paused": false,
+        "muted": false,
+        "frames": 21,
+        "audioBytes": 20169,
+        "seek": 26,
+        "download": "integral-differentiation-cinema-instagram-30s.mp4"
+      },
+      {
+        "file": "integral-differentiation-cinema-90s.mp4",
+        "duration": 90,
+        "width": 1920,
+        "height": 1080,
+        "time": 0.51301,
+        "paused": false,
+        "muted": false,
+        "frames": 20,
+        "audioBytes": 20349,
+        "seek": 82,
+        "download": "integral-differentiation-cinema-90s.mp4"
+      }
+    ],
+    "mobileWidth": 390,
+    "overflow": false,
+    "errors": [],
+    "transport": "Exact encoded MP4s served through local HTTP range server; public release hashes checked separately."
+  },
+  "physicalWindowsAndIPhoneTests": false
+}

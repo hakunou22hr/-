@@ -1,1 +1,11 @@
-{"id":"integral-differentiation-cinema","name":"定積分と微分法 映画型教材","subject":"数学Ⅲ","unit":"積分法／定積分と微分法","description":"面積から関数へ、微分で元の曲線へ。微積分の基本定理と積分内にxを含む例題を、90秒のPC版と30秒のInstagram版で学ぶ。","thumbnail":"thumbnail.svg","durationSeconds":90,"language":"ja","version":"1.0.0"}
+{
+  "id": "integral-differentiation-cinema",
+  "name": "定積分と微分法 映画型教材",
+  "subject": "数学Ⅲ",
+  "unit": "積分法／定積分と微分法",
+  "description": "光る数式の大聖堂と曲面ウォールを進む映画型教材。微積分の基本定理と例題をPC90秒・Instagram30秒で学ぶ。",
+  "thumbnail": "thumbnail.svg",
+  "durationSeconds": 90,
+  "language": "ja",
+  "version": "2.0.0"
+}

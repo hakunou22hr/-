@@ -21,8 +21,8 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if ! gh release view integral-differentiation-cinema-v1 >/dev/null 2>&1; then
-            gh release create integral-differentiation-cinema-v1 --draft --target "$GITHUB_SHA" --title '定積分と微分法 — PC90秒・Instagram30秒' --notes-file materials/integral-differentiation-cinema/README.md
+          if ! gh release view integral-differentiation-cinema-v2 >/dev/null 2>&1; then
+            gh release create integral-differentiation-cinema-v2 --draft --target "$GITHUB_SHA" --title '定積分と微分法 — 数式大聖堂・曲面ウォール — PC90秒・Instagram30秒' --notes-file materials/integral-differentiation-cinema/README.md
           fi
   render:
     needs: prepare
@@ -76,7 +76,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           CINEMA_EDITION: ${{ matrix.edition }}
         run: |
-          gh release upload integral-differentiation-cinema-v1 work/integral-$CINEMA_EDITION/*.mp4 work/integral-$CINEMA_EDITION/*.txt --clobber
+          gh release upload integral-differentiation-cinema-v2 work/integral-$CINEMA_EDITION/*.mp4 work/integral-$CINEMA_EDITION/*.txt --clobber
   publish:
     needs: render
     runs-on: ubuntu-latest
@@ -85,4 +85,4 @@ jobs:
       - name: Publish both videos together
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release edit integral-differentiation-cinema-v1 --draft=false --target "$GITHUB_SHA"
+        run: gh release edit integral-differentiation-cinema-v2 --draft=false --target "$GITHUB_SHA"
