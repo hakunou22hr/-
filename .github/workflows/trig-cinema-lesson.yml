@@ -1,9 +1,5 @@
 name: Render and preserve complete 90-second trig cinema
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/trig-cinema-lesson.yml'
   workflow_dispatch:
 
 permissions:

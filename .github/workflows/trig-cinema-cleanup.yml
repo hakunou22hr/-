@@ -1,0 +1,21 @@
+name: Stop redundant lesson render
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/trig-cinema-cleanup.yml']
+permissions:
+  actions: write
+  contents: read
+jobs:
+  stop-redundant-render:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Stop duplicate render after verified MP4 publication
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          status=$(gh api "repos/$GH_REPO/actions/runs/38664433629" --jq .status)
+          if [ "$status" != completed ]; then
+            gh api --method POST "repos/$GH_REPO/actions/runs/38664433629/cancel"
+          fi
