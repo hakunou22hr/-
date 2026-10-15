@@ -1,0 +1,32 @@
+{
+  "90": {
+    "size_bytes": 41928793,
+    "sha256": "c15d0562f5d610e0c18ec844b9676e86c96f887caa797c29a26b1e4cacdcdf7c",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "frames": 2700,
+    "duration": "90.000000",
+    "video": "h264",
+    "audio": "aac",
+    "full_decode": "PASS"
+  },
+  "30": {
+    "size_bytes": 13210705,
+    "sha256": "a12dcf5339c60cf4343ed73f38b103194abf286735eb1f9b7909dcfd91b001fc",
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "frames": 900,
+    "duration": "30.000000",
+    "video": "h264",
+    "audio": "aac",
+    "full_decode": "PASS"
+  },
+  "mathematics": {
+    "F": "1-cos(x)",
+    "derivative": "sin(x)",
+    "signed_integral_max_error": 5.51214540678302e-09,
+    "numerical_check": "PASS"
+  }
+}
