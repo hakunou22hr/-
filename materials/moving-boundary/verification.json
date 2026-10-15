@@ -1,7 +1,7 @@
 {
   "90": {
-    "size_bytes": 42068584,
-    "sha256": "b8d4c3465ce4fd0d32c7ca07c28951490801b42c158f307977d62e82216cbb26",
+    "size_bytes": 62201645,
+    "sha256": "7a1ee6bd56f0aec66a7607114749eee0c393e5b206ea6308a466849d4b4f9480",
     "width": 1920,
     "height": 1080,
     "fps": 30,
@@ -12,8 +12,8 @@
     "full_decode": "PASS"
   },
   "30": {
-    "size_bytes": 13212003,
-    "sha256": "afb9b1713012423f919ffdff0c7cbb264741257a1ce52e6c969d9e338ae2ff34",
+    "size_bytes": 21788529,
+    "sha256": "cba846bc4e579bc19a066a21060762220969b1ef97f350547dcd58ff9c6696d8",
     "width": 1080,
     "height": 1920,
     "fps": 30,
@@ -28,5 +28,15 @@
     "derivative": "sin(x)",
     "signed_integral_max_error": 5.51214540678302e-09,
     "numerical_check": "PASS"
+  },
+  "cinematic_background": {
+    "480x270": {
+      "mean_frame_difference": 17.485933641975308,
+      "animated_layers": "PASS"
+    },
+    "270x480": {
+      "mean_frame_difference": 19.443135288065843,
+      "animated_layers": "PASS"
+    }
   }
 }
