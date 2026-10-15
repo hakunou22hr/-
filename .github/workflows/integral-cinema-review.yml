@@ -21,8 +21,8 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if ! gh release view integral-differentiation-cinema-review-v3 >/dev/null 2>&1; then
-            gh release create integral-differentiation-cinema-review-v3 --draft --target "$GITHUB_SHA" --prerelease --title '定積分と微分法 — 確認用プレビュー（完成版の保管前）' --notes-file preview-src/integral-cinema-v3/REVIEW.md
+          if ! gh release view integral-differentiation-cinema-review-v4 >/dev/null 2>&1; then
+            gh release create integral-differentiation-cinema-review-v4 --draft --target "$GITHUB_SHA" --prerelease --title '定積分と微分法 — 確認用プレビュー（完成版の保管前）' --notes-file preview-src/integral-cinema-v3/REVIEW.md
           fi
   render:
     needs: prepare
@@ -87,7 +87,7 @@ jobs:
         if: matrix.edition == 'instagram'
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release upload integral-differentiation-cinema-review-v3 work/integral-review-v3-instagram/*.mp4 work/integral-review-v3-instagram/*.txt --clobber
+        run: gh release upload integral-differentiation-cinema-review-v4 work/integral-review-v3-instagram/*.mp4 work/integral-review-v3-instagram/*.txt --clobber
   assemble:
     needs: render
     runs-on: ubuntu-latest
@@ -108,7 +108,7 @@ jobs:
       - name: Save complete lesson to draft Release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release upload integral-differentiation-cinema-review-v3 work/integral-review-v3-lesson/*.mp4 work/integral-review-v3-lesson/SHA256SUMS-lesson.txt --clobber
+        run: gh release upload integral-differentiation-cinema-review-v4 work/integral-review-v3-lesson/*.mp4 work/integral-review-v3-lesson/SHA256SUMS-lesson.txt --clobber
   publish:
     needs: assemble
     runs-on: ubuntu-latest
@@ -117,4 +117,4 @@ jobs:
       - name: Publish both videos together
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release edit integral-differentiation-cinema-review-v3 --draft=false --target "$GITHUB_SHA"
+        run: gh release edit integral-differentiation-cinema-review-v4 --draft=false --target "$GITHUB_SHA"
