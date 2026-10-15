@@ -89,6 +89,7 @@ jobs:
       - name: Assemble without re-encoding pictures and verify all 2700 frames
         run: node materials/trig-integral-cinema/render/assemble-lesson.mjs
       - name: Preserve complete MP4 before publishing
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: complete-trig-cinema-90s
