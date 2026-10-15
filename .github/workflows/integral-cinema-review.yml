@@ -1,0 +1,120 @@
+name: Temporary review videos for integral differentiation
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'preview-src/integral-cinema-v3/src/**'
+      - 'preview-src/integral-cinema-v3/render/**'
+      - '.github/workflows/integral-cinema-review.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: integral-cinema-review
+  cancel-in-progress: true
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare draft release before rendering
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! gh release view integral-differentiation-cinema-review-v3 >/dev/null 2>&1; then
+            gh release create integral-differentiation-cinema-review-v3 --draft --target "$GITHUB_SHA" --prerelease --title '定積分と微分法 — 確認用プレビュー（完成版の保管前）' --notes-file preview-src/integral-cinema-v3/REVIEW.md
+          fi
+  render:
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {edition: instagram, part: instagram, start: 0, frames: 900}
+          - {edition: lesson, part: part-0, start: 0, frames: 675}
+          - {edition: lesson, part: part-1, start: 675, frames: 675}
+          - {edition: lesson, part: part-2, start: 1350, frames: 675}
+          - {edition: lesson, part: part-3, start: 2025, frames: 675}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - run: npm ci
+      - run: npm test --prefix preview-src/integral-cinema-v3
+      - run: npm run build --prefix preview-src/integral-cinema-v3
+      - name: Install rendering tools
+        run: |
+          npm install --prefix /tmp/cinema-tools playwright@1.62.1
+          node /tmp/cinema-tools/node_modules/playwright/cli.js install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg fonts-noto-cjk
+      - name: Render and check every frame
+        env:
+          CINEMA_EDITION: ${{ matrix.edition }}
+          CINEMA_PART: ${{ matrix.part }}
+          CINEMA_START_FRAME: ${{ matrix.start }}
+          CINEMA_RENDER_FRAMES: ${{ matrix.frames }}
+          CINEMA_OUTPUT: work/integral-review-v3-${{ matrix.part }}
+          PLAYWRIGHT_MODULE_PATH: /tmp/cinema-tools/node_modules/playwright
+        run: |
+          npm run preview --prefix preview-src/integral-cinema-v3 -- --host 127.0.0.1 --port 4175 >/tmp/integral-preview.log 2>&1 &
+          for attempt in $(seq 1 30); do
+            if curl --silent --fail http://127.0.0.1:4175/ >/dev/null; then break; fi
+            sleep 1
+          done
+          node preview-src/integral-cinema-v3/render/render.mjs
+          if [ "$CINEMA_EDITION" = lesson ]; then
+            mv "$CINEMA_OUTPUT/integral-differentiation-cinema-90s.mp4" "$CINEMA_OUTPUT/$CINEMA_PART.mp4"
+          else
+            cd "$CINEMA_OUTPUT"
+            sha256sum *.mp4 > SHA256SUMS-instagram.txt
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ${{ matrix.part }}
+          path: |
+            work/integral-review-v3-${{ matrix.part }}/*.mp4
+            work/integral-review-v3-${{ matrix.part }}/soundtrack.wav
+            work/integral-review-v3-${{ matrix.part }}/ffprobe.json
+            work/integral-review-v3-${{ matrix.part }}/layout-validation.json
+            work/integral-review-v3-${{ matrix.part }}/*.txt
+            work/integral-review-v3-${{ matrix.part }}/sample-*.jpg
+            work/integral-review-v3-${{ matrix.part }}/layout-error.png
+      - name: Save Instagram MP4 to draft Release
+        if: matrix.edition == 'instagram'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload integral-differentiation-cinema-review-v3 work/integral-review-v3-instagram/*.mp4 work/integral-review-v3-instagram/*.txt --clobber
+  assemble:
+    needs: render
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: part-*
+          path: work/integral-review-v3-parts
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - run: node preview-src/integral-cinema-v3/render/assemble.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: integral-review-v3-lesson-final
+          path: work/integral-review-v3-lesson/
+      - name: Save complete lesson to draft Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload integral-differentiation-cinema-review-v3 work/integral-review-v3-lesson/*.mp4 work/integral-review-v3-lesson/SHA256SUMS-lesson.txt --clobber
+  publish:
+    needs: assemble
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish both videos together
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release edit integral-differentiation-cinema-review-v3 --draft=false --target "$GITHUB_SHA"
