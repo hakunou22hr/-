@@ -1,0 +1,14 @@
+# 検証記録
+
+- 90秒版：1920×1080、30fps、2700フレーム、90.000秒。
+- 30秒版：1080×1920、30fps、900フレーム、30.000秒。
+- H.264 / yuv420p 映像、AACステレオ音声。
+- FFmpeg -xerror による全フレーム・音声デコードを確認。
+- 31個の x（負の値を含む）で符号付き数値積分と F(x)=1−cos x を比較。F′(x)=sin x の数値微分も確認。
+- npm run build 成功。GitHub Pagesの相対パスを維持。
+- npm run test:trig-cinema 成功。
+- 全体テスト：306成功、2失敗（既存の triangle-trig-inquiry のサムネイル参照欠落、region-circle-radius の領域判定）。今回の差分はmoving-boundaryの新規ファイルのみ。
+- 静止フレームで日本語・積分上端・項のレイアウトを点検。横型での字幕干渉を修正。
+- ブラウザ実機操作とSafariでの全画面・保存操作は未検証。再生と保存は同一のMP4パスを使い、標準video controlsとdownloadリンクを使用。
+
+再生成コマンド、描画方式、音源はREADME.md参照。ハッシュと技術情報はverification.json参照。

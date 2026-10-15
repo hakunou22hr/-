@@ -39,7 +39,7 @@ def render(dur,W,H):
  captions=['積分の上端が動くとき、何が起こるのか。','x は上端と高さの両方を変える。','積分変数 t に対して、x は定数。','同じ大きさ、反対の符号。和は 0。','微積分学の基本定理：sin 0 = 0','動く境界が、微分の答えを導く。']
 
  # Rasterize all math before creating the frame drawing context.
- specs=[(r'F(x)=\int_0^x(x-t)\cos t\,dt',.82,white),(r'y=\cos t',.82,cyan),(r'y=(x-t)\cos t',.82,cyan),(r'F(x)=x\int_0^x\cos t\,dt',.82,white),(r'-\int_0^x t\cos t\,dt',.82,white),(r'F(x)=x\int_0^x\cos t\,dt-\int_0^x t\cos t\,dt',.82,white),(r"F'(x)=\int_0^x\cos t\,dt",.82,gold),(r'+x\cos x',.30,gold),(r'-x\cos x',.30,cyan),(r'+x\cos x-x\cos x=0',.65,cyan),(r'=[\sin t]_0^x=\sin x',.82,gold),(r"F'(x)=\sin x",.7,gold)]
+ specs=[(r'F(x)=\int_0^x(x-t)\cos t\,dt',.82,white),(r'y=\cos t',.82,cyan),(r'y=(x-t)\cos t',.82,cyan),(r'y=[(1-s)+s(x-t)]\cos t',.82,cyan),(r'F(x)=x\int_0^x\cos t\,dt',.82,white),(r'-\int_0^x t\cos t\,dt',.82,white),(r'F(x)=x\int_0^x\cos t\,dt-\int_0^x t\cos t\,dt',.82,white),(r"F'(x)=\int_0^x\cos t\,dt",.82,gold),(r'+x\cos x',.30,gold),(r'-x\cos x',.30,cyan),(r'+x\cos x-x\cos x=0',.65,cyan),(r'=[\sin t]_0^x=\sin x',.82,gold),(r"F'(x)=\sin x",.7,gold)]
  for ss,ww,cc in specs:formula(ss,int(W*ww),cc)
  for frame in range(dur*fps):
   t=frame/fps; sc=min(5,next((i-1 for i,b in enumerate(bounds) if b>t),5)); u=(t-bounds[sc])/(bounds[sc+1]-bounds[sc]); im=bg.copy();d=ImageDraw.Draw(im)
@@ -84,7 +84,8 @@ def render(dur,W,H):
    eq(r'F(x)=\int_0^x(x-t)\cos t\,dt',top)
    d.text((margin,H*.83),'金：上端 x     シアン：積分変数 t',font=fonts[26],fill=gold)
   elif sc==1:
-   eq(r'y=\cos t' if blend<.2 else r'y=(x-t)\cos t',top,color=cyan)
+   eq(r'y=\cos t' if blend==0 else (r'y=(x-t)\cos t' if blend==1 else r'y=[(1-s)+s(x-t)]\cos t'),top,color=cyan)
+   if 0<blend<1:d.text((margin,H*.74),f'変形の進行 s = {blend:.2f}',font=fonts[26],fill=cyan)
    d.text((margin,H*.79),'金：正の面積  /  青：負の面積',font=fonts[26],fill=gold)
   elif sc==2:
    if portrait:
@@ -94,7 +95,7 @@ def render(dur,W,H):
    eq(r"F'(x)=\int_0^x\cos t\,dt",top,color=gold)
    y=H*(.39 if portrait else .42)
    if u<.68:
-    shift=(1-min(1,u/.65))*W*.15
+    shift=(1-min(1,u/.65))*(W*.15+25)-25
     a=formula(r'+x\cos x',int(W*.30),gold);b=formula(r'-x\cos x',int(W*.30),cyan)
     im.paste(a,(int(W*.5-a.width-25-shift),int(y)),a); im.paste(b,(int(W*.5+25+shift),int(y)),b)
    else:
