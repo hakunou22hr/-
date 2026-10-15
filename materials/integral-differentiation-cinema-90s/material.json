@@ -1,0 +1,11 @@
+{
+  "id": "integral-differentiation-cinema-90s",
+  "name": "定積分と微分法 映画型教材（90秒動画）",
+  "subject": "数学Ⅲ",
+  "unit": "積分法／定積分と微分法",
+  "description": "動く数式空間・光の波・床の光の流れを背景に、定積分と微分法を学ぶ90秒の映画型動画。音声付き再生・MP4ダウンロード対応。",
+  "thumbnail": "thumbnail.svg",
+  "durationSeconds": 90,
+  "language": "ja",
+  "version": "4.0.0"
+}

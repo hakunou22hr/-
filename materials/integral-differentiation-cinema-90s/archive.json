@@ -1,0 +1,29 @@
+{
+  "title": "定積分と微分法 映画型教材（90秒動画）",
+  "archivedOn": "2026-10-16",
+  "video": {
+    "url": "https://github.com/hakunou22hr/-/releases/download/integral-differentiation-cinema-review-v4/integral-differentiation-cinema-90s.mp4",
+    "bytes": 87384580,
+    "sha256": "9c45a5432a67c49dd90ddac91ad218c32f98789b5b993817317999abb55d96f9",
+    "width": 1920,
+    "height": 1080,
+    "durationSeconds": 90,
+    "frames": 2700,
+    "fps": 30,
+    "videoCodec": "H.264",
+    "pixelFormat": "yuv420p",
+    "audioCodec": "AAC"
+  },
+  "source": {
+    "path": "source/",
+    "tree": "8460cbbaede75af1d26992225f4dbbfd12cb8013",
+    "renderCommit": "29b1e390eca7bb86c2c1e8ac41acf1442747bbe2",
+    "renderRun": 38697094920
+  },
+  "validation": {
+    "sha256": "passed",
+    "fullDecode": "passed",
+    "browserPlaybackAudioSeekDownload": "passed",
+    "allFrameLayout": "passed"
+  }
+}
