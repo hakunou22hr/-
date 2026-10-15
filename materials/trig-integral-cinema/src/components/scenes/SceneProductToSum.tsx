@@ -1,12 +1,13 @@
 import { cinema } from "../../data/cinema";
 import { formulas as f } from "../../data/formulas";
+import { instagramFormulas } from "../../data/instagramFormulas";
 import { Reveal, Label, type SceneProps } from "./shared";
-export default function SceneProductToSum({ local }: SceneProps) {
+export default function SceneProductToSum({ local, portrait }: SceneProps) {
   return (
     <div className="scene-body product-scene">
       <Label>PRODUCT TO SUM / 積和公式</Label>
       <Reveal
-        tex={f.productGeneral}
+        tex={portrait ? instagramFormulas.productGeneral : f.productGeneral}
         visible={local > 0.2}
         className="general-formula"
       />
@@ -17,7 +18,7 @@ export default function SceneProductToSum({ local }: SceneProps) {
       <div className="merge-lines" />
 
       <Reveal
-        tex={f.product}
+        tex={portrait ? instagramFormulas.product : f.product}
         visible={local >= cinema.morph.assemble}
         gold
         className="product-result"

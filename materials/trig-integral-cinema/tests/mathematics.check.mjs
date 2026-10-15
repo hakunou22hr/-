@@ -18,6 +18,14 @@ async function data(file) {
 const { formulas } = await data("formulas.ts");
 const { timeline, sceneAt, DURATION } = await data("timeline.ts");
 const { shortTimeline, sourceTimeAt, SHORT_DURATION } = await data("shortTimeline.ts");
+const { instagramFormulas } = await data("instagramFormulas.ts");
+test("portrait line breaks keep every formula renderable", () => {
+  for (const tex of Object.values(instagramFormulas)) assert.doesNotThrow(() => katex.renderToString(tex, { throwOnError: true }));
+  assert.match(instagramFormulas.productGeneral, /alpha\+\\beta/);
+  assert.match(instagramFormulas.productGeneral, /alpha-\\beta/);
+  assert.match(instagramFormulas.factor2, /-\\frac18/);
+  assert.match(instagramFormulas.factor2, /-\\frac14/);
+});
 test("30 second edit retains every original scene and both complete calculations", () => {
   assert.equal(SHORT_DURATION, 30);
   assert.equal(shortTimeline.length, 10);

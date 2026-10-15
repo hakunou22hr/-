@@ -2,14 +2,20 @@ import { SHORT_DURATION } from "../data/shortTimeline";
 import { cinema } from "../data/cinema";
 
 /** Offline version of the original CinemaAudio synth, timed to the short edit. */
-export async function renderShortSoundtrack(): Promise<number[]> {
+export async function renderShortSoundtrack(): Promise<string> {
+  return renderSoundtrack(SHORT_DURATION);
+}
+export async function renderLessonSoundtrack(): Promise<string> {
+  return renderSoundtrack(90);
+}
+async function renderSoundtrack(duration: number): Promise<string> {
   const rate = 48000;
-  const ctx = new OfflineAudioContext(2, SHORT_DURATION * rate, rate);
+  const ctx = new OfflineAudioContext(2, duration * rate, rate);
   const master = ctx.createGain();
   master.gain.setValueAtTime(0, 0);
   master.gain.setTargetAtTime(0.8, 0, 0.35);
-  master.gain.setValueAtTime(0.8, SHORT_DURATION - 0.25);
-  master.gain.linearRampToValueAtTime(0, SHORT_DURATION);
+  master.gain.setValueAtTime(0.8, duration - 0.25);
+  master.gain.linearRampToValueAtTime(0, duration);
   master.connect(ctx.destination);
   for (const frequency of [55, 82.4069, 110.15, 164.8138]) {
     const oscillator = ctx.createOscillator();
@@ -61,12 +67,13 @@ export async function renderShortSoundtrack(): Promise<number[]> {
       oscillator.stop(start + 2);
     });
   }
-  for (const start of [5, 18]) {
+  const speed = duration === 90 ? 1 : 2.4;
+  for (const start of duration === 90 ? [30, 72] : [5, 18]) {
     cue("split", start);
-    cue("merge", start + cinema.morph.split / 2.4);
-    cue("gold", start + cinema.morph.assemble / 2.4);
+    cue("merge", start + cinema.morph.split / speed);
+    cue("gold", start + cinema.morph.assemble / speed);
   }
-  cue("gold", 27);
+  cue("gold", duration === 90 ? 88 : 27);
   const audio = await ctx.startRendering();
   const bytes = new Uint8Array(44 + audio.length * 4);
   const view = new DataView(bytes.buffer);
@@ -84,5 +91,7 @@ export async function renderShortSoundtrack(): Promise<number[]> {
     view.setInt16(44 + i * 4, Math.round(Math.max(-1, Math.min(1, left[i])) * 32767), true);
     view.setInt16(46 + i * 4, Math.round(Math.max(-1, Math.min(1, right[i])) * 32767), true);
   }
-  return Array.from(bytes);
+  let binary = "";
+  for (let i = 0; i < bytes.length; i += 32768) binary += String.fromCharCode(...bytes.subarray(i, i + 32768));
+  return btoa(binary);
 }

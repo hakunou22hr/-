@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef } from "react";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { cinema } from "../../data/cinema";
 /** Copies along z preserve the same mathematical waveform; z is visual depth, not a variable. */
@@ -38,6 +38,9 @@ export function WaveSculpture({
     red = useRef<THREE.Group>(null),
     blue = useRef<THREE.Group>(null);
   const identity = scene === 5;
+  const { camera, size } = useThree();
+  const box = useMemo(() => new THREE.Box3(), []);
+  const corner = useMemo(() => new THREE.Vector3(), []);
   const local = time - (identity ? 42 : 64);
   const geometries = useMemo(
     () => [
@@ -51,6 +54,7 @@ export function WaveSculpture({
   useEffect(
     () => () => {
       geometries.forEach((geometry) => geometry.dispose());
+      delete window.cinemaWaveBounds;
     },
     [geometries],
   );
@@ -71,6 +75,19 @@ export function WaveSculpture({
     if (blue.current) {
       blue.current.rotation.z = (1 - t) * 0.25;
       blue.current.position.x = (1 - t) * 1.2;
+    }
+    if (root.current) {
+      root.current.updateWorldMatrix(true, true);
+      box.makeEmpty();
+      if (red.current) box.expandByObject(red.current);
+      if (blue.current) box.expandByObject(blue.current);
+      let left = Infinity, right = -Infinity, top = Infinity, bottom = -Infinity;
+      for (const x of [box.min.x, box.max.x]) for (const y of [box.min.y, box.max.y]) for (const z of [box.min.z, box.max.z]) {
+        corner.set(x, y, z).project(camera);
+        const px = (corner.x + 1) * size.width / 2, py = (1 - corner.y) * size.height / 2;
+        left = Math.min(left, px); right = Math.max(right, px); top = Math.min(top, py); bottom = Math.max(bottom, py);
+      }
+      window.cinemaWaveBounds = { left, right, top, bottom };
     }
   });
   return (

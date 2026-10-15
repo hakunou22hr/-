@@ -40,7 +40,7 @@ export function TitleScreen({
           <span className="play-icon">▶</span> 再生{" "}
           <span className="duration">{duration} SEC</span>
         </button>
-        <a className="text-button video-link" href="./video.html">30秒MP4・ダウンロード ↗</a>
+        <a className="text-button video-link" href="./video.html">90秒・Instagram用MP4 ↗</a>
         <button className="text-button" onClick={restart}>
           最初から再生 ↗
         </button>

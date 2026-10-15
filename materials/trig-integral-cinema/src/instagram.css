@@ -1,0 +1,81 @@
+/* 9:16 composition. Critical content stays at x=6–82%, y=14–75%.
+   The bottom 25%, right 18%, and top 14% are reserved for Instagram UI. */
+main.is-instagram {
+  container-type: size;
+  width: min(100vw, 56.25vh);
+  height: min(100vh, 177.777778vw);
+  margin: auto;
+}
+.is-instagram .brand { top: 14%; left: 6%; font-size: 2cqw; gap: 1.3cqw; }
+.is-instagram .brand-symbol { font-size: 4cqw; }
+.is-instagram .brand small { font-size: 1.2cqw; margin-top: .4cqw; }
+.is-instagram .edition { top: 15%; right: 19%; font-size: 1.6cqw; }
+.is-instagram .edition span { margin: 0 1.2cqw; }
+.is-instagram .scene-meta { top: 18%; left: 6%; right: 18%; font-size: 1.8cqw; letter-spacing: .12em; }
+.is-instagram .scene-meta span { margin-right: 2cqw; }
+.is-instagram .scene-body { position: absolute; inset: 23% 18% 34% 6%; height: auto; padding: 0; gap: 2cqw; justify-content: center; }
+.is-instagram .scene-label { font-size: 2.1cqw; margin: 0 0 2cqw; letter-spacing: .13em; }
+.is-instagram .formula { font-size: 6cqw; }
+.is-instagram .katex-display { margin: .2em 0; }
+.is-instagram .subtitle-overlay,
+.is-instagram.is-render .subtitle-overlay { top: 69%; bottom: auto; left: 6%; right: 18%; height: 5.5%; }
+.is-instagram .subtitle-overlay p { font-size: 3cqw; padding: 1cqw; letter-spacing: .08em; line-height: 1.65; margin: 0; }
+.is-instagram .title-screen { padding: 25% 18% 35% 6%; }
+.is-instagram .title-copy h1 { font-size: 9cqw; }
+.is-instagram .title-formula { display: none; }
+.is-instagram .title-eyebrow { font-size: 1.8cqw; letter-spacing: .08em; }
+.is-instagram .subtitle { font-size: 2.7cqw; }
+.is-instagram .title-actions { flex-wrap: wrap; gap: 2cqw; }
+.is-instagram .title-actions button, .is-instagram .title-actions a { font-size: 2.5cqw; }
+.is-instagram .title-footer { display: none; }
+.is-instagram .floating-formula { left: 20% !important; }
+.is-instagram .floating-formula .formula { font-size: 4cqw; }
+.is-instagram.scene-2 .scene-body > div:not(.tunnel-wall):not(.orbit-line):not(.scene-label) { padding: 1cqw; }
+.is-instagram .pulse-square .formula { font-size: 14cqw; }
+.is-instagram .formula-fragments { gap: 6cqw; }
+.is-instagram .formula-fragments .formula,
+.is-instagram .whisper .formula { font-size: 4cqw; }
+.is-instagram .stopped-light { margin: 3cqw auto 1cqw; width: 26cqw; }
+.is-instagram.scene-4 .scene-body { inset: 0; height: 100%; }
+.is-instagram.scene-4 .scene-label { top: 24%; left: 6%; right: 18%; padding: 1cqw; }
+.is-instagram.scene-4 .morph-source { top: 38%; left: 6%; right: 18%; }
+.is-instagram.scene-4 .scene-body > div:not(.morph-source):not(.scene-label):not(.gold-halo) { top: 50%; left: 6%; right: 18%; padding: 1cqw 0; }
+.is-instagram.scene-4 .formula { font-size: 6cqw; }
+.is-instagram .graph-scene { inset: 0; height: 100%; padding: 0; }
+.is-instagram .graph-scene .scene-label { top: 24%; left: 6%; right: 18%; padding: .8cqw; font-size: 2cqw; }
+.is-instagram .sculpture-note { top: 28%; left: 6%; right: 18%; font-size: 1.8cqw; text-align: center; padding: .5cqw; }
+.is-instagram .graph-scene .graph { position: absolute; top: 49.5%; left: 6%; right: 18%; width: auto; padding: 1cqw 2cqw; margin: 0; }
+.is-instagram .graph-scene .graph svg { height: 21cqw; max-height: none; }
+.is-instagram .graph svg text { font-size: 29px; fill: #c1d9e9; }
+.is-instagram .graph-legend { flex-direction: column; gap: .5cqw; }
+.is-instagram .graph-scene .graph-legend .formula { font-size: 3.4cqw; }
+.is-instagram .graph-scene .match,
+.is-instagram .graph-scene .graph-note { font-size: 2cqw; margin: .5cqw 0; }
+.is-instagram .graph-scene .match,
+.is-instagram .graph-scene .graph-note { display: none; }
+.is-instagram .calculation { gap: 1.6cqw; }
+.is-instagram .calculation .formula { font-size: 4.9cqw; }
+.is-instagram .coefficient { flex-direction: column; gap: .5cqw; margin: .6cqw 0; }
+.is-instagram .coefficient .formula { font-size: 3.7cqw; }
+.is-instagram.scene-9 .coefficient .formula { font-size: 4.3cqw; }
+.is-instagram .receding-answer { display: none; }
+.is-instagram.scene-7 .scene-body { inset: 0; height: 100%; }
+.is-instagram.scene-7 .scene-label { position: absolute; top: 24%; left: 6%; right: 18%; }
+.is-instagram.scene-7 .scene-body > div:not(.scene-label):not(.receding-answer):not(.graph) { position: absolute; top: 30%; left: 6%; right: 18%; padding: 1cqw; }
+.is-instagram.scene-7 .formula { font-size: 6cqw; }
+.is-instagram.scene-8 .scene-body { inset: 0; height: 100%; }
+.is-instagram.scene-8 .scene-label { top: 21.5%; left: 6%; right: 18%; }
+.is-instagram.scene-8 .general-formula { top: 24.5%; left: 6%; right: 18%; }
+.is-instagram.scene-8 .general-formula .formula { font-size: 4cqw; }
+.is-instagram.scene-8 .branches { top: 34.5%; left: 6%; right: 18%; gap: 4cqw; margin: 0; }
+.is-instagram.scene-8 .branches .formula { font-size: 3.8cqw; }
+.is-instagram.scene-8 .product-result { top: 52%; left: 6%; right: 18%; padding: 1cqw; }
+.is-instagram.scene-8 .product-result .formula { font-size: 5.2cqw; }
+.is-instagram.scene-10 .ending { inset: 0; height: 100%; padding: 0; }
+.is-instagram .ending .constellation { display: none; }
+.is-instagram .ending-title { position: absolute; top: 28%; left: 6%; right: 18%; padding: 1cqw; margin: 0; text-align: center; }
+.is-instagram .ending-title h1 { font-size: 5.3cqw; margin: 1.5cqw 0; }
+.is-instagram .ending-title > span { font-size: 2.7cqw; }
+.is-instagram .ending .answers { position: absolute; top: 40%; left: 6%; right: 18%; display: flex; flex-direction: column; gap: 2cqw; width: auto; max-width: none; margin: 0; }
+.is-instagram .ending .answers > div { width: 100%; padding: 1.8cqw 2cqw; }
+.is-instagram .ending .answers .formula { font-size: 4.6cqw; }

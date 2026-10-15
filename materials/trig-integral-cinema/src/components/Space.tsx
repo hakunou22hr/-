@@ -12,7 +12,7 @@ function ExportMarker({ time }: { time: number }) {
   useFrame(() => { window.cinemaFrameRendered = time; }, 2);
   return null;
 }
-function World({ time, scene }: { time: number; scene: number }) {
+function World({ time, scene, portrait }: { time: number; scene: number; portrait: boolean }) {
   const points = useRef<THREE.Points>(null);
   const positions = useMemo(() => {
     const a = new Float32Array(1400 * 3);
@@ -53,12 +53,18 @@ function World({ time, scene }: { time: number; scene: number }) {
           depthWrite={false}
         />
       </points>
-      <FormulaTunnel time={time} scene={scene} />
+      <group position={portrait ? [-0.5, 0, 0] : [0, 0, 0]} scale={portrait ? [0.53, 1.05, 1] : [1, 1, 1]}>
+        <FormulaTunnel time={time} scene={scene} />
+      </group>
       {(scene === 4 || scene === 8) && (
-        <FormulaFlow key={scene} time={time} scene={scene} />
+        <group key={scene} position={portrait ? [-0.5, 0.8, 0] : [0, 0, 0]} scale={portrait ? 0.37 : 1}>
+          <FormulaFlow time={time} scene={scene} />
+        </group>
       )}
       {(scene === 5 || scene === 7) && (
-        <WaveSculpture key={scene} time={time} scene={scene} />
+        <group key={scene} position={portrait ? [-0.5, scene === 5 ? 1.25 : -0.3, 0] : [0, 0, 0]} scale={portrait ? 0.28 : 1}>
+          <WaveSculpture time={time} scene={scene} />
+        </group>
       )}
       {scene === 10 && <GoldenRelease time={time} />}
       {scene === 6 || scene === 9 ? (
@@ -87,7 +93,7 @@ class SpaceBoundary extends Component<
     );
   }
 }
-export function Space({ time, scene, exportMode = false }: { time: number; scene: number; exportMode?: boolean }) {
+export function Space({ time, scene, exportMode = false, portrait = false }: { time: number; scene: number; exportMode?: boolean; portrait?: boolean }) {
   return (
     <div className="space" aria-hidden="true">
       <SpaceBoundary>
@@ -103,7 +109,7 @@ export function Space({ time, scene, exportMode = false }: { time: number; scene
               powerPreference: "high-performance",
             }}
           >
-            <World time={time} scene={scene} />
+            <World time={time} scene={scene} portrait={portrait} />
             {exportMode && <ExportMarker time={time} />}
           </Canvas>
         </Suspense>

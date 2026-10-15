@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Formula } from "../Formula";
-export type SceneProps = { local: number };
+export type SceneProps = { local: number; portrait?: boolean };
 export function Reveal({
   tex,
   visible = true,

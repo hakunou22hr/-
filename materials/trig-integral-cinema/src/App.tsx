@@ -13,14 +13,16 @@ import { CinemaAudio } from "./utils/audio";
 import { cinema } from "./data/cinema";
 import { SHORT_DURATION, shortTimeline, sourceTimeAt } from "./data/shortTimeline";
 import { flushSync } from "react-dom";
-import { renderShortSoundtrack } from "./utils/shortAudio";
+import { renderShortSoundtrack, renderLessonSoundtrack } from "./utils/shortAudio";
+import type { SceneProps } from "./components/scenes/shared";
 declare global {
   interface Window {
     cinemaFrameRendered?: number;
-    cinemaRender?: { frame: (time: number) => void; audio: () => Promise<number[]> };
+    cinemaWaveBounds?: { left: number; right: number; top: number; bottom: number };
+    cinemaRender?: { frame: (time: number) => void; audio: () => Promise<string> };
   }
 }
-const sceneComponents = [
+const sceneComponents: Array<React.ComponentType<SceneProps>> = [
   Scenes.SceneIntro,
   Scenes.SceneTunnel,
   Scenes.SceneQuestion,
@@ -34,8 +36,9 @@ const sceneComponents = [
 ];
 export default function App() {
   const params = new URLSearchParams(window.location.search);
-  const short = params.get("edition") === "30";
-  const renderMode = short && params.get("render") === "1";
+  const portrait = params.get("edition") === "instagram";
+  const short = portrait || params.get("edition") === "30";
+  const renderMode = params.get("render") === "1";
   const duration = short ? SHORT_DURATION : 90;
   const player = usePlayback(duration, renderMode);
   const sourceTime = short ? sourceTimeAt(player.time) : player.time;
@@ -64,10 +67,10 @@ export default function App() {
     if (!renderMode) return;
     window.cinemaRender = {
       frame: (time) => flushSync(() => player.seek(time)),
-      audio: renderShortSoundtrack,
+      audio: short ? renderShortSoundtrack : renderLessonSoundtrack,
     };
     return () => { delete window.cinemaRender; };
-  }, [renderMode, player.seek]);
+  }, [renderMode, player.seek, short]);
   useEffect(() => {
     audio.current?.setActive(sound && player.playing);
   }, [sound, player.playing]);
@@ -119,12 +122,13 @@ export default function App() {
   return (
     <main
       style={variables}
-      className={`${player.started ? "is-started" : "is-title"} ${player.playing ? "is-playing" : "is-paused"} scene-${scene.id} ${renderMode ? "is-render" : ""}`}
+      className={`${player.started ? "is-started" : "is-title"} ${player.playing ? "is-playing" : "is-paused"} scene-${scene.id} ${renderMode ? "is-render" : ""} ${portrait ? "is-instagram" : ""}`}
       data-film-time={player.time}
       data-source-time={sourceTime}
     >
       <Space
         exportMode={renderMode}
+        portrait={portrait}
         time={player.started ? sourceTime : 5}
         scene={player.started ? scene.id : 1}
       />
@@ -159,12 +163,12 @@ export default function App() {
               <motion.div
                 className="scene-stage"
                 key={scene.id}
-                initial={renderMode && scene.id === 1 ? false : { opacity: 0, scale: 1.025 }}
+                initial={renderMode && scene.id === 1 ? false : { opacity: 0, scale: portrait ? 1 : 1.025 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
+                exit={portrait ? { opacity: 0, transition: { duration: 0 } } : { opacity: 0 }}
                 transition={{ duration: short ? 0.22 : scene.id >= 9 ? 0.2 : 0.55 }}
               >
-                <Scene local={local} />
+                <Scene local={local} portrait={portrait} />
               </motion.div>
             </AnimatePresence>
             <SubtitleOverlay

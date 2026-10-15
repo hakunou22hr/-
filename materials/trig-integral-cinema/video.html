@@ -1,46 +1,42 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#030917" />
-  <title>三角関数の不定積分｜30秒MP4</title>
-  <style>
-    *{box-sizing:border-box}body{margin:0;background:#030917;color:#edf6ff;font-family:"Yu Gothic","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;line-height:1.8}main{max-width:1120px;margin:auto;padding:48px 24px 60px}.eyebrow{color:#e6c580;font-size:12px;letter-spacing:.2em}h1{font-size:clamp(25px,5vw,44px);line-height:1.4;margin:16px 0}p{color:#b0c8db}video{display:block;width:100%;aspect-ratio:16/9;background:#000;border:1px solid #294054;border-radius:12px;margin:28px 0 20px}.actions{display:flex;gap:12px;flex-wrap:wrap}.button{display:inline-block;border:1px solid #bba36a;border-radius:7px;padding:12px 20px;text-decoration:none;background:#e6c580;color:#121a25;font:inherit;font-weight:700;cursor:pointer}.secondary{background:transparent;color:#e6c580}a{color:#86d9ff}a:focus-visible,button:focus-visible{outline:3px solid #86d9ff;outline-offset:4px}.note{font-size:14px}.links{margin-top:28px;display:flex;gap:24px;flex-wrap:wrap}#status{min-height:1.8em;font-size:14px}@media(max-width:560px){main{padding:28px 16px}.button{width:100%;text-align:center}}
-  </style>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#030917" /><title>三角関数の不定積分｜90秒・Instagram用MP4</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#030917;color:#edf6ff;font-family:"Yu Gothic","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;line-height:1.8}main{max-width:1240px;margin:auto;padding:44px 24px 60px}.eyebrow{color:#e6c580;font-size:12px;letter-spacing:.18em}h1{font-size:clamp(25px,5vw,42px);line-height:1.4;margin:16px 0}h2{font-size:24px;margin:8px 0}p{color:#b0c8db}.editions{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:30px}article{min-width:0;padding:24px;border:1px solid #294054;border-radius:14px;background:linear-gradient(145deg,#0c1b2b,#050c17)}.kind{color:#e6c580;font-size:12px;letter-spacing:.15em}video{display:block;width:100%;aspect-ratio:16/9;background:#000;border:1px solid #294054;border-radius:9px;margin:24px auto 20px}.portrait{width:min(100%,320px);aspect-ratio:9/16}.actions{display:flex;gap:10px;flex-wrap:wrap}.button{display:inline-block;border:1px solid #bba36a;border-radius:7px;padding:11px 15px;text-decoration:none;background:#e6c580;color:#121a25;font:inherit;font-weight:700;cursor:pointer;text-align:center}.secondary{background:transparent;color:#e6c580}a{color:#86d9ff}a:focus-visible,button:focus-visible{outline:3px solid #86d9ff;outline-offset:4px}.note,.status{font-size:13px}.status{min-height:1.8em}.links{display:flex;gap:20px;flex-wrap:wrap;margin-top:22px}footer{margin-top:30px;border-top:1px solid #294054;padding-top:16px}@media(max-width:760px){.editions{grid-template-columns:1fr}main{padding:28px 16px}article{padding:18px}.button{width:100%}}
+</style>
 </head>
-<body>
-<main>
-  <div class="eyebrow">MATHEMATICS III · 30 SECOND CINEMA</div>
-  <h1>三角関数の不定積分</h1>
-  <p>数式が、空間になる。<br />元の90秒版から、半角公式・積和公式と2問の積分を30秒に。</p>
-  <video id="film" controls playsinline preload="metadata" aria-label="三角関数の不定積分 映画型30秒版">
-    <source src="https://github.com/hakunou22hr/-/releases/download/trig-integral-cinema-30s-v1/trig-integral-cinema-30s.mp4" type="video/mp4" />
-    MP4をダウンロードして再生してください。
-  </video>
-  <div class="actions">
-    <button id="play" class="button" type="button">▶ 30秒版を再生</button>
-    <a class="button secondary" href="https://github.com/hakunou22hr/-/releases/download/trig-integral-cinema-30s-v1/trig-integral-cinema-30s.mp4" download="trig-integral-cinema-30s.mp4">↓ MP4をダウンロード</a>
-  </div>
-  <p id="status" role="status"></p>
-  <p class="note">30秒 ／ 1920×1080 ／ 30fps ／ H.264・AAC ／ 合成BGM・効果音付き</p>
-  <p class="note">WindowsではダウンロードしたMP4を開いて再生できます。iPhoneで動画が開いた場合は、共有メニューから「ファイルに保存」を選んでください。</p>
-  <div class="links">
-    <a href="./index.html">90秒のブラウザ教材</a>
-    <a href="./index.html?edition=30">30秒のブラウザ教材</a>
-    <a href="https://github.com/hakunou22hr/-/releases/tag/trig-integral-cinema-30s-v1">動画の保存先</a>
-  </div>
-</main>
-<script type="module">
-  const film = document.querySelector('#film');
-  const status = document.querySelector('#status');
-  document.querySelector('#play').addEventListener('click', async () => {
-    try {
-      if (film.ended) film.currentTime = 0;
-      await film.play(); status.textContent = '';
-    } catch { status.textContent = '下の「MP4をダウンロード」から保存して再生できます。'; }
-  });
-  film.addEventListener('error', () => { status.textContent = '動画を読み込めませんでした。MP4のダウンロード、または動画の保存先をお試しください。'; });
-</script>
-</body>
-</html>
+<body><main>
+<div class="eyebrow">MATHEMATICS III · CINEMATIC LESSON</div>
+<h1>三角関数の不定積分</h1>
+<p>数式が、空間になる。<br />授業用の90秒完全版と、Instagram用の縦型30秒版を保存・再生できます。</p>
+<div class="editions">
+<article>
+<div class="kind">INSTAGRAM · 9:16</div><h2>Instagram用30秒版</h2>
+<p>数式の発光と粒子変形を、縦型の画面へ。<br />重要な数式は、上下と右端を避けて配置しています。</p>
+<video class="portrait" id="instagram-film" controls playsinline preload="metadata" aria-label="Instagram用 縦型30秒版">
+<source src="https://github.com/hakunou22hr/-/releases/download/trig-integral-cinema-instagram-30s-v1/trig-integral-cinema-instagram-30s.mp4" type="video/mp4" />MP4をダウンロードして再生してください。</video>
+<div class="actions"><button class="button" type="button" data-play="instagram-film">▶ Instagram用30秒版を再生</button><a class="button secondary" href="https://github.com/hakunou22hr/-/releases/download/trig-integral-cinema-instagram-30s-v1/trig-integral-cinema-instagram-30s.mp4" download="trig-integral-cinema-instagram-30s.mp4">↓ 縦型30秒MP4をダウンロード</a></div>
+<p class="status" role="status"></p><p class="note">30秒 ／ 1080×1920 ／ 30fps ／ 音声付き</p>
+<div class="links"><a href="./index.html?edition=instagram">縦型のブラウザ教材</a><a href="https://github.com/hakunou22hr/-/releases/tag/trig-integral-cinema-instagram-30s-v1">動画の保存先</a></div>
+</article>
+<article>
+<div class="kind">CLASSROOM · 16:9</div><h2>授業用90秒完全版</h2>
+<p>元の10シーンを、最後まで。<br />半角公式・積和公式と2問の積分を学ぶ映像です。</p>
+<video id="lesson-film" controls playsinline preload="metadata" aria-label="授業用90秒完全版">
+<source src="https://github.com/hakunou22hr/-/releases/download/trig-integral-cinema-90s-v1/trig-integral-cinema-90s.mp4" type="video/mp4" />MP4をダウンロードして再生してください。</video>
+<div class="actions"><button class="button" type="button" data-play="lesson-film">▶ 授業用90秒版を再生</button><a class="button secondary" href="https://github.com/hakunou22hr/-/releases/download/trig-integral-cinema-90s-v1/trig-integral-cinema-90s.mp4" download="trig-integral-cinema-90s.mp4">↓ 授業用90秒MP4をダウンロード</a></div>
+<p class="status" role="status"></p><p class="note">90秒 ／ 1920×1080 ／ 30fps ／ 音声付き</p>
+<div class="links"><a href="./index.html">元の90秒ブラウザ教材</a><a href="https://github.com/hakunou22hr/-/releases/tag/trig-integral-cinema-90s-v1">動画の保存先</a></div>
+</article>
+</div>
+<footer><p class="note">MP4はH.264映像・AAC音声です。Windowsでは保存したファイルを開いて再生できます。iPhoneで動画が開いた場合は、共有メニューから「ファイルに保存」を選んでください。</p>
+<div class="links"><a href="https://github.com/hakunou22hr/-/releases/download/trig-integral-cinema-30s-v1/trig-integral-cinema-30s.mp4">以前の横型30秒MP4</a><a href="https://github.com/hakunou22hr/-/tree/archive/trig-integral-cinema-90s-21197d3/materials/trig-integral-cinema">元の90秒版の保管ソース</a></div></footer>
+</main><script type="module">
+for(const button of document.querySelectorAll('[data-play]')){
+ const film=document.getElementById(button.dataset.play);const status=button.closest('article').querySelector('.status');
+ button.addEventListener('click',async()=>{try{for(const other of document.querySelectorAll('video'))if(other!==film)other.pause();if(film.ended)film.currentTime=0;await film.play();status.textContent='';}catch{status.textContent='MP4をダウンロードして再生できます。';}});
+ film.addEventListener('error',()=>{status.textContent='動画を読み込めませんでした。ダウンロード、または動画の保存先をお試しください。';});
+}
+</script></body></html>

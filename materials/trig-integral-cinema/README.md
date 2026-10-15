@@ -1,8 +1,14 @@
 # 三角関数の不定積分 — 映画型90秒版
 
-## 30秒短縮版とMP4
+## 授業用90秒MP4・Instagram用縦型30秒MP4
 
-元の90秒版の10シーンと2問を残した30秒版を追加しました。90秒版の再生は従来のURL、30秒版は `?edition=30` で開きます。[MP4の再生・ダウンロード](./video.html) は `video.html` から利用できます。動画の実体は教材ライブラリのGitHub Releasesに保管します。
+[再生・ダウンロードページ](./video.html)から、授業用90秒完全版（1920×1080）とInstagram用30秒版（1080×1920・9:16）を選べます。どちらも30fps、合成音付きMP4です。元の90秒ブラウザ教材と保管用ブランチ、以前の横型30秒MP4も保持しています。
+
+縦型版は `?edition=instagram` で開きます。数式とグラフを上下に分け、上下・右端にInstagram向けの余白を確保しています。[構成・保管・再書き出し](./docs/INSTAGRAM_AND_LESSON.md)を参照してください。
+
+## 以前の横型30秒短縮版とMP4
+
+元の90秒版の10シーンと2問を残した30秒版を追加しました。90秒版の再生は従来のURL、30秒版は `?edition=30` で開きます。[横型30秒MP4](https://github.com/hakunou22hr/-/releases/download/trig-integral-cinema-30s-v1/trig-integral-cinema-30s.mp4) は引き続きGitHub Releasesから取得できます。現在の `video.html` は授業用90秒版とInstagram用縦型30秒版の再生・ダウンロードページです。
 
 - [30秒MP4の保存先](https://github.com/hakunou22hr/-/releases/tag/trig-integral-cinema-30s-v1)
 - [元の90秒版の保管記録](./docs/PRESERVATION.md)
