@@ -1,0 +1,88 @@
+name: Export integral differentiation cinema
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'materials/integral-differentiation-cinema/src/**'
+      - 'materials/integral-differentiation-cinema/render/**'
+      - '.github/workflows/integral-differentiation-cinema.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: integral-differentiation-cinema
+  cancel-in-progress: false
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare draft release before rendering
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! gh release view integral-differentiation-cinema-v1 >/dev/null 2>&1; then
+            gh release create integral-differentiation-cinema-v1 --draft --target "$GITHUB_SHA" --title '定積分と微分法 — PC90秒・Instagram30秒' --notes-file materials/integral-differentiation-cinema/README.md
+          fi
+  render:
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        edition: [lesson, instagram]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm test --prefix materials/integral-differentiation-cinema
+      - run: npm run build --prefix materials/integral-differentiation-cinema
+      - name: Install rendering tools
+        run: |
+          npm install --prefix /tmp/cinema-tools playwright@1.62.1
+          node /tmp/cinema-tools/node_modules/playwright/cli.js install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg fonts-noto-cjk
+      - name: Render and check every frame
+        env:
+          CINEMA_EDITION: ${{ matrix.edition }}
+          CINEMA_OUTPUT: work/integral-${{ matrix.edition }}
+          PLAYWRIGHT_MODULE_PATH: /tmp/cinema-tools/node_modules/playwright
+        run: |
+          npm run preview --prefix materials/integral-differentiation-cinema -- --host 127.0.0.1 --port 4175 >/tmp/integral-preview.log 2>&1 &
+          for attempt in $(seq 1 30); do
+            if curl --silent --fail http://127.0.0.1:4175/ >/dev/null; then break; fi
+            sleep 1
+          done
+          node materials/integral-differentiation-cinema/render/render.mjs
+          cd "work/integral-$CINEMA_EDITION"
+          sha256sum *.mp4 > SHA256SUMS-${CINEMA_EDITION}.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: integral-cinema-${{ matrix.edition }}
+          path: |
+            work/integral-${{ matrix.edition }}/*.mp4
+            work/integral-${{ matrix.edition }}/ffprobe.json
+            work/integral-${{ matrix.edition }}/layout-validation.json
+            work/integral-${{ matrix.edition }}/*.txt
+            work/integral-${{ matrix.edition }}/sample-*.jpg
+            work/integral-${{ matrix.edition }}/layout-error.png
+      - name: Save validated video to draft Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CINEMA_EDITION: ${{ matrix.edition }}
+        run: |
+          gh release upload integral-differentiation-cinema-v1 work/integral-$CINEMA_EDITION/*.mp4 work/integral-$CINEMA_EDITION/*.txt --clobber
+  publish:
+    needs: render
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish both videos together
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release edit integral-differentiation-cinema-v1 --draft=false --target "$GITHUB_SHA"
