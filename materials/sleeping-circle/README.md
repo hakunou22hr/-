@@ -90,3 +90,7 @@ node materials/sleeping-circle/render/playback.mjs
 連続再生の回帰検査は、開発サーバーの起動後に `node materials/sleeping-circle/render/playback.check.cjs` を実行する。3Mbps・遅延100msで各版を10秒間再生し、再バッファリング、終端へのシーク、終了、リセット、描画モードの遅延初期化を確認する。`CIRCLE_TEST_ORIGIN` で検証サーバーのURLを指定できる。
 
 公開用ビルドの90秒版は3Mbps・遅延100msの回線で、シークせず0秒から90秒まで連続再生して検証した。再生開始後の再バッファリングはなく、終端まで到達した。検査結果は `validation.json` の `playbackFix` に保存する。
+
+## 90秒完成版の保管（2026-10-16）
+
+ユーザーの指定により90秒完成版を教材ライブラリへ保管。作品ページの初期選択は90秒版とし、通常再生用MP4とフルHDダウンロード用MP4を維持する。`archive-90s.json` に両ファイルのSHA-256、正確な尺・フレーム数、完成時のソースコミットを記録した。再編集時はこの保管版を保持する。
