@@ -1,1 +1,10 @@
-{"id":"moving-boundary","name":"数学Ⅲ｜動く境界 — 微分が積分を解き放つ","subject":"数学Ⅲ","unit":"微分法・積分法／動く積分上端","description":"上端と高さが同時に変わる積分を、符号付き面積と２項の相殺で理解する。映画型90秒版と縦型30秒版、音声付きMP4。","thumbnail":"thumbnail.svg"}
+{
+  "id": "moving-boundary",
+  "name": "数学Ⅲ｜動く境界 — 微分が積分を解き放つ",
+  "subject": "数学Ⅲ",
+  "unit": "微分法・積分法／動く積分上端",
+  "description": "動く上端と変わる高さを3Dの符号付き面積で追い、積の微分で生まれた2項が衝突・相殺する映画型教材。横型90秒・縦型30秒、音楽と効果音、フルHD MP4保存に対応。",
+  "thumbnail": "thumbnail.svg",
+  "version": "2.0.0",
+  "durationSeconds": 90
+}

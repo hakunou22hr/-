@@ -1,0 +1,46 @@
+{
+  "sourceCommit": "f92f321b5a386b80f2f26445a68bc1132ea831cb",
+  "title": "動く境界：更新前の保存版",
+  "media": {
+    "90": {
+      "size_bytes": 62201645,
+      "sha256": "7a1ee6bd56f0aec66a7607114749eee0c393e5b206ea6308a466849d4b4f9480",
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "frames": 2700,
+      "duration": "90.000000",
+      "video": "h264",
+      "audio": "aac",
+      "full_decode": "PASS"
+    },
+    "30": {
+      "size_bytes": 21788529,
+      "sha256": "cba846bc4e579bc19a066a21060762220969b1ef97f350547dcd58ff9c6696d8",
+      "width": 1080,
+      "height": 1920,
+      "fps": 30,
+      "frames": 900,
+      "duration": "30.000000",
+      "video": "h264",
+      "audio": "aac",
+      "full_decode": "PASS"
+    },
+    "mathematics": {
+      "F": "1-cos(x)",
+      "derivative": "sin(x)",
+      "signed_integral_max_error": 5.51214540678302e-09,
+      "numerical_check": "PASS"
+    },
+    "cinematic_background": {
+      "480x270": {
+        "mean_frame_difference": 17.485933641975308,
+        "animated_layers": "PASS"
+      },
+      "270x480": {
+        "mean_frame_difference": 19.443135288065843,
+        "animated_layers": "PASS"
+      }
+    }
+  }
+}
