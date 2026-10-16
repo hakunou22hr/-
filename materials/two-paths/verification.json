@@ -1,0 +1,308 @@
+{
+  "passed": true,
+  "layoutSamples": 216,
+  "profiles": [
+    "90s 16:9",
+    "30s 16:9",
+    "30s 9:16 design"
+  ],
+  "math": "numerical quadrature, signed x, endpoints, decomposition, derivative",
+  "background": "6 scenes × 3 profiles motion and deterministic seek",
+  "browser": {
+    "passed": true,
+    "results": [
+      {
+        "duration": 90,
+        "fullPlayback": true,
+        "networkMbps": 3,
+        "samples": [
+          {
+            "t": 2.24061,
+            "ended": false
+          },
+          {
+            "t": 4.162327,
+            "ended": false
+          },
+          {
+            "t": 6.029662,
+            "ended": false
+          },
+          {
+            "t": 8.007604,
+            "ended": false
+          },
+          {
+            "t": 9.847112,
+            "ended": false
+          },
+          {
+            "t": 11.770016,
+            "ended": false
+          },
+          {
+            "t": 13.782855,
+            "ended": false
+          },
+          {
+            "t": 15.790076,
+            "ended": false
+          },
+          {
+            "t": 17.801118,
+            "ended": false
+          },
+          {
+            "t": 19.813138,
+            "ended": false
+          },
+          {
+            "t": 21.821556,
+            "ended": false
+          },
+          {
+            "t": 23.831079,
+            "ended": false
+          },
+          {
+            "t": 25.843407,
+            "ended": false
+          },
+          {
+            "t": 27.850298,
+            "ended": false
+          },
+          {
+            "t": 29.864461,
+            "ended": false
+          },
+          {
+            "t": 31.874161,
+            "ended": false
+          },
+          {
+            "t": 33.882937,
+            "ended": false
+          },
+          {
+            "t": 35.896414,
+            "ended": false
+          },
+          {
+            "t": 37.905193,
+            "ended": false
+          },
+          {
+            "t": 39.916738,
+            "ended": false
+          },
+          {
+            "t": 41.930869,
+            "ended": false
+          },
+          {
+            "t": 43.92288,
+            "ended": false
+          },
+          {
+            "t": 45.89518,
+            "ended": false
+          },
+          {
+            "t": 47.906457,
+            "ended": false
+          },
+          {
+            "t": 49.915328,
+            "ended": false
+          },
+          {
+            "t": 51.926106,
+            "ended": false
+          },
+          {
+            "t": 53.933672,
+            "ended": false
+          },
+          {
+            "t": 55.943465,
+            "ended": false
+          },
+          {
+            "t": 57.9632,
+            "ended": false
+          },
+          {
+            "t": 59.971675,
+            "ended": false
+          },
+          {
+            "t": 61.98033,
+            "ended": false
+          },
+          {
+            "t": 63.991247,
+            "ended": false
+          },
+          {
+            "t": 66.000932,
+            "ended": false
+          },
+          {
+            "t": 68.010985,
+            "ended": false
+          },
+          {
+            "t": 70.025526,
+            "ended": false
+          },
+          {
+            "t": 72.03458,
+            "ended": false
+          },
+          {
+            "t": 74.042909,
+            "ended": false
+          },
+          {
+            "t": 76.053033,
+            "ended": false
+          },
+          {
+            "t": 78.060286,
+            "ended": false
+          },
+          {
+            "t": 80.071064,
+            "ended": false
+          },
+          {
+            "t": 82.080966,
+            "ended": false
+          },
+          {
+            "t": 84.091492,
+            "ended": false
+          },
+          {
+            "t": 86.1017,
+            "ended": false
+          },
+          {
+            "t": 88.107601,
+            "ended": false
+          },
+          {
+            "t": 90,
+            "ended": true
+          }
+        ],
+        "reset": true,
+        "seek": true,
+        "canvas": true,
+        "volume": true,
+        "mute": true,
+        "fullscreen": true
+      },
+      {
+        "duration": 30,
+        "fullPlayback": true,
+        "networkMbps": 3,
+        "samples": [
+          {
+            "t": 2.252262,
+            "ended": false
+          },
+          {
+            "t": 4.261941,
+            "ended": false
+          },
+          {
+            "t": 6.27072,
+            "ended": false
+          },
+          {
+            "t": 8.280385,
+            "ended": false
+          },
+          {
+            "t": 10.286954,
+            "ended": false
+          },
+          {
+            "t": 12.297269,
+            "ended": false
+          },
+          {
+            "t": 14.306225,
+            "ended": false
+          },
+          {
+            "t": 16.315766,
+            "ended": false
+          },
+          {
+            "t": 18.323301,
+            "ended": false
+          },
+          {
+            "t": 20.336417,
+            "ended": false
+          },
+          {
+            "t": 22.342068,
+            "ended": false
+          },
+          {
+            "t": 24.348307,
+            "ended": false
+          },
+          {
+            "t": 26.356693,
+            "ended": false
+          },
+          {
+            "t": 28.368097,
+            "ended": false
+          },
+          {
+            "t": 30,
+            "ended": true
+          }
+        ],
+        "reset": true,
+        "seek": true,
+        "canvas": true,
+        "volume": true,
+        "mute": true,
+        "fullscreen": true
+      },
+      {
+        "download": "two-paths-90s.mp4",
+        "bytes": 72628878,
+        "sha256": "b2022b9ae5dbc3e51207c57027c0c1856223208ed5998c0d13cc7c589b63c2bb"
+      },
+      {
+        "download": "two-paths-30s.mp4",
+        "bytes": 24725851,
+        "sha256": "16038574cf9b45fef5dd088533a3e69f088c183396764524e2c4e9ec1ce37101"
+      }
+    ],
+    "mobile": true
+  },
+  "productionBuild": {
+    "passed": true,
+    "library": true,
+    "native": [
+      90,
+      30
+    ],
+    "canvas": [
+      90,
+      30
+    ],
+    "pageErrors": []
+  },
+  "preservedReferenceFiles": 197,
+  "referenceCommit": "a643132cafb9460e56672318b62ad925ea292721"
+}

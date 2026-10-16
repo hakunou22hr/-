@@ -1,0 +1,42 @@
+name: Verify two paths cinema
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'materials/two-paths/**'
+      - 'public/media/two-paths/**'
+      - '.github/workflows/two-paths-review.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  public-playback:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Install playback browser
+        run: |
+          npm install --prefix /tmp/two-paths-browser playwright@1.62.1
+          node /tmp/two-paths-browser/node_modules/playwright/cli.js install --with-deps chromium
+          echo "CHROMIUM_PATH=$(node -e 'console.log(require("/tmp/two-paths-browser/node_modules/playwright").chromium.executablePath())')" >> "$GITHUB_ENV"
+      - name: Wait for the newly published work
+        run: |
+          for attempt in $(seq 1 60); do
+            curl --silent --location 'https://hakunou22hr.github.io/-/materials/two-paths/?v=tp1' -o /tmp/two-paths-page.html
+            if rg -q '二つの道、ひとつの答え' /tmp/two-paths-page.html; then exit 0; fi
+            sleep 10
+          done
+          exit 1
+      - name: Full real-time public playback and actual MP4 downloads
+        env:
+          PLAYWRIGHT_MODULE_PATH: /tmp/two-paths-browser/node_modules/playwright
+          TP_TEST_ORIGIN: https://hakunou22hr.github.io/-
+        run: node materials/two-paths/render/browser.check.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: two-paths-public-playback
+          path: work/two-paths/
