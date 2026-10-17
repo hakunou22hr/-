@@ -1,6 +1,6 @@
 {
   "title": "数学Ⅲ｜二つの道、ひとつの答え",
-  "edition": "two-act-v4",
+  "edition": "cinematic-v5",
   "files": [
     {
       "file": "two-paths-30s-play.mp4",
@@ -10,8 +10,8 @@
       "frames": 900,
       "video": "h264",
       "audio": "aac",
-      "bytes": 7317935,
-      "sha256": "9becac3475db17486863fb14370a174f996ef4e1c74e7e7fcf78f631f98875e5"
+      "bytes": 7443648,
+      "sha256": "490ed172f9844247e779f0c226aa16d3be4ebdda0c93fc8d9462e3a221d63251"
     },
     {
       "file": "two-paths-30s.mp4",
@@ -21,8 +21,8 @@
       "frames": 900,
       "video": "h264",
       "audio": "aac",
-      "bytes": 27515704,
-      "sha256": "7f49cdc5ee8dd4d92c5ef85b863aa3443dc2f1abe6ad141a63ced5cb95504e59"
+      "bytes": 28080456,
+      "sha256": "3f9a2f4a9eb9a211c713e7350f03a6aaf31c1095bbbb26992b7743308a4a7047"
     },
     {
       "file": "two-paths-90s-play.mp4",
@@ -32,8 +32,8 @@
       "frames": 2700,
       "video": "h264",
       "audio": "aac",
-      "bytes": 21965371,
-      "sha256": "ba2b3f9f9884e43bf9cbc6fdc6cdb593243851f158e4b38781c993051335f4a4"
+      "bytes": 21892448,
+      "sha256": "9d96099c5074492b56c4f35e71706b57b459f4f89d70ad9812d252c9b3ed0112"
     },
     {
       "file": "two-paths-90s.mp4",
@@ -43,8 +43,8 @@
       "frames": 2700,
       "video": "h264",
       "audio": "aac",
-      "bytes": 79068233,
-      "sha256": "cfceb067f40e1b6898d132029c17fe6294d8e47da338a0f801448f0233976cb7"
+      "bytes": 78645824,
+      "sha256": "fc4db7c990799b3884ea9238fb3c528dca8d7dfb62f12e69e19731629726ffaa"
     }
   ]
 }

@@ -4,7 +4,7 @@ const $=s=>document.querySelector(s),video=$('#video');
 let duration=90,film=null,world=null,lastDraw=-1,mathReady=null,generation=0;
 const make=(w,h)=>{const c=document.createElement('canvas');c.width=w;c.height=h;return c};
 const fmt=t=>`${String(Math.floor(t/60)).padStart(2,'0')}:${String(Math.floor(t%60)).padStart(2,'0')}`;
-const source=()=>`../../media/two-paths/two-paths-${duration}s-play.mp4?v=tp4`;
+const source=()=>`../../media/two-paths/two-paths-${duration}s-play.mp4?v=tp5`;
 // Native playback is available immediately. Heavy procedural assets are optional.
 async function setup(){const token=++generation;try{
  $('#status').textContent='数式空間を準備しています…';
