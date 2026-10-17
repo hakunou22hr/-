@@ -49,7 +49,60 @@ panelList.push({group,side,i,mat});
  const diamondMat=basic(gold,.27);diamondMat.wireframe=true;const diamonds=new THREE.InstancedMesh(new THREE.OctahedronGeometry(.35),diamondMat,70);scene.add(diamonds);const temp=new THREE.Object3D();
  // A limited number of large optical bokeh sprites near the camera add depth.
  const bokeh=[];for(let i=0;i<14;i++){const mat=new THREE.SpriteMaterial({map:sprite,color:i%2?blue:gold,transparent:true,opacity:.13,blending:THREE.AdditiveBlending,depthWrite:false,toneMapped:false});const s=new THREE.Sprite(mat);s.scale.setScalar(.6+seeded(i)*.8);scene.add(s);bokeh.push(s);}
- function render(q){const {t,scene:s,u}=q;const merge=s===5?1:s===4?ease(u/.65):0;const aWarm=s===2?1:s===3?.12:.55;
+ // Second act: a circular observatory, with no forward-moving gallery.
+ // Preserve the first act exactly; the shared mirror now reflects a new space.
+ const firstAct=scene.children.filter(o=>o!==floor&&o!==floorVeil);
+ const arena=new THREE.Group();arena.visible=false;scene.add(arena);
+ const orbitRoot=new THREE.Group();orbitRoot.position.set(0,0,-24);arena.add(orbitRoot);
+ const orbitPages=[];
+ for(let i=0;i<12;i++){
+  const group=new THREE.Group(),a=i*TAU/12;
+  group.position.set(Math.sin(a)*19,Math.sin(i*1.7)*1.3,Math.cos(a)*15);
+  group.rotation.y=a+Math.PI;orbitRoot.add(group);
+  const mat=new THREE.MeshBasicMaterial({map:atlases[(i+1)%3],color:new THREE.Color(.42,.88,1.22),side:THREE.DoubleSide,transparent:true,opacity:.85,toneMapped:false});
+  add(new THREE.PlaneGeometry(7.2,10.2),mat,group);
+  const edges=new THREE.EdgesGeometry(new THREE.PlaneGeometry(7.32,10.32));
+  group.add(new THREE.LineSegments(edges,new THREE.LineBasicMaterial({color:i%3?blue:gold,transparent:true,opacity:.8,toneMapped:false})));
+  orbitPages.push({group,a,mat});
+ }
+ const gyroscope=new THREE.Group();gyroscope.position.set(0,-.4,-27);arena.add(gyroscope);
+ const orbitRings=[];
+ for(let i=0;i<9;i++){
+  const ring=add(new THREE.TorusGeometry(10.5+i*.58,.035+(i%3)*.015,6,180),basic(i%3?new THREE.Color(.3,1.6,2.7):gold,.48),gyroscope);
+  orbitRings.push(ring);
+ }
+ const radialFloor=new THREE.Group();radialFloor.position.set(0,-5.18,-25);arena.add(radialFloor);
+ for(let i=1;i<=13;i++){const r=add(new THREE.TorusGeometry(i*2.1,.018,4,140),basic(i%4?blue:gold,.26),radialFloor);r.rotation.x=Math.PI/2;}
+ const spokesData=[];for(let i=0;i<48;i++){const a=i*TAU/48;spokesData.push(2*Math.cos(a),0,2*Math.sin(a),29*Math.cos(a),0,29*Math.sin(a));}
+ const spokesGeo=new THREE.BufferGeometry();spokesGeo.setAttribute('position',new THREE.Float32BufferAttribute(spokesData,3));radialFloor.add(new THREE.LineSegments(spokesGeo,new THREE.LineBasicMaterial({color:blue,transparent:true,opacity:.21,toneMapped:false})));
+ const constellationData=new Float32Array(2200*3),constellationGeo=new THREE.BufferGeometry();constellationGeo.setAttribute('position',new THREE.BufferAttribute(constellationData,3));
+ const constellation=new THREE.Points(constellationGeo,new THREE.PointsMaterial({map:sprite,color:blue,size:.13,transparent:true,opacity:.85,blending:THREE.AdditiveBlending,depthWrite:false,toneMapped:false}));constellation.frustumCulled=false;arena.add(constellation);
+ const waves=[];for(let i=0;i<4;i++){const wave=add(new THREE.TorusGeometry(15,.018,6,180),luminous(i%2?gold:blue,0),arena);wave.position.set(0,-.4,-24);waves.push(wave);}
+ const crown=new THREE.Group();crown.position.set(0,0,-26);arena.add(crown);
+ const crownBars=new THREE.InstancedMesh(new THREE.BoxGeometry(.055,1,.055),luminous(gold,.65),64);crown.add(crownBars);crownBars.frustumCulled=false;
+ const trails=new THREE.Group();trails.position.set(0,-.2,-23);arena.add(trails);const spiralData=new Float32Array(4*220*2*3),spiralColors=new Float32Array(spiralData.length);for(let j=0;j<4;j++)for(let k=0;k<440;k++){const c=j%2?blue:gold;spiralColors.set([c.r,c.g,c.b],(j*440+k)*3);}const spiralGeo=new THREE.BufferGeometry();spiralGeo.setAttribute('position',new THREE.BufferAttribute(spiralData,3));spiralGeo.setAttribute('color',new THREE.BufferAttribute(spiralColors,3));const spiral=new THREE.LineSegments(spiralGeo,new THREE.LineBasicMaterial({vertexColors:true,transparent:true,opacity:.7,blending:THREE.AdditiveBlending,depthWrite:false,toneMapped:false}));spiral.frustumCulled=false;trails.add(spiral);
+ function renderArena(q){const {t,scene:s,u}=q,arrival=s===3?ease(u/.1):1,join=s===3?0:s===4?ease(u/.8):1;
+  firstAct.forEach(o=>o.visible=false);arena.visible=true;
+  // Establish a wide chamber, then orbit laterally instead of travelling forward.
+  camera.position.set(Math.sin((t-43)*.045)*2.4,1.7+Math.sin(t*.047)*.6,18+Math.sin(t*.04)*1.2);camera.lookAt(0,-.6,-24);
+  scene.fog.density=.012;scene.background.set('#020c18');
+  orbitRoot.rotation.y=Math.sin(t*.045)*.16;orbitRoot.rotation.z=Math.sin(t*.025)*.025;
+  orbitPages.forEach(({group,a,mat},i)=>{group.position.y=Math.sin(t*.23+i*.7)*1.35+(s>=4?Math.sin(t*.16+i)*1.5:0);group.rotation.z=Math.sin(t*.12+i)*.05;mat.opacity=.7+Math.sin(t*.18+i)*.12;});
+  gyroscope.rotation.set(.16+Math.sin(t*.09)*.18,Math.sin(t*.075)*.26,t*.025);
+  orbitRings.forEach((r,i)=>{r.rotation.set(i*.37+t*(i%2?.045:-.038),i*.29+Math.sin(t*.08+i)*.35,i*.41+t*.028);r.material.opacity=.25+join*.13;});
+  radialFloor.rotation.y=t*.055;radialFloor.position.y=-5.18+Math.sin(t*.2)*.04;
+  for(let i=0;i<2200;i++){const a=seeded(i+4)*TAU+t*(i%2?.035:-.055),band=i%5,rad=band===0?mix(19,3,join):8+seeded(i+13)*19;constellationData[i*3]=Math.cos(a)*rad;constellationData[i*3+1]=-4+seeded(i+19)*15+Math.sin(a*3+t*.3)*.7;constellationData[i*3+2]=-25+Math.sin(a)*rad;}
+  constellationGeo.attributes.position.needsUpdate=true;constellation.rotation.y=t*.013;
+  const event=s===3?.75:s===4?.56:.18,age=u-event;
+  waves.forEach((w,i)=>{const p=clamp((age-i*.016)/.19),scale=.04+p*1.65;w.scale.setScalar(scale);w.rotation.set(.15*Math.sin(t*.2+i),.25*Math.cos(t*.15+i),t*.04);w.material.opacity=age>=i*.016&&p<1?(1-p)*.65:0;});
+  crown.rotation.y=t*.12;crown.rotation.z=Math.sin(t*.06)*.08;
+  for(let i=0;i<64;i++){const a=i*TAU/64,r=11.8+Math.sin(i*.8+t*.45)*.4;temp.position.set(Math.cos(a)*r,Math.sin(a)*r,Math.sin(a*3+t*.16)*2);temp.rotation.set(0,0,a);temp.scale.set(1,1.1+Math.sin(i*.9+t*.8)**2*2,1);temp.updateMatrix();crownBars.setMatrixAt(i,temp.matrix);}crownBars.instanceMatrix.needsUpdate=true;crownBars.material.opacity=.35+join*.3;
+  for(let j=0;j<4;j++)for(let i=0;i<220;i++)for(let k=0;k<2;k++){const v=(i+k)/220,a=v*TAU*1.8+t*(j%2?-.16:.19)+j*Math.PI/2,r=7.8+Math.sin(v*Math.PI)*2-join*2.2,n=(j*440+i*2+k)*3;spiralData[n]=Math.cos(a)*r;spiralData[n+1]=Math.sin(a)*r*.52+(v-.5)*5;spiralData[n+2]=Math.sin(a)*4+(v-.5)*15;}spiralGeo.attributes.position.needsUpdate=true;trails.rotation.y=Math.sin(t*.07)*.35;
+  // One broad exposure swell at arrival/cancellation/merger, no rapid flicker.
+  bloom.strength=.72+Math.exp(-((age/.045)**2))*.36+(1-arrival)*.18;
+ }
+
+ function render(q){firstAct.forEach(o=>o.visible=true);arena.visible=false;scene.fog.density=.016;scene.background.set('#030816');const {t,scene:s,u}=q;const merge=s===5?1:s===4?ease(u/.65):0;const aWarm=s===2?1:s===3?.12:.55;
   // Drift, dolly and lateral arcs are slower while main equations must be read.
   camera.position.set((s===2?-1.1:s===3?1.1:0)+Math.sin(t*.075)*(s===1?1.9:.75),.6+Math.cos(t*.063)*.26,16-(s===0?ease(u)*3:s===1?3:s>=4?merge*2:1.4));camera.lookAt(Math.sin(t*.048)*.4,-.15,-24);
   gallery.position.z=(t*(s===1?1.2:.48))%9;gallery.rotation.y=Math.sin(t*.045)*.035;for(const p of panelList){p.group.rotation.z=Math.sin(t*.08+p.i)*.014;p.group.rotation.y=-p.side*(.42+.10*Math.cos(p.i)+merge*.28);p.mat.color.setRGB(.55+aWarm*.12,.85+(1-aWarm)*.2,1.05+(1-aWarm)*.25);}
@@ -64,7 +117,7 @@ panelList.push({group,side,i,mat});
   for(let i=0;i<70;i++){const side=i%2?1:-1;temp.position.set(side*(9+seeded(i)*7),-3+seeded(i+13)*10,-seeded(i+17)*75+(t*.32)%10);temp.rotation.set(t*.055+i,t*.07+i*.4,i*.7);const sc=.3+seeded(i+8)*1.3;temp.scale.setScalar(sc);temp.updateMatrix();diamonds.setMatrixAt(i,temp.matrix);}diamonds.instanceMatrix.needsUpdate=true;
   bokeh.forEach((b,i)=>{b.position.set((i%2?1:-1)*(8+seeded(i+27)*8)+Math.sin(t*.15+i),Math.sin(t*.13+i)*5,7+seeded(i+44)*5);b.material.opacity=.018+.012*Math.sin(t*.5+i)**2;});
   const pulse=s===3?Math.exp(-(((u-.75)/.04)**2)):s===2?Math.exp(-(((u-.69)/.06)**2)):s===4?Math.exp(-(((u-.56)/.09)**2)):0;
-  bloom.strength=.68+pulse*.35+(s>=4?.06:0);composer.render();
+  bloom.strength=.68+pulse*.35+(s>=4?.06:0);if(s>=3)renderArena(q);composer.render();
  }
  return {canvas:renderer.domElement,render,renderer,scene,dispose(){composer.dispose();renderer.dispose();scene.traverse(o=>{o.geometry?.dispose();if(o.material){for(const m of Array.isArray(o.material)?o.material:[o.material])m.dispose();}});atlases.forEach(t=>t.dispose());sprite.dispose();}};
 }

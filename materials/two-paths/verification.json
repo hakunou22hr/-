@@ -8,7 +8,7 @@
   ],
   "math": "numerical quadrature, signed x, endpoints, decomposition, derivative",
   "background": "WebGL motion and deterministic seek tested separately by webgl.check.cjs",
-  "edition": "webgl-v3",
+  "edition": "two-act-v4",
   "webgl": {
     "passed": true,
     "info": {
@@ -16,7 +16,7 @@
       "renderer": "WebKit WebGL",
       "width": 1280,
       "height": 720,
-      "background": "reference-derived-webgl-v3"
+      "background": "two-act-webgl-v4"
     },
     "results": [
       {
@@ -102,199 +102,195 @@
         "networkMbps": 3,
         "samples": [
           {
-            "t": 2.16717,
+            "t": 3.56361,
             "ended": false
           },
           {
-            "t": 3.880643,
+            "t": 5.415154,
             "ended": false
           },
           {
-            "t": 5.593322,
+            "t": 7.130501,
             "ended": false
           },
           {
-            "t": 7.504571,
+            "t": 8.914684,
             "ended": false
           },
           {
-            "t": 9.349783,
+            "t": 10.630801,
             "ended": false
           },
           {
-            "t": 11.223889,
+            "t": 12.347743,
             "ended": false
           },
           {
-            "t": 13.075936,
+            "t": 14.229866,
             "ended": false
           },
           {
-            "t": 14.942658,
+            "t": 16.054074,
             "ended": false
           },
           {
-            "t": 16.761556,
+            "t": 17.874795,
             "ended": false
           },
           {
-            "t": 18.62753,
+            "t": 19.69809,
             "ended": false
           },
           {
-            "t": 20.471513,
+            "t": 21.55918,
             "ended": false
           },
           {
-            "t": 22.294881,
+            "t": 23.389453,
             "ended": false
           },
           {
-            "t": 24.150912,
+            "t": 25.271349,
             "ended": false
           },
           {
-            "t": 25.974286,
+            "t": 27.159146,
             "ended": false
           },
           {
-            "t": 27.866815,
+            "t": 28.935097,
             "ended": false
           },
           {
-            "t": 29.729275,
+            "t": 30.801858,
             "ended": false
           },
           {
-            "t": 31.573903,
+            "t": 32.561373,
             "ended": false
           },
           {
-            "t": 33.422313,
+            "t": 34.365037,
             "ended": false
           },
           {
-            "t": 35.272334,
+            "t": 36.270064,
             "ended": false
           },
           {
-            "t": 37.098781,
+            "t": 38.062084,
             "ended": false
           },
           {
-            "t": 38.83284,
+            "t": 39.930129,
             "ended": false
           },
           {
-            "t": 40.6373,
+            "t": 41.794741,
             "ended": false
           },
           {
-            "t": 42.426905,
+            "t": 43.535297,
             "ended": false
           },
           {
-            "t": 44.147137,
+            "t": 45.299091,
             "ended": false
           },
           {
-            "t": 45.910389,
+            "t": 47.126379,
             "ended": false
           },
           {
-            "t": 47.675423,
+            "t": 48.965171,
             "ended": false
           },
           {
-            "t": 49.4802,
+            "t": 50.72358,
             "ended": false
           },
           {
-            "t": 51.193391,
+            "t": 52.521761,
             "ended": false
           },
           {
-            "t": 52.931745,
+            "t": 54.319051,
             "ended": false
           },
           {
-            "t": 54.691061,
+            "t": 56.091949,
             "ended": false
           },
           {
-            "t": 56.429884,
+            "t": 57.840835,
             "ended": false
           },
           {
-            "t": 58.24965,
+            "t": 59.635805,
             "ended": false
           },
           {
-            "t": 60.098657,
+            "t": 61.461051,
             "ended": false
           },
           {
-            "t": 61.918055,
+            "t": 63.262986,
             "ended": false
           },
           {
-            "t": 63.702506,
+            "t": 65.112137,
             "ended": false
           },
           {
-            "t": 65.54334,
+            "t": 66.897293,
             "ended": false
           },
           {
-            "t": 67.440335,
+            "t": 68.831505,
             "ended": false
           },
           {
-            "t": 69.334915,
+            "t": 70.617028,
             "ended": false
           },
           {
-            "t": 71.220626,
+            "t": 72.451999,
             "ended": false
           },
           {
-            "t": 73.088735,
+            "t": 74.36037,
             "ended": false
           },
           {
-            "t": 74.991569,
+            "t": 76.181534,
             "ended": false
           },
           {
-            "t": 76.878029,
+            "t": 78.002266,
             "ended": false
           },
           {
-            "t": 78.698962,
+            "t": 79.887765,
             "ended": false
           },
           {
-            "t": 80.545963,
+            "t": 81.800488,
             "ended": false
           },
           {
-            "t": 82.397512,
+            "t": 83.653326,
             "ended": false
           },
           {
-            "t": 84.249804,
+            "t": 85.48636,
             "ended": false
           },
           {
-            "t": 86.116124,
+            "t": 87.220583,
             "ended": false
           },
           {
-            "t": 87.963152,
-            "ended": false
-          },
-          {
-            "t": 89.77763,
+            "t": 89.137403,
             "ended": false
           },
           {
@@ -310,68 +306,77 @@
         "fullscreen": true
       },
       {
+        "download": "two-paths-90s.mp4",
+        "bytes": 79068233,
+        "sha256": "cfceb067f40e1b6898d132029c17fe6294d8e47da338a0f801448f0233976cb7"
+      },
+      {
         "duration": 30,
         "fullPlayback": true,
         "networkMbps": 3,
         "samples": [
           {
-            "t": 2.304404,
+            "t": 2.473056,
             "ended": false
           },
           {
-            "t": 4.166549,
+            "t": 4.311204,
             "ended": false
           },
           {
-            "t": 6.079298,
+            "t": 6.060341,
             "ended": false
           },
           {
-            "t": 7.944371,
+            "t": 7.691743,
             "ended": false
           },
           {
-            "t": 9.773366,
+            "t": 9.560243,
             "ended": false
           },
           {
-            "t": 11.639676,
+            "t": 11.277222,
             "ended": false
           },
           {
-            "t": 13.450236,
+            "t": 12.997601,
             "ended": false
           },
           {
-            "t": 15.319416,
+            "t": 14.705078,
             "ended": false
           },
           {
-            "t": 17.113626,
+            "t": 16.524885,
             "ended": false
           },
           {
-            "t": 18.967129,
+            "t": 18.311671,
             "ended": false
           },
           {
-            "t": 20.828662,
+            "t": 20.078489,
             "ended": false
           },
           {
-            "t": 22.712732,
+            "t": 21.874729,
             "ended": false
           },
           {
-            "t": 24.534651,
+            "t": 23.701778,
             "ended": false
           },
           {
-            "t": 26.41356,
+            "t": 25.517115,
             "ended": false
           },
           {
-            "t": 28.231172,
+            "t": 27.31268,
+            "ended": false
+          },
+          {
+            "t": 29.071209,
             "ended": false
           },
           {
@@ -387,14 +392,9 @@
         "fullscreen": true
       },
       {
-        "download": "two-paths-90s.mp4",
-        "bytes": 79200674,
-        "sha256": "a48e575dd9acf007792724b937092934b9577f310d3c8282aa1588d7232af724"
-      },
-      {
         "download": "two-paths-30s.mp4",
-        "bytes": 28714210,
-        "sha256": "189df169c097b6533f4bdad1d6e63ffca7c2e421b8c3c49f1e66a92b8af03598"
+        "bytes": 27515704,
+        "sha256": "7f49cdc5ee8dd4d92c5ef85b863aa3443dc2f1abe6ad141a63ced5cb95504e59"
       }
     ],
     "mobile": true
@@ -413,5 +413,30 @@
     "pageErrors": []
   },
   "preservedReferenceFiles": 197,
-  "previousEditionCommit": "110e3b9236ae1d09de675a31f29e04b0e81269b6"
+  "previousEditionCommit": "c31b87919647873b25f9552e988ab677c1bc6aec",
+  "firstHalf": {
+    "passed": true,
+    "results": [
+      {
+        "t": 6,
+        "equal": true
+      },
+      {
+        "t": 18,
+        "equal": true
+      },
+      {
+        "t": 28,
+        "equal": true
+      },
+      {
+        "t": 42,
+        "equal": true
+      }
+    ]
+  },
+  "transitionSeconds": {
+    "90": 43,
+    "30": 15
+  }
 }
