@@ -1,10 +1,10 @@
 {
- "id":"two-paths",
- "name":"数学Ⅲ｜二つの道、ひとつの答え — 積分と微分の交差点",
- "subject":"数学Ⅲ",
- "unit":"積分法／部分積分・微分積分学の基本定理",
- "description":"金色の部分積分と青色の基本定理。端点で消える項と微分で相殺する項を追い、二つの解法がsin xへ合流する映画型教材。90秒・30秒、音楽と効果音、フルHD MP4。",
- "thumbnail":"thumbnail.svg",
- "version":"1.0.0",
- "durationSeconds":90
+  "id": "two-paths",
+  "name": "数学Ⅲ｜二つの道、ひとつの答え — 積分と微分の交差点",
+  "subject": "数学Ⅲ",
+  "unit": "積分法／部分積分・微分積分学の基本定理",
+  "description": "巨大な金色の積分機構と青い光の立体分岐。端点評価と項の相殺を経て、二色の帯が編み合わさりsin xへ合流する映画。90秒・30秒、BGM・効果音、フルHD MP4。",
+  "thumbnail": "thumbnail.svg",
+  "version": "2.0.0",
+  "durationSeconds": 90
 }

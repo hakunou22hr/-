@@ -2,12 +2,18 @@
 
 90秒・30秒の独立編集。両版とも1920×1080、30fps、H.264/AAC。教師・ナレーションなし。背景を含む全画面を時刻から生成し、MP4へ音楽・効果音とともに収録する。
 
-## 調査・再利用
+## 第2版：異なる空間を進むキネティック彫刻
 
-制作前に `trig-integral-cinema/src/components/Formula.tsx`、`cinema/FormulaTunnel.tsx`、数式テクスチャ・音声生成を確認。KaTeXのTeX組版、立体回廊、光の移動と計算を連動させる設計を継承。
-`moving-boundary/background.js` の手続き型雲・数式壁・透視投影・粒子・電光処理、同教材のmath.js、プレーヤー、Node Canvas→FFmpegレンダリングを新規フォルダへ複製し使用。sleeping-circleの元になった背景系統を継承。既存ソースと既存MP4は変更しない。
+既存の三角関数の不定積分のKaTeX数式、時間軸、MP4生成処理を継承。今回のbackground.jsは新規実装。雲・数式壁・回廊・周回リングを使う背景から、塗りのある3D彫刻と実際のlook-atカメラへ変更した。
 
-新作film.jsは、金色の部分積分／端点ゲート、青色の分解／項相殺、二経路の合流を新規実装。背景・図形効果・前景数式は3枚のCanvas。背景は低解像度で光学的に合成し、前景のTeX数式はフルHDで描画する。数式は生成時のKaTeX PNGを同梱し、視聴中に外部CDNや有料APIを要求しない。
+- 冒頭と分岐：カットグラスの巨大柱と光の液面。カメラが前進し、光路が二つへ開く。
+- 解法A：厚みのある真鍮の歯車群、刻印、金属の羽根、反対方向への回転。カメラが近づいて回り込む。
+- 解法B：結晶柱、折り畳まれた青い膜、多段の立体分岐。光の信号が流れ、相殺時に中央へ放電。
+- 合流と終幕：青と金の立体的な帯が位相を変えて編み合わさる。正弦曲線はF′(x)=sin xとして別レイヤーに描く。
+
+描画は全て絶対時刻から計算。背景・数学的な粒子効果・前景数式は独立した3枚のCanvas。数式部分の光学マットは角のある長方形から柔らかい放射状へ変更。静止背景画像や外部有料APIは使わない。
+
+数式とBGM・効果音は検証済みの初版を継承。初版のソースと原版はprevious-edition.jsonの不変コミットに保存。他の既存教材は変更しない。
 
 ## 数学
 
@@ -21,8 +27,8 @@ B: x∫cos t dt−∫t cos t dtに分け、積の微分と基本定理で +x cos
 
 1. ルートをHTTPサーバーで4173番に提供
 2. `node materials/two-paths/render/generate-math.mjs`
-3. `python materials/two-paths/render/audio.py work/two-paths`
-4. `node materials/two-paths/render/render.mjs 90`
+3. `python materials/two-paths/render/audio.py work/two-paths-v2`
+4. `node materials/two-paths/render/render-segments.mjs 90`
 5. `node materials/two-paths/render/render.mjs 30`
 6. 完成原版を `public/media/two-paths/` へ複製し、`node materials/two-paths/render/encode-play.mjs` で軽量視聴版を生成。原版と視聴版の両方で正確な尺を検査。
 
@@ -35,3 +41,5 @@ B: x∫cos t dt−∫t cos t dtに分け、積の微分と基本定理で +x cos
 
 `render/check.mjs` は横型2版と縦型設計の配置・背景動作・時刻再現性、正負のxの数値積分、端点、導関数を確認。
 `render/browser.check.cjs` はライブラリ検索から実時間再生、制御、MP4の実バイト取得を検証。
+
+90秒版のチェックポイント出力は場面ごとに完成MP4を保存し、同じコマンドの再実行で未完了の場面から再開する。背景・数式ソースのハッシュが異なる場合は別の保存領域を使用。映像の結合後に全編の音楽・効果音を一度だけエンコードするため、場面の継ぎ目で音が途切れない。最終的な尺と2700フレームを検査し、全編デコードする。
