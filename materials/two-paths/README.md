@@ -1,45 +1,42 @@
-# 数学Ⅲ｜二つの道、ひとつの答え
+# 数学Ⅲ｜二つの道、ひとつの答え（WebGL第3版）
 
-90秒・30秒の独立編集。両版とも1920×1080、30fps、H.264/AAC。教師・ナレーションなし。背景を含む全画面を時刻から生成し、MP4へ音楽・効果音とともに収録する。
+90秒・30秒の専用編集。フルHD原版と軽量視聴用MP4、BGM・効果音、ブラウザ再生・一時停止・シーク・リセット・実ダウンロード。
 
-## 第2版：異なる空間を進むキネティック彫刻
+## 参考教材からの実装の移植
 
-既存の三角関数の不定積分のKaTeX数式、時間軸、MP4生成処理を継承。今回のbackground.jsは新規実装。雲・数式壁・回廊・周回リングを使う背景から、塗りのある3D彫刻と実際のlook-atカメラへ変更した。
+`trig-integral-cinema/src/components/cinema/FormulaTunnel.tsx` のThree.js立体パネル・Reflector、`textures.ts` の決定的なseedと発光スプライト、`FormulaFlow.tsx` の4200個の加算合成粒子と時間依存の光の流れ、`GoldenRelease.tsx` の光柱・インスタンス描画、`Bloom.tsx` のEffectComposer / UnrealBloomPass / OutputPassを調査し、同じ仕組みをwebgl.jsへ移植。
 
-- 冒頭と分岐：カットグラスの巨大柱と光の液面。カメラが前進し、光路が二つへ開く。
-- 解法A：厚みのある真鍮の歯車群、刻印、金属の羽根、反対方向への回転。カメラが近づいて回り込む。
-- 解法B：結晶柱、折り畳まれた青い膜、多段の立体分岐。光の信号が流れ、相殺時に中央へ放電。
-- 合流と終幕：青と金の立体的な帯が位相を変えて編み合わさる。正弦曲線はF′(x)=sin xとして別レイヤーに描く。
+新作独自の配置として、湾曲した数式パネルの両翼、アーチ、二本の光流と粒子流、合流する光柱を設計。数式パネルは今作のKaTeX素材を使用する。床は実際の視点に応じて反射を再描画する。ネイビーの空間と青・金の光を保ち、発光は主役数式にかけず背景だけに適用する。第2版の歯車・金属帯を描くCanvas背景は使用しない。
 
-描画は全て絶対時刻から計算。背景・数学的な粒子効果・前景数式は独立した3枚のCanvas。数式部分の光学マットは角のある長方形から柔らかい放射状へ変更。静止背景画像や外部有料APIは使わない。
+背景はWebGL 1280×720、主役数式と図形効果は1920×1080。両方を毎秒30コマの絶対時刻から描画し、フルHDで合成する。背景の映像ループや静止した写真、AI生成画像、フレーム補間は使用しない。通常の視聴では軽量720p MP4を使用し、プログラム描画は選択した場合のみWebGLを読み込む。
 
-数式とBGM・効果音は検証済みの初版を継承。初版のソースと原版はprevious-edition.jsonの不変コミットに保存。他の既存教材は変更しない。
+旧版と他の教材は履歴に保存。previous-edition.jsonに不変コミットへのリンクを記録。
 
 ## 数学
 
-A: tに関する部分積分ではxは定数。原始関数 (x−t)sin t−cos t を上端x・下端0で評価し、1−cos xを得てから微分。
-B: x∫cos t dt−∫t cos t dtに分け、積の微分と基本定理で +x cos x と −x cos x を生成・相殺。残る積分の端点評価で sin x。
-すべての実数xで成立。終盤の曲線はF′(x)=sin x。
+A：tに関する部分積分ではxは定数。[(x−t)sin t−cos t]₀ˣ = 1−cos xを得てから微分する。
+B：F(x)=xI(x)−J(x)を積の微分と基本定理で微分し、+x cos xと−x cos xを相殺。残る積分を評価する。
+結論はF′(x)=sin x。すべての実数xで成立。最後の曲線はF′のグラフ。
 
-## 再生成
+## 書き出し
 
-リポジトリルートで実行。Node.js、Chromium、FFmpeg、Python NumPy、Noto Sans CJK、package.json内の依存関係とrender/package.jsonの依存関係が必要。
+Node.js、Chromium、FFmpeg、Python NumPy、Noto Sans CJK、ルートpackage.jsonとrender/package.jsonの依存関係が必要。
 
-1. ルートをHTTPサーバーで4173番に提供
-2. `node materials/two-paths/render/generate-math.mjs`
-3. `python materials/two-paths/render/audio.py work/two-paths-v2`
-4. `node materials/two-paths/render/render-segments.mjs 90`
-5. `node materials/two-paths/render/render.mjs 30`
-6. 完成原版を `public/media/two-paths/` へ複製し、`node materials/two-paths/render/encode-play.mjs` で軽量視聴版を生成。原版と視聴版の両方で正確な尺を検査。
+1. `python materials/two-paths/render/audio.py work/two-paths-v3`
+2. `npm run build` （render.htmlもビルドする）
+3. 公開用ビルドを4175番などの固定HTTPサーバーで提供する。書き出し中はdistを上書きしない。
+4. `TP_RENDER_ORIGIN=http://127.0.0.1:4175 node materials/two-paths/render/webgl-export.mjs 90`
+5. 同じコマンドの末尾を30にして短縮版を書き出す。
+6. `work/two-paths-v3/media` の原版を `public/media/two-paths/` へ複製する。
+7. `node materials/two-paths/render/encode-play.mjs` で軽量版を生成する。
 
-`--portrait` で30秒の9:16構図を描画できる設計。配布MP4は横型2版。縦型は再レンダリングが必要。
-音楽は独自の数値合成。音声のカット位置は専用タイムラインに対応。画像板書の誤記は転記せず、正しい相殺符号を採用。
+WebGL背景と前景合成を場面単位で保存し、同じコマンドで未完了分を再開できる。ソースとエンコード処理のハッシュが変わった場合は別の保存領域を使う。最後に映像を結合し、全編の音声を一度だけエンコードして継ぎ目の無音を防ぐ。最終的なフレーム数・動画と音声の尺・全編デコードを検査する。
 
-## ブラウザ
+## 検証
 
-標準は軽量720p Baseline H.264 MP4で即時に再生する。フルHD原版はダウンロード。プログラム描画はチェック時のみ数式を読み込み、音声・時間軸は動画と同期する。シークに対し過去フレームの状態を必要としない。
+`render/check.mjs`：216場面の数式配置、正負のxの数値積分、端点・導関数の検証。
+`render/webgl.check.cjs`：実WebGLコンテキスト、全6場面×2版の動作と決定的シーク。
+`render/browser.check.cjs`：ライブラリから両版の実時間再生、制御、実MP4のダウンロード一致。
+`render/production.check.cjs`：本番ビルドのネイティブ再生とWebGLモード。
 
-`render/check.mjs` は横型2版と縦型設計の配置・背景動作・時刻再現性、正負のxの数値積分、端点、導関数を確認。
-`render/browser.check.cjs` はライブラリ検索から実時間再生、制御、MP4の実バイト取得を検証。
-
-90秒版のチェックポイント出力は場面ごとに完成MP4を保存し、同じコマンドの再実行で未完了の場面から再開する。背景・数式ソースのハッシュが異なる場合は別の保存領域を使用。映像の結合後に全編の音楽・効果音を一度だけエンコードするため、場面の継ぎ目で音が途切れない。最終的な尺と2700フレームを検査し、全編デコードする。
+配布MP4は横型。9:16の前景配置設計は保持するが、縦型MP4は今回の配布には含めない。WebGL再生の滑らかさは端末性能に依存する。

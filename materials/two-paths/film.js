@@ -1,4 +1,3 @@
-import {createBackdrop} from './background.js';
 import {drawMath,mathMetrics} from './math.js';
 export const cuts90=[0,12,20,43,69,82,90],cuts30=[0,5,8,15,24,28,30];
 export const titles=['同じ積分に、二つの道','二つの機構へ','A｜部分積分から微分へ','B｜分解して微分する','二つの答えが合流する','ひとつにつながる'];
@@ -7,7 +6,7 @@ const rand=i=>{let v=Math.sin(i*127.1+311.7)*43758.5453;return v-Math.floor(v)};
 export function state(t,duration=90){const cuts=duration===90?cuts90:cuts30;t=clamp(t,0,duration-1e-7);let scene=0;while(t>=cuts[scene+1])scene++;return {t,duration,cuts,scene,u:(t-cuts[scene])/(cuts[scene+1]-cuts[scene])};}
 export function createFilm(makeCanvas,w=1920,h=1080){
  const portrait=h>w,W=portrait?1080:1920,H=portrait?1920:1080,layers=Array.from({length:3},()=>makeCanvas(w,h)),cs=layers.map(c=>c.getContext('2d'));
- const back=createBackdrop(makeCanvas,W,H),atmos=makeCanvas(Math.round(w*.6),Math.round(h*.6)),bg=atmos.getContext('2d');let g,bounds=[];const shapeCache=new Map();const blue='#69dcff',gold='#ffd482',white='#f5f2e9';
+ let g,bounds=[];const shapeCache=new Map();const blue='#69dcff',gold='#ffd482',white='#f5f2e9';
  function text(s,x,y,size=28,color=white,a=1){g.save();g.globalAlpha=clamp(a);g.shadowColor='#020510';g.shadowBlur=5;g.shadowOffsetY=2;g.font=`${size}px "Noto Sans CJK JP",sans-serif`;g.fillStyle=color;g.textAlign='center';g.textBaseline='middle';g.fillText(s,x,y);const m=g.measureText(s);if(a>.05)bounds.push({type:'text',key:s,left:x-m.width/2,right:x+m.width/2,top:y-size*.65,bottom:y+size*.65});g.restore();}
  function math(key,x,y,size=60,color=white,a=1){const m=mathMetrics(key,size),max=portrait?940:1740;if(m.width>max)size*=max/m.width;g.save();g.globalAlpha=clamp(a);g.shadowColor='#010309';g.shadowBlur=9;g.shadowOffsetY=2;const b=drawMath(g,makeCanvas,key,x,y,size,color);if(a>.05)bounds.push({type:'math',key,...b});g.restore();return b;}
  function path(pts,color=blue,width=2,a=1){g.save();g.globalAlpha=clamp(a);g.strokeStyle=color;g.lineWidth=width;g.lineJoin='round';g.beginPath();pts.forEach((p,i)=>i?g.lineTo(...p):g.moveTo(...p));g.stroke();if(width>=2){g.globalAlpha*=.12;g.lineWidth=width*6;g.stroke();}g.restore();}
@@ -40,5 +39,5 @@ export function createFilm(makeCanvas,w=1920,h=1080){
   if(scene===4){const p=ease(u/.48),a=1-ease((u-.48)/.15);for(const side of [-1,1]){const x=center+side*mix(P?270:500,120,p);math('sinOnly',x,P?660:450,P?68:96,side<0?gold:blue,a);}math('ans',center,P?710:470,P?78:109,gold,ease((u-.53)/.15));text('部分積分からも、基本定理からも。',center,P?960:660,P?29:28,blue);math('sinx',center,P?1580:945,P?34:30,gold);cap('二つの道が、ひとつの答えで重なる。');}
   if(scene===5){math('ans',center,P?660:450,P?82:114,gold);math('Fx',center,P?910:635,P?46:43,blue);math('sinx',center,P?1580:945,P?33:29,gold);cap('道は違っても、数学はひとつにつながる。');text('すべての実数 x で成立',center,P?1810:1060,P?24:20,blue);}
  }
- return {layers,render(t,duration=90){const q=state(t,duration);bounds=[];cs.forEach(c=>{c.setTransform(w/W,0,0,h/H,0,0);c.clearRect(0,0,W,H)});bg.setTransform(atmos.width/W,0,0,atmos.height/H,0,0);back.render(bg,q);g=cs[0];g.drawImage(atmos,0,0,W,H);routes(q);foreground(q);return {...q,bounds};}};
+ return {layers,render(t,duration=90){const q=state(t,duration);bounds=[];cs.forEach(c=>{c.setTransform(w/W,0,0,h/H,0,0);c.clearRect(0,0,W,H)});routes(q);foreground(q);return {...q,bounds};}};
 }

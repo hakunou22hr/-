@@ -21,6 +21,7 @@ export default defineConfig({
     rollupOptions: {
       input: { portal: resolve(root, 'index.html'), ...materialPages, ...appPages,
         'trig-cinema-video': resolve(root, 'materials/trig-integral-cinema/video.html'),
+        'two-paths-render': resolve(root, 'materials/two-paths/render.html'),
       },
     },
   },

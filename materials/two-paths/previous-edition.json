@@ -1,6 +1,16 @@
 {
-  "title": "数式回廊の初版",
-  "commit": "d225f68421aa28a840059ebd980e63579df5e409",
-  "source": "https://github.com/hakunou22hr/-/tree/d225f68421aa28a840059ebd980e63579df5e409/materials/two-paths",
-  "media": "https://github.com/hakunou22hr/-/tree/d225f68421aa28a840059ebd980e63579df5e409/public/media/two-paths"
+  "editions": [
+    {
+      "title": "数式回廊の初版",
+      "commit": "d225f68421aa28a840059ebd980e63579df5e409",
+      "source": "https://github.com/hakunou22hr/-/tree/d225f68421aa28a840059ebd980e63579df5e409/materials/two-paths",
+      "media": "https://github.com/hakunou22hr/-/tree/d225f68421aa28a840059ebd980e63579df5e409/public/media/two-paths"
+    },
+    {
+      "title": "立体機構版（第2版）",
+      "commit": "110e3b9236ae1d09de675a31f29e04b0e81269b6",
+      "source": "https://github.com/hakunou22hr/-/tree/110e3b9236ae1d09de675a31f29e04b0e81269b6/materials/two-paths",
+      "media": "https://github.com/hakunou22hr/-/tree/110e3b9236ae1d09de675a31f29e04b0e81269b6/public/media/two-paths"
+    }
+  ]
 }

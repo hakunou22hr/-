@@ -7,8 +7,92 @@
     "30s 9:16 design"
   ],
   "math": "numerical quadrature, signed x, endpoints, decomposition, derivative",
-  "background": "Original look-at 3D projection: brass machinery, branching crystal membranes, braided blue/gold sculpture. No nebula or formula corridor.",
-  "edition": "kinetic-v2",
+  "background": "WebGL motion and deterministic seek tested separately by webgl.check.cjs",
+  "edition": "webgl-v3",
+  "webgl": {
+    "passed": true,
+    "info": {
+      "webgl": true,
+      "renderer": "WebKit WebGL",
+      "width": 1280,
+      "height": 720,
+      "background": "reference-derived-webgl-v3"
+    },
+    "results": [
+      {
+        "duration": 90,
+        "scene": 0,
+        "motion": true,
+        "deterministic": true
+      },
+      {
+        "duration": 90,
+        "scene": 1,
+        "motion": true,
+        "deterministic": true
+      },
+      {
+        "duration": 90,
+        "scene": 2,
+        "motion": true,
+        "deterministic": true
+      },
+      {
+        "duration": 90,
+        "scene": 3,
+        "motion": true,
+        "deterministic": true
+      },
+      {
+        "duration": 90,
+        "scene": 4,
+        "motion": true,
+        "deterministic": true
+      },
+      {
+        "duration": 90,
+        "scene": 5,
+        "motion": true,
+        "deterministic": true
+      },
+      {
+        "duration": 30,
+        "scene": 0,
+        "motion": true,
+        "deterministic": true
+      },
+      {
+        "duration": 30,
+        "scene": 1,
+        "motion": true,
+        "deterministic": true
+      },
+      {
+        "duration": 30,
+        "scene": 2,
+        "motion": true,
+        "deterministic": true
+      },
+      {
+        "duration": 30,
+        "scene": 3,
+        "motion": true,
+        "deterministic": true
+      },
+      {
+        "duration": 30,
+        "scene": 4,
+        "motion": true,
+        "deterministic": true
+      },
+      {
+        "duration": 30,
+        "scene": 5,
+        "motion": true,
+        "deterministic": true
+      }
+    ]
+  },
   "browser": {
     "passed": true,
     "results": [
@@ -18,179 +102,199 @@
         "networkMbps": 3,
         "samples": [
           {
-            "t": 2.32193,
+            "t": 2.16717,
             "ended": false
           },
           {
-            "t": 4.211164,
+            "t": 3.880643,
             "ended": false
           },
           {
-            "t": 6.209626,
+            "t": 5.593322,
             "ended": false
           },
           {
-            "t": 8.030228,
+            "t": 7.504571,
             "ended": false
           },
           {
-            "t": 10.037825,
+            "t": 9.349783,
             "ended": false
           },
           {
-            "t": 12.04709,
+            "t": 11.223889,
             "ended": false
           },
           {
-            "t": 14.054728,
+            "t": 13.075936,
             "ended": false
           },
           {
-            "t": 16.066104,
+            "t": 14.942658,
             "ended": false
           },
           {
-            "t": 18.074637,
+            "t": 16.761556,
             "ended": false
           },
           {
-            "t": 20.08431,
+            "t": 18.62753,
             "ended": false
           },
           {
-            "t": 22.094383,
+            "t": 20.471513,
             "ended": false
           },
           {
-            "t": 24.100041,
+            "t": 22.294881,
             "ended": false
           },
           {
-            "t": 26.109784,
+            "t": 24.150912,
             "ended": false
           },
           {
-            "t": 28.119264,
+            "t": 25.974286,
             "ended": false
           },
           {
-            "t": 30.131543,
+            "t": 27.866815,
             "ended": false
           },
           {
-            "t": 32.142685,
+            "t": 29.729275,
             "ended": false
           },
           {
-            "t": 34.150357,
+            "t": 31.573903,
             "ended": false
           },
           {
-            "t": 36.16045,
+            "t": 33.422313,
             "ended": false
           },
           {
-            "t": 38.166995,
+            "t": 35.272334,
             "ended": false
           },
           {
-            "t": 40.177639,
+            "t": 37.098781,
             "ended": false
           },
           {
-            "t": 42.184222,
+            "t": 38.83284,
             "ended": false
           },
           {
-            "t": 44.193335,
+            "t": 40.6373,
             "ended": false
           },
           {
-            "t": 46.199773,
+            "t": 42.426905,
             "ended": false
           },
           {
-            "t": 48.172476,
+            "t": 44.147137,
             "ended": false
           },
           {
-            "t": 50.187332,
+            "t": 45.910389,
             "ended": false
           },
           {
-            "t": 52.192861,
+            "t": 47.675423,
             "ended": false
           },
           {
-            "t": 54.202381,
+            "t": 49.4802,
             "ended": false
           },
           {
-            "t": 56.210372,
+            "t": 51.193391,
             "ended": false
           },
           {
-            "t": 58.221564,
+            "t": 52.931745,
             "ended": false
           },
           {
-            "t": 60.231247,
+            "t": 54.691061,
             "ended": false
           },
           {
-            "t": 62.237687,
+            "t": 56.429884,
             "ended": false
           },
           {
-            "t": 64.24402,
+            "t": 58.24965,
             "ended": false
           },
           {
-            "t": 66.252347,
+            "t": 60.098657,
             "ended": false
           },
           {
-            "t": 68.259867,
+            "t": 61.918055,
             "ended": false
           },
           {
-            "t": 70.266706,
+            "t": 63.702506,
             "ended": false
           },
           {
-            "t": 72.273439,
+            "t": 65.54334,
             "ended": false
           },
           {
-            "t": 74.284836,
+            "t": 67.440335,
             "ended": false
           },
           {
-            "t": 76.292332,
+            "t": 69.334915,
             "ended": false
           },
           {
-            "t": 78.303064,
+            "t": 71.220626,
             "ended": false
           },
           {
-            "t": 80.310762,
+            "t": 73.088735,
             "ended": false
           },
           {
-            "t": 82.330826,
+            "t": 74.991569,
             "ended": false
           },
           {
-            "t": 84.338108,
+            "t": 76.878029,
             "ended": false
           },
           {
-            "t": 86.354897,
+            "t": 78.698962,
             "ended": false
           },
           {
-            "t": 88.363135,
+            "t": 80.545963,
+            "ended": false
+          },
+          {
+            "t": 82.397512,
+            "ended": false
+          },
+          {
+            "t": 84.249804,
+            "ended": false
+          },
+          {
+            "t": 86.116124,
+            "ended": false
+          },
+          {
+            "t": 87.963152,
+            "ended": false
+          },
+          {
+            "t": 89.77763,
             "ended": false
           },
           {
@@ -211,59 +315,63 @@
         "networkMbps": 3,
         "samples": [
           {
-            "t": 2.245099,
+            "t": 2.304404,
             "ended": false
           },
           {
-            "t": 4.253798,
+            "t": 4.166549,
             "ended": false
           },
           {
-            "t": 6.261349,
+            "t": 6.079298,
             "ended": false
           },
           {
-            "t": 8.271234,
+            "t": 7.944371,
             "ended": false
           },
           {
-            "t": 10.27963,
+            "t": 9.773366,
             "ended": false
           },
           {
-            "t": 12.285953,
+            "t": 11.639676,
             "ended": false
           },
           {
-            "t": 14.297539,
+            "t": 13.450236,
             "ended": false
           },
           {
-            "t": 16.306154,
+            "t": 15.319416,
             "ended": false
           },
           {
-            "t": 18.31445,
+            "t": 17.113626,
             "ended": false
           },
           {
-            "t": 20.323806,
+            "t": 18.967129,
             "ended": false
           },
           {
-            "t": 22.331378,
+            "t": 20.828662,
             "ended": false
           },
           {
-            "t": 24.340618,
+            "t": 22.712732,
             "ended": false
           },
           {
-            "t": 26.351784,
+            "t": 24.534651,
             "ended": false
           },
           {
-            "t": 28.363354,
+            "t": 26.41356,
+            "ended": false
+          },
+          {
+            "t": 28.231172,
             "ended": false
           },
           {
@@ -280,18 +388,18 @@
       },
       {
         "download": "two-paths-90s.mp4",
-        "bytes": 35522677,
-        "sha256": "10ad79cae9e81a97d5f0efde021e7146b4da965a4ad4a811b5980acd90f6cb60"
+        "bytes": 79200674,
+        "sha256": "a48e575dd9acf007792724b937092934b9577f310d3c8282aa1588d7232af724"
       },
       {
         "download": "two-paths-30s.mp4",
-        "bytes": 13478011,
-        "sha256": "3c74d046b16a2e8588b6061007e60fa8fae3eb37c64999f5b02b6d4a7cc05e41"
+        "bytes": 28714210,
+        "sha256": "189df169c097b6533f4bdad1d6e63ffca7c2e421b8c3c49f1e66a92b8af03598"
       }
     ],
     "mobile": true
   },
-  "productionBuild": {
+  "production": {
     "passed": true,
     "library": true,
     "native": [
@@ -305,5 +413,5 @@
     "pageErrors": []
   },
   "preservedReferenceFiles": 197,
-  "previousEditionCommit": "d225f68421aa28a840059ebd980e63579df5e409"
+  "previousEditionCommit": "110e3b9236ae1d09de675a31f29e04b0e81269b6"
 }
