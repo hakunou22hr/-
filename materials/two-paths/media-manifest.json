@@ -1,6 +1,6 @@
 {
   "title": "数学Ⅲ｜二つの道、ひとつの答え",
-  "edition": "storm-v6",
+  "edition": "golden-v7",
   "files": [
     {
       "file": "two-paths-30s-play.mp4",
@@ -10,8 +10,8 @@
       "frames": 900,
       "video": "h264",
       "audio": "aac",
-      "bytes": 7100712,
-      "sha256": "c1a113f83872e9aab5c2ace362df579e5bb3009274a873efd44bba74b518c5ae"
+      "bytes": 7268169,
+      "sha256": "90257f58bef5ffea1b825b5ef22c56d8154c19148d33f1201a2afce38d75634f"
     },
     {
       "file": "two-paths-30s.mp4",
@@ -21,8 +21,8 @@
       "frames": 900,
       "video": "h264",
       "audio": "aac",
-      "bytes": 25195281,
-      "sha256": "0243f546926ed7daf69fd77829e9d794ae6a6bcee404946cd029194c971962fb"
+      "bytes": 28085069,
+      "sha256": "c36615a02aebadb35d774117d6954c06bce418adfe72f37f35f263629ec42072"
     },
     {
       "file": "two-paths-90s-play.mp4",
@@ -32,8 +32,8 @@
       "frames": 2700,
       "video": "h264",
       "audio": "aac",
-      "bytes": 21789820,
-      "sha256": "b277e32ff688aa13e1136b5582439e12472e4a52cc8e11c1aeda513fcc3a1d29"
+      "bytes": 21661651,
+      "sha256": "cce3943b2355f20251976944ebf91309a2e11681792f8d2529f2e95b8bfd763f"
     },
     {
       "file": "two-paths-90s.mp4",
@@ -43,8 +43,8 @@
       "frames": 2700,
       "video": "h264",
       "audio": "aac",
-      "bytes": 68678986,
-      "sha256": "9bb002c7e88cd96b5f8e1647df81fbe7b0b2c7cd08fb48904d21147331c6b917"
+      "bytes": 78413403,
+      "sha256": "d7d5635b667b3a80f2b40552283073be2b237c5962a7818ddf30906f0006bc05"
     }
   ]
 }

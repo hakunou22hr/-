@@ -1,4 +1,4 @@
-# 数学Ⅲ｜二つの道、ひとつの答え（二幕構成・WebGL第6版）
+# 数学Ⅲ｜二つの道、ひとつの答え（二幕構成・WebGL第7版）
 
 90秒・30秒の専用編集。フルHD原版と軽量視聴用MP4、BGM・効果音、ブラウザ再生・一時停止・シーク・リセット・実ダウンロード。
 
@@ -14,7 +14,7 @@
 
 ## 前半・後半の空間転換
 
-90秒版43秒、30秒版15秒で後半へ転換。後半は数式パネル・床・ゲートを一切表示せず、シェーダーで生成する雲状の渦と4200個の立体粒子を描く。枝分かれする稲妻は芯と光の広がりを別々に描き、前面数式を隠しにくい左右に置く。相殺・合流を含む6か所で単発の雷光を入れ、その0.14秒後にオリジナル生成の雷鳴を鳴らす。カメラは渦への進入・回り込み・引き。前半は代表4時刻の画像一致、音声は前半全サンプルの一致を検証し保持する。
+90秒版43秒、30秒版15秒から、提示された参考画像の金色の発光を基準にした回廊へ切り替わる。FormulaTunnelの3.8/2.2/0.6のHDR光柱、2.5/1.2/0.35の補助光、GoldenReleaseの光の広がり、Reflectorとブルームを組み合わせる。白く明るい芯・金色のにじみ・奥への光の重なりを分け、青白い天井・床の光と対比させる。壁は今作のTeX式で、床への反射はカメラ位置から実際に再描画する。相殺・合流を含む6か所で金色の発光が広がる。粒子・光波・カメラ・空間の移動は絶対時刻で制御する。BGM・効果音は第6版を保持。前半は描画一致を確認して完成素材を保持する。
 
 ## 数学
 
@@ -26,12 +26,12 @@ B：F(x)=xI(x)−J(x)を積の微分と基本定理で微分し、+x cos xと−
 
 Node.js、Chromium、FFmpeg、Python NumPy、Noto Sans CJK、ルートpackage.jsonとrender/package.jsonの依存関係が必要。
 
-1. `python materials/two-paths/render/audio.py work/two-paths-v6` の後に `python materials/two-paths/render/thunder.py work/two-paths-v6` （初回の基本音源をaudio-baseとして保存し、雷鳴生成を再実行しても重複しない）
+1. `python materials/two-paths/render/audio.py work/two-paths-v7` の後に `python materials/two-paths/render/thunder.py work/two-paths-v7` （初回の基本音源をaudio-baseとして保存し、雷鳴生成を再実行しても重複しない）
 2. `npm run build` （render.htmlもビルドする）
 3. 公開用ビルドを4175番などの固定HTTPサーバーで提供する。書き出し中はdistを上書きしない。
 4. `TP_RENDER_ORIGIN=http://127.0.0.1:4175 node materials/two-paths/render/webgl-export.mjs 90`
 5. 同じコマンドの末尾を30にして短縮版を書き出す。
-6. `work/two-paths-v6/media` の原版を `public/media/two-paths/` へ複製する。
+6. `work/two-paths-v7/media` の原版を `public/media/two-paths/` へ複製する。
 7. `node materials/two-paths/render/encode-play.mjs` で軽量版を生成する。
 
 WebGL背景と前景合成を場面単位で保存し、同じコマンドで未完了分を再開できる。ソースとエンコード処理のハッシュが変わった場合は別の保存領域を使う。最後に映像を結合し、全編の音声を一度だけエンコードして継ぎ目の無音を防ぐ。最終的なフレーム数・動画と音声の尺・全編デコードを検査する。

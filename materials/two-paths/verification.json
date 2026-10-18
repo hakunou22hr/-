@@ -8,7 +8,7 @@
   ],
   "math": "numerical quadrature, signed x, endpoints, decomposition, derivative",
   "background": "WebGL motion and deterministic seek tested separately by webgl.check.cjs",
-  "edition": "storm-v6",
+  "edition": "golden-v7",
   "webgl": {
     "passed": true,
     "info": {
@@ -16,7 +16,7 @@
       "renderer": "WebKit WebGL",
       "width": 1280,
       "height": 720,
-      "background": "storm-webgl-v6"
+      "background": "golden-webgl-v7"
     },
     "results": [
       {
@@ -102,195 +102,195 @@
         "networkMbps": 3,
         "samples": [
           {
-            "t": 2.576097,
+            "t": 2.500021,
             "ended": false
           },
           {
-            "t": 4.378823,
+            "t": 4.317366,
             "ended": false
           },
           {
-            "t": 6.205557,
+            "t": 6.109696,
             "ended": false
           },
           {
-            "t": 8.032787,
+            "t": 7.850467,
             "ended": false
           },
           {
-            "t": 9.708433,
+            "t": 9.617111,
             "ended": false
           },
           {
-            "t": 11.603624,
+            "t": 11.371844,
             "ended": false
           },
           {
-            "t": 13.542208,
+            "t": 13.263019,
             "ended": false
           },
           {
-            "t": 15.460113,
+            "t": 15.148282,
             "ended": false
           },
           {
-            "t": 17.25374,
+            "t": 16.981963,
             "ended": false
           },
           {
-            "t": 19.097058,
+            "t": 18.823342,
             "ended": false
           },
           {
-            "t": 21.005717,
+            "t": 20.7009,
             "ended": false
           },
           {
-            "t": 22.88849,
+            "t": 22.52568,
             "ended": false
           },
           {
-            "t": 24.777796,
+            "t": 24.367333,
             "ended": false
           },
           {
-            "t": 26.663913,
+            "t": 26.16461,
             "ended": false
           },
           {
-            "t": 28.533458,
+            "t": 28.044749,
             "ended": false
           },
           {
-            "t": 30.253036,
+            "t": 29.903951,
             "ended": false
           },
           {
-            "t": 32.098547,
+            "t": 31.704104,
             "ended": false
           },
           {
-            "t": 33.863182,
+            "t": 33.398424,
             "ended": false
           },
           {
-            "t": 35.624646,
+            "t": 35.160892,
             "ended": false
           },
           {
-            "t": 37.424528,
+            "t": 36.977214,
             "ended": false
           },
           {
-            "t": 39.2615,
+            "t": 38.735327,
             "ended": false
           },
           {
-            "t": 41.089408,
+            "t": 40.586733,
             "ended": false
           },
           {
-            "t": 42.859125,
+            "t": 42.388064,
             "ended": false
           },
           {
-            "t": 44.620868,
+            "t": 44.218431,
             "ended": false
           },
           {
-            "t": 46.402583,
+            "t": 45.990088,
             "ended": false
           },
           {
-            "t": 48.195805,
+            "t": 47.789813,
             "ended": false
           },
           {
-            "t": 50.01737,
+            "t": 49.658177,
             "ended": false
           },
           {
-            "t": 51.89653,
+            "t": 51.520175,
             "ended": false
           },
           {
-            "t": 53.74264,
+            "t": 53.380945,
             "ended": false
           },
           {
-            "t": 55.56446,
+            "t": 55.245,
             "ended": false
           },
           {
-            "t": 57.372606,
+            "t": 57.07896,
             "ended": false
           },
           {
-            "t": 59.274757,
+            "t": 58.928705,
             "ended": false
           },
           {
-            "t": 61.164106,
+            "t": 60.739399,
             "ended": false
           },
           {
-            "t": 63.016865,
+            "t": 62.641414,
             "ended": false
           },
           {
-            "t": 64.878915,
+            "t": 64.512461,
             "ended": false
           },
           {
-            "t": 66.736968,
+            "t": 66.378519,
             "ended": false
           },
           {
-            "t": 68.580715,
+            "t": 68.299372,
             "ended": false
           },
           {
-            "t": 70.400666,
+            "t": 70.146154,
             "ended": false
           },
           {
-            "t": 72.241362,
+            "t": 72.023444,
             "ended": false
           },
           {
-            "t": 74.095947,
+            "t": 73.895198,
             "ended": false
           },
           {
-            "t": 75.905882,
+            "t": 75.775418,
             "ended": false
           },
           {
-            "t": 77.752468,
+            "t": 77.682526,
             "ended": false
           },
           {
-            "t": 79.701895,
+            "t": 79.544264,
             "ended": false
           },
           {
-            "t": 81.537504,
+            "t": 81.420595,
             "ended": false
           },
           {
-            "t": 83.42461,
+            "t": 83.333083,
             "ended": false
           },
           {
-            "t": 85.283596,
+            "t": 85.176565,
             "ended": false
           },
           {
-            "t": 87.111032,
+            "t": 87.068903,
             "ended": false
           },
           {
-            "t": 88.962907,
+            "t": 88.94415,
             "ended": false
           },
           {
@@ -307,8 +307,8 @@
       },
       {
         "download": "two-paths-90s.mp4",
-        "bytes": 68678986,
-        "sha256": "9bb002c7e88cd96b5f8e1647df81fbe7b0b2c7cd08fb48904d21147331c6b917"
+        "bytes": 78413403,
+        "sha256": "d7d5635b667b3a80f2b40552283073be2b237c5962a7818ddf30906f0006bc05"
       },
       {
         "duration": 30,
@@ -316,67 +316,67 @@
         "networkMbps": 3,
         "samples": [
           {
-            "t": 2.503499,
+            "t": 2.438517,
             "ended": false
           },
           {
-            "t": 4.3831,
+            "t": 4.198589,
             "ended": false
           },
           {
-            "t": 6.130292,
+            "t": 5.943679,
             "ended": false
           },
           {
-            "t": 7.959726,
+            "t": 7.688631,
             "ended": false
           },
           {
-            "t": 9.835761,
+            "t": 9.479818,
             "ended": false
           },
           {
-            "t": 11.616281,
+            "t": 11.343913,
             "ended": false
           },
           {
-            "t": 13.397509,
+            "t": 13.097341,
             "ended": false
           },
           {
-            "t": 15.26131,
+            "t": 14.850749,
             "ended": false
           },
           {
-            "t": 17.041649,
+            "t": 16.672549,
             "ended": false
           },
           {
-            "t": 18.816273,
+            "t": 18.390261,
             "ended": false
           },
           {
-            "t": 20.549654,
+            "t": 20.191705,
             "ended": false
           },
           {
-            "t": 22.361236,
+            "t": 22.028321,
             "ended": false
           },
           {
-            "t": 24.104238,
+            "t": 23.758788,
             "ended": false
           },
           {
-            "t": 25.841189,
+            "t": 25.441549,
             "ended": false
           },
           {
-            "t": 27.466205,
+            "t": 27.17693,
             "ended": false
           },
           {
-            "t": 29.100472,
+            "t": 28.910142,
             "ended": false
           },
           {
@@ -393,8 +393,8 @@
       },
       {
         "download": "two-paths-30s.mp4",
-        "bytes": 25195281,
-        "sha256": "0243f546926ed7daf69fd77829e9d794ae6a6bcee404946cd029194c971962fb"
+        "bytes": 28085069,
+        "sha256": "c36615a02aebadb35d774117d6954c06bce418adfe72f37f35f263629ec42072"
       }
     ],
     "mobile": true
@@ -413,7 +413,7 @@
     "pageErrors": []
   },
   "preservedReferenceFiles": 197,
-  "previousEditionCommit": "ad6c774eb15be18fbfbd134ab07a011d20f5ae1e",
+  "previousEditionCommit": "a7908e011f0a8c2db242109e30c4973898bc211f",
   "firstHalf": {
     "passed": true,
     "results": [
