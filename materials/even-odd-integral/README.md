@@ -1,0 +1,34 @@
+# 偶関数・奇関数の定積分
+
+教材ライブラリの「数学Ⅲ」から起動。React / Canvas 2D / KaTeX。追加API、ログイン、課金、CDNは不要。既存教材のファイルは変更していません。
+
+## 機能
+
+- 偶関数（x²、cos x、x⁴−x²）、奇関数（x³、sin x、x³−x）の選択
+- a = 0.10〜2.50、左右対称区間 [−a,a]、ラジアン
+- 偶関数・奇関数・同じaでの比較モード
+- 正負で色分けした面積、左・右・合計の解析的積分値
+- y軸の鏡面反射、原点中心180°回転、符号付き面積の合体・相殺の模式アニメーション
+- アニメーションOFFと動きを抑える端末設定に対応
+- 例題の自動再生、一時停止、前後の手順への移動
+- 例題1の答え8/3、例題2の答え√2、置換積分による公式の説明
+- MP4の再生・シーク・全画面・ダウンロード
+
+面積の数値は原始関数から算出。塗りは符号に応じた細分長方形。グラフは毎回表示範囲内で自動スケールされるため、異なる関数間で縦軸の単位スケールは同じではありません。下部の合体・相殺は符号付き面積の模式図です。0は幾何学的面積の和を意味しません。
+
+## 動画
+
+`public/media/even-odd/` にH.264 / yuv420p / 30fps / faststartのMP4を保存。
+
+- `even-odd-integral-90s-pc.mp4`：1920×1080、90秒、指定の7場面
+- `even-odd-integral-30s-instagram.mp4`：1080×1920、30秒、縦型専用の5場面
+
+いずれも字幕で完結する無音動画。生成時のみNode.jsとFFmpegを使用し、再生時の外部API呼出しはありません。数式はMathJaxのSVG、本文はNoto Sans CJKを描画。ブラウザ教材と動画は同じ関数定義と描画コードを共有します。
+
+## ローカル起動・確認
+
+リポジトリルートで `npm install`、`npm run dev`。`/materials/even-odd-integral/` を開く。ビルドは `npm run build`。
+
+数学検証：`node materials/even-odd-integral/tests/mathematics.check.mjs`。数値積分を独立に実行して全関数の左右・全区間の積分と符号反転、例題の答えを確認します。
+
+動画再生成：`npm install --prefix materials/even-odd-integral/render` の後、リポジトリルートで `node materials/even-odd-integral/render/render.mjs short` および `node materials/even-odd-integral/render/render.mjs wide`。FFmpeg、Linuxの `/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc` が必要です。別環境ではフォントパスを変更してください。
