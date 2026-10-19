@@ -48,10 +48,69 @@ function projectCamera({w,h,t,portrait,local,kind,intro=false}){
   return (x,y,z=0)=>{const xx=co*x+sy*z,zz=-sy*x+co*z,yy=cp*y-sp*zz,depth=sp*y+cp*zz;
     const scale=1100/(1150+depth)*zoom;return {x:cx+xx*scale,y:cy-yy*scale,k:scale,z:depth};};
 }
+// Full-height atmosphere for Reels: luminous woven curtains, rising comets and orbiting dust.
+// This layer sits behind the mathematical plane; the landscape edition does not use it.
+function portraitAtmosphere(c,w,h,t,intro){
+  c.save();
+  // Broad colored light replaces the nearly black empty regions, without exposure flashes.
+  for(const [x,y,r,color] of [[w*.13,h*.29,450,'#137facaa'],[w*.94,h*.48,410,'#97733677'],[w*.34,h*.89,480,'#146cbb99']]){
+    const cx=x+Math.sin(t*.37+y)*35,cy=y+Math.cos(t*.29+x)*50;
+    const g=c.createRadialGradient(cx,cy,0,cx,cy,r);g.addColorStop(0,color);g.addColorStop(.5,color.slice(0,7)+'55');g.addColorStop(1,color.slice(0,7)+'00');c.fillStyle=g;c.fillRect(0,0,w,h);
+  }
+  // Two large aurora surfaces fill the vertical gaps with constantly traveling waves.
+  for(let band=0;band<2;band++){
+    const center=band?h*.84:h*.30;
+    for(let row=0;row<24;row++){
+      const pts=[];
+      for(let j=0;j<=96;j++){
+        const u=j/96,x=u*(w+160)-80;
+        const y=center+Math.sin(u*TAU*.95-t*.95+row*.055+band)*80+Math.sin(u*TAU*2.1+t*.64+row*.08)*30+(row-12)*3.8;
+        pts.push({x,y});
+      }
+      const gradient=c.createLinearGradient(0,center,w,center+120);gradient.addColorStop(0,band?'#64daff':'#12baff');gradient.addColorStop(.53,'#73e6ff');gradient.addColorStop(1,'#ffdc8d');
+      stroke(c,pts,gradient,row%6===0?1.8:.8,row%6===0?.48:.20,false,row%6===0);
+      for(let j=0;j<9;j++){
+        const u=fract(j/9+t*.13+row*.023),q=pts[Math.floor(u*96)];
+        glow(c,q,row%6===0?4.8:2.2,(j+row)%3===0?'gold':'cyan',row%3===0?.85:.38);
+      }
+    }
+  }
+  // Vertical light shafts sweep along the sides, suggesting a much larger 3D room.
+  for(let side of [-1,1])for(let j=0;j<4;j++){
+    const x=(side<0?w*.05:w*.95)+Math.sin(t*.48+j*.7)*23+(j-1.5)*12;
+    const g=c.createLinearGradient(x-25,0,x+25,0);g.addColorStop(0,'#5fdcff00');g.addColorStop(.5,side<0?'#42ceff44':'#ffd17c3b');g.addColorStop(1,'#5fdcff00');
+    c.fillStyle=g;c.fillRect(x-25,0,50,h);stroke(c,[{x,y:0},{x:x+Math.sin(t*.3)*30,y:h}],side<0?C.cyan:C.gold,1,.26);
+  }
+  // Dust and comet trails flow from deep space toward the viewer across the whole frame.
+  const ox=w*.5+Math.sin(t*.31)*28,oy=h*.54;
+  for(let j=0;j<430;j++){
+    const angle=noise(j*5)*TAU+t*.055,depth=fract(noise(j*5+1)+t*(.065+noise(j*5+2)*.035));
+    const radius=75+depth*depth*950,x=ox+Math.cos(angle)*radius*.65,y=oy+Math.sin(angle)*radius;
+    if(x<0||x>w||y<0||y>h)continue;
+    const tail=2+depth*depth*23;
+    const p={x,y},q={x:x-Math.cos(angle)*tail*.65,y:y-Math.sin(angle)*tail};
+    stroke(c,[q,p],j%4===0?C.gold:C.cyan,.8+depth, .24+depth*.35);
+    glow(c,p,1.8+depth*4,j%4===0?'gold':'cyan',.55+depth*.35);
+  }
+  // Two winding energy streams travel up the edges, keeping the graph's center clear.
+  for(let side of [-1,1])for(let j=0;j<125;j++){
+    const u=fract(j/125-t*.19),y=u*h,phase=u*TAU*2+t*1.7;
+    const x=(side<0?w*.11:w*.89)+Math.sin(phase)*45;
+    glow(c,{x,y},2+noise(j)*5,side<0?'cyan':'gold',.45+Math.sin(u*Math.PI)*.4);
+  }
+  // Slow orbital arcs imply camera roll while all readable math stays upright.
+  for(let ring=0;ring<3;ring++){
+    const pts=[];for(let j=0;j<=110;j++){const a=j/110*TAU+t*.15+ring*.25;pts.push({x:ox+Math.cos(a)*(280+ring*38),y:oy+Math.sin(a)*(180+ring*60)});}
+    stroke(c,pts,ring%2?C.gold:C.cyan,1.1,.18);
+    const a=t*.75+ring*2.1;glow(c,{x:ox+Math.cos(a)*(280+ring*38),y:oy+Math.sin(a)*(180+ring*60)},16,ring%2?'gold':'cyan',.8);
+  }
+  c.restore();
+}
 function room(c,w,h,t,P,intro,portrait){
   c.fillStyle=C.ink;c.fillRect(0,0,w,h);
   const neb=c.createRadialGradient(w*.49,h*.47,10,w*.5,h*.5,w*.67);
-  neb.addColorStop(0,'#11283c');neb.addColorStop(.42,'#051220');neb.addColorStop(1,'#010308');c.fillStyle=neb;c.fillRect(0,0,w,h);
+  neb.addColorStop(0,portrait?'#205577':'#11283c');neb.addColorStop(.42,portrait?'#0c2a49':'#051220');neb.addColorStop(1,portrait?'#071b31':'#010308');c.fillStyle=neb;c.fillRect(0,0,w,h);
+  if(portrait)portraitAtmosphere(c,w,h,t,intro);
   // A deep grid room with moving light columns, rather than a fixed 2D backdrop.
   for(let z=-400;z<=800;z+=100){stroke(c,[P(-900,-220,z),P(900,-220,z)],'#1b647c',.7,.2);}
   for(let x=-900;x<=900;x+=100){stroke(c,[P(x,-220,-400),P(x,-220,800)],'#20647b',.7,.16);}
@@ -61,7 +120,7 @@ function room(c,w,h,t,P,intro,portrait){
     glow(c,P(x,330,zz),20,'cyan',.16);
   }
   // Evolving wire waves / particle ribbons in actual perspective depth.
-  const high=intro?1:.28;
+  const high=intro?1:portrait?.82:.28;
   for(let row=0;row<18;row++){
     const z=(row-9)*32;
     const points=[];
@@ -71,7 +130,7 @@ function room(c,w,h,t,P,intro,portrait){
       const p=P(x,y,z);points.push(p);
       if(k%4===0&&(row%2===0||intro)){const a=(.35+.45*Math.sin(k*.2+t+row)**2)*high;glow(c,p,(k%12===0?3.8:2.2)*p.k,x<0?'cyan':'gold',a);}
     }
-    stroke(c,points,row%3===0?C.gold:C.cyan,.65,high*(.11+row/150));
+    stroke(c,points,row%3===0?C.gold:C.cyan,portrait?1.0:.65,high*(.11+row/150));
   }
   // Sweeping helices connect blue and gold into a moving light sculpture.
   for(let ribbon=0;ribbon<(intro?4:2);ribbon++){
@@ -120,6 +179,7 @@ function axes(c,P,fn,a,xs,portrait,t,mirror=false){
 function burst(c,P,progress,t,odd=false,portrait=false){
   if(progress<=0||progress>1)return;
   const expansion=smooth(progress),fade=(1-progress)**1.5,o=P(0,0);
+  if(portrait){for(let j=0;j<3;j++){const rr=50+expansion*(210+j*45),pts=[];for(let k=0;k<=90;k++){const a=k/90*TAU;pts.push({x:o.x+Math.cos(a)*rr,y:o.y+Math.sin(a)*rr*.65});}stroke(c,pts,j%2?C.gold:C.cyan,2-j*.4,fade*.75,false,true);}glow(c,o,260,odd?'cyan':'gold',fade*.6);}
   glow(c,o,(portrait?200:250)*(1-progress*.65),odd?'white':'gold',fade*.95);
   for(let j=0;j<64;j++){
     const theta=j*2.39996,phi=noise(j)*Math.PI,rad=60+expansion*(220+noise(j+4)*200);
@@ -254,8 +314,9 @@ export function cinemaFrame(c,W,H,t,portrait=false){
   }
   c.restore();
   // Opaque-enough upper and lower typography zones isolate the mathematical content.
-  const top=c.createLinearGradient(0,0,0,portrait?330:210);top.addColorStop(0,'#02050cf4');top.addColorStop(.7,'#02050cbb');top.addColorStop(1,'#02050c00');c.fillStyle=top;c.fillRect(0,0,w,portrait?330:210);
-  const bottomStart=portrait?900:535,fade=c.createLinearGradient(0,bottomStart,0,h);fade.addColorStop(0,'#02050c00');fade.addColorStop(.22,'#02050ce8');fade.addColorStop(1,'#02050cfa');c.fillStyle=fade;c.fillRect(0,bottomStart,w,h-bottomStart);
+  const top=c.createLinearGradient(0,0,0,portrait?330:210);top.addColorStop(0,portrait?'#06172ac9':'#02050cf4');top.addColorStop(.7,portrait?'#06172a65':'#02050cbb');top.addColorStop(1,'#02050c00');c.fillStyle=top;c.fillRect(0,0,w,portrait?330:210);
+  const bottomStart=portrait?900:535,fade=c.createLinearGradient(0,bottomStart,0,h);fade.addColorStop(0,'#02050c00');fade.addColorStop(.22,portrait?'#071a2fb0':'#02050ce8');fade.addColorStop(1,portrait?'#051226c4':'#02050cfa');c.fillStyle=fade;c.fillRect(0,bottomStart,w,h-bottomStart);
+  if(portrait&&!intro){c.save();c.fillStyle='#041223b8';c.beginPath();c.roundRect(31,key==='summary'?904:923,w-62,key==='summary'?240:115,14);c.fill();c.restore();}
   const pad=portrait?48:62;
   type(c,kicker,pad,portrait?104:52,portrait?17:14,C.gold);
   if(intro&&portrait){type(c,'偶関数・奇関数の',pad,173,37);type(c,'定積分',pad,235,58);type(c,'対称性が、面積を決める。',pad,305,23,'#c0d9e8');}
