@@ -48,7 +48,7 @@ function projectCamera({w,h,t,portrait,local,kind,intro=false}){
   return (x,y,z=0)=>{const xx=co*x+sy*z,zz=-sy*x+co*z,yy=cp*y-sp*zz,depth=sp*y+cp*zz;
     const scale=1100/(1150+depth)*zoom;return {x:cx+xx*scale,y:cy-yy*scale,k:scale,z:depth};};
 }
-// Full-height atmosphere for Reels: luminous woven curtains, rising comets and orbiting dust.
+// Full-height Reels atmosphere: polygonal warp tunnel, diagonal comets and orbiting dust.
 // This layer sits behind the mathematical plane; the landscape edition does not use it.
 function portraitAtmosphere(c,w,h,t,intro){
   c.save();
@@ -57,46 +57,42 @@ function portraitAtmosphere(c,w,h,t,intro){
     const cx=x+Math.sin(t*.37+y)*35,cy=y+Math.cos(t*.29+x)*50;
     const g=c.createRadialGradient(cx,cy,0,cx,cy,r);g.addColorStop(0,color);g.addColorStop(.5,color.slice(0,7)+'55');g.addColorStop(1,color.slice(0,7)+'00');c.fillStyle=g;c.fillRect(0,0,w,h);
   }
-  // Two large aurora surfaces fill the vertical gaps with constantly traveling waves.
-  for(let band=0;band<2;band++){
-    const center=band?h*.84:h*.30;
-    for(let row=0;row<24;row++){
-      const pts=[];
-      for(let j=0;j<=96;j++){
-        const u=j/96,x=u*(w+160)-80;
-        const y=center+Math.sin(u*TAU*.95-t*.95+row*.055+band)*80+Math.sin(u*TAU*2.1+t*.64+row*.08)*30+(row-12)*3.8;
-        pts.push({x,y});
-      }
-      const gradient=c.createLinearGradient(0,center,w,center+120);gradient.addColorStop(0,band?'#64daff':'#12baff');gradient.addColorStop(.53,'#73e6ff');gradient.addColorStop(1,'#ffdc8d');
-      stroke(c,pts,gradient,row%6===0?1.8:.8,row%6===0?.48:.20,false,row%6===0);
-      for(let j=0;j<9;j++){
-        const u=fract(j/9+t*.13+row*.023),q=pts[Math.floor(u*96)];
-        glow(c,q,row%6===0?4.8:2.2,(j+row)%3===0?'gold':'cyan',row%3===0?.85:.38);
-      }
-    }
+  // A polygonal light tunnel accelerates toward the viewer; all edges are straight.
+  const tunnelX=w*.5+Math.sin(t*.31)*28,tunnelY=h*.54;
+  const eventTimes=[3.8,8.45,10,14.45,18,25];
+  const pulse=Math.max(...eventTimes.map(at=>Math.exp(-(((t-at)/.75)**2))));
+  for(let ring=0;ring<11;ring++){
+    const depth=fract(ring/11+t*(.105+pulse*.025)),radius=45+depth*depth*1030;
+    const pts=[];for(let j=0;j<=8;j++){const a=j/8*TAU+t*.13;pts.push({x:tunnelX+Math.cos(a)*radius*.64,y:tunnelY+Math.sin(a)*radius});}
+    stroke(c,pts,ring%3===0?C.gold:C.cyan,1+depth*.7,(.08+depth*.16)*(1-depth*.5),false,true);
+    if(ring%3===0)for(let j=0;j<8;j++)glow(c,pts[j],4+depth*5,ring%2?'cyan':'gold',.3+depth*.4);
   }
-  // Vertical light shafts sweep along the sides, suggesting a much larger 3D room.
-  for(let side of [-1,1])for(let j=0;j<4;j++){
-    const x=(side<0?w*.05:w*.95)+Math.sin(t*.48+j*.7)*23+(j-1.5)*12;
-    const g=c.createLinearGradient(x-25,0,x+25,0);g.addColorStop(0,'#5fdcff00');g.addColorStop(.5,side<0?'#42ceff44':'#ffd17c3b');g.addColorStop(1,'#5fdcff00');
-    c.fillStyle=g;c.fillRect(x-25,0,50,h);stroke(c,[{x,y:0},{x:x+Math.sin(t*.3)*30,y:h}],side<0?C.cyan:C.gold,1,.26);
+  // Long diagonal comets cut across the full frame, replacing the lateral wave curtains.
+  for(let j=0;j<78;j++){
+    const phase=fract(noise(j+4100)+t*(.13+noise(j+4200)*.16));
+    const side=j%2?1:-1,x=noise(j+4300)*w+side*(phase-.5)*420;
+    const y=phase*(h+360)-180,tail=25+noise(j+4400)*110;
+    const p={x,y},q={x:x-side*tail*.45,y:y-tail};
+    stroke(c,[q,p],j%3===0?C.gold:C.cyan,1+noise(j+4500)*1.5,.18+noise(j+4600)*.3,false,j%5===0);
+    glow(c,p,4+noise(j+4700)*6,j%3===0?'gold':'cyan',.7);
+  }
+  // Large translucent triangular light planes sweep through the room in perspective.
+  for(let j=0;j<5;j++){
+    const u=fract(j/5+t*.065),scale=.5+u*1.2,angle=t*.22+j*1.7;
+    const cx=w*.5+Math.cos(angle)*w*.45,cy=h*(.16+u*.75),r=100*scale,pts=[];
+    for(let k=0;k<3;k++){const a=angle+k*TAU/3;pts.push({x:cx+Math.cos(a)*r,y:cy+Math.sin(a)*r});}
+    polygon(c,pts,j%2?C.gold:C.cyan,.018);stroke(c,pts,j%2?C.gold:C.cyan,1.2,.2,true,true);
   }
   // Dust and comet trails flow from deep space toward the viewer across the whole frame.
   const ox=w*.5+Math.sin(t*.31)*28,oy=h*.54;
-  for(let j=0;j<430;j++){
-    const angle=noise(j*5)*TAU+t*.055,depth=fract(noise(j*5+1)+t*(.065+noise(j*5+2)*.035));
+  for(let j=0;j<650;j++){
+    const angle=noise(j*5)*TAU+t*.055,depth=fract(noise(j*5+1)+t*(.11+noise(j*5+2)*.075));
     const radius=75+depth*depth*950,x=ox+Math.cos(angle)*radius*.65,y=oy+Math.sin(angle)*radius;
     if(x<0||x>w||y<0||y>h)continue;
-    const tail=2+depth*depth*23;
+    const tail=6+depth*depth*65;
     const p={x,y},q={x:x-Math.cos(angle)*tail*.65,y:y-Math.sin(angle)*tail};
     stroke(c,[q,p],j%4===0?C.gold:C.cyan,.8+depth, .24+depth*.35);
     glow(c,p,1.8+depth*4,j%4===0?'gold':'cyan',.55+depth*.35);
-  }
-  // Two winding energy streams travel up the edges, keeping the graph's center clear.
-  for(let side of [-1,1])for(let j=0;j<125;j++){
-    const u=fract(j/125-t*.19),y=u*h,phase=u*TAU*2+t*1.7;
-    const x=(side<0?w*.11:w*.89)+Math.sin(phase)*45;
-    glow(c,{x,y},2+noise(j)*5,side<0?'cyan':'gold',.45+Math.sin(u*Math.PI)*.4);
   }
   // Slow orbital arcs imply camera roll while all readable math stays upright.
   for(let ring=0;ring<3;ring++){
@@ -121,7 +117,7 @@ function room(c,w,h,t,P,intro,portrait){
   }
   // Evolving wire waves / particle ribbons in actual perspective depth.
   const high=intro?1:portrait?.82:.28;
-  for(let row=0;row<18;row++){
+  for(let row=0;row<(portrait?0:18);row++){
     const z=(row-9)*32;
     const points=[];
     for(let k=0;k<=80;k++){
@@ -133,7 +129,7 @@ function room(c,w,h,t,P,intro,portrait){
     stroke(c,points,row%3===0?C.gold:C.cyan,portrait?1.0:.65,high*(.11+row/150));
   }
   // Sweeping helices connect blue and gold into a moving light sculpture.
-  for(let ribbon=0;ribbon<(intro?4:2);ribbon++){
+  for(let ribbon=0;ribbon<(portrait?0:intro?4:2);ribbon++){
     const points=[];
     for(let k=0;k<130;k++){
       const u=k/129,x=(u-.5)*(portrait?720:1360),phase=u*TAU*1.6+t*.8+ribbon*.45;

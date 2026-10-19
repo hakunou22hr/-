@@ -5,7 +5,7 @@ import 'katex/dist/katex.min.css';
 import './style.css';
 import {functions,byId,integrals,example1,example2} from './model.js';
 import {background,graph,areaMerge} from './visual.js';
-const videoVersion=key=>key==='30s-instagram'?'bright-v3':'dynamic-v2';
+const videoVersion=key=>key==='30s-instagram'?'warp-v4':'dynamic-v2';
 const fmt=x=>Math.abs(x)<1e-9?'0':Number(x.toFixed(4)).toString();
 function MathView({tex}){return <div className="math" dangerouslySetInnerHTML={{__html:katex.renderToString(tex,{throwOnError:false,displayMode:true})}}/>}
 function Plot({fn,a,area,serial,animate,merge=false}){const ref=useRef(null);useEffect(()=>{let raf,start=performance.now();const canvas=ref.current,c=canvas.getContext('2d');const paint=now=>{const r=canvas.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,2),w=r.width,h=r.height;if(canvas.width!==Math.round(w*dpr)||canvas.height!==Math.round(h*dpr)){canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);}c.setTransform(dpr,0,0,dpr,0,0);const t=(now-start)/1000;background(c,w,h,animate?t:0);graph(c,{x:20,y:30,w:w-40,h:h-(merge?135:65)},fn,a,t,{area,symmetry:animate?Math.min(1,t/2.6):1});if(merge)areaMerge(c,w/2,h-48,w,animate?Math.min(1,t/4):1,fn.kind==='odd',integrals(fn,a).right<0?-1:1);raf=requestAnimationFrame(paint)};raf=requestAnimationFrame(paint);return()=>cancelAnimationFrame(raf)},[fn,a,area,serial,animate,merge]);return <canvas ref={ref} aria-label={`${fn.label} のグラフ、区間 −${fmt(a)} から ${fmt(a)}、${fn.kind==='even'?'y軸対称':fn.kind==='odd'?'原点対称':'偶奇混合'}`}/>}
