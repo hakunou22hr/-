@@ -52,9 +52,20 @@ function projectCamera({w,h,t,portrait,local,kind,intro=false}){
 // The particle surface advances continuously; the star clouds drift at a different depth.
 function portraitAtmosphere(c,w,h,t,intro){
   c.save();
+  const second=t>=15,elapsed=Math.max(0,t-15),travel=clamp(elapsed/15),arrival=smooth(elapsed/1.8);
   if(resources.nebulaImage){
-    const zoom=1.10+.025*Math.sin(t*.11),ww=w*zoom,hh=h*zoom;
-    c.drawImage(resources.nebulaImage,(w-ww)/2+Math.sin(t*.055)*18,(h-hh)/2+Math.cos(t*.04)*22,ww,hh);
+    if(!second){
+      const zoom=1.10+.025*Math.sin(t*.11),ww=w*zoom,hh=h*zoom;
+      c.drawImage(resources.nebulaImage,(w-ww)/2+Math.sin(t*.055)*18,(h-hh)/2+Math.cos(t*.04)*22,ww,hh);
+    }else{
+      // A genuine large camera push and roll makes the cloud itself visibly travel.
+      const zoom=1.125+travel*1.4,ww=w*zoom,hh=h*zoom;
+      c.save();c.translate(w/2+Math.sin(elapsed*.34)*55+Math.sin(15*.055)*18*(1-arrival),h/2+Math.sin(elapsed*.22)*75+Math.cos(15*.04)*22*(1-arrival));c.rotate(travel*.62);
+      c.drawImage(resources.nebulaImage,-ww/2,-hh/2,ww,hh);c.restore();
+      // A counter-moving translucent cloud layer adds foreground parallax.
+      c.save();c.globalAlpha=.18*arrival;c.globalCompositeOperation='screen';c.translate(w*.48,h*.55);c.rotate(-travel*.35);
+      c.drawImage(resources.nebulaImage,-w*(.8+travel*.3),-h*(.8+travel*.3),w*(1.6+travel*.6),h*(1.6+travel*.6));c.restore();
+    }
   }
   // Low-opacity cloud light moves separately from the textured galaxy.
   for(const [x,y,r,col] of [[w*.22,h*.28,340,'#227fbe33'],[w*.79,h*.58,300,'#a381442e']]){
@@ -67,41 +78,74 @@ function portraitAtmosphere(c,w,h,t,intro){
     glow(c,{x,y},(j%17===0?7:2.2)*z,j%5===0?'gold':'cyan',twinkle);
     if(j%37===0){stroke(c,[{x:x-5*z,y},{x:x+5*z,y}],C.white,.65,twinkle*.65);stroke(c,[{x,y:y-5*z},{x,y:y+5*z}],C.white,.65,twinkle*.65);}
   }
-  const yaw=Math.sin(t*.16)*.13,pitch=.13+Math.cos(t*.12)*.04;
-  const base=intro?h*.52:h*.305,amplitude=intro?125:81;
-  function wave(u,depth=0,offset=0){
-    const phase=u*TAU*2.15-t*.83;
-    const wx=(u-.5)*w*1.36,wy=Math.sin(phase)*amplitude+Math.sin(phase*2+.3)*9+offset,wz=depth+Math.cos(phase)*30;
-    const xx=wx*Math.cos(yaw)+wz*Math.sin(yaw),zz=-wx*Math.sin(yaw)+wz*Math.cos(yaw),k=1050/(1050+zz);
-    return {x:w/2+xx*k,y:base-(wy*Math.cos(pitch)-zz*Math.sin(pitch))*k,k};
-  }
-  // Thin golden cores plus thousands of discrete particles reproduce the reference's body.
-  for(let row=0;row<15;row++){
-    const depth=(row-7)*16,color=row<9?'gold':'cyan';
-    const pts=[];
-    for(let j=0;j<=135;j++){
-      const u=j/135,p=wave(u,depth,(noise(row*300+j)-.5)*11);pts.push(p);
-      const peak=Math.max(0,Math.sin(u*TAU*2.15-t*.83));
-      glow(c,p,(1.0+noise(j+row*170)*1.8)*p.k,color,.33+peak*.34+noise(j*3+row)*.2);
+  if(intro){
+    const yaw=Math.sin(t*.16)*.13,pitch=.13+Math.cos(t*.12)*.04;
+    const base=intro?h*.52:h*.305,amplitude=intro?125:81;
+    function wave(u,depth=0,offset=0){
+      const phase=u*TAU*2.15-t*.83;
+      const wx=(u-.5)*w*1.36,wy=Math.sin(phase)*amplitude+Math.sin(phase*2+.3)*9+offset,wz=depth+Math.cos(phase)*30;
+      const xx=wx*Math.cos(yaw)+wz*Math.sin(yaw),zz=-wx*Math.sin(yaw)+wz*Math.cos(yaw),k=1050/(1050+zz);
+      return {x:w/2+xx*k,y:base-(wy*Math.cos(pitch)-zz*Math.sin(pitch))*k,k};
     }
-    if(row===7||row===11){const core=Array.from({length:181},(_,j)=>wave(j/180,depth));stroke(c,core,row===7?C.gold:C.cyan,row===7?2.35:1.0,row===7?.92:.35,false,row===7);if(row===7)stroke(c,core,'#fff3cc',.65,.72);}
-    // Bright energy beads travel along the gold and blue wave with their own short trails.
-    for(let j=0;j<8;j++){
-      const u=fract(j/8+t*.11+row*.019),p=wave(u,depth);
-      if(row%3===0){const trail=[];for(let k=0;k<9;k++)trail.push(wave(clamp(u-k*.004),depth));stroke(c,trail,color==='gold'?C.gold:C.cyan,1,.28);}
-      glow(c,p,row%3===0?7.5:3.5,color,row%3===0?.9:.45);
+    // Thin golden cores plus thousands of discrete particles reproduce the reference's body.
+    for(let row=0;row<15;row++){
+      const depth=(row-7)*16,color=row<9?'gold':'cyan';
+      const pts=[];
+      for(let j=0;j<=135;j++){
+        const u=j/135,p=wave(u,depth,(noise(row*300+j)-.5)*11);pts.push(p);
+        const peak=Math.max(0,Math.sin(u*TAU*2.15-t*.83));
+        glow(c,p,(1.0+noise(j+row*170)*1.8)*p.k,color,.33+peak*.34+noise(j*3+row)*.2);
+      }
+      if(row===7||row===11){const core=Array.from({length:181},(_,j)=>wave(j/180,depth));stroke(c,core,row===7?C.gold:C.cyan,row===7?2.35:1.0,row===7?.92:.35,false,row===7);if(row===7)stroke(c,core,'#fff3cc',.65,.72);}
+      // Bright energy beads travel along the gold and blue wave with their own short trails.
+      for(let j=0;j<8;j++){
+        const u=fract(j/8+t*.11+row*.019),p=wave(u,depth);
+        if(row%3===0){const trail=[];for(let k=0;k<9;k++)trail.push(wave(clamp(u-k*.004),depth));stroke(c,trail,color==='gold'?C.gold:C.cyan,1,.28);}
+        glow(c,p,row%3===0?7.5:3.5,color,row%3===0?.9:.45);
+      }
+    }
+    // A cooler, broader particle layer curls beneath the golden peaks in the same space.
+    for(let j=0;j<740;j++){
+      const u=fract(noise(j+6300)+t*.035),depth=65+noise(j+6400)*130;
+      const p=wave(u,depth,-42-noise(j+6500)*60);
+      glow(c,p,1+noise(j+6600)*2.3,j%9===0?'gold':'cyan',.24+noise(j+6700)*.4);
+    }
+    // Peak flares follow the moving mathematical surface instead of flashing the whole frame.
+    for(let j=0;j<3;j++){
+      const u=(Math.PI/2+t*.83+j*TAU)/(TAU*2.15);
+      if(u>0&&u<1){const p=wave(u,0);glow(c,p,intro?35:25,'gold',.6);glow(c,p,7,'white',.65);}
     }
   }
-  // A cooler, broader particle layer curls beneath the golden peaks in the same space.
-  for(let j=0;j<740;j++){
-    const u=fract(noise(j+6300)+t*.035),depth=65+noise(j+6400)*130;
-    const p=wave(u,depth,-42-noise(j+6500)*60);
-    glow(c,p,1+noise(j+6600)*2.3,j%9===0?'gold':'cyan',.24+noise(j+6700)*.4);
-  }
-  // Peak flares follow the moving mathematical surface instead of flashing the whole frame.
-  for(let j=0;j<3;j++){
-    const u=(Math.PI/2+t*.83+j*TAU)/(TAU*2.15);
-    if(u>0&&u<1){const p=wave(u,0);glow(c,p,intro?35:25,'gold',.6);glow(c,p,7,'white',.65);}
+  if(second){
+    const ox=w*.5+Math.sin(elapsed*.25)*30,oy=h*.54+Math.sin(elapsed*.18)*30;
+    // A three-arm particle galaxy rotates and expands as the camera approaches it.
+    for(let arm=0;arm<3;arm++){
+      const color=arm===1?'gold':'cyan';
+      for(let j=0;j<235;j++){
+        const u=fract(j/235+elapsed*.035),radius=(24+u*u*(300+travel*380));
+        const angle=u*TAU*1.55-elapsed*.92+arm*TAU/3;
+        const x=ox+Math.cos(angle)*radius,y=oy+Math.sin(angle)*radius*.62;
+        const tailAngle=angle+.045+u*.025;
+        if(j%3===0)stroke(c,[{x:ox+Math.cos(tailAngle)*radius,y:oy+Math.sin(tailAngle)*radius*.62},{x,y}],arm===1?C.gold:C.cyan,.9,arrival*(1-u*.6)*.35);
+        glow(c,{x,y},1.8+noise(j+arm*330)*4.5,color,arrival*(.25+noise(j+arm*350)*.55)*(1-u*.3));
+      }
+    }
+    // Stars turn into increasingly long foreground trails in the second act.
+    for(let j=0;j<370;j++){
+      const depth=fract(noise(j+9000)+elapsed*(.08+noise(j+9100)*.07)),angle=noise(j+9200)*TAU+elapsed*.045;
+      const radius=50+depth*depth*1100,p={x:ox+Math.cos(angle)*radius*.64,y:oy+Math.sin(angle)*radius};
+      const tail=(10+depth*depth*(32+travel*75))*arrival;
+      stroke(c,[{x:p.x-Math.cos(angle)*tail*.64,y:p.y-Math.sin(angle)*tail},p],j%4===0?C.gold:C.cyan,.8+depth,arrival*(.18+depth*.35));
+      glow(c,p,2+depth*5,j%4===0?'gold':'cyan',arrival*(.35+depth*.4));
+    }
+    // Three broad expanding pulses mark the new act without rapid flashing.
+    for(const at of [.8,5.0,9.5]){
+      const q=(elapsed-at)/2.2;if(q<0||q>1)continue;
+      const r=40+smooth(q)*590,pts=[];
+      for(let k=0;k<=110;k++){const a=k/110*TAU;pts.push({x:ox+Math.cos(a)*r,y:oy+Math.sin(a)*r*.63});}
+      stroke(c,pts,at===5?C.gold:C.cyan,1.9,(1-q)*arrival*.55,false,true);
+      glow(c,{x:ox,y:oy},90*(1-q),at===5?'gold':'cyan',(1-q)*arrival*.28);
+    }
   }
   c.restore();
 }
