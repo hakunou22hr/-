@@ -23,7 +23,7 @@
 - `even-odd-integral-90s-pc.mp4`：1920×1080、90秒、指定の7場面
 - `even-odd-integral-30s-instagram.mp4`：1080×1920、30秒、縦型専用の5場面
 
-いずれも字幕で完結する無音動画。生成時のみNode.jsとFFmpegを使用し、再生時の外部API呼出しはありません。数式はMathJaxのSVG、本文はNoto Sans CJKを描画。ブラウザ教材と動画は同じ関数定義と描画コードを共有します。
+いずれも字幕で完結する無音動画。生成時のみNode.jsとFFmpegを使用し、再生時の外部API呼出しはありません。数式はMathJaxのSVG、本文はNoto Sans CJKを描画。ブラウザ教材と動画は同じ関数定義を共有します。動画専用の `render/cinematic.js` で、透視投影・カメラ旋回・立体ワイヤー波・光の粒子・残像・面積プレートの合体／相殺を描画します。教材の自由操作用グラフは変更していません。
 
 ## ローカル起動・確認
 
@@ -32,3 +32,7 @@
 数学検証：`node materials/even-odd-integral/tests/mathematics.check.mjs`。数値積分を独立に実行して全関数の左右・全区間の積分と符号反転、例題の答えを確認します。
 
 動画再生成：`npm install --prefix materials/even-odd-integral/render` の後、リポジトリルートで `node materials/even-odd-integral/render/render.mjs short` および `node materials/even-odd-integral/render/render.mjs wide`。FFmpeg、Linuxの `/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc` が必要です。別環境ではフォントパスを変更してください。
+
+## 動的演出への改訂（v2）
+
+背景を立体的な数式空間へ変更。青・金の波が奥行き方向にうねり、カメラが旋回・接近します。偶関数は鏡面状のy軸でグラフが反転し、奇関数は原点で180°回転します。面積は発光する板として中央へ集まり、光の輪・粒子の飛散とともに2Sまたは0へまとまります。主数式は読みやすさのため画面に固定。縦型は対称性→面積移動→合体・相殺を専用タイミングで再構成しました。動画URLに版番号を付け、古いキャッシュを避けています。
