@@ -9,7 +9,7 @@ const smooth=x=>{x=clamp(x);return x*x*(3-2*x)};
 const fract=x=>x-Math.floor(x);
 const noise=i=>fract(Math.sin(i*127.13+19.7)*43758.5453);
 let resources={math:{},sprites:{}};
-export function configureCinema({math,createCanvas}){
+export function configureCinema({math,createCanvas,nebulaImage=null}){
   const sprites={};
   for(const [name,col] of Object.entries(C)){
     if(name==='ink')continue;
@@ -18,7 +18,7 @@ export function configureCinema({math,createCanvas}){
     g.addColorStop(0,'#ffffff');g.addColorStop(.08,col);g.addColorStop(.25,col+'88');g.addColorStop(.6,col+'20');g.addColorStop(1,col+'00');
     ctx.fillStyle=g;ctx.fillRect(0,0,128,128);sprites[name]=c;
   }
-  resources={math,sprites};
+  resources={math,sprites,nebulaImage};
 }
 function type(c,str,x,y,size=26,color=C.white,align='left'){
   c.font=`${size}px "Noto Sans CJK JP", sans-serif`;c.fillStyle=color;c.textAlign=align;c.textBaseline='middle';c.fillText(str,x,y);
@@ -48,57 +48,60 @@ function projectCamera({w,h,t,portrait,local,kind,intro=false}){
   return (x,y,z=0)=>{const xx=co*x+sy*z,zz=-sy*x+co*z,yy=cp*y-sp*zz,depth=sp*y+cp*zz;
     const scale=1100/(1150+depth)*zoom;return {x:cx+xx*scale,y:cy-yy*scale,k:scale,z:depth};};
 }
-// Full-height Reels atmosphere: polygonal warp tunnel, diagonal comets and orbiting dust.
-// This layer sits behind the mathematical plane; the landscape edition does not use it.
+// Reference-led portrait background: a textured nebula and luminous 3D point-cloud waves.
+// The particle surface advances continuously; the star clouds drift at a different depth.
 function portraitAtmosphere(c,w,h,t,intro){
   c.save();
-  // Broad colored light replaces the nearly black empty regions, without exposure flashes.
-  for(const [x,y,r,color] of [[w*.13,h*.29,450,'#137facaa'],[w*.94,h*.48,410,'#97733677'],[w*.34,h*.89,480,'#146cbb99']]){
-    const cx=x+Math.sin(t*.37+y)*35,cy=y+Math.cos(t*.29+x)*50;
-    const g=c.createRadialGradient(cx,cy,0,cx,cy,r);g.addColorStop(0,color);g.addColorStop(.5,color.slice(0,7)+'55');g.addColorStop(1,color.slice(0,7)+'00');c.fillStyle=g;c.fillRect(0,0,w,h);
+  if(resources.nebulaImage){
+    const zoom=1.10+.025*Math.sin(t*.11),ww=w*zoom,hh=h*zoom;
+    c.drawImage(resources.nebulaImage,(w-ww)/2+Math.sin(t*.055)*18,(h-hh)/2+Math.cos(t*.04)*22,ww,hh);
   }
-  // A polygonal light tunnel accelerates toward the viewer; all edges are straight.
-  const tunnelX=w*.5+Math.sin(t*.31)*28,tunnelY=h*.54;
-  const eventTimes=[3.8,8.45,10,14.45,18,25];
-  const pulse=Math.max(...eventTimes.map(at=>Math.exp(-(((t-at)/.75)**2))));
-  for(let ring=0;ring<11;ring++){
-    const depth=fract(ring/11+t*(.105+pulse*.025)),radius=45+depth*depth*1030;
-    const pts=[];for(let j=0;j<=8;j++){const a=j/8*TAU+t*.13;pts.push({x:tunnelX+Math.cos(a)*radius*.64,y:tunnelY+Math.sin(a)*radius});}
-    stroke(c,pts,ring%3===0?C.gold:C.cyan,1+depth*.7,(.08+depth*.16)*(1-depth*.5),false,true);
-    if(ring%3===0)for(let j=0;j<8;j++)glow(c,pts[j],4+depth*5,ring%2?'cyan':'gold',.3+depth*.4);
+  // Low-opacity cloud light moves separately from the textured galaxy.
+  for(const [x,y,r,col] of [[w*.22,h*.28,340,'#227fbe33'],[w*.79,h*.58,300,'#a381442e']]){
+    const g=c.createRadialGradient(x+Math.sin(t*.17)*30,y,0,x,y,r);g.addColorStop(0,col);g.addColorStop(1,col.slice(0,7)+'00');c.fillStyle=g;c.fillRect(0,0,w,h);
   }
-  // Long diagonal comets cut across the full frame, replacing the lateral wave curtains.
-  for(let j=0;j<78;j++){
-    const phase=fract(noise(j+4100)+t*(.13+noise(j+4200)*.16));
-    const side=j%2?1:-1,x=noise(j+4300)*w+side*(phase-.5)*420;
-    const y=phase*(h+360)-180,tail=25+noise(j+4400)*110;
-    const p={x,y},q={x:x-side*tail*.45,y:y-tail};
-    stroke(c,[q,p],j%3===0?C.gold:C.cyan,1+noise(j+4500)*1.5,.18+noise(j+4600)*.3,false,j%5===0);
-    glow(c,p,4+noise(j+4700)*6,j%3===0?'gold':'cyan',.7);
+  // Distant stars slowly parallax and twinkle; no side borders or warp polygons.
+  for(let j=0;j<260;j++){
+    const z=.35+noise(j+5000)*.9,x=fract(noise(j+5100)+t*.001*z)*w,y=fract(noise(j+5200)+t*.0006*z)*h;
+    const twinkle=.35+.5*Math.sin(t*.8+j)**2;
+    glow(c,{x,y},(j%17===0?7:2.2)*z,j%5===0?'gold':'cyan',twinkle);
+    if(j%37===0){stroke(c,[{x:x-5*z,y},{x:x+5*z,y}],C.white,.65,twinkle*.65);stroke(c,[{x,y:y-5*z},{x,y:y+5*z}],C.white,.65,twinkle*.65);}
   }
-  // Large translucent triangular light planes sweep through the room in perspective.
-  for(let j=0;j<5;j++){
-    const u=fract(j/5+t*.065),scale=.5+u*1.2,angle=t*.22+j*1.7;
-    const cx=w*.5+Math.cos(angle)*w*.45,cy=h*(.16+u*.75),r=100*scale,pts=[];
-    for(let k=0;k<3;k++){const a=angle+k*TAU/3;pts.push({x:cx+Math.cos(a)*r,y:cy+Math.sin(a)*r});}
-    polygon(c,pts,j%2?C.gold:C.cyan,.018);stroke(c,pts,j%2?C.gold:C.cyan,1.2,.2,true,true);
+  const yaw=Math.sin(t*.16)*.13,pitch=.13+Math.cos(t*.12)*.04;
+  const base=intro?h*.52:h*.305,amplitude=intro?125:81;
+  function wave(u,depth=0,offset=0){
+    const phase=u*TAU*2.15-t*.83;
+    const wx=(u-.5)*w*1.36,wy=Math.sin(phase)*amplitude+Math.sin(phase*2+.3)*9+offset,wz=depth+Math.cos(phase)*30;
+    const xx=wx*Math.cos(yaw)+wz*Math.sin(yaw),zz=-wx*Math.sin(yaw)+wz*Math.cos(yaw),k=1050/(1050+zz);
+    return {x:w/2+xx*k,y:base-(wy*Math.cos(pitch)-zz*Math.sin(pitch))*k,k};
   }
-  // Dust and comet trails flow from deep space toward the viewer across the whole frame.
-  const ox=w*.5+Math.sin(t*.31)*28,oy=h*.54;
-  for(let j=0;j<650;j++){
-    const angle=noise(j*5)*TAU+t*.055,depth=fract(noise(j*5+1)+t*(.11+noise(j*5+2)*.075));
-    const radius=75+depth*depth*950,x=ox+Math.cos(angle)*radius*.65,y=oy+Math.sin(angle)*radius;
-    if(x<0||x>w||y<0||y>h)continue;
-    const tail=6+depth*depth*65;
-    const p={x,y},q={x:x-Math.cos(angle)*tail*.65,y:y-Math.sin(angle)*tail};
-    stroke(c,[q,p],j%4===0?C.gold:C.cyan,.8+depth, .24+depth*.35);
-    glow(c,p,1.8+depth*4,j%4===0?'gold':'cyan',.55+depth*.35);
+  // Thin golden cores plus thousands of discrete particles reproduce the reference's body.
+  for(let row=0;row<15;row++){
+    const depth=(row-7)*16,color=row<9?'gold':'cyan';
+    const pts=[];
+    for(let j=0;j<=135;j++){
+      const u=j/135,p=wave(u,depth,(noise(row*300+j)-.5)*11);pts.push(p);
+      const peak=Math.max(0,Math.sin(u*TAU*2.15-t*.83));
+      glow(c,p,(1.0+noise(j+row*170)*1.8)*p.k,color,.33+peak*.34+noise(j*3+row)*.2);
+    }
+    if(row===7||row===11){const core=Array.from({length:181},(_,j)=>wave(j/180,depth));stroke(c,core,row===7?C.gold:C.cyan,row===7?2.35:1.0,row===7?.92:.35,false,row===7);if(row===7)stroke(c,core,'#fff3cc',.65,.72);}
+    // Bright energy beads travel along the gold and blue wave with their own short trails.
+    for(let j=0;j<8;j++){
+      const u=fract(j/8+t*.11+row*.019),p=wave(u,depth);
+      if(row%3===0){const trail=[];for(let k=0;k<9;k++)trail.push(wave(clamp(u-k*.004),depth));stroke(c,trail,color==='gold'?C.gold:C.cyan,1,.28);}
+      glow(c,p,row%3===0?7.5:3.5,color,row%3===0?.9:.45);
+    }
   }
-  // Slow orbital arcs imply camera roll while all readable math stays upright.
-  for(let ring=0;ring<3;ring++){
-    const pts=[];for(let j=0;j<=110;j++){const a=j/110*TAU+t*.15+ring*.25;pts.push({x:ox+Math.cos(a)*(280+ring*38),y:oy+Math.sin(a)*(180+ring*60)});}
-    stroke(c,pts,ring%2?C.gold:C.cyan,1.1,.18);
-    const a=t*.75+ring*2.1;glow(c,{x:ox+Math.cos(a)*(280+ring*38),y:oy+Math.sin(a)*(180+ring*60)},16,ring%2?'gold':'cyan',.8);
+  // A cooler, broader particle layer curls beneath the golden peaks in the same space.
+  for(let j=0;j<740;j++){
+    const u=fract(noise(j+6300)+t*.035),depth=65+noise(j+6400)*130;
+    const p=wave(u,depth,-42-noise(j+6500)*60);
+    glow(c,p,1+noise(j+6600)*2.3,j%9===0?'gold':'cyan',.24+noise(j+6700)*.4);
+  }
+  // Peak flares follow the moving mathematical surface instead of flashing the whole frame.
+  for(let j=0;j<3;j++){
+    const u=(Math.PI/2+t*.83+j*TAU)/(TAU*2.15);
+    if(u>0&&u<1){const p=wave(u,0);glow(c,p,intro?35:25,'gold',.6);glow(c,p,7,'white',.65);}
   }
   c.restore();
 }
@@ -106,7 +109,7 @@ function room(c,w,h,t,P,intro,portrait){
   c.fillStyle=C.ink;c.fillRect(0,0,w,h);
   const neb=c.createRadialGradient(w*.49,h*.47,10,w*.5,h*.5,w*.67);
   neb.addColorStop(0,portrait?'#205577':'#11283c');neb.addColorStop(.42,portrait?'#0c2a49':'#051220');neb.addColorStop(1,portrait?'#071b31':'#010308');c.fillStyle=neb;c.fillRect(0,0,w,h);
-  if(portrait)portraitAtmosphere(c,w,h,t,intro);
+  if(portrait){portraitAtmosphere(c,w,h,t,intro);return;}
   // A deep grid room with moving light columns, rather than a fixed 2D backdrop.
   for(let z=-400;z<=800;z+=100){stroke(c,[P(-900,-220,z),P(900,-220,z)],'#1b647c',.7,.2);}
   for(let x=-900;x<=900;x+=100){stroke(c,[P(x,-220,-400),P(x,-220,800)],'#20647b',.7,.16);}
@@ -287,7 +290,7 @@ export function cinemaFrame(c,W,H,t,portrait=false){
   if(key==='cos'&&!portrait){key=local<2.4?'cos':local<5?'coscalc':'summary';if(key==='summary')title='対称性が、面積を決める。';}
   const P=projectCamera({w,h,t,portrait,local,kind:fn.kind,intro});room(c,w,h,t,P,intro,portrait);
   c.save();c.beginPath();c.rect(0,portrait?300:180,w,portrait?600:360);c.clip();
-  if(intro){
+  if(intro&&!portrait){
     const xs=portrait?195:330,ys=portrait?110:70;
     for(let j=0;j<7;j++){
       const pts=[];for(let k=0;k<=150;k++){const x=(k/150-.5)*3,xx=x*xs,y=Math.sin(x*3+t*.85+j*.12)*ys,z=(j-3)*45;pts.push(P(xx,y,z));}
@@ -296,7 +299,7 @@ export function cinemaFrame(c,W,H,t,portrait=false){
     }
     for(let j=0;j<820;j++){const u=noise(j),x=(u-.5)*3*(portrait?195:330),phase=(u-.5)*9+t*.85,z=(noise(j+950)-.5)*260,y=Math.sin(phase)*(portrait?110:70)+Math.sin(z*.014+t)*24+(noise(j+1800)-.5)*20;const q=P(x,y,z);glow(c,q,1.3+noise(j+2000)*3.2,j%3===0?'gold':'cyan',.4+noise(j+1000)*.45);}
     const center=P(0,0);glow(c,center,120,'cyan',.8);
-  }else{
+  }else if(!intro){
     // In the short edition, first show the same mirror/rotation before the area event.
     if(portrait&&area&&local<2.0)symmetryScene(c,P,fn,t,local,1,portrait,{definition:true});
     else symmetryScene(c,P,fn,t,local,fn.id==='cos'?Math.PI/4:1,portrait,{definition,area,fill:['oddterms','result','cos','coscalc','summary'].includes(key)});
