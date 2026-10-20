@@ -4,7 +4,7 @@ import {cinemaFrame,configureCinema} from './cinematic.js';
 import {spawn} from 'node:child_process';
 import {once} from 'node:events';
 GlobalFonts.registerFromPath('/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc','Noto Sans CJK JP');
-const math=await mathImages();configureCinema({math});
+const math=await mathImages();configureCinema({math,createCanvas});
 const portrait=process.argv[2]==='short',W=portrait?1080:1920,H=portrait?1920:1080,duration=portrait?30:90;
 const start=Number(process.env.CINEMA_START||0);
 const c=createCanvas(W,H),ctx=c.getContext('2d'),out=process.env.CINEMA_OUTPUT||`public/media/calculus-limit/calculus-limit-${portrait?'30s-instagram':'90s-pc'}.mp4`;
