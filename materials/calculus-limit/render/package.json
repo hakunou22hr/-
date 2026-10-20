@@ -1,0 +1,1 @@
+{"private":true,"type":"module","scripts":{"short":"node render.mjs short","wide":"node render.mjs wide"},"dependencies":{"@napi-rs/canvas":"1.0.11","mathjax-full":"3.2.1"}}
