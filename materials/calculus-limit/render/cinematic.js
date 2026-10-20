@@ -1,3 +1,4 @@
+import {reelsFrame} from './reels.js';
 import {background,drawGraph} from '../visual.js';
 import {scene,rightSum,error} from '../model.js';
 let math={};export function configureCinema(options){math=options.math}
@@ -5,6 +6,7 @@ function text(c,s,x,y,size=25,color='#e9f7ff',align='center'){c.font=`${size}px 
 function formula(c,key,x,y,maxW,maxH,alpha=1){const f=math[key];if(!f)return;const w=Math.min(maxW,maxH*f.ratio),h=w/f.ratio;c.save();c.globalAlpha=alpha;c.drawImage(f.image,x-w/2,y-h/2,w,h);c.restore()}
 function panel(c,x,y,w,h){c.fillStyle='#04101de8';c.strokeStyle='#48889e66';c.lineWidth=1;c.beginPath();c.roundRect(x,y,w,h,13);c.fill();c.stroke()}
 export function cinemaFrame(ctx,W,H,t,portrait){
+ if(portrait){reelsFrame(ctx,W,H,t,math);return;}
  const w=portrait?720:1280,h=portrait?1280:720,c=ctx,s=scene(t,portrait),tunnel=s.i===5||(portrait&&s.i===2)?1:s.i===6?.3:.04;
  c.save();c.scale(W/w,H/h);background(c,w,h,t,tunnel);
  // Rectangular portals deepen into the vanishing point in the limit act.
