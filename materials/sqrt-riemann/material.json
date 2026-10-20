@@ -1,0 +1,8 @@
+{
+  "id": "sqrt-riemann",
+  "name": "数学Ⅲ｜定積分と極限（√x の区分求積）",
+  "subject": "数学Ⅲ",
+  "unit": "定積分と極限／区分求積法",
+  "description": "右端和 (1/n)Σ√(k/n) が定積分 2/3 へ近づく様子を、動く光の空間で体験。分割数1〜200、2D/3Dビュー、90秒PC・30秒リールMP4付き。",
+  "thumbnail": "thumbnail.svg"
+}

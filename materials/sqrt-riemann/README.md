@@ -1,0 +1,29 @@
+# 数学Ⅲ｜定積分と極限（√x の区分求積）
+
+ライブラリの「数学Ⅲ」または「√x」で検索し、教材カードを開く。
+直接URL: `https://hakunou22hr.github.io/-/materials/sqrt-riemann/`
+
+## 機能
+
+- n=1〜200 の右端和をスライダー・自動再生で操作。
+- 曲線のみ／長方形のみ／両方、数式・近似値・真の値・誤差を個別に切替。
+- 2D／3D風ビュー。長方形を選ぶと幅・高さ・面積を表示。
+- 動画タブに90秒16:9、30秒9:16の再生・MP4保存。
+- 動く立体回廊、光粒子、浮遊数式。人物・ナレーション・有料APIなし。
+
+## 数学
+
+幅1/n、右端 k/n、高さ√(k/n)。S_n=(1/n)Σ√(k/n) は上側から2/3に収束。
+∫₀¹√x dx=[(2/3)x^(3/2)]₀¹=2/3。
+
+## 開発・出力
+
+リポジトリルートで `npm run dev -- --host 0.0.0.0`。`npm run build` でライブラリ全体をビルド。
+動画は `public/media/sqrt-riemann/` に保存。H.264、yuv420p、24fps、faststart。
+
+再生成には FFmpeg と日本語フォント Noto Sans CJK が必要。
+`npm install --prefix materials/sqrt-riemann/render` の後、ルートで
+`node materials/sqrt-riemann/render/cinema.mjs 90` と `node materials/sqrt-riemann/render/cinema.mjs 30`。
+MathJaxで数式を描き、Canvasで全フレームを生成。音声は収録していない。
+
+動画構成は90秒版が0/10/24/40/55/68/80/90秒、30秒版が0/4/10/18/24/30秒。

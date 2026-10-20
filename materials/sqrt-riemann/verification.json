@@ -1,0 +1,98 @@
+{
+  "media": [
+    {
+      "filename": "sqrt-riemann-90s-pc.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "width": 1920,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24/1"
+        }
+      ],
+      "format": {
+        "duration": "90.000000",
+        "size": "67118219"
+      },
+      "fullDecodePassed": true,
+      "motionSamples": 180,
+      "minimumMeanPixelChangeAtHalfSecond": 2.702615740740741
+    },
+    {
+      "filename": "sqrt-riemann-30s-instagram.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "width": 1080,
+          "height": 1920,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24/1"
+        }
+      ],
+      "format": {
+        "duration": "30.000000",
+        "size": "26413725"
+      },
+      "fullDecodePassed": true,
+      "motionSamples": 60,
+      "minimumMeanPixelChangeAtHalfSecond": 4.587314814814815
+    }
+  ],
+  "interactive": {
+    "passed": true,
+    "vals": [
+      {
+        "n": 1,
+        "value": "1.000000",
+        "error": "+0.333333"
+      },
+      {
+        "n": 4,
+        "value": "0.768283",
+        "error": "+0.101616"
+      },
+      {
+        "n": 8,
+        "value": "0.720630",
+        "error": "+0.053964"
+      },
+      {
+        "n": 32,
+        "value": "0.681184",
+        "error": "+0.014517"
+      },
+      {
+        "n": 200,
+        "value": "0.669094",
+        "error": "+0.002428"
+      }
+    ],
+    "mobileOverflow": false,
+    "errors": []
+  },
+  "browserVideos": [
+    {
+      "duration": 90,
+      "w": 1920,
+      "h": 1080,
+      "ended": true,
+      "error": null,
+      "filename": "sqrt-riemann-90s-pc.mp4"
+    },
+    {
+      "duration": 30,
+      "w": 1080,
+      "h": 1920,
+      "ended": true,
+      "error": null,
+      "filename": "sqrt-riemann-30s-instagram.mp4"
+    }
+  ],
+  "productionBuild": "passed",
+  "catalogTestNote": "9/10 passed. Existing triangle-trig-inquiry material has no bundled thumbnail; this lesson metadata and thumbnail are registered."
+}

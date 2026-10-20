@@ -76,6 +76,13 @@ jobs:
         run: |
           npm install --prefix /tmp/integral-browser-tools playwright@1.62.1
           node /tmp/integral-browser-tools/node_modules/playwright/cli.js install --with-deps chromium
+      - name: Verify sqrt Riemann lesson and MP4 playback
+        run: node scripts/verify-sqrt-riemann-playback.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sqrt-riemann-live-playback-check
+          path: work/sqrt-riemann-check/
       - name: Verify published lesson through its real URL
         run: node scripts/verify-integral-browser-playback.mjs
       - uses: actions/upload-artifact@v4
