@@ -1,3 +1,4 @@
+import {drawFraction} from './fraction.js';
 // Continuous mathematical surfaces, advected fractal clouds and a curved 3D tunnel.
 // Decorative geometry is separate from the exact x² graph in the teaching layer.
 const TAU=Math.PI*2,rand=i=>{const v=Math.sin(i*127.1+311.7)*43758.5453;return v-Math.floor(v)},mix=(a,b,t)=>a+(b-a)*t,smooth=t=>t*t*(3-2*t);
@@ -46,25 +47,48 @@ function ribbons(c,t,P,act){
   for(let j=0;j<100;j++){const u=(rand(j+band*200)+t*.035)%1,p=line[Math.floor(u*220)],size=.7+rand(j+70)*1.8;c.fillStyle=band%2?'#ffdf9d':'#b8eaff';c.globalAlpha=.3+rand(j)*.6;c.fillRect(p.x+(rand(j+1)-.5)*15,p.y+(rand(j+2)-.5)*15,size,size)}c.globalAlpha=1;
  }
 }
-function wormhole(c,t){
- const elapsed=t-13,roll=elapsed*.23,cx=360+Math.sin(elapsed*.5)*55,cy=620+Math.cos(elapsed*.35)*40;
- const pp=(a,z)=>{const r=(360+70*Math.sin(z*.002+elapsed*.6))*(1+.13*Math.cos(6*a+elapsed*.4)),bendX=Math.sin(z*.0016+elapsed*.35)*140,bendY=Math.cos(z*.0013+elapsed*.2)*95,k=900/(z+350),x=Math.cos(a+roll+z*.0008)*r+bendX,y=Math.sin(a+roll+z*.0008)*r+bendY;return{x:cx+x*k,y:cy+y*k,k}};
- // Curved triangular panels enclose the camera and rotate through its near plane.
- const rings=Array.from({length:31},(_,j)=>({z:50+((j*170-elapsed*470+6500)%5270)})).sort((a,b)=>b.z-a.z);
- for(const {z}of rings){const pts=[];for(let k=0;k<=96;k++)pts.push(pp(k/96*TAU,z));path(c,pts,'#77cce9',1.2,Math.min(.6,pts[0].k*.28));
-  for(let k=0;k<24;k++){const a=k/24*TAU,A=pp(a,z),B=pp(a+TAU/24,z),C=pp(a+TAU/24,z+170),D=pp(a,z+170);path(c,[A,B,C],k%6?'#50aacd':'#ffd18a',1,k%6?.025:.075,true);path(c,[A,C,D],k%5?'#3876aa':'#ffe3b0',1,.065,true);if(k%4===0){path(c,[A,D],'#ffd694',1.2,.38);flare(c,A.x,A.y,18*A.k,'#ffd58a',.4)}}
+export function lightState(t){
+ const start=t<21?13:21,collect=t<21?3:2.5,hold=t<21?1:.7,end=t<21?21:30,u=Math.max(0,t-start);
+ if(u<collect)return {density:smooth(Math.min(1,u/collect)),phase:'gather'};
+ if(u<collect+hold)return {density:1,phase:'hold'};
+ return {density:1-smooth(Math.min(1,(u-collect-hold)/(end-start-collect-hold))),phase:'disperse'};
+}
+function lightCloud(c,t){
+ const {density,phase}=lightState(t),cx=360+Math.sin(t*.15)*25,cy=605+Math.cos(t*.18)*18;
+ function point(j,time){const d=lightState(time).density,a=rand(j+6000)*TAU+time*.1+(1-d)*(1.1+rand(j+6300)*1.3),far=300+rand(j+6100)*780,near=5+rand(j+6200)*27,r=far*(1-d)+near*d,z=(rand(j+6400)-.5)*700*(1-d),k=1000/(z+1200);return{x:360+Math.sin(time*.15)*25+Math.cos(a)*r*k,y:605+Math.cos(time*.18)*18+Math.sin(a)*r*k*(.72+rand(j+6500)*.35),k}}
+ // Thousands of lights follow continuous curved paths into a shared core and out again.
+ for(let j=0;j<2600;j++){
+  const p=point(j,t),tail=point(j,Math.max(13,t-.055)),gold=j%4!==0;
+  if(p.x< -60||p.x>780||p.y<130||p.y>1180)continue;
+  const brightness=.2+rand(j+6600)*.65,size=(.7+rand(j+6700)*1.8)*p.k;
+  path(c,[tail,p],gold?'#ffd993':'#8cdfff',size*.7,brightness*.55);
+  c.globalAlpha=brightness;c.fillStyle=gold?'#ffe5b0':'#b9eeff';c.fillRect(p.x-size/2,p.y-size/2,size,size);
+  if(j%57===0)flare(c,p.x,p.y,(9+rand(j)*20)*p.k,gold?'#ffd58a':'#8ce9ff',brightness*.65);
  }
- for(let j=0;j<30;j++){const pts=[];for(let k=0;k<=100;k++)pts.push(pp(j/30*TAU,k*52+40));path(c,pts,j%5?'#82bcdc':'#ffcf85',j%5?.7:2.2,j%5?.22:.72)}
- flare(c,cx,cy,210,'#ffd58a',.8);
+ c.globalAlpha=1;
+ // Expanding curved fronts make the outward phase legible, with no polygon cage.
+ if(phase==='disperse')for(let layer=0;layer<4;layer++){
+  const spread=1-density,r=35+spread*(420+layer*95),pts=[];
+  for(let k=0;k<=160;k++){const a=k/160*TAU,rr=r+Math.sin(a*3+t*.6+layer)*14*spread;pts.push({x:cx+Math.cos(a+t*.06)*rr,y:cy+Math.sin(a+t*.06)*rr*.8})}
+  path(c,pts,layer%2?'#91d8ef':'#ffdb94',layer===0?1.8:.7,(1-spread)*.3);
+ }
+ flare(c,cx,cy,200+density*160,'#ffd58a',.12+density*.3);
+ flare(c,cx,cy,26+density*86,'#d5efff',.18+density*.48);
+ // A few broad curved beams converge on the same core, then fan out.
+ for(let arm=0;arm<7;arm++){
+  const a=arm/7*TAU+t*.08,pts=[];
+  for(let k=0;k<=80;k++){const u=k/80,r=(30+u*(600*(1-density)+80))*Math.max(.2,1-density*.8),angle=a+u*.6*(1-density);pts.push({x:cx+Math.cos(angle)*r,y:cy+Math.sin(angle)*r*.85})}
+  path(c,pts,arm%3?'#ffde9b':'#9adfff',1,(1-density)*.18);
+ }
 }
 export function geometricWorld(c,t,act){
- if(cloud.length)clouds(c,t,act===2?.7:1);else{c.fillStyle='#071d34';c.fillRect(0,0,720,1280)}
+ if(cloud.length)clouds(c,t,act>=2?.65:1);else{c.fillStyle='#071d34';c.fillRect(0,0,720,1280)}
  const P=projected(t,act);c.save();c.globalCompositeOperation='screen';
- if(act===2)wormhole(c,t);else{if(act===1)saddle(c,t,P);else{polyhedron(c,t,act,P);orbital(c,t,act,P)}ribbons(c,t,P,act)}
+ if(act>=2)lightCloud(c,t);else{if(act===1)saddle(c,t,P);else{polyhedron(c,t,act,P);orbital(c,t,act,P)}ribbons(c,t,P,act)}
  // Particles live on continuous curved sheets, with a light sweep through the volume.
- for(let j=0;j<1650;j++){const u=rand(j+520)*TAU+t*.11,v=rand(j+620)*TAU,r=270+180*Math.sin(v+t*.17),x=Math.cos(u)*r,y=Math.sin(u)*r,z=Math.cos(v+t*.2)*270,p=P(x,y,z);if(p.x<0||p.x>720||p.y<160||p.y>1150)continue;const a=.18+.55*rand(j+110);c.globalAlpha=a;c.fillStyle=j%4?'#88d2e9':'#ffdf9e';const sz=.6+rand(j+71)*1.6;c.fillRect(p.x,p.y,sz,sz);if(j%113===0)flare(c,p.x,p.y,28,j%4?'#8ce9ff':'#ffd58a',.6)}c.globalAlpha=1;
+ for(let j=0;j<(act>=2?0:1650);j++){const u=rand(j+520)*TAU+t*.11,v=rand(j+620)*TAU,r=270+180*Math.sin(v+t*.17),x=Math.cos(u)*r,y=Math.sin(u)*r,z=Math.cos(v+t*.2)*270,p=P(x,y,z);if(p.x<0||p.x>720||p.y<160||p.y>1150)continue;const a=.18+.55*rand(j+110);c.globalAlpha=a;c.fillStyle=j%4?'#88d2e9':'#ffdf9e';const sz=.6+rand(j+71)*1.6;c.fillRect(p.x,p.y,sz,sz);if(j%113===0)flare(c,p.x,p.y,28,j%4?'#8ce9ff':'#ffd58a',.6)}c.globalAlpha=1;
  c.restore();
  // Sparse geometric notation follows broad arcs; no matrix rain or machine-like walls.
- c.save();for(let j=0;j<20;j++){const a=j/20*TAU+t*.08,r=340+Math.sin(j+t*.25)*60;c.translate(0,0);c.font=`${16+rand(j)*15}px Georgia`;c.textAlign='center';c.globalAlpha=.15+rand(j)*.16;c.fillStyle=j%3?'#a1d5e6':'#edcb8d';c.fillText(['∫','Σ','lim','x²','1/n'][j%5],360+Math.cos(a)*r,640+Math.sin(a)*r*1.4)}c.restore();
+ c.save();for(let j=0;j<20;j++){const a=j/20*TAU+t*.08,r=340+Math.sin(j+t*.25)*60;if(640+Math.sin(a)*r*1.4<260||640+Math.sin(a)*r*1.4>1120)continue;c.translate(0,0);c.font=`${16+rand(j)*15}px Georgia`;c.textAlign='center';c.globalAlpha=.15+rand(j)*.16;c.fillStyle=j%3?'#a1d5e6':'#edcb8d';if(j%5===4)drawFraction(c,'1','n',360+Math.cos(a)*r,640+Math.sin(a)*r*1.4,16+rand(j)*15,c.fillStyle);else c.fillText(['∫','Σ','lim','x²'][j%5],360+Math.cos(a)*r,640+Math.sin(a)*r*1.4)}c.restore();
  const v=c.createLinearGradient(0,0,0,1280);v.addColorStop(0,'#020917ec');v.addColorStop(.22,'#02091720');v.addColorStop(.75,'#02091710');v.addColorStop(1,'#020917ed');c.fillStyle=v;c.fillRect(0,0,720,1280);
 }

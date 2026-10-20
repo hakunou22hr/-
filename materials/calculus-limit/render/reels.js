@@ -1,3 +1,4 @@
+import {drawFraction} from './fraction.js';
 import {geometricWorld} from './geometric-world.js';
 import {drawGraph} from '../visual.js';
 import {rightSum,error} from '../model.js';
@@ -11,9 +12,9 @@ export function reelsFrame(c,W,H,t,math){
  const act=t<5?0:t<13?1:t<21?2:3;
  geometricWorld(c,t,act);
  label(c,'MATHEMATICS III / THE INFINITE SUM',360,77,12,'#7fd5e3');
- const headers=['定積分と極限','無限に増える、光の長方形','極限の回廊へ','無限の和が、答えになる'];
+ const headers=['定積分と極限','無限に増える、光の長方形','光が集まり、面積が見える','無限の和が、答えになる'];
  label(c,headers[act],360,139,act===0?45:30);
- label(c,act===0?'数式の奥に、どんな面積がある？':act===1?'幅 1/n × 右端の高さ (k/n)²':act===2?'分割が細かくなるほど、曲線に近づく':'y = x²　｜　0 ≤ x ≤ 1',360,187,19,'#f4d28d');
+ label(c,act===0?'数式の奥に、どんな面積がある？':act===1?'幅と右端の高さから、長方形の面積を足す':act===2?'分割が細かくなるほど、曲線に近づく':'y = x²　｜　0 ≤ x ≤ 1',360,187,19,'#f4d28d');
  if(act===0){
   c.save();c.translate(360,510);const scale=1+t*.07;c.scale(scale,scale);c.shadowColor='#72f0ff';c.shadowBlur=24;label(c,'lim',0,0,145,'#b8f7ff');label(c,'n → ∞',0,67,33,'#ffe0a6');c.restore();
   drawGraph(c,{x:120,y:665,w:480,h:330,t,showRects:false,fill:true,view:'3d',reveal:clamp(t/2)});
@@ -35,13 +36,13 @@ export function reelsFrame(c,W,H,t,math){
   const final=t>=24;
   c.save();c.globalAlpha=.3;drawGraph(c,{x:35,y:350,w:650,h:530,n:1000,t,showRects:false,view:'3d',fill:true});c.restore();
   // Formulas orbit the answer then condense into a luminous central result.
-  for(let j=0;j<42;j++){const a=j/42*TAU+t*.22,r=(260+Math.sin(j*7+t)*45)*(1-.84*clamp((t-21)/3)),x=360+Math.cos(a)*r,y=630+Math.sin(a)*r*.8;c.globalAlpha=(.16+rnd(j)*.25)*(1-clamp((t-24)/1.2));label(c,['Σ','x²','lim','∫','1/n','k²'][j%6],x,y,17+rnd(j+3)*24,j%3?'#7dedff':'#ffe3a2')}
+  for(let j=0;j<42;j++){const a=j/42*TAU+t*.22,r=(260+Math.sin(j*7+t)*45)*(1-.84*clamp((t-21)/3)),x=360+Math.cos(a)*r,y=630+Math.sin(a)*r*.8;c.globalAlpha=(.16+rnd(j)*.25)*(1-clamp((t-24)/1.2));j%6===4?drawFraction(c,'1','n',x,y,17+rnd(j+3)*24,j%3?'#7dedff':'#ffe3a2'):label(c,['Σ','x²','lim','∫','','k²'][j%6],x,y,17+rnd(j+3)*24,j%3?'#7dedff':'#ffe3a2')}
   c.globalAlpha=1;glow(c,360,625,320,'#d3a14d',.4);
   plate(c,38,480,644,277);equation(c,math,final?'final':'limit',360,618,576,final?164:112,true,clamp((t-(final?24:21))*2));
-  label(c,final?'S = 1/3':'1/n → 0',360,920,52,'#ffe1a1');
+  if(final)label(c,'S = 1/3',360,920,52,'#ffe1a1');else equation(c,math,'reciprocalLimit',360,920,290,98,true);
   label(c,'区分求積法で、面積が見える。',360,1094,26,'#d1ebf1');
  }
- label(c,act===0?'THE MATHEMATICAL COSMOS':act===1?'THE GEOMETRY OF AN INFINITE SUM':act===2?'THROUGH THE GEOMETRY OF INFINITY':'THE BIRTH OF THE ANSWER',360,1193,11,'#75aab8');
+ label(c,act===0?'THE MATHEMATICAL COSMOS':act===1?'THE GEOMETRY OF AN INFINITE SUM':act===2?'LIGHT CONVERGES / LIGHT EXPANDS':'THE BIRTH OF THE ANSWER',360,1193,11,'#75aab8');
  for(let j=0;j<4;j++){c.fillStyle=j<=act?'#e6c17c':'#234452';c.fillRect(128+j*120,1243,104,3)}
  c.restore();
 }

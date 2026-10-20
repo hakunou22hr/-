@@ -6,7 +6,7 @@ import './style.css';
 import {rightSum,error,formulas} from './model.js';
 import {background,drawGraph} from './visual.js';
 const fmt=x=>x.toFixed(6);
-const version=key=>key==='30s-instagram'?'geometry-v3':'1';
+const version=key=>key==='30s-instagram'?'light-v4':'1';
 const media=new URL('../../media/calculus-limit/',location.href).href;
 function MathText({tex}){return <div className="formula" dangerouslySetInnerHTML={{__html:katex.renderToString(tex,{displayMode:true,throwOnError:false})}}/>}
 function App(){
