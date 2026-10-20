@@ -1,1 +1,1 @@
-{"extends":"../../tsconfig.app.json","compilerOptions":{"noEmit":true},"include":["src"]}
+{ "extends": "../../tsconfig.app.json", "compilerOptions": { "noEmit": true }, "include": ["src"] }
