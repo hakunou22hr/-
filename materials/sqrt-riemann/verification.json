@@ -11,15 +11,19 @@
           "height": 1080,
           "pix_fmt": "yuv420p",
           "r_frame_rate": "24/1"
+        },
+        {
+          "codec_name": "aac",
+          "r_frame_rate": "0/0"
         }
       ],
       "format": {
         "duration": "90.000000",
-        "size": "67118219"
+        "size": "17762681"
       },
       "fullDecodePassed": true,
       "motionSamples": 180,
-      "minimumMeanPixelChangeAtHalfSecond": 2.702615740740741
+      "minimumMeanPixelChangeAtHalfSecond": 0.29050925925925924
     },
     {
       "filename": "sqrt-riemann-30s-instagram.mp4",
@@ -32,15 +36,19 @@
           "height": 1920,
           "pix_fmt": "yuv420p",
           "r_frame_rate": "24/1"
+        },
+        {
+          "codec_name": "aac",
+          "r_frame_rate": "0/0"
         }
       ],
       "format": {
         "duration": "30.000000",
-        "size": "26413725"
+        "size": "7237737"
       },
       "fullDecodePassed": true,
       "motionSamples": 60,
-      "minimumMeanPixelChangeAtHalfSecond": 4.587314814814815
+      "minimumMeanPixelChangeAtHalfSecond": 0.5630092592592593
     }
   ],
   "interactive": {
@@ -94,5 +102,14 @@
     }
   ],
   "productionBuild": "passed",
-  "catalogTestNote": "9/10 passed. Existing triangle-trig-inquiry material has no bundled thumbnail; this lesson metadata and thumbnail are registered."
+  "catalogTestNote": "9/10 passed. Existing triangle-trig-inquiry material has no bundled thumbnail; this lesson metadata and thumbnail are registered.",
+  "revision": "cinema2",
+  "audioFullDecodePassed": true,
+  "cinematicChanges": [
+    "Perspective camera with dolly, orbit, macro tracking and low flight",
+    "World-space right-endpoint slabs and repeated sqrt cross-sections",
+    "Removed fixed movie cards; independent readable equation layer",
+    "Reflections, atmospheric light, lens streaks and shot dissolves",
+    "Original stereo ambient score and cut-synchronized air swells"
+  ]
 }

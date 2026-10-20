@@ -24,6 +24,14 @@
 再生成には FFmpeg と日本語フォント Noto Sans CJK が必要。
 `npm install --prefix materials/sqrt-riemann/render` の後、ルートで
 `node materials/sqrt-riemann/render/cinema.mjs 90` と `node materials/sqrt-riemann/render/cinema.mjs 30`。
-MathJaxで数式を描き、Canvasで全フレームを生成。音声は収録していない。
+MathJaxで数式を描き、Canvasで全フレームを生成。オリジナルのアンビエントBGM・飛行音を自動生成し、AACで収録。音声ナレーションなし。再生成時はPythonとNumPyも必要。
 
 動画構成は90秒版が0/10/24/40/55/68/80/90秒、30秒版が0/4/10/18/24/30秒。
+
+## 映画調リニューアル（cinema2）
+
+- 透視投影のカメラによるドリー・周回・マクロ追従・低空飛行・引きのカット。
+- 長方形自体を立体の被写体にし、√x断面を繰り返した巨大な遠景とパララックスを構成。
+- 固定の説明パネルを撤去。余白、暗部、リムライト、反射、レンズフレア、場面転換で緩急を作る。
+- 数式は独立した鮮明な前景。30秒版も縦専用の構図とカメラタイミング。
+- オリジナルの静かなBGMとカットに同期する飛行音。
