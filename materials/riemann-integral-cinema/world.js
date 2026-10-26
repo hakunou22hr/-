@@ -1,4 +1,5 @@
 import {functions,smooth,lerp} from './math.js';
+import {chamber,corridor,fusionSpace,equationEnergy,glow,flare} from './environment.js';
 const TAU=Math.PI*2,CYAN='#66e9ff',GOLD='#ffd47a',MAGENTA='#ff75bc';
 const JP='"DejaVu Sans", "Noto Sans CJK JP", "Noto Sans JP", sans-serif';
 const fract=x=>x-Math.floor(x),rand=i=>fract(Math.sin(i*127.1+311.7)*43758.5453123);
@@ -22,35 +23,19 @@ function equation(ctx,tokens,cx,y,size,maxWidth){
 export function createFormulaTargets(createCanvas,W,H,portrait){
  const c=createCanvas(W,H),ctx=c.getContext('2d'),scale=W/(portrait?1080:1920),fy=H*(portrait?.688:.785);
  if(portrait){equation(ctx,formulaTokens('sum-limit'),W*.46,fy-22*scale,37*scale,W*.75);equation(ctx,[{s:'= '},{s:'∫',up:'b',down:'a'},{s:' f(x) dx'}],W*.46,fy+85*scale,43*scale,W*.73)}else equation(ctx,formulaTokens('identity'),W*.5,fy,45*scale,W*.87);
- const pixels=ctx.getImageData(0,0,W,H).data,targets=[];for(let y=Math.floor(fy-100*scale);y<Math.min(H,fy+120*scale);y+=3*scale)for(let x=W*.1;x<W*.9;x+=3*scale){const xx=Math.floor(x),yy=Math.floor(y);if(pixels[(yy*W+xx)*4+3]>140)targets.push([xx,yy])}return targets;
+ const pixels=ctx.getImageData(0,0,W,H).data,targets=[];for(let y=Math.floor(fy-100*scale);y<Math.min(H,fy+120*scale);y+=3*scale)for(let x=W*.1;x<W*.9;x+=3*scale){const xx=Math.floor(x),yy=Math.floor(y);if(pixels[(yy*W+xx)*4+3]>140)targets.push([xx,yy])}const glyph=(char)=>{const g=createCanvas(W,H),gc=g.getContext('2d'),cx=W*(portrait?.49:.51),cy=H*(portrait?.49:.51),size=(portrait?280:320)*scale;gc.font=`400 ${size}px ${JP}`;gc.textAlign='center';gc.textBaseline='middle';gc.fillStyle='white';gc.fillText(char,cx,cy);const data=gc.getImageData(0,0,W,H).data,pts=[];for(let y=cy-size*.65;y<cy+size*.65;y+=2.5*scale)for(let x=cx-size*.65;x<cx+size*.65;x+=2.5*scale){const xx=Math.floor(x),yy=Math.floor(y);if(xx>=0&&yy>=0&&xx<W&&yy<H&&data[(yy*W+xx)*4+3]>140)pts.push([xx,yy])}return pts};targets.sigma=glyph('Σ');targets.integral=glyph('∫');return targets;
 }
 export function drawWorld(ctx,W,H,s,options={}){
  const portrait=s.portrait,t=s.time,D=s.data,scale=options.cinema===false?W/(W<800?600:1300):W/(portrait?1080:1920),S=v=>v*scale;
  ctx.save();ctx.fillStyle='#020711';ctx.fillRect(0,0,W,H);
  const wash=ctx.createRadialGradient(W*.49,H*.5,0,W*.5,H*.5,Math.max(W,H)*.7);wash.addColorStop(0,'#0c2539');wash.addColorStop(.55,'#040d1a');wash.addColorStop(1,'#01040a');ctx.fillStyle=wash;ctx.fillRect(0,0,W,H);
- const graphCY=H*(portrait?.445:.425),graphScale=W*(options.cinema===false?.086:portrait?.084:.064),yaw=options.flat?0:s.yaw,pitch=options.flat?0:s.pitch;
+ const graphCY=H*(portrait?.445:.425),graphScale=W*(options.cinema===false?.086:portrait?.087:.071),yaw=options.flat?0:s.yaw,pitch=options.flat?0:s.pitch;
  // A perspective camera shared by the graph, coordinate frame and geometry.
  function project(x,y,z){const xx=x*Math.cos(yaw)+z*Math.sin(yaw),zz=-x*Math.sin(yaw)+z*Math.cos(yaw),yy=y*Math.cos(pitch)-zz*Math.sin(pitch),z2=y*Math.sin(pitch)+zz*Math.cos(pitch);const p=14/(14+z2);return [W*.5+xx*graphScale*p,graphCY-yy*graphScale*p]}
- const bgAlpha=1-s.tunnel*.85;
- ctx.globalAlpha=bgAlpha;
- // Spatial floor. The number of actual lines doubles at each partition step.
- ctx.strokeStyle='#164664';ctx.lineWidth=S(1);ctx.beginPath();
- const gl=s.gridLevel;for(let i=0;i<=gl;i++){const x=-8+16*i/gl;const a=project(x,-2.8,0),b=project(x+.3*Math.sin(t*.3+i*.2),-2.8,28);ctx.moveTo(...a);ctx.lineTo(...b)}
- for(let j=0;j<24;j++){const z=fract(j/24+t*.012)*30;const a=project(-9,-2.8,z),b=project(9,-2.8,z);ctx.moveTo(...a);ctx.lineTo(...b)}ctx.stroke();
- // Changing rings in different depth planes, not image layers.
- for(let r=0;r<5;r++){
-  const z=6+r*3.5+.35*Math.sin(t*.35+r),pts=[];for(let k=0;k<=64;k++){const a=k/64*TAU+t*(.045+r*.009),radius=6+r*.8+.18*Math.sin(a*4+t*.3+s.split);pts.push(project(Math.cos(a)*radius,Math.sin(a)*radius*.72,z))}path(ctx,pts);ctx.strokeStyle=r%2?'#233e55':'#16516b';ctx.lineWidth=S(r===0?2:1);ctx.stroke();
-  const polygon=[];for(let k=0;k<=6;k++){const a=k/6*TAU-t*.04;polygon.push(project(Math.cos(a)*(6+r),Math.sin(a)*(4+r*.2),z))}path(ctx,polygon);ctx.strokeStyle='#173246';ctx.stroke();
- }
- for(let i=0;i<100;i++){const z=2+fract(rand(i+100)+t*.008)*25,x=(rand(i+1)-.5)*24,y=(rand(i+2)-.5)*15,p=project(x,y,z);ctx.globalAlpha=bgAlpha*(.18+.6*rand(i+5));ctx.fillStyle=i%5===0?GOLD:CYAN;ctx.fillRect(p[0],p[1],S(1.2+1.7*rand(i)),S(1.2+1.7*rand(i)))}ctx.globalAlpha=1;
- // Limit corridor is symbolic architecture, independent of the true graph.
- if(s.tunnel>.001){ctx.save();ctx.globalAlpha=s.tunnel;ctx.fillStyle=`rgba(2,7,17,${s.tunnel*.97})`;ctx.fillRect(0,0,W,H);
- const vx=W*(.5+.025*Math.sin(t*.37)),vy=H*(portrait?.46:.48),speed=portrait?1.6:1.1;
- for(let k=30;k>=0;k--){const z=.5+fract(k/31-t*.11*speed)*24,p=2.1/z,rx=W*.39*p,ry=H*(portrait?.235:.42)*p,twist=.07*Math.sin(t*.18+z*.2),pts=[];
- for(let j=0;j<6;j++){const a=j/6*TAU+Math.PI/6+twist;pts.push([vx+Math.cos(a)*rx,vy+Math.sin(a)*ry])}path(ctx,pts,true);ctx.strokeStyle=k%3===0?GOLD:CYAN;ctx.globalAlpha=s.tunnel*(.13+.7*(1-z/25));ctx.lineWidth=S(1+3/z);ctx.stroke();
- const subdivisions=8+Math.floor(smooth((t-(portrait?12:72))/(portrait?8:17))*56);for(let j=0;j<subdivisions;j++){const q=j/subdivisions,edge=q*6,e=Math.floor(edge),f=edge-e,A=pts[e],B=pts[(e+1)%6];const x=lerp(A[0],B[0],f),y=lerp(A[1],B[1],f);ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(vx+(x-vx)*1.1,vy+(y-vy)*1.1);ctx.strokeStyle=j%4===0?GOLD:'#1a5674';ctx.stroke();}}
- ctx.globalAlpha=s.tunnel*.5;for(let j=0;j<28;j++){const a=rand(j+900)*TAU,r=fract(rand(j+820)+t*.23);path(ctx,[[vx+Math.cos(a)*W*r*.4,vy+Math.sin(a)*H*r*.4],[vx+Math.cos(a)*W*(r+.13)*.4,vy+Math.sin(a)*H*(r+.13)*.4]]);ctx.strokeStyle=j%3?CYAN:GOLD;ctx.stroke()}ctx.restore();}
- const gAlpha=1-s.tunnel*.96;
+ chamber(ctx,W,H,s,project);
+ if(s.tunnel>.001){ctx.save();ctx.globalAlpha=s.tunnel;corridor(ctx,W,H,s);ctx.restore();}
+ const fusion=smooth((t-(portrait?20:89))/(portrait?1:2));if(fusion>0&&s.crystal<1){ctx.save();ctx.globalAlpha=fusion*(1-s.crystal);fusionSpace(ctx,W,H,s);ctx.restore()}
+ const gAlpha=(1-s.tunnel)*(1-fusion*(1-s.crystal));
  ctx.save();ctx.globalAlpha=gAlpha;
  const f=D.f||functions[D.key].f;let ymin=0,ymax=0;for(let i=0;i<=250;i++){const v=f(D.a+(D.b-D.a)*i/250);ymin=Math.min(ymin,v);ymax=Math.max(ymax,v)}const yrange=Math.max(.8,ymax-ymin),gy=v=>(v-ymin)/yrange*3.55-1.55,gx=v=>(v-D.a)/(D.b-D.a)*9-4.5;
  const pt=(x,y)=>project(gx(x),gy(y),0),base=gy(0);
@@ -65,7 +50,7 @@ export function drawWorld(ctx,W,H,s,options={}){
   for(let i=0;i<D.n;i++){const r=D.rectangles[i],oldIndex=Math.floor(i/2),oldX=D.a+(oldIndex+1)*(D.b-D.a)/s.previous,oldH=f(Math.min(D.b,oldX));
    const ht=r.height;
    const rise=1,h=ht*rise,points=[pt(r.left,0),pt(r.left,h),pt(r.right,h),pt(r.right,0)];path(ctx,points,true);
-   const neg=r.height<0;ctx.fillStyle=neg?'rgba(255,75,158,.24)':'rgba(255,200,104,.25)';ctx.globalAlpha=gAlpha*(1-s.crystal)*smooth(reveal*1.5-i/D.n*.45);ctx.fill();ctx.strokeStyle=neg?MAGENTA:GOLD;ctx.globalAlpha=gAlpha*(1-s.crystal)*smooth(reveal*1.5-i/D.n*.45);ctx.lineWidth=S((D.n>64?.7:1.5)+(s.splitT<1&&i%2===0?(1-s.splitT)*2:0));ctx.stroke();ctx.globalAlpha=gAlpha;
+   const neg=r.height<0;const rg=ctx.createLinearGradient(0,pt(r.left,h)[1],0,pt(r.left,0)[1]);rg.addColorStop(0,neg?'rgba(255,110,190,.78)':'rgba(255,232,146,.75)');rg.addColorStop(.18,neg?'rgba(255,55,152,.52)':'rgba(255,175,53,.58)');rg.addColorStop(1,neg?'rgba(176,21,119,.18)':'rgba(200,75,15,.23)');ctx.fillStyle=rg;ctx.globalAlpha=gAlpha*(1-s.crystal)*smooth(reveal*1.5-i/D.n*.45);ctx.fill();ctx.strokeStyle=neg?MAGENTA:GOLD;ctx.globalAlpha=gAlpha*(1-s.crystal)*smooth(reveal*1.5-i/D.n*.45);ctx.lineWidth=S((D.n>64?.7:1.5)+(s.splitT<1&&i%2===0?(1-s.splitT)*2:0));ctx.stroke();if(D.n<=64){glow(ctx,points,neg?MAGENTA:GOLD,S(D.n<16?2:1),gAlpha*(1-s.crystal)*.7,true)}ctx.globalAlpha=gAlpha;
    // Error band between the fixed curve and each right-end rectangle.
    if(D.n<=32&&s.crystal<.5){path(ctx,[pt(r.left,f(r.left)),pt(r.right,f(r.right)),pt(r.right,h),pt(r.left,h)],true);ctx.fillStyle='rgba(76,216,255,.19)';ctx.fill()}
    if(D.n<=32){const p=pt(r.right,r.height);ctx.beginPath();ctx.arc(...p,S(3),0,TAU);ctx.fillStyle=CYAN;ctx.fill()}
@@ -74,7 +59,8 @@ export function drawWorld(ctx,W,H,s,options={}){
  // Axes and the invariant continuous function.
  path(ctx,[project(-4.9,base,0),project(4.9,base,0)]);ctx.strokeStyle=GOLD;ctx.lineWidth=S(2);ctx.stroke();
  path(ctx,[project(-4.5,-1.9,0),project(-4.5,2.45,0)]);ctx.strokeStyle='#4f9eb6';ctx.stroke();
- const curve=[];for(let i=0;i<=300*s.curveReveal;i++){const x=D.a+(D.b-D.a)*i/300;curve.push(pt(x,f(x)))}path(ctx,curve);ctx.strokeStyle='rgba(65,212,255,.18)';ctx.lineWidth=S(13);ctx.stroke();ctx.strokeStyle=CYAN;ctx.lineWidth=S(3.3);ctx.stroke();
+ const curve=[];for(let i=0;i<=300*s.curveReveal;i++){const x=D.a+(D.b-D.a)*i/300;curve.push(pt(x,f(x)))}path(ctx,curve);ctx.strokeStyle='rgba(65,212,255,.18)';ctx.lineWidth=S(13);ctx.stroke();ctx.strokeStyle=CYAN;ctx.lineWidth=S(3.3);ctx.stroke();glow(ctx,curve,'#7df5ff',S(3),gAlpha*.95);
+ if(s.curveReveal>.01){const head=curve[curve.length-1];flare(ctx,...head,S(65),'#b4ffff',gAlpha*.55)}
  const ap=pt(D.a,0),bp=pt(D.b,0);text(ctx,s.unitInterval?'0':D.a===0?'a = 0':`a = ${Number(D.a.toFixed(3))}`,ap[0],ap[1]+S(36),S(21),GOLD,'center');text(ctx,s.unitInterval?'1':`b = ${Number(D.b.toFixed(3))}`,bp[0],bp[1]+S(36),S(21),GOLD,'center');text(ctx,'x',bp[0]+S(30),bp[1]+S(4),S(23),CYAN);
  const label=pt(D.b*.88+D.a*.12,f(D.b*.88+D.a*.12));text(ctx,'y = f(x)',label[0]-S(10),label[1]-S(28),S(22),CYAN,'right');
  // A rectangle gives birth to width × height labels.
@@ -84,9 +70,11 @@ export function drawWorld(ctx,W,H,s,options={}){
  if(s.formulaStage==='partition'){for(let k=0;k<=D.n;k++){const p=pt(D.a+k*D.dx,0);ctx.beginPath();ctx.arc(...p,S(3+1.4*Math.sin(t*3-k)),0,TAU);ctx.fillStyle=GOLD;ctx.fill();text(ctx,`x${['₀','₁','₂','₃','₄'][k]||''}`,p[0],p[1]+S(56),S(16),CYAN,'center')}}
  if(s.crystal>0&&s.crystal<1){for(let i=0;i<220;i++){const r=D.rectangles[i%D.n],phase=s.crystal,p=pt(r.right+Math.sin(i*1.8)*phase*D.dx,r.height*lerp(rand(i+930),1,phase));ctx.globalAlpha=gAlpha*(1-phase);ctx.fillStyle=i%4?GOLD:CYAN;ctx.beginPath();ctx.arc(...p,S(1+rand(i+1)*2),0,TAU);ctx.fill()}}
  ctx.restore();
+ equationEnergy(ctx,W,H,s,pt,options.formulaTargets);
  // Mathematical light travels from exact rectangle endpoints into sampled formula glyphs.
  if(s.formation>0&&s.formation<1&&options.formulaTargets?.length){const targets=options.formulaTargets;for(let i=0;i<Math.min(1600,targets.length);i++){const target=targets[Math.floor(i*targets.length/Math.min(1600,targets.length))],r=D.rectangles[i%D.n],start=pt(r.right,r.height),phase=smooth(Math.max(0,Math.min(1,s.formation*1.35-rand(i+550)*.30))),arc=Math.sin(phase*Math.PI),x=lerp(start[0],target[0],phase)+Math.sin(i)*arc*S(35),y=lerp(start[1],target[1],phase)-arc*S(80);ctx.fillStyle=i%9?GOLD:CYAN;ctx.globalAlpha=.45+.55*phase;ctx.fillRect(x,y,S(1.9),S(1.9));}ctx.globalAlpha=1;}
  if(options.cinema!==false){
+  const shade=ctx.createLinearGradient(0,H*.66,0,H);shade.addColorStop(0,'#02081100');shade.addColorStop(.22,'#020811bb');shade.addColorStop(1,'#020811f5');ctx.fillStyle=shade;ctx.fillRect(0,H*.66,W,H*.34);const topShade=ctx.createLinearGradient(0,0,0,H*.2);topShade.addColorStop(0,'#020811dd');topShade.addColorStop(1,'#02081100');ctx.fillStyle=topShade;ctx.fillRect(0,0,W,H*.2);
   // Screen-stable mathematical typography remains readable during camera motion.
   text(ctx,'MATHEMATICS Ⅲ  /  RIEMANN → INTEGRAL',W*(portrait?.085:.06),H*(portrait?.092:.075),S(portrait?20:18),'#8aa4b5','left',500);
   text(ctx,s.chapter,W*(portrait?.085:.06),H*(portrait?.137:.128),S(portrait?40:38),'#f4f8fa','left',600);

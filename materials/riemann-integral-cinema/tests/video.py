@@ -1,6 +1,6 @@
-import json,subprocess,pathlib,math,hashlib
+import json,subprocess,pathlib,math,hashlib,os
 from PIL import Image,ImageDraw,ImageFont,ImageChops,ImageStat
-root=pathlib.Path('work/riemann'); report={}
+root=pathlib.Path(os.environ.get('RIEMANN_OUTPUT','work/riemann')); report={}
 font=ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',15)
 for name,w,h,duration,count,times in [
 ('riemann-integral-120s-pc',1920,1080,120,3600,[0,7.5,14.9,15,23.5,31.9,32,41,49.9,50,61,71.9,72,80.5,88.9,89,97,104.9,105,108.5,111.5,113,116,119.9]),

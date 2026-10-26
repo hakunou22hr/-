@@ -26,8 +26,8 @@ export function stateAt(time,portrait=false){
  const formation=smooth((t-(portrait?20:89))/(portrait?4.8:13));
  const crystal=smooth((t-(portrait?26:104))/(portrait?2:2));
  const signed=!portrait&&t>=105&&t<113;
- let data=calculate('wave',0,3,n);
- if(!portrait&&t>=105){const up=smooth((t-105)/1.3),down=smooth((t-110.8)/2.2),blend=up*(1-down),a=lerp(0,-1.35,blend),b=lerp(lerp(3,1.35,up),1,down);data=blendData(n,a,b,blend);}
+ let data=calculate('wave',0,4,n);
+ if(!portrait&&t>=105){const up=smooth((t-105)/1.3),down=smooth((t-110.8)/2.2),blend=up*(1-down),a=lerp(0,-1.35,blend),b=lerp(lerp(4,1.35,up),1,down);data=blendData(n,a,b,blend);}
  return {time:t,portrait,duration,chapter:chapter[2],caption:chapter[3],chapterIndex:cs.indexOf(chapter),n,previous,splitT,split,tunnel,formation,crystal,signed,data,
  curveReveal:smooth(t/(portrait?2.2:8)),rectReveal:smooth((t-(portrait?3:32))/(portrait?1.5:8)),
  gridLevel:n,yaw:lerp(.32*Math.sin(t*.17),-.3*Math.sin(t*.23),formation),pitch:.12*Math.cos(t*.12),

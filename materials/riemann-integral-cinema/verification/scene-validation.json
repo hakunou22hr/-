@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "clips": [
+    {
+      "file": "riemann-scene-splitting-v2.mp4",
+      "sourceStart": 50,
+      "duration": 22,
+      "frames": 660,
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "passed": true
+    },
+    {
+      "file": "riemann-scene-corridor-v2.mp4",
+      "sourceStart": 72,
+      "duration": 17,
+      "frames": 510,
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "passed": true
+    },
+    {
+      "file": "riemann-scene-fusion-v2.mp4",
+      "sourceStart": 89,
+      "duration": 16,
+      "frames": 480,
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "passed": true
+    }
+  ]
+}

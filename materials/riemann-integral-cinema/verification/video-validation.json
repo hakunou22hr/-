@@ -35,8 +35,8 @@
       116,
       119.9
     ],
-    "bytes": 61471538,
-    "sha256": "eeb651957a531068b43a165f9fd0846a2e7f98ce51b56c9c71446fb0d3f49b31"
+    "bytes": 77064908,
+    "sha256": "2e55177ba10fb17cf92a90ffb2997485462f83b987a43b2fca6a580b37303b78"
   },
   "riemann-integral-30s-instagram": {
     "passed": true,
@@ -65,7 +65,7 @@
       28,
       29.9
     ],
-    "bytes": 15663007,
-    "sha256": "f4659056d399411e51a6856e434c5e1d3b4131cb389408fa5396cefcdaebe471"
+    "bytes": 18952413,
+    "sha256": "969c63ce4f297b603c1aebb71f5feb82f3f73a3125c040809430da1ca912f2b3"
   }
 }

@@ -6,197 +6,197 @@
     {
       "portrait": false,
       "time": 1,
-      "changedFraction": 0.2009452160493827,
-      "backgroundChangedFraction": 0.0020010816657652785,
+      "changedFraction": 0.4797145061728395,
+      "backgroundChangedFraction": 0.7737425635478637,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 8,
-      "changedFraction": 0.15351851851851853,
-      "backgroundChangedFraction": 0.24651162790697675,
+      "changedFraction": 0.3470331790123457,
+      "backgroundChangedFraction": 0.6825851811790157,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 16,
-      "changedFraction": 0.15949266975308643,
-      "backgroundChangedFraction": 0.06663061114115738,
+      "changedFraction": 0.5022608024691358,
+      "backgroundChangedFraction": 0.7596268253109789,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 24,
-      "changedFraction": 0.1644483024691358,
-      "backgroundChangedFraction": 0.019118442401297998,
+      "changedFraction": 0.43732638888888886,
+      "backgroundChangedFraction": 0.17993510005408328,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 33,
-      "changedFraction": 0.1906886574074074,
-      "backgroundChangedFraction": 0.012033531638723635,
+      "changedFraction": 0.5040027006172839,
+      "backgroundChangedFraction": 0.2558409951325041,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 42,
-      "changedFraction": 0.15441743827160495,
-      "backgroundChangedFraction": 0.22152514872904272,
+      "changedFraction": 0.4277237654320988,
+      "backgroundChangedFraction": 0.8439697133585722,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 51,
-      "changedFraction": 0.1249266975308642,
-      "backgroundChangedFraction": 0.10459707950243374,
+      "changedFraction": 0.4168942901234568,
+      "backgroundChangedFraction": 0.8787993510005409,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 58,
-      "changedFraction": 0.15341242283950618,
-      "backgroundChangedFraction": 0.00037858301784748514,
+      "changedFraction": 0.4552951388888889,
+      "backgroundChangedFraction": 0.302947539210384,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 65,
-      "changedFraction": 0.21855131172839506,
-      "backgroundChangedFraction": 0.0005137912385073012,
+      "changedFraction": 0.4367110339506173,
+      "backgroundChangedFraction": 0.07103839913466739,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 73,
-      "changedFraction": 0.9343557098765433,
-      "backgroundChangedFraction": 0.933829096809086,
+      "changedFraction": 0.8710686728395062,
+      "backgroundChangedFraction": 0.9989453758788535,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 80,
-      "changedFraction": 0.17187885802469136,
-      "backgroundChangedFraction": 0.03488372093023256,
+      "changedFraction": 0.6113020833333334,
+      "backgroundChangedFraction": 0.3865332612222823,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 86,
-      "changedFraction": 0.20056327160493828,
-      "backgroundChangedFraction": 0.0881557598702001,
+      "changedFraction": 0.4928510802469136,
+      "backgroundChangedFraction": 0.27652785289345594,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 90,
-      "changedFraction": 0.3234297839506173,
-      "backgroundChangedFraction": 0.06822606814494321,
+      "changedFraction": 0.7229957561728395,
+      "backgroundChangedFraction": 0.9749323958896701,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 96,
-      "changedFraction": 0.30310378086419754,
-      "backgroundChangedFraction": 0.00037858301784748514,
+      "changedFraction": 0.40717013888888887,
+      "backgroundChangedFraction": 0.5673336938885885,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 101,
-      "changedFraction": 0.2877932098765432,
-      "backgroundChangedFraction": 0.16527852893455922,
+      "changedFraction": 0.40740162037037037,
+      "backgroundChangedFraction": 0.6162249864791779,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 106,
-      "changedFraction": 0.21337770061728395,
-      "backgroundChangedFraction": 0.10062195781503515,
+      "changedFraction": 0.5576311728395061,
+      "backgroundChangedFraction": 0.8902379664683613,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 109,
-      "changedFraction": 0.18628086419753087,
-      "backgroundChangedFraction": 0.00083829096809086,
+      "changedFraction": 0.619837962962963,
+      "backgroundChangedFraction": 0.7366143861546782,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 114,
-      "changedFraction": 0.2321682098765432,
-      "backgroundChangedFraction": 0.00010816657652785289,
+      "changedFraction": 0.5032658179012346,
+      "backgroundChangedFraction": 0.15905895078420768,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 118,
-      "changedFraction": 0.2671045524691358,
-      "backgroundChangedFraction": 0.0023796646836127637,
+      "changedFraction": 0.5651118827160494,
+      "backgroundChangedFraction": 0.15416441319632235,
       "deterministic": true
     },
     {
       "portrait": true,
       "time": 1,
-      "changedFraction": 0.15494212962962964,
-      "backgroundChangedFraction": 0.20034453985087886,
+      "changedFraction": 0.25289930555555556,
+      "backgroundChangedFraction": 0.7070334580495814,
       "deterministic": true
     },
     {
       "portrait": true,
       "time": 5,
-      "changedFraction": 0.09225115740740741,
-      "backgroundChangedFraction": 0.26793356841000243,
+      "changedFraction": 0.2271527777777778,
+      "backgroundChangedFraction": 0.6047212726440742,
       "deterministic": true
     },
     {
       "portrait": true,
       "time": 9,
-      "changedFraction": 0.12626157407407407,
-      "backgroundChangedFraction": 0.3193453742833302,
+      "changedFraction": 0.22132137345679012,
+      "backgroundChangedFraction": 0.6013566256628354,
       "deterministic": true
     },
     {
       "portrait": true,
       "time": 13,
-      "changedFraction": 0.9338136574074074,
-      "backgroundChangedFraction": 0.9995154908347016,
+      "changedFraction": 0.7243730709876544,
+      "backgroundChangedFraction": 0.9777125783962747,
       "deterministic": true
     },
     {
       "portrait": true,
       "time": 17,
-      "changedFraction": 0.1662692901234568,
-      "backgroundChangedFraction": 0.189846841269414,
+      "changedFraction": 0.5368422067901235,
+      "backgroundChangedFraction": 0.5455034857742725,
       "deterministic": true
     },
     {
       "portrait": true,
       "time": 21,
-      "changedFraction": 0.17079475308641975,
-      "backgroundChangedFraction": 0.23980511964684664,
+      "changedFraction": 0.1910300925925926,
+      "backgroundChangedFraction": 0.4266641543969207,
       "deterministic": true
     },
     {
       "portrait": true,
       "time": 24,
-      "changedFraction": 0.14743634259259258,
-      "backgroundChangedFraction": 0.3809857069796237,
+      "changedFraction": 0.19011381172839506,
+      "backgroundChangedFraction": 0.37315280880729995,
       "deterministic": true
     },
     {
       "portrait": true,
       "time": 27,
-      "changedFraction": 0.17522762345679013,
-      "backgroundChangedFraction": 0.28871362816613283,
+      "changedFraction": 0.5964255401234568,
+      "backgroundChangedFraction": 0.9804042959812657,
       "deterministic": true
     },
     {
       "portrait": true,
       "time": 29,
-      "changedFraction": 0.1544579475308642,
-      "backgroundChangedFraction": 0.20769292885790422,
+      "changedFraction": 0.30973186728395063,
+      "backgroundChangedFraction": 0.6115851524858011,
       "deterministic": true
     }
   ]
