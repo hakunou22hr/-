@@ -1,0 +1,55 @@
+{
+  "passed": true,
+  "source": "Same reference artwork as supplied site, on a changing depth mesh",
+  "addedGeometry": "3D braided meridians, coherent particle schools and formula fragments",
+  "results": [
+    {
+      "time": 1,
+      "deterministic": true,
+      "localDeformationWithFixedCamera": true,
+      "triangles": 1152,
+      "braidedOrbits": 4,
+      "particles": 2600
+    },
+    {
+      "time": 3.6,
+      "deterministic": true,
+      "localDeformationWithFixedCamera": true,
+      "triangles": 1152,
+      "braidedOrbits": 4,
+      "particles": 2600
+    },
+    {
+      "time": 6.8,
+      "deterministic": true,
+      "localDeformationWithFixedCamera": true,
+      "triangles": 1152,
+      "braidedOrbits": 4,
+      "particles": 2600
+    },
+    {
+      "time": 12.5,
+      "deterministic": true,
+      "localDeformationWithFixedCamera": true,
+      "triangles": 1152,
+      "braidedOrbits": 4,
+      "particles": 2600
+    },
+    {
+      "time": 16.5,
+      "deterministic": true,
+      "localDeformationWithFixedCamera": true,
+      "triangles": 1152,
+      "braidedOrbits": 4,
+      "particles": 2600
+    },
+    {
+      "time": 22.5,
+      "deterministic": true,
+      "localDeformationWithFixedCamera": true,
+      "triangles": 1152,
+      "braidedOrbits": 4,
+      "particles": 2600
+    }
+  ]
+}

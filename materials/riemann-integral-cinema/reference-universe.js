@@ -8,7 +8,7 @@ function triangle(ctx,img,sx,sy,sw,sh,a,b,c,second){
  const cx=(a[0]+b[0]+c[0])/3,cy=(a[1]+b[1]+c[1])/3,expand=p=>{const dx=p[0]-cx,dy=p[1]-cy,l=Math.hypot(dx,dy)||1;return[p[0]+dx/l*.45,p[1]+dy/l*.45]};
  ctx.save();path(ctx,[expand(a),expand(b),expand(c),expand(a)]);ctx.clip();
  if(!second)ctx.transform((b[0]-a[0])/sw,(b[1]-a[1])/sw,(c[0]-b[0])/sh,(c[1]-b[1])/sh,a[0],a[1]);else ctx.transform((b[0]-c[0])/sw,(b[1]-c[1])/sw,(c[0]-a[0])/sh,(c[1]-a[1])/sh,a[0],a[1]);
- ctx.drawImage(img,sx,sy,sw,sh,0,0,sw,sh);ctx.restore();
+ const bx=Math.min(sx,2),by=Math.min(sy,2),br=Math.min(img.width-sx-sw,2),bb=Math.min(img.height-sy-sh,2);ctx.drawImage(img,sx-bx,sy-by,sw+bx+br,sh+by+bb,-bx,-by,sw+bx+br,sh+by+bb);ctx.restore();
 }
 export function drawReferenceUniverse(ctx,W,H,s,img,selection='auto',camera={}){
  if(!img)throw new Error('Reference background image has not loaded');
@@ -22,9 +22,10 @@ export function drawReferenceUniverse(ctx,W,H,s,img,selection='auto',camera={}){
  const nx=32,ny=18,iw=img.width,ih=img.height,grid=[];
  const imageAspect=iw/ih,cover=(s.portrait?W/iw:Math.max(W/iw,H/ih))*1.035,baseW=iw*cover,baseH=ih*cover,imageCenterY=H*(s.portrait?.34:.5);
  for(let j=0;j<=ny;j++){grid[j]=[];for(let i=0;i<=nx;i++){const u=i/nx,v=j/ny,left=Math.exp(-(((u-.14)/.16)**2)-(((v-.48)/.32)**2)),right=Math.exp(-(((u-.86)/.16)**2)-(((v-.48)/.32)**2)),peak=left+right;
+  const vitality=camera.living?1.8:1,lp=(((t-Math.hypot(u-.5,v-.5)*.5)%2.4)+2.4)%2.4/2.4,life=Math.exp(-(((lp-.18)/.065)**2))+.55*Math.exp(-(((lp-.35)/.09)**2));
   const wave=peak*(.65*Math.sin(t*.68+u*5+v*2)+.3*Math.cos(t*.39-v*7)),r=Math.hypot((u-.5)*2,(v-.61)*1.4),rip=effect==='ripple'?pulse*1.4*Math.sin(r*24-t*1.8)*Math.exp(-r*2):0;
-  const z=wave+rip+(effect==='orbit'?peak*.65*Math.sin(t*.8+v*6):0),p=24/(24+z),yaw=.009*Math.sin(t*.16),pitch=.006*Math.cos(t*.19);
-  const x=(u-.5)*baseW,y=(v-.5)*baseH;const q=rot([x*p/W*18,y*p/W*18,z+peak*1.2],tilt,angle,0),depth=20/(20-q[2]);grid[j][i]=[W*.5+mirror*q[0]*W/18*depth*zoom,imageCenterY+q[1]*W/18*depth*zoom+peak*H*.008*Math.sin(t*.8+u*6)];
+  const z=wave*vitality+rip+(camera.living?peak*life*1.2:0)+(effect==='orbit'?peak*.65*Math.sin(t*.8+v*6):0),p=24/(24+z),yaw=.009*Math.sin(t*.16),pitch=.006*Math.cos(t*.19);
+  const x=(u-.5)*baseW,y=(v-.5)*baseH;const q=rot([x*p/W*18,y*p/W*18,z+peak*1.2],tilt,angle,0),depth=20/(20-q[2]);grid[j][i]=[W*.5+mirror*q[0]*W/18*depth*zoom,imageCenterY+q[1]*W/18*depth*zoom+peak*H*(camera.living?-.04*life:.008*Math.sin(t*.8+u*6))];
  }}
  for(let j=0;j<ny;j++)for(let i=0;i<nx;i++){const a=grid[j][i],b=grid[j][i+1],c=grid[j+1][i+1],d=grid[j+1][i],sx=i*iw/nx,sy=j*ih/ny,sw=iw/nx,sh=ih/ny;triangle(ctx,img,sx,sy,sw,sh,a,b,c,false);triangle(ctx,img,sx,sy,sw,sh,a,c,d,true)}
  if(s.portrait){const top=imageCenterY-baseH*.5,bottom=imageCenterY+baseH*.5,fade=baseH*.17;let g=ctx.createLinearGradient(0,top,0,top+fade);g.addColorStop(0,'#01050d');g.addColorStop(1,'#01050d00');ctx.fillStyle=g;ctx.fillRect(0,top-2,W,fade+2);g=ctx.createLinearGradient(0,bottom-fade,0,bottom);g.addColorStop(0,'#01050d00');g.addColorStop(1,'#01050d');ctx.fillStyle=g;ctx.fillRect(0,bottom-fade,W,fade+2)}

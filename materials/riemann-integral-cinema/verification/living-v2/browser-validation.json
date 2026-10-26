@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "comparisonSwitching": true,
+  "bothMoviesPlayableAndSeekable": true,
+  "downloadsTrackSelection": true,
+  "referenceDensityLive": true,
+  "fiveDistinctStages": true,
+  "legacySwitching": true,
+  "calculationUnchanged": true,
+  "mobileOverflow": false,
+  "videos": [
+    {
+      "duration": 24,
+      "width": 1920,
+      "height": 1080,
+      "source": "http://localhost:4180/media/riemann-living-geometry-v2-24s.mp4",
+      "error": null
+    },
+    {
+      "duration": 24,
+      "width": 1920,
+      "height": 1080,
+      "source": "http://localhost:4180/media/riemann-living-geometry-24s.mp4",
+      "error": null
+    },
+    {
+      "duration": 24,
+      "width": 1920,
+      "height": 1080,
+      "source": "http://localhost:4180/media/riemann-living-geometry-v2-24s.mp4",
+      "error": null
+    }
+  ],
+  "errors": []
+}

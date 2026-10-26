@@ -1,0 +1,20 @@
+{
+  "edition": "Living geometry v2 — reference density and emission",
+  "passed": true,
+  "duration": 24,
+  "fps": 30,
+  "frames": 720,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "source": "Original reference artwork on a locally deforming depth mesh",
+  "addedGeometry": "3D braided orbits, coherent particle schools, moving formula fragments, Sigma -> integral",
+  "reports": [
+    "verification/living-v2/geometry-validation.json",
+    "verification/living-v2/video-validation.json",
+    "verification/living-v2/browser-validation.json"
+  ],
+  "build": "npm run build: passed",
+  "previousMovie": "preserved with comparison controls"
+}

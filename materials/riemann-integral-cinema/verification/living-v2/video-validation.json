@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "fullFrameDecode": true,
+  "sha256": "a64b9b2ab8c308596c7e84c2db684bdb445eca268a9d660f58672a5e9821fdda",
+  "metadata": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1920,
+        "height": 1080,
+        "pix_fmt": "yuv420p",
+        "r_frame_rate": "30/1",
+        "nb_read_frames": "720"
+      }
+    ],
+    "format": {
+      "duration": "24.000000",
+      "size": "21627784"
+    }
+  }
+}
