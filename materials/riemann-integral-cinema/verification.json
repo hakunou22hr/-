@@ -57,7 +57,7 @@
         "height": 1080,
         "seekedTo": 14.3,
         "error": null,
-        "src": "http://localhost:4180/media/riemann-scene-splitting-v2.mp4"
+        "src": "http://localhost:4180/media/riemann-scene-splitting-v3.mp4"
       },
       {
         "duration": 17,
@@ -65,7 +65,7 @@
         "height": 1080,
         "seekedTo": 11.05,
         "error": null,
-        "src": "http://localhost:4180/media/riemann-scene-corridor-v2.mp4"
+        "src": "http://localhost:4180/media/riemann-scene-corridor-v3.mp4"
       },
       {
         "duration": 16,
@@ -73,7 +73,7 @@
         "height": 1080,
         "seekedTo": 10.4,
         "error": null,
-        "src": "http://localhost:4180/media/riemann-scene-fusion-v2.mp4"
+        "src": "http://localhost:4180/media/riemann-scene-fusion-v3.mp4"
       },
       {
         "duration": 120,
@@ -81,7 +81,7 @@
         "height": 1080,
         "seekedTo": 78,
         "error": null,
-        "src": "http://localhost:4180/media/riemann-integral-120s-pc.mp4?v=background-v2"
+        "src": "http://localhost:4180/media/riemann-integral-120s-pc.mp4?v=emission-v3"
       },
       {
         "duration": 30,
@@ -89,7 +89,7 @@
         "height": 1920,
         "seekedTo": 19.5,
         "error": null,
-        "src": "http://localhost:4180/media/riemann-integral-30s-instagram.mp4?v=background-v2"
+        "src": "http://localhost:4180/media/riemann-integral-30s-instagram.mp4?v=emission-v3"
       }
     ]
   },
@@ -130,8 +130,8 @@
         116,
         119.9
       ],
-      "bytes": 77064908,
-      "sha256": "2e55177ba10fb17cf92a90ffb2997485462f83b987a43b2fca6a580b37303b78"
+      "bytes": 68011131,
+      "sha256": "5bddf8b3872813115461eb9be7d29f662d2d33a899a98f694681c5669b9162e2"
     },
     "riemann-integral-30s-instagram": {
       "passed": true,
@@ -160,8 +160,8 @@
         28,
         29.9
       ],
-      "bytes": 18952413,
-      "sha256": "969c63ce4f297b603c1aebb71f5feb82f3f73a3125c040809430da1ca912f2b3"
+      "bytes": 15323653,
+      "sha256": "f7354f08d92360ce312d278cfc8d4df98f37d9ccf05d663186a5cefb54c1782c"
     }
   },
   "build": {
@@ -184,33 +184,24 @@
       "passed": true,
       "clips": [
         {
-          "file": "riemann-scene-splitting-v2.mp4",
+          "file": "riemann-scene-splitting-v3.mp4",
           "sourceStart": 50,
           "duration": 22,
           "frames": 660,
-          "width": 1920,
-          "height": 1080,
-          "fps": 30,
           "passed": true
         },
         {
-          "file": "riemann-scene-corridor-v2.mp4",
+          "file": "riemann-scene-corridor-v3.mp4",
           "sourceStart": 72,
           "duration": 17,
           "frames": 510,
-          "width": 1920,
-          "height": 1080,
-          "fps": 30,
           "passed": true
         },
         {
-          "file": "riemann-scene-fusion-v2.mp4",
+          "file": "riemann-scene-fusion-v3.mp4",
           "sourceStart": 89,
           "duration": 16,
           "frames": 480,
-          "width": 1920,
-          "height": 1080,
-          "fps": 30,
           "passed": true
         }
       ]
@@ -226,12 +217,20 @@
     "教科書162ページの原本は未提供。指定された一般公式に基づくオリジナル図版。",
     "WebとMP4は同じ時刻データと描画コードを共用。ブラウザ/Skiaの字形・アンチエイリアスに軽微な差がある。"
   ],
-  "revision": "background-v2",
-  "revisionReason": "指定された3場面の背景が初版で未達であるとの指摘を受け、立体空間・発光・数式形成を改訂。",
+  "revision": "emission-v3",
+  "revisionReason": "参照に比べて薄暗く発色・発光が足りないという指摘を受け、赤・オレンジ・金、白い光の芯、多段ブルームを強化。",
   "backgrounds": {
     "chamber": "solid structural faces, circuits, subdivision walls, plinth, luminous planar rectangles",
     "corridor": "depth-sorted beveled frames, gold/cyan power rails, accelerating travel along z",
     "fusion": "spatial equation layers, energy ribbons, rectangle-to-Sigma assembly, held Sigma then integral morph",
     "staticBackgroundImages": false
+  },
+  "emission": {
+    "whiteCore": true,
+    "multiScaleBloom": true,
+    "mathTextDrawnAfterBloom": true,
+    "readoutsOnDarkPlates": true,
+    "comparisonPage": "public/previews/riemann-emission-v3/index.html",
+    "colorMetrics": "verification/color-comparison.json"
   }
 }

@@ -1,16 +1,42 @@
 [
   {
-    "src": "http://localhost:4180/media/riemann-integral-120s-pc.mp4",
-    "ready": 4,
-    "duration": 120,
+    "duration": 22,
     "width": 1920,
-    "height": 1080
+    "height": 1080,
+    "seekedTo": 14.3,
+    "error": null,
+    "src": "http://localhost:4180/media/riemann-scene-splitting-v3.mp4"
   },
   {
-    "src": "http://localhost:4180/media/riemann-integral-30s-instagram.mp4",
-    "ready": 4,
+    "duration": 17,
+    "width": 1920,
+    "height": 1080,
+    "seekedTo": 11.05,
+    "error": null,
+    "src": "http://localhost:4180/media/riemann-scene-corridor-v3.mp4"
+  },
+  {
+    "duration": 16,
+    "width": 1920,
+    "height": 1080,
+    "seekedTo": 10.4,
+    "error": null,
+    "src": "http://localhost:4180/media/riemann-scene-fusion-v3.mp4"
+  },
+  {
+    "duration": 120,
+    "width": 1920,
+    "height": 1080,
+    "seekedTo": 78,
+    "error": null,
+    "src": "http://localhost:4180/media/riemann-integral-120s-pc.mp4?v=emission-v3"
+  },
+  {
     "duration": 30,
     "width": 1080,
-    "height": 1920
+    "height": 1920,
+    "seekedTo": 19.5,
+    "error": null,
+    "src": "http://localhost:4180/media/riemann-integral-30s-instagram.mp4?v=emission-v3"
   }
 ]

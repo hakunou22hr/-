@@ -1,0 +1,44 @@
+{
+  "splitting": {
+    "before": {
+      "meanLuminance": 0.17480699920191842,
+      "brightPixelFraction": 0.04019627700617284,
+      "warmRedGoldFraction": 0.09932966820987654,
+      "whitePixelFraction": 0.0009456983024691358
+    },
+    "after": {
+      "meanLuminance": 0.37848972276007625,
+      "brightPixelFraction": 0.24055796682098765,
+      "warmRedGoldFraction": 0.29161458333333334,
+      "whitePixelFraction": 0.0017510609567901235
+    }
+  },
+  "corridor": {
+    "before": {
+      "meanLuminance": 0.10837069480982207,
+      "brightPixelFraction": 0.009810474537037038,
+      "warmRedGoldFraction": 0.0023620756172839505,
+      "whitePixelFraction": 0.0007716049382716049
+    },
+    "after": {
+      "meanLuminance": 0.32608138171182827,
+      "brightPixelFraction": 0.1931520061728395,
+      "warmRedGoldFraction": 0.2222950424382716,
+      "whitePixelFraction": 0.0021706211419753084
+    }
+  },
+  "fusion": {
+    "before": {
+      "meanLuminance": 0.09884291585307733,
+      "brightPixelFraction": 0.006441454475308642,
+      "warmRedGoldFraction": 0.0010889274691358024,
+      "whitePixelFraction": 0.0002700617283950617
+    },
+    "after": {
+      "meanLuminance": 0.2846930947757807,
+      "brightPixelFraction": 0.17201822916666668,
+      "warmRedGoldFraction": 0.07905574845679013,
+      "whitePixelFraction": 0.0014988425925925926
+    }
+  }
+}

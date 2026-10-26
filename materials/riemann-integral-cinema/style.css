@@ -4,3 +4,5 @@
 @media(max-width:520px){.intro-mark{display:none}.intro h1 span{white-space:nowrap}.intro h1{font-size:30px}}
 
 .scene-review{margin:20px 0 36px;border:1px solid #3f6475;border-radius:10px;padding:24px;background:#0a1925}.scene-review-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.scene-review video{width:100%;display:block;background:#020711;border-radius:5px}.scene-review h4{font-size:13px;color:#ffd69a;margin:18px 0 9px}.scene-review p{font-size:11px;line-height:1.9;color:#a2bbcb}.scene-review>.eyebrow{font-size:10px}.scene-review h3{margin-top:8px;margin-bottom:25px}@media(max-width:850px){.scene-review-grid{grid-template-columns:1fr}.scene-review{padding:18px}}
+
+.graph-legend{background:#04101edb;width:auto;left:50%;transform:translateX(-50%);padding:6px 12px;border-radius:4px;white-space:nowrap}.math-bar{background:linear-gradient(transparent,#020711f0);padding-top:10px}

@@ -6,197 +6,197 @@
     {
       "portrait": false,
       "time": 1,
-      "changedFraction": 0.4797145061728395,
-      "backgroundChangedFraction": 0.7737425635478637,
+      "changedFraction": 0.7166531635802469,
+      "backgroundChangedFraction": 0.991941590048675,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 8,
-      "changedFraction": 0.3470331790123457,
-      "backgroundChangedFraction": 0.6825851811790157,
+      "changedFraction": 0.5703684413580247,
+      "backgroundChangedFraction": 0.9055976203353164,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 16,
-      "changedFraction": 0.5022608024691358,
-      "backgroundChangedFraction": 0.7596268253109789,
+      "changedFraction": 0.7499016203703703,
+      "backgroundChangedFraction": 0.9998377501352083,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 24,
-      "changedFraction": 0.43732638888888886,
-      "backgroundChangedFraction": 0.17993510005408328,
+      "changedFraction": 0.6618904320987654,
+      "backgroundChangedFraction": 0.6143591130340724,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 33,
-      "changedFraction": 0.5040027006172839,
-      "backgroundChangedFraction": 0.2558409951325041,
+      "changedFraction": 0.7421566358024692,
+      "backgroundChangedFraction": 0.8825581395348837,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 42,
-      "changedFraction": 0.4277237654320988,
-      "backgroundChangedFraction": 0.8439697133585722,
+      "changedFraction": 0.637332175925926,
+      "backgroundChangedFraction": 0.98236884802596,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 51,
-      "changedFraction": 0.4168942901234568,
-      "backgroundChangedFraction": 0.8787993510005409,
+      "changedFraction": 0.5986747685185185,
+      "backgroundChangedFraction": 0.9945375878853434,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 58,
-      "changedFraction": 0.4552951388888889,
-      "backgroundChangedFraction": 0.302947539210384,
+      "changedFraction": 0.6924922839506172,
+      "backgroundChangedFraction": 0.9561654948620876,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 65,
-      "changedFraction": 0.4367110339506173,
-      "backgroundChangedFraction": 0.07103839913466739,
+      "changedFraction": 0.5926832561728395,
+      "backgroundChangedFraction": 0.5108166576527853,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 73,
-      "changedFraction": 0.8710686728395062,
-      "backgroundChangedFraction": 0.9989453758788535,
+      "changedFraction": 0.9610030864197531,
+      "backgroundChangedFraction": 0.9995943753380205,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 80,
-      "changedFraction": 0.6113020833333334,
-      "backgroundChangedFraction": 0.3865332612222823,
+      "changedFraction": 0.9552507716049383,
+      "backgroundChangedFraction": 0.9987020010816657,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 86,
-      "changedFraction": 0.4928510802469136,
-      "backgroundChangedFraction": 0.27652785289345594,
+      "changedFraction": 0.8796508487654321,
+      "backgroundChangedFraction": 0.9612222823147647,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 90,
-      "changedFraction": 0.7229957561728395,
-      "backgroundChangedFraction": 0.9749323958896701,
+      "changedFraction": 0.8663850308641975,
+      "backgroundChangedFraction": 0.999945916711736,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 96,
-      "changedFraction": 0.40717013888888887,
-      "backgroundChangedFraction": 0.5673336938885885,
+      "changedFraction": 0.5982040895061729,
+      "backgroundChangedFraction": 0.916873985938345,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 101,
-      "changedFraction": 0.40740162037037037,
-      "backgroundChangedFraction": 0.6162249864791779,
+      "changedFraction": 0.5945331790123457,
+      "backgroundChangedFraction": 0.9255002704164413,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 106,
-      "changedFraction": 0.5576311728395061,
-      "backgroundChangedFraction": 0.8902379664683613,
+      "changedFraction": 0.756033950617284,
+      "backgroundChangedFraction": 0.9986479177934018,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 109,
-      "changedFraction": 0.619837962962963,
-      "backgroundChangedFraction": 0.7366143861546782,
+      "changedFraction": 0.7808449074074074,
+      "backgroundChangedFraction": 0.9984045429962142,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 114,
-      "changedFraction": 0.5032658179012346,
-      "backgroundChangedFraction": 0.15905895078420768,
+      "changedFraction": 0.6595003858024692,
+      "backgroundChangedFraction": 0.5920227149810708,
       "deterministic": true
     },
     {
       "portrait": false,
       "time": 118,
-      "changedFraction": 0.5651118827160494,
-      "backgroundChangedFraction": 0.15416441319632235,
+      "changedFraction": 0.7359510030864198,
+      "backgroundChangedFraction": 0.8062466197944835,
       "deterministic": true
     },
     {
       "portrait": true,
       "time": 1,
-      "changedFraction": 0.25289930555555556,
-      "backgroundChangedFraction": 0.7070334580495814,
+      "changedFraction": 0.33002893518518517,
+      "backgroundChangedFraction": 0.8474065301068612,
       "deterministic": true
     },
     {
       "portrait": true,
       "time": 5,
-      "changedFraction": 0.2271527777777778,
-      "backgroundChangedFraction": 0.6047212726440742,
+      "changedFraction": 0.31757716049382717,
+      "backgroundChangedFraction": 0.8337595219509569,
       "deterministic": true
     },
     {
       "portrait": true,
       "time": 9,
-      "changedFraction": 0.22132137345679012,
-      "backgroundChangedFraction": 0.6013566256628354,
+      "changedFraction": 0.29725308641975307,
+      "backgroundChangedFraction": 0.7890500928642566,
       "deterministic": true
     },
     {
       "portrait": true,
       "time": 13,
-      "changedFraction": 0.7243730709876544,
-      "backgroundChangedFraction": 0.9777125783962747,
+      "changedFraction": 0.892397762345679,
+      "backgroundChangedFraction": 0.9986810583833544,
       "deterministic": true
     },
     {
       "portrait": true,
       "time": 17,
-      "changedFraction": 0.5368422067901235,
-      "backgroundChangedFraction": 0.5455034857742725,
+      "changedFraction": 0.8916512345679012,
+      "backgroundChangedFraction": 0.9839304460176038,
       "deterministic": true
     },
     {
       "portrait": true,
       "time": 21,
-      "changedFraction": 0.1910300925925926,
-      "backgroundChangedFraction": 0.4266641543969207,
+      "changedFraction": 0.25583333333333336,
+      "backgroundChangedFraction": 0.6560792441657022,
       "deterministic": true
     },
     {
       "portrait": true,
       "time": 24,
-      "changedFraction": 0.19011381172839506,
-      "backgroundChangedFraction": 0.37315280880729995,
+      "changedFraction": 0.2658082561728395,
+      "backgroundChangedFraction": 0.6464967295631342,
       "deterministic": true
     },
     {
       "portrait": true,
       "time": 27,
-      "changedFraction": 0.5964255401234568,
-      "backgroundChangedFraction": 0.9804042959812657,
+      "changedFraction": 0.6055478395061729,
+      "backgroundChangedFraction": 0.9984657209765552,
       "deterministic": true
     },
     {
       "portrait": true,
       "time": 29,
-      "changedFraction": 0.30973186728395063,
-      "backgroundChangedFraction": 0.6115851524858011,
+      "changedFraction": 0.3889891975308642,
+      "backgroundChangedFraction": 0.9114155742779467,
       "deterministic": true
     }
   ]

@@ -1,10 +1,10 @@
 import {functions,smooth,lerp} from './math.js';
 import {chamber,corridor,fusionSpace,equationEnergy,glow,flare} from './environment.js';
-const TAU=Math.PI*2,CYAN='#66e9ff',GOLD='#ffd47a',MAGENTA='#ff75bc';
+const TAU=Math.PI*2,CYAN='#66e9ff',GOLD='#ffdf70',MAGENTA='#ff75bc';
 const JP='"DejaVu Sans", "Noto Sans CJK JP", "Noto Sans JP", sans-serif';
 const fract=x=>x-Math.floor(x),rand=i=>fract(Math.sin(i*127.1+311.7)*43758.5453123);
 function path(ctx,pts,close=false){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(...p):ctx.moveTo(...p));if(close)ctx.closePath()}
-function text(ctx,s,x,y,size=22,color='#eaf9ff',align='left',weight=400){ctx.font=`${weight} ${size}px ${JP}`;ctx.fillStyle=color;ctx.textAlign=align;ctx.textBaseline='alphabetic';ctx.fillText(s,x,y)}
+function text(ctx,s,x,y,size=22,color='#eaf9ff',align='left',weight=400){ctx.font=`${weight} ${size}px ${JP}`;ctx.fillStyle=color;ctx.textAlign=align;ctx.textBaseline='alphabetic';ctx.strokeStyle='rgba(2,7,17,.7)';ctx.lineWidth=size*.09;ctx.strokeText(s,x,y);ctx.fillText(s,x,y)}
 export function formulaTokens(stage,unit=false){
  const f=unit?'f(k/n)':'f(xₖ)Δx',lower=unit?'0':'a',upper=unit?'1':'b';
  if(stage==='curve')return [{s:'y = f(x)'}];
@@ -23,7 +23,7 @@ function equation(ctx,tokens,cx,y,size,maxWidth){
 export function createFormulaTargets(createCanvas,W,H,portrait){
  const c=createCanvas(W,H),ctx=c.getContext('2d'),scale=W/(portrait?1080:1920),fy=H*(portrait?.688:.785);
  if(portrait){equation(ctx,formulaTokens('sum-limit'),W*.46,fy-22*scale,37*scale,W*.75);equation(ctx,[{s:'= '},{s:'∫',up:'b',down:'a'},{s:' f(x) dx'}],W*.46,fy+85*scale,43*scale,W*.73)}else equation(ctx,formulaTokens('identity'),W*.5,fy,45*scale,W*.87);
- const pixels=ctx.getImageData(0,0,W,H).data,targets=[];for(let y=Math.floor(fy-100*scale);y<Math.min(H,fy+120*scale);y+=3*scale)for(let x=W*.1;x<W*.9;x+=3*scale){const xx=Math.floor(x),yy=Math.floor(y);if(pixels[(yy*W+xx)*4+3]>140)targets.push([xx,yy])}const glyph=(char)=>{const g=createCanvas(W,H),gc=g.getContext('2d'),cx=W*(portrait?.49:.51),cy=H*(portrait?.49:.51),size=(portrait?280:320)*scale;gc.font=`400 ${size}px ${JP}`;gc.textAlign='center';gc.textBaseline='middle';gc.fillStyle='white';gc.fillText(char,cx,cy);const data=gc.getImageData(0,0,W,H).data,pts=[];for(let y=cy-size*.65;y<cy+size*.65;y+=2.5*scale)for(let x=cx-size*.65;x<cx+size*.65;x+=2.5*scale){const xx=Math.floor(x),yy=Math.floor(y);if(xx>=0&&yy>=0&&xx<W&&yy<H&&data[(yy*W+xx)*4+3]>140)pts.push([xx,yy])}return pts};targets.sigma=glyph('Σ');targets.integral=glyph('∫');return targets;
+ const pixels=ctx.getImageData(0,0,W,H).data,targets=[];for(let y=Math.floor(fy-100*scale);y<Math.min(H,fy+120*scale);y+=3*scale)for(let x=W*.1;x<W*.9;x+=3*scale){const xx=Math.floor(x),yy=Math.floor(y);if(pixels[(yy*W+xx)*4+3]>140)targets.push([xx,yy])}const glyph=(char)=>{const g=createCanvas(W,H),gc=g.getContext('2d'),cx=W*(portrait?.49:.51),cy=H*(portrait?.49:.51),size=(portrait?280:320)*scale;gc.font=`400 ${size}px ${JP}`;gc.textAlign='center';gc.textBaseline='middle';gc.fillStyle='white';gc.fillText(char,cx,cy);const data=gc.getImageData(0,0,W,H).data,pts=[];for(let y=cy-size*.65;y<cy+size*.65;y+=2.5*scale)for(let x=cx-size*.65;x<cx+size*.65;x+=2.5*scale){const xx=Math.floor(x),yy=Math.floor(y);if(xx>=0&&yy>=0&&xx<W&&yy<H&&data[(yy*W+xx)*4+3]>140)pts.push([xx,yy])}return pts};targets.sigma=glyph('Σ');targets.integral=glyph('∫');targets.bloomA=createCanvas(Math.ceil(W/3),Math.ceil(H/3));targets.bloomB=createCanvas(Math.ceil(W/3),Math.ceil(H/3));return targets;
 }
 export function drawWorld(ctx,W,H,s,options={}){
  const portrait=s.portrait,t=s.time,D=s.data,scale=options.cinema===false?W/(W<800?600:1300):W/(portrait?1080:1920),S=v=>v*scale;
@@ -50,7 +50,7 @@ export function drawWorld(ctx,W,H,s,options={}){
   for(let i=0;i<D.n;i++){const r=D.rectangles[i],oldIndex=Math.floor(i/2),oldX=D.a+(oldIndex+1)*(D.b-D.a)/s.previous,oldH=f(Math.min(D.b,oldX));
    const ht=r.height;
    const rise=1,h=ht*rise,points=[pt(r.left,0),pt(r.left,h),pt(r.right,h),pt(r.right,0)];path(ctx,points,true);
-   const neg=r.height<0;const rg=ctx.createLinearGradient(0,pt(r.left,h)[1],0,pt(r.left,0)[1]);rg.addColorStop(0,neg?'rgba(255,110,190,.78)':'rgba(255,232,146,.75)');rg.addColorStop(.18,neg?'rgba(255,55,152,.52)':'rgba(255,175,53,.58)');rg.addColorStop(1,neg?'rgba(176,21,119,.18)':'rgba(200,75,15,.23)');ctx.fillStyle=rg;ctx.globalAlpha=gAlpha*(1-s.crystal)*smooth(reveal*1.5-i/D.n*.45);ctx.fill();ctx.strokeStyle=neg?MAGENTA:GOLD;ctx.globalAlpha=gAlpha*(1-s.crystal)*smooth(reveal*1.5-i/D.n*.45);ctx.lineWidth=S((D.n>64?.7:1.5)+(s.splitT<1&&i%2===0?(1-s.splitT)*2:0));ctx.stroke();if(D.n<=64){glow(ctx,points,neg?MAGENTA:GOLD,S(D.n<16?2:1),gAlpha*(1-s.crystal)*.7,true)}ctx.globalAlpha=gAlpha;
+   const neg=r.height<0;const rg=ctx.createLinearGradient(0,pt(r.left,h)[1],0,pt(r.left,0)[1]);rg.addColorStop(0,neg?'rgba(255,110,190,.78)':'rgba(255,251,186,.98)');rg.addColorStop(.18,neg?'rgba(255,55,152,.52)':'rgba(255,180,0,.92)');rg.addColorStop(1,neg?'rgba(176,21,119,.18)':'rgba(255,53,8,.63)');ctx.fillStyle=rg;ctx.globalAlpha=gAlpha*(1-s.crystal)*smooth(reveal*1.5-i/D.n*.45);ctx.fill();ctx.strokeStyle=neg?MAGENTA:GOLD;ctx.globalAlpha=gAlpha*(1-s.crystal)*smooth(reveal*1.5-i/D.n*.45);ctx.lineWidth=S((D.n>64?.7:1.5)+(s.splitT<1&&i%2===0?(1-s.splitT)*2:0));ctx.stroke();if(D.n<=64){glow(ctx,points,neg?MAGENTA:GOLD,S(D.n<16?2:1),gAlpha*(1-s.crystal)*.7,true)}ctx.globalAlpha=gAlpha;
    // Error band between the fixed curve and each right-end rectangle.
    if(D.n<=32&&s.crystal<.5){path(ctx,[pt(r.left,f(r.left)),pt(r.right,f(r.right)),pt(r.right,h),pt(r.left,h)],true);ctx.fillStyle='rgba(76,216,255,.19)';ctx.fill()}
    if(D.n<=32){const p=pt(r.right,r.height);ctx.beginPath();ctx.arc(...p,S(3),0,TAU);ctx.fillStyle=CYAN;ctx.fill()}
@@ -59,7 +59,7 @@ export function drawWorld(ctx,W,H,s,options={}){
  // Axes and the invariant continuous function.
  path(ctx,[project(-4.9,base,0),project(4.9,base,0)]);ctx.strokeStyle=GOLD;ctx.lineWidth=S(2);ctx.stroke();
  path(ctx,[project(-4.5,-1.9,0),project(-4.5,2.45,0)]);ctx.strokeStyle='#4f9eb6';ctx.stroke();
- const curve=[];for(let i=0;i<=300*s.curveReveal;i++){const x=D.a+(D.b-D.a)*i/300;curve.push(pt(x,f(x)))}path(ctx,curve);ctx.strokeStyle='rgba(65,212,255,.18)';ctx.lineWidth=S(13);ctx.stroke();ctx.strokeStyle=CYAN;ctx.lineWidth=S(3.3);ctx.stroke();glow(ctx,curve,'#7df5ff',S(3),gAlpha*.95);
+ const curve=[];for(let i=0;i<=300*s.curveReveal;i++){const x=D.a+(D.b-D.a)*i/300;curve.push(pt(x,f(x)))}path(ctx,curve);ctx.strokeStyle='rgba(65,212,255,.18)';ctx.lineWidth=S(13);ctx.stroke();ctx.strokeStyle=CYAN;ctx.lineWidth=S(3.3);ctx.stroke();glow(ctx,curve,'#00dfff',S(4.3),gAlpha);
  if(s.curveReveal>.01){const head=curve[curve.length-1];flare(ctx,...head,S(65),'#b4ffff',gAlpha*.55)}
  const ap=pt(D.a,0),bp=pt(D.b,0);text(ctx,s.unitInterval?'0':D.a===0?'a = 0':`a = ${Number(D.a.toFixed(3))}`,ap[0],ap[1]+S(36),S(21),GOLD,'center');text(ctx,s.unitInterval?'1':`b = ${Number(D.b.toFixed(3))}`,bp[0],bp[1]+S(36),S(21),GOLD,'center');text(ctx,'x',bp[0]+S(30),bp[1]+S(4),S(23),CYAN);
  const label=pt(D.b*.88+D.a*.12,f(D.b*.88+D.a*.12));text(ctx,'y = f(x)',label[0]-S(10),label[1]-S(28),S(22),CYAN,'right');
@@ -70,9 +70,11 @@ export function drawWorld(ctx,W,H,s,options={}){
  if(s.formulaStage==='partition'){for(let k=0;k<=D.n;k++){const p=pt(D.a+k*D.dx,0);ctx.beginPath();ctx.arc(...p,S(3+1.4*Math.sin(t*3-k)),0,TAU);ctx.fillStyle=GOLD;ctx.fill();text(ctx,`x${['₀','₁','₂','₃','₄'][k]||''}`,p[0],p[1]+S(56),S(16),CYAN,'center')}}
  if(s.crystal>0&&s.crystal<1){for(let i=0;i<220;i++){const r=D.rectangles[i%D.n],phase=s.crystal,p=pt(r.right+Math.sin(i*1.8)*phase*D.dx,r.height*lerp(rand(i+930),1,phase));ctx.globalAlpha=gAlpha*(1-phase);ctx.fillStyle=i%4?GOLD:CYAN;ctx.beginPath();ctx.arc(...p,S(1+rand(i+1)*2),0,TAU);ctx.fill()}}
  ctx.restore();
+ if(s.formation>0&&s.crystal<1){ctx.save();ctx.globalAlpha=s.formation*(1-s.crystal);const fg=ctx.createRadialGradient(W*.51,H*.5,0,W*.51,H*.5,W*.16);fg.addColorStop(0,'#041025b5');fg.addColorStop(.55,'#0410254a');fg.addColorStop(1,'#04102500');ctx.fillStyle=fg;ctx.fillRect(W*.35,H*.5-W*.16,W*.32,W*.32);ctx.restore()}
  equationEnergy(ctx,W,H,s,pt,options.formulaTargets);
  // Mathematical light travels from exact rectangle endpoints into sampled formula glyphs.
  if(s.formation>0&&s.formation<1&&options.formulaTargets?.length){const targets=options.formulaTargets;for(let i=0;i<Math.min(1600,targets.length);i++){const target=targets[Math.floor(i*targets.length/Math.min(1600,targets.length))],r=D.rectangles[i%D.n],start=pt(r.right,r.height),phase=smooth(Math.max(0,Math.min(1,s.formation*1.35-rand(i+550)*.30))),arc=Math.sin(phase*Math.PI),x=lerp(start[0],target[0],phase)+Math.sin(i)*arc*S(35),y=lerp(start[1],target[1],phase)-arc*S(80);ctx.fillStyle=i%9?GOLD:CYAN;ctx.globalAlpha=.45+.55*phase;ctx.fillRect(x,y,S(1.9),S(1.9));}ctx.globalAlpha=1;}
+ const bloom=options.formulaTargets;if(bloom?.bloomA&&bloom?.bloomB){const a=bloom.bloomA,b=bloom.bloomB,ac=a.getContext('2d'),bc=b.getContext('2d');ac.clearRect(0,0,a.width,a.height);ac.filter='brightness(1.5) contrast(1.9) saturate(1.7)';ac.drawImage(ctx.canvas,0,0,a.width,a.height);ac.filter='none';bc.clearRect(0,0,b.width,b.height);bc.filter='blur(7px)';bc.drawImage(a,0,0);bc.filter='none';ctx.save();ctx.globalCompositeOperation='screen';ctx.globalAlpha=.4;ctx.drawImage(b,0,0,W,H);bc.clearRect(0,0,b.width,b.height);bc.filter='blur(19px)';bc.drawImage(a,0,0);bc.filter='none';ctx.globalAlpha=.16;ctx.drawImage(b,0,0,W,H);ctx.restore()}
  if(options.cinema!==false){
   const shade=ctx.createLinearGradient(0,H*.66,0,H);shade.addColorStop(0,'#02081100');shade.addColorStop(.22,'#020811bb');shade.addColorStop(1,'#020811f5');ctx.fillStyle=shade;ctx.fillRect(0,H*.66,W,H*.34);const topShade=ctx.createLinearGradient(0,0,0,H*.2);topShade.addColorStop(0,'#020811dd');topShade.addColorStop(1,'#02081100');ctx.fillStyle=topShade;ctx.fillRect(0,0,W,H*.2);
   // Screen-stable mathematical typography remains readable during camera motion.
@@ -86,6 +88,7 @@ export function drawWorld(ctx,W,H,s,options={}){
   if(s.tunnel>.3)text(ctx,'極限を象徴する空間演出',W*(portrait?.46:.5),H*(portrait?.61:.64),S(17),'#829db1','center');
   if(s.signed)text(ctx,'正の寄与 ＋   ／   負の寄与 −',W*.5,H*.64,S(21),MAGENTA,'center');
   if(s.formulaStage==='sum'||s.formulaStage==='partition'||s.formulaStage==='rectangle'){
+   ctx.fillStyle='rgba(2,7,17,.82)';ctx.fillRect(W*(portrait?.1:.27),H*(portrait?.581:.64),W*(portrait?.72:.46),H*(portrait?.065:.075));
    const msg=`n = ${D.n}     Δx = ${D.dx.toFixed(6)}     Sₙ = ${D.sum.toFixed(6)}`;text(ctx,msg,W*(portrait?.46:.5),H*(portrait?.605:.665),S(portrait?22:22),GOLD,'center');
    if(s.formulaStage==='sum')text(ctx,`定積分 = ${D.exact.toFixed(6)}     誤差 = ${D.error>=0?'+':''}${D.error.toFixed(6)}`,W*(portrait?.46:.5),H*(portrait?.63:.70),S(18),'#90afbf','center');
   }
