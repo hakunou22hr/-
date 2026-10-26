@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "files": [
+    {
+      "file": "before-splitting.mp4",
+      "duration": 4,
+      "frames": 120,
+      "passed": true
+    },
+    {
+      "file": "after-splitting.mp4",
+      "duration": 4,
+      "frames": 120,
+      "passed": true
+    },
+    {
+      "file": "before-corridor.mp4",
+      "duration": 4,
+      "frames": 120,
+      "passed": true
+    },
+    {
+      "file": "after-corridor.mp4",
+      "duration": 4,
+      "frames": 120,
+      "passed": true
+    },
+    {
+      "file": "before-fusion.mp4",
+      "duration": 11,
+      "frames": 330,
+      "passed": true
+    },
+    {
+      "file": "after-fusion.mp4",
+      "duration": 11,
+      "frames": 330,
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "videos": [
+    {
+      "file": "before-splitting.mp4",
+      "duration": 4,
+      "width": 1920,
+      "height": 1080,
+      "error": null
+    },
+    {
+      "file": "after-splitting.mp4",
+      "duration": 4,
+      "width": 1920,
+      "height": 1080,
+      "error": null
+    },
+    {
+      "file": "before-corridor.mp4",
+      "duration": 4,
+      "width": 1920,
+      "height": 1080,
+      "error": null
+    },
+    {
+      "file": "after-corridor.mp4",
+      "duration": 4,
+      "width": 1920,
+      "height": 1080,
+      "error": null
+    },
+    {
+      "file": "before-fusion.mp4",
+      "duration": 11,
+      "width": 1920,
+      "height": 1080,
+      "error": null
+    },
+    {
+      "file": "after-fusion.mp4",
+      "duration": 11,
+      "width": 1920,
+      "height": 1080,
+      "error": null
+    }
+  ],
+  "synchronizedPlayback": true,
+  "mobileOverflow": false,
+  "errors": []
+}
