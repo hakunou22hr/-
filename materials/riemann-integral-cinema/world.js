@@ -1,4 +1,5 @@
 import {functions,smooth,lerp} from './math.js';
+import {drawLivingUniverse,createLivingTargets} from './living-universe.js';
 import {drawReferenceUniverse} from './reference-universe.js';
 import {chamber,corridor,fusionSpace,equationEnergy,glow,flare} from './environment.js';
 const TAU=Math.PI*2,CYAN='#66e9ff',GOLD='#ffdf70',MAGENTA='#ff75bc';
@@ -24,16 +25,17 @@ function equation(ctx,tokens,cx,y,size,maxWidth){
 export function createFormulaTargets(createCanvas,W,H,portrait){
  const c=createCanvas(W,H),ctx=c.getContext('2d'),scale=W/(portrait?1080:1920),fy=H*(portrait?.688:.785);
  if(portrait){equation(ctx,formulaTokens('sum-limit'),W*.46,fy-22*scale,37*scale,W*.75);equation(ctx,[{s:'= '},{s:'∫',up:'b',down:'a'},{s:' f(x) dx'}],W*.46,fy+85*scale,43*scale,W*.73)}else equation(ctx,formulaTokens('identity'),W*.5,fy,45*scale,W*.87);
- const pixels=ctx.getImageData(0,0,W,H).data,targets=[];for(let y=Math.floor(fy-100*scale);y<Math.min(H,fy+120*scale);y+=3*scale)for(let x=W*.1;x<W*.9;x+=3*scale){const xx=Math.floor(x),yy=Math.floor(y);if(pixels[(yy*W+xx)*4+3]>140)targets.push([xx,yy])}const glyph=(char)=>{const g=createCanvas(W,H),gc=g.getContext('2d'),cx=W*(portrait?.49:.51),cy=H*(portrait?.49:.51),size=(portrait?280:320)*scale;gc.font=`400 ${size}px ${JP}`;gc.textAlign='center';gc.textBaseline='middle';gc.fillStyle='white';gc.fillText(char,cx,cy);const data=gc.getImageData(0,0,W,H).data,pts=[];for(let y=cy-size*.65;y<cy+size*.65;y+=2.5*scale)for(let x=cx-size*.65;x<cx+size*.65;x+=2.5*scale){const xx=Math.floor(x),yy=Math.floor(y);if(xx>=0&&yy>=0&&xx<W&&yy<H&&data[(yy*W+xx)*4+3]>140)pts.push([xx,yy])}return pts};targets.sigma=glyph('Σ');targets.integral=glyph('∫');targets.bloomA=createCanvas(Math.ceil(W/3),Math.ceil(H/3));targets.bloomB=createCanvas(Math.ceil(W/3),Math.ceil(H/3));return targets;
+ const pixels=ctx.getImageData(0,0,W,H).data,targets=[];for(let y=Math.floor(fy-100*scale);y<Math.min(H,fy+120*scale);y+=3*scale)for(let x=W*.1;x<W*.9;x+=3*scale){const xx=Math.floor(x),yy=Math.floor(y);if(pixels[(yy*W+xx)*4+3]>140)targets.push([xx,yy])}const glyph=(char)=>{const g=createCanvas(W,H),gc=g.getContext('2d'),cx=W*(portrait?.49:.51),cy=H*(portrait?.49:.51),size=(portrait?280:320)*scale;gc.font=`400 ${size}px ${JP}`;gc.textAlign='center';gc.textBaseline='middle';gc.fillStyle='white';gc.fillText(char,cx,cy);const data=gc.getImageData(0,0,W,H).data,pts=[];for(let y=cy-size*.65;y<cy+size*.65;y+=2.5*scale)for(let x=cx-size*.65;x<cx+size*.65;x+=2.5*scale){const xx=Math.floor(x),yy=Math.floor(y);if(xx>=0&&yy>=0&&xx<W&&yy<H&&data[(yy*W+xx)*4+3]>140)pts.push([xx,yy])}return pts};targets.living=createLivingTargets(createCanvas);targets.sigma=glyph('Σ');targets.integral=glyph('∫');targets.bloomA=createCanvas(Math.ceil(W/3),Math.ceil(H/3));targets.bloomB=createCanvas(Math.ceil(W/3),Math.ceil(H/3));return targets;
 }
 export function drawWorld(ctx,W,H,s,options={}){
+ if(options.background==='reference'&&options.effect==='living'&&options.cinema!==false)return drawLivingUniverse(ctx,W,H,(s.time<=24?s.time:s.time%24),{targets:options.formulaTargets?.living,camera:options.camera,referenceImage:options.referenceImage});
  const reference=options.background==='reference',portrait=s.portrait,t=s.time,D=s.data,scale=options.cinema===false?W/(W<800?600:1300):W/(portrait?1080:1920),S=v=>v*scale;
  ctx.save();ctx.fillStyle='#020711';ctx.fillRect(0,0,W,H);
  const wash=ctx.createRadialGradient(W*.49,H*.5,0,W*.5,H*.5,Math.max(W,H)*.7);wash.addColorStop(0,'#0c2539');wash.addColorStop(.55,'#040d1a');wash.addColorStop(1,'#01040a');ctx.fillStyle=wash;ctx.fillRect(0,0,W,H);
  const graphCY=H*(portrait?.445:.425),graphScale=W*(options.cinema===false?.086:reference?(portrait?.075:.048):portrait?.087:.071),yaw=options.flat?0:s.yaw,pitch=options.flat?0:s.pitch;
  // A perspective camera shared by the graph, coordinate frame and geometry.
  function project(x,y,z){const xx=x*Math.cos(yaw)+z*Math.sin(yaw),zz=-x*Math.sin(yaw)+z*Math.cos(yaw),yy=y*Math.cos(pitch)-zz*Math.sin(pitch),z2=y*Math.sin(pitch)+zz*Math.cos(pitch);const p=14/(14+z2);return [W*.5+xx*graphScale*p,graphCY-yy*graphScale*p]}
- if(reference)drawReferenceUniverse(ctx,W,H,s,options.referenceImage,options.effect||'auto',options.camera);else chamber(ctx,W,H,s,project);
+ if(reference&&options.effect==='living')drawLivingUniverse(ctx,W,H,t%24,{targets:options.formulaTargets?.living,camera:options.camera,labels:false,referenceImage:options.referenceImage});else if(reference)drawReferenceUniverse(ctx,W,H,s,options.referenceImage,options.effect||'auto',options.camera);else chamber(ctx,W,H,s,project);
  if(!reference&&s.tunnel>.001){ctx.save();ctx.globalAlpha=s.tunnel;corridor(ctx,W,H,s);ctx.restore();}
  const fusion=smooth((t-(portrait?20:89))/(portrait?1:2));if(!reference&&fusion>0&&s.crystal<1){ctx.save();ctx.globalAlpha=fusion*(1-s.crystal);fusionSpace(ctx,W,H,s);ctx.restore()}
  const gAlpha=(1-s.tunnel)*(1-fusion*(1-s.crystal));

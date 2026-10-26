@@ -1,0 +1,19 @@
+{
+  "edition": "Living geometry — 24 second cinematic study",
+  "passed": true,
+  "duration": 24,
+  "fps": 30,
+  "frames": 720,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "geometry": "3D surfaces, propagating double pulse, coherent delayed-following particle schools, world-space formula fragments, same particles forming Sigma then integral",
+  "reports": [
+    "verification/living/geometry-validation.json",
+    "verification/living/browser-validation.json",
+    "verification/living/video-validation.json"
+  ],
+  "build": "npm run build: passed",
+  "existingFilms": "preserved"
+}

@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "geometryMovesWithFixedCamera": true,
+  "silhouetteHeightRange": 1.663486115082729,
+  "continuousPaths": true,
+  "maxParticleDisplacementPerFrame": 0.31910306714139347,
+  "allParticlesResolveIntoIntegral": true,
+  "deterministicFrames": true,
+  "formulaTargetCounts": {
+    "sigma": 712,
+    "integral": 491
+  }
+}
