@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "assertions": 516846,
+  "framesChecked": 4500,
+  "sequences": [
+    4,
+    8,
+    16,
+    32,
+    64,
+    128,
+    256
+  ],
+  "functions": [
+    "wave",
+    "square",
+    "sqrt",
+    "sin",
+    "cos",
+    "cubic"
+  ]
+}

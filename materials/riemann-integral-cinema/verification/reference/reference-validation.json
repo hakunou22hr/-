@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "reference": "https://integral-universe-preview.hakunou22hr.chatgpt.site/",
+  "assetSHA256": "e1b271148486e2f9d3eb22f7b18c077ce27ddba4a4cafd67688f8ea83116c8ea",
+  "results": [
+    {
+      "effect": "standard",
+      "deterministic": true,
+      "moving": true,
+      "nonRigidChange": 0.004825806425490908,
+      "triangles": 1152
+    },
+    {
+      "effect": "ripple",
+      "deterministic": true,
+      "moving": true,
+      "nonRigidChange": 0.004825806425490908,
+      "triangles": 1152
+    },
+    {
+      "effect": "threads",
+      "deterministic": true,
+      "moving": true,
+      "nonRigidChange": 0.004825806425490908,
+      "triangles": 1152
+    },
+    {
+      "effect": "scan",
+      "deterministic": true,
+      "moving": true,
+      "nonRigidChange": 0.004825806425490908,
+      "triangles": 1152
+    },
+    {
+      "effect": "orbit",
+      "deterministic": true,
+      "moving": true,
+      "nonRigidChange": 0.022906527748261185,
+      "triangles": 1152
+    }
+  ]
+}

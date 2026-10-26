@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "videos": [
+    {
+      "duration": 6,
+      "width": 1920,
+      "height": 1080,
+      "error": null
+    },
+    {
+      "duration": 6,
+      "width": 1920,
+      "height": 1080,
+      "error": null
+    },
+    {
+      "duration": 6,
+      "width": 1920,
+      "height": 1080,
+      "error": null
+    },
+    {
+      "duration": 6,
+      "width": 1920,
+      "height": 1080,
+      "error": null
+    }
+  ],
+  "mobileOverflow": false
+}

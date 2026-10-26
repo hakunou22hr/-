@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "referenceAssetReady": true,
+  "legacyPreserved": true,
+  "videos": [
+    {
+      "src": "http://localhost:4180/media/riemann-integral-120s-reference.mp4?v=reference-v1",
+      "duration": 120,
+      "width": 1920,
+      "height": 1080,
+      "error": null
+    },
+    {
+      "src": "http://localhost:4180/media/riemann-integral-30s-reference.mp4?v=reference-v1",
+      "duration": 30,
+      "width": 1080,
+      "height": 1920,
+      "error": null
+    },
+    {
+      "src": "http://localhost:4180/media/riemann-reference-standard.mp4",
+      "duration": 6,
+      "width": 1920,
+      "height": 1080,
+      "error": null
+    },
+    {
+      "src": "http://localhost:4180/media/riemann-reference-ripple.mp4",
+      "duration": 6,
+      "width": 1920,
+      "height": 1080,
+      "error": null
+    },
+    {
+      "src": "http://localhost:4180/media/riemann-reference-threads.mp4",
+      "duration": 6,
+      "width": 1920,
+      "height": 1080,
+      "error": null
+    },
+    {
+      "src": "http://localhost:4180/media/riemann-reference-scan.mp4",
+      "duration": 6,
+      "width": 1920,
+      "height": 1080,
+      "error": null
+    }
+  ],
+  "mobileOverflow": false,
+  "errors": []
+}

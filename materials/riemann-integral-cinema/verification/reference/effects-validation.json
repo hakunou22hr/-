@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "effects": [
+    {
+      "effect": "standard",
+      "duration": 6,
+      "fps": 30,
+      "frames": 180,
+      "width": 1920,
+      "height": 1080,
+      "passed": true
+    },
+    {
+      "effect": "ripple",
+      "duration": 6,
+      "fps": 30,
+      "frames": 180,
+      "width": 1920,
+      "height": 1080,
+      "passed": true
+    },
+    {
+      "effect": "threads",
+      "duration": 6,
+      "fps": 30,
+      "frames": 180,
+      "width": 1920,
+      "height": 1080,
+      "passed": true
+    },
+    {
+      "effect": "scan",
+      "duration": 6,
+      "fps": 30,
+      "frames": 180,
+      "width": 1920,
+      "height": 1080,
+      "passed": true
+    }
+  ]
+}

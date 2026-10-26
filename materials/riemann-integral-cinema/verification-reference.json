@@ -1,0 +1,248 @@
+{
+  "edition": "reference-universe",
+  "date": "2026-10-26",
+  "sourceSite": "https://integral-universe-preview.hakunou22hr.chatgpt.site/",
+  "sourceSiteUnchanged": true,
+  "sourceCommit": "261cb21a3cb78e5bb718491f4edfe208ddbb2304",
+  "referenceImageExactCopy": true,
+  "geometry": {
+    "passed": true,
+    "reference": "https://integral-universe-preview.hakunou22hr.chatgpt.site/",
+    "assetSHA256": "e1b271148486e2f9d3eb22f7b18c077ce27ddba4a4cafd67688f8ea83116c8ea",
+    "results": [
+      {
+        "effect": "standard",
+        "deterministic": true,
+        "moving": true,
+        "nonRigidChange": 0.004825806425490908,
+        "triangles": 1152
+      },
+      {
+        "effect": "ripple",
+        "deterministic": true,
+        "moving": true,
+        "nonRigidChange": 0.004825806425490908,
+        "triangles": 1152
+      },
+      {
+        "effect": "threads",
+        "deterministic": true,
+        "moving": true,
+        "nonRigidChange": 0.004825806425490908,
+        "triangles": 1152
+      },
+      {
+        "effect": "scan",
+        "deterministic": true,
+        "moving": true,
+        "nonRigidChange": 0.004825806425490908,
+        "triangles": 1152
+      },
+      {
+        "effect": "orbit",
+        "deterministic": true,
+        "moving": true,
+        "nonRigidChange": 0.022906527748261185,
+        "triangles": 1152
+      }
+    ]
+  },
+  "movies": {
+    "riemann-integral-120s-reference": {
+      "passed": true,
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "duration": 120,
+      "frames": 3600,
+      "codec": "H.264",
+      "decodedAllFrames": true,
+      "sampleTimes": [
+        0,
+        7.5,
+        14.9,
+        15,
+        23,
+        31.9,
+        32,
+        41,
+        49.9,
+        50,
+        61,
+        71.9,
+        72,
+        80,
+        88.9,
+        89,
+        93,
+        99,
+        104.9,
+        105,
+        108,
+        112,
+        116,
+        119.9
+      ],
+      "bytes": 60529642,
+      "sha256": "bf26adb585b899eb61550aab0189b210d38c13a7bd4965ccbfceb665374582ab"
+    },
+    "riemann-integral-30s-reference": {
+      "passed": true,
+      "width": 1080,
+      "height": 1920,
+      "fps": 30,
+      "duration": 30,
+      "frames": 900,
+      "codec": "H.264",
+      "decodedAllFrames": true,
+      "sampleTimes": [
+        0,
+        2,
+        3.9,
+        4,
+        8,
+        11.9,
+        12,
+        16,
+        19.9,
+        20,
+        23,
+        25.9,
+        26,
+        28,
+        29.9
+      ],
+      "bytes": 14601105,
+      "sha256": "0fb2735cf88c70da91ba80597aba6aad2fdd0dd56f48d38ea6a614113325ab36"
+    }
+  },
+  "controls": {
+    "passed": true,
+    "referenceImageLoaded": true,
+    "allFiveEffectsDistinct": true,
+    "legacyPreserved": true,
+    "calculationUnchanged": true,
+    "errors": []
+  },
+  "playback": {
+    "passed": true,
+    "referenceAssetReady": true,
+    "legacyPreserved": true,
+    "videos": [
+      {
+        "src": "http://localhost:4180/media/riemann-integral-120s-reference.mp4?v=reference-v1",
+        "duration": 120,
+        "width": 1920,
+        "height": 1080,
+        "error": null
+      },
+      {
+        "src": "http://localhost:4180/media/riemann-integral-30s-reference.mp4?v=reference-v1",
+        "duration": 30,
+        "width": 1080,
+        "height": 1920,
+        "error": null
+      },
+      {
+        "src": "http://localhost:4180/media/riemann-reference-standard.mp4",
+        "duration": 6,
+        "width": 1920,
+        "height": 1080,
+        "error": null
+      },
+      {
+        "src": "http://localhost:4180/media/riemann-reference-ripple.mp4",
+        "duration": 6,
+        "width": 1920,
+        "height": 1080,
+        "error": null
+      },
+      {
+        "src": "http://localhost:4180/media/riemann-reference-threads.mp4",
+        "duration": 6,
+        "width": 1920,
+        "height": 1080,
+        "error": null
+      },
+      {
+        "src": "http://localhost:4180/media/riemann-reference-scan.mp4",
+        "duration": 6,
+        "width": 1920,
+        "height": 1080,
+        "error": null
+      }
+    ],
+    "mobileOverflow": false,
+    "errors": []
+  },
+  "effects": {
+    "passed": true,
+    "effects": [
+      {
+        "effect": "standard",
+        "duration": 6,
+        "fps": 30,
+        "frames": 180,
+        "width": 1920,
+        "height": 1080,
+        "passed": true
+      },
+      {
+        "effect": "ripple",
+        "duration": 6,
+        "fps": 30,
+        "frames": 180,
+        "width": 1920,
+        "height": 1080,
+        "passed": true
+      },
+      {
+        "effect": "threads",
+        "duration": 6,
+        "fps": 30,
+        "frames": 180,
+        "width": 1920,
+        "height": 1080,
+        "passed": true
+      },
+      {
+        "effect": "scan",
+        "duration": 6,
+        "fps": 30,
+        "frames": 180,
+        "width": 1920,
+        "height": 1080,
+        "passed": true
+      }
+    ]
+  },
+  "math": {
+    "passed": true,
+    "assertions": 516846,
+    "framesChecked": 4500,
+    "sequences": [
+      4,
+      8,
+      16,
+      32,
+      64,
+      128,
+      256
+    ],
+    "functions": [
+      "wave",
+      "square",
+      "sqrt",
+      "sin",
+      "cos",
+      "cubic"
+    ]
+  },
+  "build": {
+    "passed": true,
+    "command": "npm run build"
+  },
+  "legacyEditionPreserved": true,
+  "backgroundMeaning": "赤・青の曲面は背景演出。計算は中央のy=f(x)と右端長方形に対応。",
+  "portraitFraming": "元画像の赤・青のピークが両方見えるよう、縦型専用に再配置。"
+}

@@ -232,5 +232,13 @@
     "readoutsOnDarkPlates": true,
     "comparisonPage": "public/previews/riemann-emission-v3/index.html",
     "colorMetrics": "verification/color-comparison.json"
+  },
+  "additionalEditions": {
+    "referenceUniverse": {
+      "verification": "verification-reference.json",
+      "source": "assets/REFERENCE.md",
+      "defaultBackground": "reference",
+      "legacyPreserved": true
+    }
   }
 }
