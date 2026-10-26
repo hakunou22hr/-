@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "viewports": [
+    1440,
+    390
+  ],
+  "checks": [
+    "right sum",
+    "n=1000",
+    "domain validation",
+    "signed contributions",
+    "2D/3D",
+    "auto playback",
+    "formula toggle",
+    "4 KaTeX equations",
+    "chapter seeking",
+    "mobile overflow"
+  ],
+  "errors": []
+}

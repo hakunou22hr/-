@@ -1,0 +1,16 @@
+[
+  {
+    "src": "http://localhost:4180/media/riemann-integral-120s-pc.mp4",
+    "ready": 4,
+    "duration": 120,
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "src": "http://localhost:4180/media/riemann-integral-30s-instagram.mp4",
+    "ready": 4,
+    "duration": 30,
+    "width": 1080,
+    "height": 1920
+  }
+]

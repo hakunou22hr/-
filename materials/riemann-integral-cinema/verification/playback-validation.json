@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "videos": [
+    {
+      "duration": 120,
+      "width": 1920,
+      "height": 1080,
+      "seekedTo": 80,
+      "error": null
+    },
+    {
+      "duration": 30,
+      "width": 1080,
+      "height": 1920,
+      "seekedTo": 16,
+      "error": null
+    }
+  ]
+}

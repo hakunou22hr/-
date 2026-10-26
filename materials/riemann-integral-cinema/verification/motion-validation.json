@@ -1,0 +1,203 @@
+{
+  "passed": true,
+  "samplePairs": 28,
+  "partitionTransitionsChecked": 6,
+  "results": [
+    {
+      "portrait": false,
+      "time": 1,
+      "changedFraction": 0.2009452160493827,
+      "backgroundChangedFraction": 0.0020010816657652785,
+      "deterministic": true
+    },
+    {
+      "portrait": false,
+      "time": 8,
+      "changedFraction": 0.15351851851851853,
+      "backgroundChangedFraction": 0.24651162790697675,
+      "deterministic": true
+    },
+    {
+      "portrait": false,
+      "time": 16,
+      "changedFraction": 0.15949266975308643,
+      "backgroundChangedFraction": 0.06663061114115738,
+      "deterministic": true
+    },
+    {
+      "portrait": false,
+      "time": 24,
+      "changedFraction": 0.1644483024691358,
+      "backgroundChangedFraction": 0.019118442401297998,
+      "deterministic": true
+    },
+    {
+      "portrait": false,
+      "time": 33,
+      "changedFraction": 0.1906886574074074,
+      "backgroundChangedFraction": 0.012033531638723635,
+      "deterministic": true
+    },
+    {
+      "portrait": false,
+      "time": 42,
+      "changedFraction": 0.15441743827160495,
+      "backgroundChangedFraction": 0.22152514872904272,
+      "deterministic": true
+    },
+    {
+      "portrait": false,
+      "time": 51,
+      "changedFraction": 0.1249266975308642,
+      "backgroundChangedFraction": 0.10459707950243374,
+      "deterministic": true
+    },
+    {
+      "portrait": false,
+      "time": 58,
+      "changedFraction": 0.15341242283950618,
+      "backgroundChangedFraction": 0.00037858301784748514,
+      "deterministic": true
+    },
+    {
+      "portrait": false,
+      "time": 65,
+      "changedFraction": 0.21855131172839506,
+      "backgroundChangedFraction": 0.0005137912385073012,
+      "deterministic": true
+    },
+    {
+      "portrait": false,
+      "time": 73,
+      "changedFraction": 0.9343557098765433,
+      "backgroundChangedFraction": 0.933829096809086,
+      "deterministic": true
+    },
+    {
+      "portrait": false,
+      "time": 80,
+      "changedFraction": 0.17187885802469136,
+      "backgroundChangedFraction": 0.03488372093023256,
+      "deterministic": true
+    },
+    {
+      "portrait": false,
+      "time": 86,
+      "changedFraction": 0.20056327160493828,
+      "backgroundChangedFraction": 0.0881557598702001,
+      "deterministic": true
+    },
+    {
+      "portrait": false,
+      "time": 90,
+      "changedFraction": 0.3234297839506173,
+      "backgroundChangedFraction": 0.06822606814494321,
+      "deterministic": true
+    },
+    {
+      "portrait": false,
+      "time": 96,
+      "changedFraction": 0.30310378086419754,
+      "backgroundChangedFraction": 0.00037858301784748514,
+      "deterministic": true
+    },
+    {
+      "portrait": false,
+      "time": 101,
+      "changedFraction": 0.2877932098765432,
+      "backgroundChangedFraction": 0.16527852893455922,
+      "deterministic": true
+    },
+    {
+      "portrait": false,
+      "time": 106,
+      "changedFraction": 0.21337770061728395,
+      "backgroundChangedFraction": 0.10062195781503515,
+      "deterministic": true
+    },
+    {
+      "portrait": false,
+      "time": 109,
+      "changedFraction": 0.18628086419753087,
+      "backgroundChangedFraction": 0.00083829096809086,
+      "deterministic": true
+    },
+    {
+      "portrait": false,
+      "time": 114,
+      "changedFraction": 0.2321682098765432,
+      "backgroundChangedFraction": 0.00010816657652785289,
+      "deterministic": true
+    },
+    {
+      "portrait": false,
+      "time": 118,
+      "changedFraction": 0.2671045524691358,
+      "backgroundChangedFraction": 0.0023796646836127637,
+      "deterministic": true
+    },
+    {
+      "portrait": true,
+      "time": 1,
+      "changedFraction": 0.15494212962962964,
+      "backgroundChangedFraction": 0.20034453985087886,
+      "deterministic": true
+    },
+    {
+      "portrait": true,
+      "time": 5,
+      "changedFraction": 0.09225115740740741,
+      "backgroundChangedFraction": 0.26793356841000243,
+      "deterministic": true
+    },
+    {
+      "portrait": true,
+      "time": 9,
+      "changedFraction": 0.12626157407407407,
+      "backgroundChangedFraction": 0.3193453742833302,
+      "deterministic": true
+    },
+    {
+      "portrait": true,
+      "time": 13,
+      "changedFraction": 0.9338136574074074,
+      "backgroundChangedFraction": 0.9995154908347016,
+      "deterministic": true
+    },
+    {
+      "portrait": true,
+      "time": 17,
+      "changedFraction": 0.1662692901234568,
+      "backgroundChangedFraction": 0.189846841269414,
+      "deterministic": true
+    },
+    {
+      "portrait": true,
+      "time": 21,
+      "changedFraction": 0.17079475308641975,
+      "backgroundChangedFraction": 0.23980511964684664,
+      "deterministic": true
+    },
+    {
+      "portrait": true,
+      "time": 24,
+      "changedFraction": 0.14743634259259258,
+      "backgroundChangedFraction": 0.3809857069796237,
+      "deterministic": true
+    },
+    {
+      "portrait": true,
+      "time": 27,
+      "changedFraction": 0.17522762345679013,
+      "backgroundChangedFraction": 0.28871362816613283,
+      "deterministic": true
+    },
+    {
+      "portrait": true,
+      "time": 29,
+      "changedFraction": 0.1544579475308642,
+      "backgroundChangedFraction": 0.20769292885790422,
+      "deterministic": true
+    }
+  ]
+}

@@ -1,0 +1,168 @@
+{
+  "material": "数学Ⅲ｜区分求積法と定積分",
+  "date": "2026-10-26",
+  "mathematics": {
+    "passed": true,
+    "assertions": 516846,
+    "framesChecked": 4500,
+    "sequences": [
+      4,
+      8,
+      16,
+      32,
+      64,
+      128,
+      256
+    ],
+    "functions": [
+      "wave",
+      "square",
+      "sqrt",
+      "sin",
+      "cos",
+      "cubic"
+    ]
+  },
+  "motion": {
+    "passed": true,
+    "deterministicSamplePairs": 28,
+    "allSixPartitionTransitionsChecked": true
+  },
+  "browser": {
+    "passed": true,
+    "viewports": [
+      1440,
+      390
+    ],
+    "checks": [
+      "right sum",
+      "n=1000",
+      "domain validation",
+      "signed contributions",
+      "2D/3D",
+      "auto playback",
+      "formula toggle",
+      "4 KaTeX equations",
+      "chapter seeking",
+      "mobile overflow"
+    ],
+    "errors": []
+  },
+  "playback": {
+    "passed": true,
+    "videos": [
+      {
+        "duration": 120,
+        "width": 1920,
+        "height": 1080,
+        "seekedTo": 80,
+        "error": null
+      },
+      {
+        "duration": 30,
+        "width": 1080,
+        "height": 1920,
+        "seekedTo": 16,
+        "error": null
+      }
+    ]
+  },
+  "video": {
+    "riemann-integral-120s-pc": {
+      "passed": true,
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "duration": 120,
+      "frames": 3600,
+      "codec": "H.264",
+      "pixelFormat": "yuv420p",
+      "decodedAllFrames": true,
+      "sampleTimes": [
+        0,
+        7.5,
+        14.9,
+        15,
+        23.5,
+        31.9,
+        32,
+        41,
+        49.9,
+        50,
+        61,
+        71.9,
+        72,
+        80.5,
+        88.9,
+        89,
+        97,
+        104.9,
+        105,
+        108.5,
+        111.5,
+        113,
+        116,
+        119.9
+      ],
+      "bytes": 61471538,
+      "sha256": "eeb651957a531068b43a165f9fd0846a2e7f98ce51b56c9c71446fb0d3f49b31"
+    },
+    "riemann-integral-30s-instagram": {
+      "passed": true,
+      "width": 1080,
+      "height": 1920,
+      "fps": 30,
+      "duration": 30,
+      "frames": 900,
+      "codec": "H.264",
+      "pixelFormat": "yuv420p",
+      "decodedAllFrames": true,
+      "sampleTimes": [
+        0,
+        2,
+        3.9,
+        4,
+        8,
+        11.9,
+        12,
+        16,
+        19.9,
+        20,
+        23,
+        25.9,
+        26,
+        28,
+        29.9
+      ],
+      "bytes": 15663007,
+      "sha256": "f4659056d399411e51a6856e434c5e1d3b4131cb389408fa5396cefcdaebe471"
+    }
+  },
+  "build": {
+    "passed": true,
+    "command": "npm run build"
+  },
+  "catalogTest": {
+    "passed": 9,
+    "failed": 1,
+    "existingFailure": "triangle-trig-inquiry: missing bundled thumbnail; existing files were preserved"
+  },
+  "sceneReview": {
+    "pcFrames": 24,
+    "instagramFrames": 15,
+    "artifacts": [
+      "verification/riemann-integral-120s-pc-contact-sheet.jpg",
+      "verification/riemann-integral-30s-instagram-contact-sheet.jpg"
+    ]
+  },
+  "storage": {
+    "mp4": "public/media/",
+    "source": "materials/riemann-integral-cinema/",
+    "normalGitSuitable": true,
+    "largestFileBelow100MiB": true
+  },
+  "limits": [
+    "教科書162ページの原本は未提供。指定された一般公式に基づくオリジナル図版。",
+    "WebとMP4は同じ時刻データと描画コードを共用。ブラウザ/Skiaの字形・アンチエイリアスに軽微な差がある。"
+  ]
+}
