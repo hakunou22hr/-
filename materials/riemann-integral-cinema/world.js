@@ -33,7 +33,7 @@ export function drawWorld(ctx,W,H,s,options={}){
  const graphCY=H*(portrait?.445:.425),graphScale=W*(options.cinema===false?.086:reference?(portrait?.075:.048):portrait?.087:.071),yaw=options.flat?0:s.yaw,pitch=options.flat?0:s.pitch;
  // A perspective camera shared by the graph, coordinate frame and geometry.
  function project(x,y,z){const xx=x*Math.cos(yaw)+z*Math.sin(yaw),zz=-x*Math.sin(yaw)+z*Math.cos(yaw),yy=y*Math.cos(pitch)-zz*Math.sin(pitch),z2=y*Math.sin(pitch)+zz*Math.cos(pitch);const p=14/(14+z2);return [W*.5+xx*graphScale*p,graphCY-yy*graphScale*p]}
- if(reference)drawReferenceUniverse(ctx,W,H,s,options.referenceImage,options.effect||'auto');else chamber(ctx,W,H,s,project);
+ if(reference)drawReferenceUniverse(ctx,W,H,s,options.referenceImage,options.effect||'auto',options.camera);else chamber(ctx,W,H,s,project);
  if(!reference&&s.tunnel>.001){ctx.save();ctx.globalAlpha=s.tunnel;corridor(ctx,W,H,s);ctx.restore();}
  const fusion=smooth((t-(portrait?20:89))/(portrait?1:2));if(!reference&&fusion>0&&s.crystal<1){ctx.save();ctx.globalAlpha=fusion*(1-s.crystal);fusionSpace(ctx,W,H,s);ctx.restore()}
  const gAlpha=(1-s.tunnel)*(1-fusion*(1-s.crystal));

@@ -32,3 +32,9 @@ node materials/riemann-integral-cinema/render/verify-reference.mjs
 ```
 
 追加の演出を書き出す場合は `RIEMANN_EFFECT` に `standard` / `ripple` / `threads` / `scan` / `orbit` を指定。素材の出典は `assets/REFERENCE.md`。
+
+## 空間カメラ（追加）
+
+ライブ画面では、背景の深度メッシュと点群・軌道を同じ視点で投影します。映画的な自動運行、ドラッグ旋回、ホイール／スライダーの接近・後退、背景の左右反転、点群の中央への集積に対応。数式と計算用のグラフは反転しません。視点リセットで手動の正面視に戻ります。既存のMP4ファイルにはこの操作は反映されません。
+
+ブラウザ検証：左右反転・拡縮・集積・ドラッグ・ホイール・自動運行、計算値不変、モバイル横幅、JavaScriptエラーなし。
