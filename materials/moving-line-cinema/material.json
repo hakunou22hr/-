@@ -1,1 +1,10 @@
-{"id":"moving-line-cinema","name":"数学Ⅱ｜動く直線、答えの境界 — 線形計画法へのひらめき","subject":"数学Ⅱ","unit":"図形と方程式／領域と最大・最小","description":"四つの半平面が重なる3D空間から、x+y=kのひらめきへ。金色の直線と切片を動かす映画型90秒教材。最大5・最小0を自分で探せるインタラクティブ実験、音声付きMP4。","thumbnail":"thumbnail.svg","version":"1.0.0","durationSeconds":90}
+{
+  "id": "moving-line-cinema",
+  "name": "数学Ⅱ｜動く直線、答えの境界 — 線形計画法へのひらめき",
+  "subject": "数学Ⅱ",
+  "unit": "図形と方程式／領域と最大・最小",
+  "description": "四つの半平面が重なる3D空間から、x+y=kのひらめきへ。金色の直線と切片を動かす映画型90秒教材。最大5・最小0を自分で探せるインタラクティブ実験、音声付きMP4。 Instagram用9:16・30秒版も視聴・保存できます。",
+  "thumbnail": "thumbnail.svg",
+  "version": "1.1.0",
+  "durationSeconds": 90
+}

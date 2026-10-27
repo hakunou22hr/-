@@ -27,11 +27,11 @@ jobs:
           python - <<'PYWAIT'
           import time, urllib.request, urllib.error
           for attempt in range(60):
-              url = 'https://hakunou22hr.github.io/-/materials/moving-line-cinema/?check=' + str(time.time_ns())
+              url = 'https://hakunou22hr.github.io/-/materials/moving-line-cinema/reels.html?check=' + str(time.time_ns())
               try:
                   with urllib.request.urlopen(url, timeout=20) as response:
                       body = response.read().decode('utf-8')
-                  if 'moving-line-v1' in body:
+                  if 'moving-line-reels-v1' in body:
                       print('Published page available')
                       break
               except (urllib.error.URLError, TimeoutError) as error:
@@ -44,9 +44,13 @@ jobs:
         env:
           PLAYWRIGHT_MODULE_PATH: /tmp/moving-line-browser/node_modules/playwright
           TEST_ORIGIN: https://hakunou22hr.github.io/-
-        run: node materials/moving-line-cinema/render/browser.check.cjs
+        run: |
+          node materials/moving-line-cinema/render/browser.check.cjs
+          node materials/moving-line-cinema/render/reels-browser.check.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: moving-line-public-playback
-          path: work/moving-line/
+          path: |
+            work/moving-line/
+            work/moving-line-reels/

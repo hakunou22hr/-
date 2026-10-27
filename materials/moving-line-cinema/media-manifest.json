@@ -1,6 +1,28 @@
 {
-  "edition": "moving-line-v1",
+  "edition": "moving-line-reels-v1",
   "files": [
+    {
+      "file": "moving-line-30s-reels-play.mp4",
+      "duration": 30,
+      "width": 720,
+      "height": 1280,
+      "frames": 900,
+      "video": "h264",
+      "audio": "aac",
+      "bytes": 6907231,
+      "sha256": "d59981027e3457c6d13a912ef7fe8afc88cc91514cf8b3700ecbc336fbf2da3f"
+    },
+    {
+      "file": "moving-line-30s-reels.mp4",
+      "duration": 30,
+      "width": 1080,
+      "height": 1920,
+      "frames": 900,
+      "video": "h264",
+      "audio": "aac",
+      "bytes": 18456425,
+      "sha256": "3c99a90f028c420e9d380df1510f9bdbea3958ce6682f2a91154fce2f45d66b3"
+    },
     {
       "file": "moving-line-90s-play.mp4",
       "duration": 90,

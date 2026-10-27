@@ -239,5 +239,246 @@
       "mobile": true
     },
     "errors": []
+  },
+  "reels": {
+    "edition": "moving-line-reels-v1",
+    "visual": {
+      "passed": true,
+      "layoutFrames": 61,
+      "portrait": [
+        1080,
+        1920
+      ],
+      "safeArea": true,
+      "motion": true,
+      "deterministicSeek": true,
+      "seekPixelTolerance": {
+        "changed": 14,
+        "maxDelta": 1
+      },
+      "contacts": true,
+      "errors": []
+    },
+    "browser": {
+      "passed": true,
+      "library": true,
+      "portrait": [
+        1080,
+        1920
+      ],
+      "duration": 30,
+      "fullPlayback": true,
+      "samples": [
+        {
+          "t": 3.155309,
+          "ended": false
+        },
+        {
+          "t": 5.095672,
+          "ended": false
+        },
+        {
+          "t": 7.003043,
+          "ended": false
+        },
+        {
+          "t": 8.812439,
+          "ended": false
+        },
+        {
+          "t": 10.693219,
+          "ended": false
+        },
+        {
+          "t": 12.716106,
+          "ended": false
+        },
+        {
+          "t": 14.724248,
+          "ended": false
+        },
+        {
+          "t": 16.741389,
+          "ended": false
+        },
+        {
+          "t": 18.752231,
+          "ended": false
+        },
+        {
+          "t": 20.76697,
+          "ended": false
+        },
+        {
+          "t": 22.776599,
+          "ended": false
+        },
+        {
+          "t": 24.793317,
+          "ended": false
+        },
+        {
+          "t": 26.802946,
+          "ended": false
+        },
+        {
+          "t": 28.814352,
+          "ended": false
+        },
+        {
+          "t": 30,
+          "ended": true
+        }
+      ],
+      "networkMbps": 3,
+      "controls": true,
+      "download": {
+        "bytes": 18456425,
+        "sha256": "3c99a90f028c420e9d380df1510f9bdbea3958ce6682f2a91154fce2f45d66b3"
+      },
+      "mobile": true,
+      "returnTo90AndLab": true,
+      "pageErrors": []
+    },
+    "production": {
+      "passed": true,
+      "library": true,
+      "portrait": [
+        1080,
+        1920
+      ],
+      "duration": 30,
+      "fullPlayback": true,
+      "samples": [
+        {
+          "t": 2.663983,
+          "ended": false
+        },
+        {
+          "t": 4.673498,
+          "ended": false
+        },
+        {
+          "t": 6.68302,
+          "ended": false
+        },
+        {
+          "t": 8.695397,
+          "ended": false
+        },
+        {
+          "t": 10.703581,
+          "ended": false
+        },
+        {
+          "t": 12.715548,
+          "ended": false
+        },
+        {
+          "t": 14.725056,
+          "ended": false
+        },
+        {
+          "t": 16.734812,
+          "ended": false
+        },
+        {
+          "t": 18.756307,
+          "ended": false
+        },
+        {
+          "t": 20.766147,
+          "ended": false
+        },
+        {
+          "t": 22.787539,
+          "ended": false
+        },
+        {
+          "t": 24.80299,
+          "ended": false
+        },
+        {
+          "t": 26.815043,
+          "ended": false
+        },
+        {
+          "t": 28.830964,
+          "ended": false
+        },
+        {
+          "t": 30,
+          "ended": true
+        }
+      ],
+      "networkMbps": 3,
+      "controls": true,
+      "download": {
+        "bytes": 18456425,
+        "sha256": "3c99a90f028c420e9d380df1510f9bdbea3958ce6682f2a91154fce2f45d66b3"
+      },
+      "mobile": true,
+      "returnTo90AndLab": true,
+      "pageErrors": []
+    },
+    "audio": {
+      "passed": true,
+      "duration": 30,
+      "sampleRate": 48000,
+      "channels": 2,
+      "peak": 0.3250689634603164,
+      "cues": [
+        3,
+        4.5,
+        6,
+        7.5,
+        8,
+        9,
+        10.5,
+        14,
+        21,
+        24.5,
+        27
+      ]
+    },
+    "preservedWorld": {
+      "passed": true,
+      "results": [
+        {
+          "t": 6,
+          "exact": true
+        },
+        {
+          "t": 20,
+          "exact": true
+        },
+        {
+          "t": 35,
+          "exact": true
+        },
+        {
+          "t": 62,
+          "exact": true
+        },
+        {
+          "t": 74,
+          "exact": true
+        },
+        {
+          "t": 80,
+          "exact": true
+        },
+        {
+          "t": 86,
+          "exact": true
+        }
+      ]
+    },
+    "preserved90Assets": {
+      "public/media/moving-line/moving-line-90s.mp4": "eb5c40dbc93a3ef06a36853a3df53dd95932f83f3fee61badd66773b721d82aa",
+      "public/media/moving-line/moving-line-90s-play.mp4": "816c277db322d2b32bf541487e3f2e45101f05189a0536663f00ad85d34180d3",
+      "materials/moving-line-cinema/film.js": "1576d10ae00f6662a469ea21b9e92eab356848b6577c67bf052245acb377cd09",
+      "materials/moving-line-cinema/model.js": "3be3a867b4f5a374e215a462c4fe64aff112a6079416f6c0665ca9e8f06b110f"
+    }
   }
 }
