@@ -11,15 +11,16 @@
         "height": 1080,
         "pix_fmt": "yuv420p",
         "r_frame_rate": "30/1",
+        "start_time": "0.000000",
         "nb_read_frames": "3600"
       }
     ],
     "format": {
       "duration": "120.000000",
-      "size": "38792958"
+      "size": "38763834"
     }
   },
-  "sha256": "b74c8f5c3d72edc0819057dfea7ee8e970b87734f6ec8b3304e0ac5e50907f84",
+  "sha256": "f7e93f92a7ff59fdaf0b1f8f8bdddd6e696c0ca999d5df53ffe1a5b35da2e727",
   "distinctSceneSamples": [
     0,
     4,
@@ -37,5 +38,9 @@
     108,
     116,
     119.9
-  ]
+  ],
+  "teacherRemoved": true,
+  "entireExplanatoryTailPixelIdentical": true,
+  "updatedIntroFrames": 500,
+  "preservedTailFrames": 3100
 }

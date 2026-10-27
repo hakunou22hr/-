@@ -1,0 +1,71 @@
+{
+  "passed": true,
+  "teacherRemovedFromNewPlate": true,
+  "bothOriginalDurationsMaintained": true,
+  "results": [
+    {
+      "mode": "pc",
+      "file": "riemann-integral-120s-classroom.mp4",
+      "passed": true,
+      "reencodedIntroFrames": 500,
+      "copiedTailFrames": 3100,
+      "totalFrames": 3600,
+      "fullDecode": true,
+      "entireExplanatoryTailPixelIdentical": true,
+      "openingChanged": true,
+      "sha256": "f7e93f92a7ff59fdaf0b1f8f8bdddd6e696c0ca999d5df53ffe1a5b35da2e727",
+      "metadata": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "width": 1920,
+            "height": 1080,
+            "pix_fmt": "yuv420p",
+            "r_frame_rate": "30/1",
+            "start_time": "0.000000",
+            "nb_read_frames": "3600"
+          }
+        ],
+        "format": {
+          "duration": "120.000000",
+          "size": "38763834"
+        }
+      }
+    },
+    {
+      "mode": "portrait",
+      "file": "riemann-integral-30s-classroom.mp4",
+      "passed": true,
+      "reencodedIntroFrames": 250,
+      "copiedTailFrames": 650,
+      "totalFrames": 900,
+      "fullDecode": true,
+      "entireExplanatoryTailPixelIdentical": true,
+      "openingChanged": true,
+      "sha256": "88a3097561d4661c591c2df6dc67f5d817a5f3ebb55b6f989a5b5eede6fb4ae4",
+      "metadata": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "width": 1080,
+            "height": 1920,
+            "pix_fmt": "yuv420p",
+            "r_frame_rate": "30/1",
+            "start_time": "0.000000",
+            "nb_read_frames": "900"
+          }
+        ],
+        "format": {
+          "duration": "30.000000",
+          "size": "8776123"
+        }
+      }
+    }
+  ],
+  "teacherAbsenceVisuallyReviewed": true,
+  "sourcePlateSHA256": "00450c0b38dca636e84bfaa5c629d9b5272dc23dce8d274e5ae0a5582270665e"
+}

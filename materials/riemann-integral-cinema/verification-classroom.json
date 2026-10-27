@@ -34,8 +34,10 @@
     "verification/classroom/pc-video-validation.json",
     "verification/classroom/portrait-video-validation.json",
     "verification/classroom/archive-validation.json",
-    "verification/classroom/publish-size.json"
+    "verification/classroom/publish-size.json",
+    "verification/classroom/no-teacher-validation.json"
   ],
   "build": "npm run build: passed",
-  "legacy": "All previous source files preserved; four older full films use their immutable official GitHub URLs, verified in a browser"
+  "legacy": "All previous source files preserved; four older full films use their immutable official GitHub URLs, verified in a browser",
+  "revision": "Teacher removed from classroom plate, both films, posters and live preview"
 }

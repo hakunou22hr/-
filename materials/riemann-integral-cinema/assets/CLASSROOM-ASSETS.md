@@ -4,11 +4,11 @@
 
 ## classroom-sunset.png
 
-夕光の教室、黒板、先生と生徒。
+夕光の教室、黒板、生徒。教師は削除済み。
 
-生成元：`/workspace/generated_images/exec-38f07625-e2cc-4d55-a652-0be281548812.png`（原本は保持）。
+生成元：`/workspace/generated_images/exec-bb4e341f-3478-4066-b571-32441ca63a32.png`（原本は保持）。
 
-SHA256：`e16ac189956ed4cc3560fd393aaadea87af50e23fcafaaeb20425a40f53aab35`
+SHA256：`00450c0b38dca636e84bfaa5c629d9b5272dc23dce8d274e5ae0a5582270665e`
 
 ## chalk-cinema.png
 

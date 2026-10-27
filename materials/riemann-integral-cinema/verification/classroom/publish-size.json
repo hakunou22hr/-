@@ -1,10 +1,11 @@
 {
   "passed": true,
-  "builtSiteBytes": 942243085,
+  "builtSiteBytes": 967708289,
   "additionalWorkflowVideoBytes": 29844572,
-  "totalPublishedBytes": 972087657,
+  "totalPublishedBytes": 997552861,
   "belowConservativeOneBillionBytes": true,
   "archivedFilms": 4,
   "sourceFilesPreserved": true,
-  "bothNewClassroomFilmsSameOrigin": true
+  "bothNewClassroomFilmsSameOrigin": true,
+  "belowOneGiB": true
 }
