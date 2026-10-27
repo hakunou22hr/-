@@ -1,5 +1,5 @@
 {
-  "edition": "moving-line-reels-v1",
+  "edition": "moving-line-doublebar-v2",
   "files": [
     {
       "file": "moving-line-30s-reels-play.mp4",
@@ -9,8 +9,8 @@
       "frames": 900,
       "video": "h264",
       "audio": "aac",
-      "bytes": 6907231,
-      "sha256": "d59981027e3457c6d13a912ef7fe8afc88cc91514cf8b3700ecbc336fbf2da3f"
+      "bytes": 6905944,
+      "sha256": "b0611d1cafe492c11c1dda6cd276e75817db949cdc786ea25a0a50e0616d01cb"
     },
     {
       "file": "moving-line-30s-reels.mp4",
@@ -20,8 +20,8 @@
       "frames": 900,
       "video": "h264",
       "audio": "aac",
-      "bytes": 18456425,
-      "sha256": "3c99a90f028c420e9d380df1510f9bdbea3958ce6682f2a91154fce2f45d66b3"
+      "bytes": 18475842,
+      "sha256": "0931f9daaf60f8840f289b52a7753e64e9b89febfef7bb189aff38de558beb8a"
     },
     {
       "file": "moving-line-90s-play.mp4",
@@ -31,8 +31,8 @@
       "frames": 2700,
       "video": "h264",
       "audio": "aac",
-      "bytes": 21650602,
-      "sha256": "816c277db322d2b32bf541487e3f2e45101f05189a0536663f00ad85d34180d3"
+      "bytes": 21648731,
+      "sha256": "f84e6ff97cb87cb32eb7a07e4b4de8611217a080d3b60fc1997545a2e902a27f"
     },
     {
       "file": "moving-line-90s.mp4",
@@ -42,8 +42,8 @@
       "frames": 2700,
       "video": "h264",
       "audio": "aac",
-      "bytes": 45709302,
-      "sha256": "eb5c40dbc93a3ef06a36853a3df53dd95932f83f3fee61badd66773b721d82aa"
+      "bytes": 45732183,
+      "sha256": "02ca0673344a587747a65bbf64553fe3739a818c1c0236604b3f1eb338d29fcd"
     }
   ]
 }

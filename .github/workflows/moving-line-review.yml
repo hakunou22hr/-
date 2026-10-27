@@ -31,7 +31,7 @@ jobs:
               try:
                   with urllib.request.urlopen(url, timeout=20) as response:
                       body = response.read().decode('utf-8')
-                  if 'moving-line-reels-v1' in body:
+                  if 'moving-line-reels-doublebar-v2' in body:
                       print('Published page available')
                       break
               except (urllib.error.URLError, TimeoutError) as error:

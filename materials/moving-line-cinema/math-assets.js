@@ -15,7 +15,7 @@ export const assets={
 "minPoint":{url:new URL('./math/m12.png',import.meta.url).href,width:6.127197265625,height:1.512451171875},
 "evalMax":{url:new URL('./math/m13.png',import.meta.url).href,width:4.3056640625,height:1.449951171875},
 "evalMin":{url:new URL('./math/m14.png',import.meta.url).href,width:4.3056640625,height:1.449951171875},
-"ans":{url:new URL('./math/m15.png',import.meta.url).href,width:6.836669921875,height:1.768798828125},
+"ans":{url:new URL('./math/m15.png',import.meta.url).href,width:6.836669921875,height:1.941650390625},
 "proof":{url:new URL('./math/m16.png',import.meta.url).href,width:13.225830078125,height:1.512451171875},
 "proof2":{url:new URL('./math/m17.png',import.meta.url).href,width:6.18212890625,height:1.512451171875},
 "b2":{url:new URL('./math/m18.png',import.meta.url).href,width:5.90380859375,height:1.512451171875},
