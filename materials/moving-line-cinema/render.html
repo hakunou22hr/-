@@ -1,0 +1,6 @@
+<!doctype html><html><head><meta charset="utf-8"><style>body{margin:0;background:#030b17}canvas{position:absolute;inset:0;width:100%;height:100%}</style></head><body><script type="module">
+import {loadMath} from './math.js';import {createFilm} from './film.js';import {createWorld} from './world.js';import {state} from './model.js';
+await loadMath(url=>new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=reject;im.src=url}));
+const make=(w,h)=>{const c=document.createElement('canvas');c.width=w;c.height=h;return c},width=Number(new URLSearchParams(location.search).get('bgw')||1280),world=createWorld(width,width*9/16),film=createFilm(make),output=make(1920,1080),g=output.getContext('2d');output.id='output';document.body.append(output);
+window.movieRender={background(t){const labels=world.render(state(t));return {jpg:world.canvas.toDataURL('image/jpeg',.96).split(',')[1],labels}},frame(t,options={}){const labels=world.render(state(t,options)),result=film.render(t,labels,options);g.drawImage(world.canvas,0,0,1920,1080);g.drawImage(film.canvas,0,0);return result},info(){return {webgl:world.renderer.capabilities.isWebGL2,width:world.canvas.width,height:world.canvas.height}}};movieRender.frame(0);
+</script></body></html>

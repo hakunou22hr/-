@@ -1,0 +1,27 @@
+{
+  "edition": "moving-line-v1",
+  "files": [
+    {
+      "file": "moving-line-90s-play.mp4",
+      "duration": 90,
+      "width": 1280,
+      "height": 720,
+      "frames": 2700,
+      "video": "h264",
+      "audio": "aac",
+      "bytes": 21650602,
+      "sha256": "816c277db322d2b32bf541487e3f2e45101f05189a0536663f00ad85d34180d3"
+    },
+    {
+      "file": "moving-line-90s.mp4",
+      "duration": 90,
+      "width": 1920,
+      "height": 1080,
+      "frames": 2700,
+      "video": "h264",
+      "audio": "aac",
+      "bytes": 45709302,
+      "sha256": "eb5c40dbc93a3ef06a36853a3df53dd95932f83f3fee61badd66773b721d82aa"
+    }
+  ]
+}

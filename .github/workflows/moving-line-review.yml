@@ -1,0 +1,52 @@
+name: Verify moving line cinema
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'materials/moving-line-cinema/**'
+      - 'public/media/moving-line/**'
+      - '.github/workflows/moving-line-review.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  public-playback:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Install playback browser
+        run: |
+          npm install --prefix /tmp/moving-line-browser playwright@1.62.1
+          node /tmp/moving-line-browser/node_modules/playwright/cli.js install --with-deps chromium
+          echo "CHROMIUM_PATH=$(node -e 'console.log(require("/tmp/moving-line-browser/node_modules/playwright").chromium.executablePath())')" >> "$GITHUB_ENV"
+      - name: Wait for the newly published work
+        run: |
+          python - <<'PYWAIT'
+          import time, urllib.request, urllib.error
+          for attempt in range(60):
+              url = 'https://hakunou22hr.github.io/-/materials/moving-line-cinema/?check=' + str(time.time_ns())
+              try:
+                  with urllib.request.urlopen(url, timeout=20) as response:
+                      body = response.read().decode('utf-8')
+                  if 'moving-line-v1' in body:
+                      print('Published page available')
+                      break
+              except (urllib.error.URLError, TimeoutError) as error:
+                  print('Waiting for publication:', str(error))
+              time.sleep(10)
+          else:
+              raise SystemExit('Published page not available')
+          PYWAIT
+      - name: Full real-time public playback and actual MP4 downloads
+        env:
+          PLAYWRIGHT_MODULE_PATH: /tmp/moving-line-browser/node_modules/playwright
+          TEST_ORIGIN: https://hakunou22hr.github.io/-
+        run: node materials/moving-line-cinema/render/browser.check.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: moving-line-public-playback
+          path: work/moving-line/

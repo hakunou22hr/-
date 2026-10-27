@@ -1,0 +1,243 @@
+{
+  "edition": "moving-line-v1",
+  "preservedReferenceFiles": 270,
+  "mathematics": "render/check.mjs passed",
+  "webgl": {
+    "passed": true,
+    "layoutFrames": 181,
+    "webgl": true,
+    "motion": true,
+    "deterministicSeek": true,
+    "kContacts": true,
+    "pageErrors": []
+  },
+  "browser": {
+    "passed": true,
+    "library": true,
+    "movie": {
+      "fullPlayback": true,
+      "samples": [
+        {
+          "t": 2.855275,
+          "ended": false
+        },
+        {
+          "t": 4.423154,
+          "ended": false
+        },
+        {
+          "t": 6.131019,
+          "ended": false
+        },
+        {
+          "t": 7.942505,
+          "ended": false
+        },
+        {
+          "t": 9.644764,
+          "ended": false
+        },
+        {
+          "t": 11.57739,
+          "ended": false
+        },
+        {
+          "t": 13.589216,
+          "ended": false
+        },
+        {
+          "t": 15.61215,
+          "ended": false
+        },
+        {
+          "t": 17.649792,
+          "ended": false
+        },
+        {
+          "t": 19.669628,
+          "ended": false
+        },
+        {
+          "t": 21.678906,
+          "ended": false
+        },
+        {
+          "t": 23.689565,
+          "ended": false
+        },
+        {
+          "t": 25.702695,
+          "ended": false
+        },
+        {
+          "t": 27.71832,
+          "ended": false
+        },
+        {
+          "t": 29.732199,
+          "ended": false
+        },
+        {
+          "t": 31.747952,
+          "ended": false
+        },
+        {
+          "t": 33.757039,
+          "ended": false
+        },
+        {
+          "t": 35.768409,
+          "ended": false
+        },
+        {
+          "t": 37.779863,
+          "ended": false
+        },
+        {
+          "t": 39.79733,
+          "ended": false
+        },
+        {
+          "t": 41.814789,
+          "ended": false
+        },
+        {
+          "t": 43.847396,
+          "ended": false
+        },
+        {
+          "t": 45.631215,
+          "ended": false
+        },
+        {
+          "t": 47.397434,
+          "ended": false
+        },
+        {
+          "t": 49.260341,
+          "ended": false
+        },
+        {
+          "t": 51.042318,
+          "ended": false
+        },
+        {
+          "t": 52.844862,
+          "ended": false
+        },
+        {
+          "t": 54.634314,
+          "ended": false
+        },
+        {
+          "t": 56.348824,
+          "ended": false
+        },
+        {
+          "t": 58.092255,
+          "ended": false
+        },
+        {
+          "t": 59.933319,
+          "ended": false
+        },
+        {
+          "t": 61.700074,
+          "ended": false
+        },
+        {
+          "t": 63.374417,
+          "ended": false
+        },
+        {
+          "t": 65.140903,
+          "ended": false
+        },
+        {
+          "t": 66.864336,
+          "ended": false
+        },
+        {
+          "t": 68.593605,
+          "ended": false
+        },
+        {
+          "t": 70.425791,
+          "ended": false
+        },
+        {
+          "t": 72.10405,
+          "ended": false
+        },
+        {
+          "t": 73.983356,
+          "ended": false
+        },
+        {
+          "t": 75.994504,
+          "ended": false
+        },
+        {
+          "t": 78.001857,
+          "ended": false
+        },
+        {
+          "t": 80.019309,
+          "ended": false
+        },
+        {
+          "t": 82.030973,
+          "ended": false
+        },
+        {
+          "t": 84.043223,
+          "ended": false
+        },
+        {
+          "t": 86.059858,
+          "ended": false
+        },
+        {
+          "t": 88.081618,
+          "ended": false
+        },
+        {
+          "t": 90,
+          "ended": true
+        }
+      ],
+      "networkMbps": 3,
+      "controls": true
+    },
+    "download": {
+      "bytes": 45709302,
+      "sha256": "eb5c40dbc93a3ef06a36853a3df53dd95932f83f3fee61badd66773b721d82aa"
+    },
+    "lab": {
+      "sliders": true,
+      "contacts": true,
+      "snap": true,
+      "conditionToggle": true,
+      "orbit": true,
+      "autoSweep": true,
+      "modeSwitch": true,
+      "mobile": true
+    },
+    "errors": []
+  },
+  "production": {
+    "passed": true,
+    "library": true,
+    "lab": {
+      "sliders": true,
+      "contacts": true,
+      "snap": true,
+      "conditionToggle": true,
+      "orbit": true,
+      "autoSweep": true,
+      "modeSwitch": true,
+      "mobile": true
+    },
+    "errors": []
+  }
+}
