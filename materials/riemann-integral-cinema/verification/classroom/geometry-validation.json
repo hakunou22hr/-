@@ -1,0 +1,105 @@
+{
+  "passed": true,
+  "newClassroomAndChalkAssets": true,
+  "boardCalibration": {
+    "x": 0.232,
+    "y": 0.198,
+    "w": 0.665,
+    "h": 0.329
+  },
+  "monotonicPush": true,
+  "correctForegroundTransition": true,
+  "portraitTransition": true,
+  "results": [
+    {
+      "time": 0,
+      "act": "classroom",
+      "push": 0,
+      "boardAlpha": 0,
+      "mathematicsUnchanged": true,
+      "deterministic": true,
+      "moving": true
+    },
+    {
+      "time": 4,
+      "act": "push-in",
+      "push": 0,
+      "boardAlpha": 0,
+      "mathematicsUnchanged": true,
+      "deterministic": true,
+      "moving": true
+    },
+    {
+      "time": 8,
+      "act": "push-in",
+      "push": 0.3520000000000001,
+      "boardAlpha": 0,
+      "mathematicsUnchanged": true,
+      "deterministic": true,
+      "moving": true
+    },
+    {
+      "time": 14,
+      "act": "blackboard",
+      "push": 1,
+      "boardAlpha": 1,
+      "mathematicsUnchanged": true,
+      "deterministic": true,
+      "moving": true
+    },
+    {
+      "time": 41,
+      "act": "blackboard",
+      "push": 1,
+      "boardAlpha": 1,
+      "mathematicsUnchanged": true,
+      "deterministic": true,
+      "moving": true
+    },
+    {
+      "time": 59.5,
+      "act": "blackboard",
+      "push": 1,
+      "boardAlpha": 1,
+      "mathematicsUnchanged": true,
+      "deterministic": true,
+      "moving": true
+    },
+    {
+      "time": 80,
+      "act": "chalk-depth",
+      "push": 1,
+      "boardAlpha": 1,
+      "mathematicsUnchanged": true,
+      "deterministic": true,
+      "moving": true
+    },
+    {
+      "time": 96,
+      "act": "formula-formation",
+      "push": 1,
+      "boardAlpha": 1,
+      "mathematicsUnchanged": true,
+      "deterministic": true,
+      "moving": true
+    },
+    {
+      "time": 108,
+      "act": "blackboard",
+      "push": 1,
+      "boardAlpha": 1,
+      "mathematicsUnchanged": true,
+      "deterministic": true,
+      "moving": true
+    },
+    {
+      "time": 116,
+      "act": "blackboard",
+      "push": 1,
+      "boardAlpha": 1,
+      "mathematicsUnchanged": true,
+      "deterministic": true,
+      "moving": true
+    }
+  ]
+}

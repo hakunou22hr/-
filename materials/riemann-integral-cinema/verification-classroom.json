@@ -1,0 +1,39 @@
+{
+  "edition": "Classroom -> blackboard -> luminous chalk geometry",
+  "passed": true,
+  "defaultBackground": "classroom",
+  "films": [
+    {
+      "file": "riemann-integral-120s-classroom.mp4",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "duration": 120,
+      "fps": 30,
+      "frames": 3600
+    },
+    {
+      "file": "riemann-integral-30s-classroom.mp4",
+      "resolution": [
+        1080,
+        1920
+      ],
+      "duration": 30,
+      "fps": 30,
+      "frames": 900
+    }
+  ],
+  "assets": "Newly generated classroom and emerald chalkboard artwork, with source and hashes in assets/CLASSROOM-ASSETS.md",
+  "camera": "Calibrated classroom-to-board push-in; 4-14s PC, 0.8-3.2s portrait",
+  "geometry": "Moving 3D chalk coordinates, filaments and particles; all mathematics uses original right-sum model",
+  "reports": [
+    "verification/classroom/geometry-validation.json",
+    "verification/classroom/controls-validation.json",
+    "verification/classroom/playback-validation.json",
+    "verification/classroom/pc-video-validation.json",
+    "verification/classroom/portrait-video-validation.json"
+  ],
+  "build": "npm run build: passed",
+  "legacy": "Previous variants preserved"
+}

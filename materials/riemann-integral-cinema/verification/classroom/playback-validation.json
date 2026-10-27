@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "bothEditionsPlayable": true,
+  "chapterSeeking": true,
+  "downloadsTrackSelection": true,
+  "mobileOverflow": false,
+  "videos": [
+    {
+      "duration": 120,
+      "width": 1920,
+      "height": 1080,
+      "source": "http://localhost:4180/media/riemann-integral-120s-classroom.mp4",
+      "error": null
+    },
+    {
+      "duration": 30,
+      "width": 1080,
+      "height": 1920,
+      "source": "http://localhost:4180/media/riemann-integral-30s-classroom.mp4",
+      "error": null
+    }
+  ],
+  "errors": []
+}
