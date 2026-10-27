@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "tlsVerificationEnabled": true,
+  "allFourArchivesPlayableAndSeekable": true,
+  "results": [
+    {
+      "url": "https://raw.githubusercontent.com/hakunou22hr/-/b51435481715e003938767d75bdaa361c9289472/public/media/riemann-integral-120s-pc.mp4",
+      "duration": 120,
+      "width": 1920,
+      "height": 1080,
+      "time": 60.006564
+    },
+    {
+      "url": "https://raw.githubusercontent.com/hakunou22hr/-/b51435481715e003938767d75bdaa361c9289472/public/media/riemann-integral-120s-reference.mp4",
+      "duration": 120,
+      "width": 1920,
+      "height": 1080,
+      "time": 60.000347
+    },
+    {
+      "url": "https://raw.githubusercontent.com/hakunou22hr/-/b51435481715e003938767d75bdaa361c9289472/public/media/riemann-integral-30s-instagram.mp4",
+      "duration": 30,
+      "width": 1080,
+      "height": 1920,
+      "time": 15.000395
+    },
+    {
+      "url": "https://raw.githubusercontent.com/hakunou22hr/-/b51435481715e003938767d75bdaa361c9289472/public/media/riemann-integral-30s-reference.mp4",
+      "duration": 30,
+      "width": 1080,
+      "height": 1920,
+      "time": 15.002936
+    }
+  ]
+}

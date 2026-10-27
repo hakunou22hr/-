@@ -1,4 +1,4 @@
-import { readdirSync } from 'node:fs'
+import { readdirSync, rmSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
@@ -15,7 +15,17 @@ const appPages = {
 }
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), {
+    name: 'archive-old-riemann-films',
+    apply: 'build',
+    closeBundle() {
+      // Keep the original files in Git; the lesson links to their immutable
+      // GitHub copies so all current lessons fit within Pages' size limit.
+      for (const file of ['riemann-integral-120s-pc.mp4', 'riemann-integral-120s-reference.mp4', 'riemann-integral-30s-instagram.mp4', 'riemann-integral-30s-reference.mp4']) {
+        rmSync(resolve(root, 'dist/media', file), { force: true })
+      }
+    },
+  }],
   base: './',
   build: {
     rollupOptions: {

@@ -1,3 +1,4 @@
+import {drawClassroomUniverse} from './classroom-universe.js';
 import {functions,smooth,lerp} from './math.js';
 import {drawLivingUniverse,createLivingTargets} from './living-universe.js';
 import {drawReferenceUniverse} from './reference-universe.js';
@@ -29,17 +30,18 @@ export function createFormulaTargets(createCanvas,W,H,portrait){
 }
 export function drawWorld(ctx,W,H,s,options={}){
  if(options.background==='reference'&&options.effect==='living'&&options.cinema!==false)return drawLivingUniverse(ctx,W,H,(s.time<=24?s.time:s.time%24),{targets:options.formulaTargets?.living,camera:options.camera,referenceImage:options.referenceImage});
- const reference=options.background==='reference',portrait=s.portrait,t=s.time,D=s.data,scale=options.cinema===false?W/(W<800?600:1300):W/(portrait?1080:1920),S=v=>v*scale;
+ const classroom=options.background==='classroom',reference=options.background==='reference'||classroom,portrait=s.portrait,t=s.time,D=s.data,scale=options.cinema===false?W/(W<800?600:1300):W/(portrait?1080:1920),S=v=>v*scale;
  ctx.save();ctx.fillStyle='#020711';ctx.fillRect(0,0,W,H);
  const wash=ctx.createRadialGradient(W*.49,H*.5,0,W*.5,H*.5,Math.max(W,H)*.7);wash.addColorStop(0,'#0c2539');wash.addColorStop(.55,'#040d1a');wash.addColorStop(1,'#01040a');ctx.fillStyle=wash;ctx.fillRect(0,0,W,H);
- const graphCY=H*(portrait?.445:.425),graphScale=W*(options.cinema===false?.086:reference?(portrait?.075:.048):portrait?.087:.071),yaw=options.flat?0:s.yaw,pitch=options.flat?0:s.pitch;
+ const graphCY=H*(portrait?.445:.425),graphScale=W*(options.cinema===false?.086:reference?(portrait?.075:classroom?.063:.048):portrait?.087:.071),yaw=options.flat?0:s.yaw,pitch=options.flat?0:s.pitch;
  // A perspective camera shared by the graph, coordinate frame and geometry.
  function project(x,y,z){const xx=x*Math.cos(yaw)+z*Math.sin(yaw),zz=-x*Math.sin(yaw)+z*Math.cos(yaw),yy=y*Math.cos(pitch)-zz*Math.sin(pitch),z2=y*Math.sin(pitch)+zz*Math.cos(pitch);const p=14/(14+z2);return [W*.5+xx*graphScale*p,graphCY-yy*graphScale*p]}
- if(reference&&options.effect==='living')drawLivingUniverse(ctx,W,H,t%24,{targets:options.formulaTargets?.living,camera:options.camera,labels:false,referenceImage:options.referenceImage});else if(reference)drawReferenceUniverse(ctx,W,H,s,options.referenceImage,options.effect||'auto',options.camera);else chamber(ctx,W,H,s,project);
+ const classroomInfo=classroom?drawClassroomUniverse(ctx,W,H,s,options.classroomImage,{camera:options.camera,live:options.cinema===false,chalkImage:options.chalkImage}):null;
+ if(classroom){}else if(reference&&options.effect==='living')drawLivingUniverse(ctx,W,H,t%24,{targets:options.formulaTargets?.living,camera:options.camera,labels:false,referenceImage:options.referenceImage});else if(reference)drawReferenceUniverse(ctx,W,H,s,options.referenceImage,options.effect||'auto',options.camera);else chamber(ctx,W,H,s,project);
  if(!reference&&s.tunnel>.001){ctx.save();ctx.globalAlpha=s.tunnel;corridor(ctx,W,H,s);ctx.restore();}
  const fusion=smooth((t-(portrait?20:89))/(portrait?1:2));if(!reference&&fusion>0&&s.crystal<1){ctx.save();ctx.globalAlpha=fusion*(1-s.crystal);fusionSpace(ctx,W,H,s);ctx.restore()}
- const gAlpha=(1-s.tunnel)*(1-fusion*(1-s.crystal));
- if(reference&&gAlpha>.01){ctx.save();ctx.globalAlpha=gAlpha;ctx.fillStyle='rgba(2,14,27,.80)';const rx=W*(portrait?.075:.245),ry=H*(portrait?.30:.235),rw=W*(portrait?.85:.51),rh=H*(portrait?.30:.41);ctx.fillRect(rx,ry,rw,rh);ctx.strokeStyle='rgba(90,185,220,.45)';ctx.lineWidth=S(1);ctx.strokeRect(rx,ry,rw,rh);ctx.restore()}
+ const gAlpha=(1-s.tunnel)*(1-fusion*(1-s.crystal))*(classroom?classroomInfo.foregroundAlpha:1);
+ if(reference&&gAlpha>.01){ctx.save();ctx.globalAlpha=gAlpha;ctx.fillStyle=classroom?'rgba(3,30,23,.70)':'rgba(2,14,27,.80)';const rx=W*(portrait?.075:classroom?.17:.245),ry=H*(portrait?.30:.235),rw=W*(portrait?.85:classroom?.66:.51),rh=H*(portrait?.30:.41);ctx.fillRect(rx,ry,rw,rh);ctx.strokeStyle=classroom?'rgba(227,201,132,.45)':'rgba(90,185,220,.45)';ctx.lineWidth=S(1);ctx.strokeRect(rx,ry,rw,rh);ctx.restore()}
  ctx.save();ctx.globalAlpha=gAlpha;
  const f=D.f||functions[D.key].f;let ymin=0,ymax=0;for(let i=0;i<=250;i++){const v=f(D.a+(D.b-D.a)*i/250);ymin=Math.min(ymin,v);ymax=Math.max(ymax,v)}const yrange=Math.max(.8,ymax-ymin),gy=v=>(v-ymin)/yrange*3.55-1.55,gx=v=>(v-D.a)/(D.b-D.a)*9-4.5;
  const pt=(x,y)=>project(gx(x),gy(y),0),base=gy(0);
@@ -82,8 +84,8 @@ export function drawWorld(ctx,W,H,s,options={}){
  if(options.cinema!==false){
   const shade=ctx.createLinearGradient(0,H*.66,0,H);shade.addColorStop(0,'#02081100');shade.addColorStop(.22,'#020811bb');shade.addColorStop(1,'#020811f5');ctx.fillStyle=shade;ctx.fillRect(0,H*.66,W,H*.34);const topShade=ctx.createLinearGradient(0,0,0,H*.2);topShade.addColorStop(0,'#020811dd');topShade.addColorStop(1,'#02081100');ctx.fillStyle=topShade;ctx.fillRect(0,0,W,H*.2);
   // Screen-stable mathematical typography remains readable during camera motion.
-  text(ctx,'MATHEMATICS Ⅲ  /  RIEMANN → INTEGRAL',W*(portrait?.085:.06),H*(portrait?.092:.075),S(portrait?20:18),'#8aa4b5','left',500);
-  text(ctx,reference&&s.formulaStage==='limit'?'波面の奥へ、極限へ':s.chapter,W*(portrait?.085:.06),H*(portrait?.137:.128),S(portrait?40:38),'#f4f8fa','left',600);
+  ctx.save();if(classroom)ctx.globalAlpha=.15+.85*classroomInfo.foregroundAlpha;text(ctx,'MATHEMATICS Ⅲ  /  RIEMANN → INTEGRAL',W*(portrait?.085:.06),H*(portrait?.092:.075),S(portrait?20:18),'#8aa4b5','left',500);
+  text(ctx,classroom?(t<(portrait?4:15)?'教室から、黒板の向こうへ':s.formulaStage==='limit'?'黒板の奥へ、極限へ':s.chapter):reference&&s.formulaStage==='limit'?'波面の奥へ、極限へ':s.chapter,W*(portrait?.085:.06),H*(portrait?.137:.128),S(portrait?40:38),'#f4f8fa','left',600);ctx.restore();
   const fy=H*(portrait?.688:.785),tokens=formulaTokens(s.formulaStage,s.unitInterval);ctx.save();if(s.formation>0&&s.formation<1){ctx.beginPath();ctx.rect(0,fy-S(110),W*smooth((s.formation-.4)/.6),S(245));ctx.clip()}if(s.crystal>.95)ctx.globalAlpha=.88+.12*Math.sin(t*2.4);
   if(portrait&&(s.formulaStage==='identity'||s.formulaStage==='unit')){equation(ctx,formulaTokens('sum-limit'),W*.46,fy-S(22),S(37),W*.75);equation(ctx,[{s:'= '},{s:'∫',up:'b',down:'a'},{s:' f(x) dx'}],W*.46,fy+S(85),S(43),W*.73)}else equation(ctx,tokens,W*(portrait?.46:.5),fy,S(portrait?43:45),W*(portrait?.76:.87));
   ctx.restore();

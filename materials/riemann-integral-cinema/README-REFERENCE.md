@@ -1,3 +1,5 @@
+> 現在の既定の背景は「教室から黒板へ」です。新しい構成は [README-CLASSROOM.md](README-CLASSROOM.md) を参照してください。この文書は従来の参照背景版の記録です。
+
 # 参照サイトの背景を使う追加版
 
 ユーザー指定の https://integral-universe-preview.hakunou22hr.chatgpt.site/ を確認し、同じ背景素材 `parts.png` と、ソース `Scene.tsx` の点群・波面・軌道の構成を参照した。参照元サイトへの書き込みや公開範囲の変更は行っていない。
