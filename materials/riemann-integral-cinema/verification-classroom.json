@@ -32,8 +32,10 @@
     "verification/classroom/controls-validation.json",
     "verification/classroom/playback-validation.json",
     "verification/classroom/pc-video-validation.json",
-    "verification/classroom/portrait-video-validation.json"
+    "verification/classroom/portrait-video-validation.json",
+    "verification/classroom/archive-validation.json",
+    "verification/classroom/publish-size.json"
   ],
   "build": "npm run build: passed",
-  "legacy": "Previous variants preserved"
+  "legacy": "All previous source files preserved; four older full films use their immutable official GitHub URLs, verified in a browser"
 }
