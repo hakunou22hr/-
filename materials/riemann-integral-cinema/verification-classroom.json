@@ -36,9 +36,10 @@
     "verification/classroom/archive-validation.json",
     "verification/classroom/publish-size.json",
     "verification/classroom/no-teacher-validation.json",
-    "verification/classroom/board-layout-validation.json"
+    "verification/classroom/board-layout-validation.json",
+    "verification/classroom/fraction-validation.json"
   ],
   "build": "npm run build: passed",
   "legacy": "All previous source files preserved; four older full films use their immutable official GitHub URLs, verified in a browser",
-  "revision": "Introductory formula stays on the blackboard above students; screen formula appears only after the classroom transition"
+  "revision": "Fractions rendered vertically with horizontal bars in films and lesson"
 }

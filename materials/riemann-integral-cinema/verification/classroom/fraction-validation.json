@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "fullFrameDecode": true,
+  "metadata": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1920,
+        "height": 1080,
+        "pix_fmt": "yuv420p",
+        "r_frame_rate": "30/1",
+        "nb_read_frames": "3600"
+      }
+    ],
+    "format": {
+      "duration": "120.000000",
+      "size": "38763212"
+    }
+  },
+  "sha256": "0ea88246cd8b5589d9c6f2b6363fd067ea70c035bd3eee48d882c3a276ac361c",
+  "fractionScenesUpdated": [
+    23.5,
+    114
+  ],
+  "unchangedFramesPixelIdentical": 2500,
+  "totalFrames": 3600,
+  "verticalFilmHasNoSlashFractions": true,
+  "browserFractionsPassed": true,
+  "mathematicsAssertionsPassed": 516846,
+  "portraitFormulaFramesChecked": 900
+}

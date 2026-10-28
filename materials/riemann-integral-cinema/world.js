@@ -9,19 +9,19 @@ const fract=x=>x-Math.floor(x),rand=i=>fract(Math.sin(i*127.1+311.7)*43758.54531
 function path(ctx,pts,close=false){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(...p):ctx.moveTo(...p));if(close)ctx.closePath()}
 function text(ctx,s,x,y,size=22,color='#eaf9ff',align='left',weight=400){ctx.font=`${weight} ${size}px ${JP}`;ctx.fillStyle=color;ctx.textAlign=align;ctx.textBaseline='alphabetic';ctx.strokeStyle='rgba(2,7,17,.7)';ctx.lineWidth=size*.09;ctx.strokeText(s,x,y);ctx.fillText(s,x,y)}
 export function formulaTokens(stage,unit=false){
- const f=unit?'f(k/n)':'f(xₖ)Δx',lower=unit?'0':'a',upper=unit?'1':'b';
+ const lower=unit?'0':'a',upper=unit?'1':'b';
  if(stage==='curve')return [{s:'y = f(x)'}];
- if(stage==='partition')return [{s:'Δx = (b − a) / n'},{s:'     xₖ = a + kΔx'}];
+ if(stage==='partition')return [{s:'Δx = '},{numerator:'b − a',denominator:'n'},{s:'     xₖ = a + kΔx'}];
  if(stage==='rectangle')return [{s:'f(xₖ) × Δx'}];
  if(stage==='limit')return [{s:'n → ∞'},{s:'       Δx → 0'}];
  if(stage==='sum')return [{s:'Sₙ = '},{s:'Σ',up:'n',down:'k = 1'},{s:' f(xₖ)Δx'}];
- const lhs=[{s:'lim',down:'n → ∞'},...(unit?[{s:' 1/n '}]:[]),{s:'Σ',up:'n',down:'k = 1'},{s:` ${f}`}];
+ const lhs=[{s:'lim',down:'n → ∞'},...(unit?[{s:' '},{numerator:'1',denominator:'n'},{s:' '}]:[]),{s:'Σ',up:'n',down:'k = 1'},...(unit?[{s:' f('},{numerator:'k',denominator:'n'},{s:')'}]:[{s:' f(xₖ)Δx'}])];
  return stage==='sum-limit'?lhs:[...lhs,{s:' = '},{s:'∫',up:upper,down:lower},{s:' f(x) dx'}];
 }
 function equation(ctx,tokens,cx,y,size,maxWidth){
- const widths=tokens.map(t=>{ctx.font=`400 ${t.s==='Σ'||t.s==='∫'?size*1.45:size}px ${JP}`;return ctx.measureText(t.s).width+(t.up||t.down?size*.48:0)});
+ const widths=tokens.map(t=>{if(t.numerator){ctx.font=`400 ${size*.68}px ${JP}`;return Math.max(ctx.measureText(t.numerator).width,ctx.measureText(t.denominator).width)+size*.32}ctx.font=`400 ${t.s==='Σ'||t.s==='∫'?size*1.45:size}px ${JP}`;return ctx.measureText(t.s).width+(t.up||t.down?size*.48:0)});
  const total=widths.reduce((a,b)=>a+b,0),scale=Math.min(1,maxWidth/total);ctx.save();ctx.translate(cx-total*scale/2,y);ctx.scale(scale,scale);
- let x=0;tokens.forEach((t,i)=>{let big=t.s==='Σ'||t.s==='∫';text(ctx,t.s,x,0,big?size*1.45:size,GOLD);if(t.up)text(ctx,t.up,x+widths[i]*.4,-size*(big?1.18:.9),size*.39,GOLD,'center');if(t.down)text(ctx,t.down,x+widths[i]*.4,size*.53,size*.36,GOLD,'center');x+=widths[i]});ctx.restore();
+ let x=0;tokens.forEach((t,i)=>{if(t.numerator){const cx=x+widths[i]/2;text(ctx,t.numerator,cx,-size*.57,size*.68,GOLD,'center');text(ctx,t.denominator,cx,size*.32,size*.68,GOLD,'center');ctx.beginPath();ctx.moveTo(x+size*.08,-size*.30);ctx.lineTo(x+widths[i]-size*.08,-size*.30);ctx.strokeStyle=GOLD;ctx.lineWidth=Math.max(1,size*.035);ctx.stroke();x+=widths[i];return}let big=t.s==='Σ'||t.s==='∫';text(ctx,t.s,x,0,big?size*1.45:size,GOLD);if(t.up)text(ctx,t.up,x+widths[i]*.4,-size*(big?1.18:.9),size*.39,GOLD,'center');if(t.down)text(ctx,t.down,x+widths[i]*.4,size*.53,size*.36,GOLD,'center');x+=widths[i]});ctx.restore();
 }
 export function createFormulaTargets(createCanvas,W,H,portrait){
  const c=createCanvas(W,H),ctx=c.getContext('2d'),scale=W/(portrait?1080:1920),fy=H*(portrait?.688:.785);
@@ -99,7 +99,7 @@ export function drawWorld(ctx,W,H,s,options={}){
    const msg=`n = ${D.n}     Δx = ${D.dx.toFixed(6)}     Sₙ = ${D.sum.toFixed(6)}`;text(ctx,msg,W*(portrait?.46:.5),H*(portrait?.605:.665),S(portrait?22:22),GOLD,'center');
    if(s.formulaStage==='sum')text(ctx,`定積分 = ${D.exact.toFixed(6)}     誤差 = ${D.error>=0?'+':''}${D.error.toFixed(6)}`,W*(portrait?.46:.5),H*(portrait?.63:.70),S(18),'#90afbf','center');
   }
-  if(s.unitInterval)text(ctx,'特別な場合：a = 0、b = 1、Δx = 1/n',W*.5,H*.65,S(22),CYAN,'center');
+  if(s.unitInterval)equation(ctx,[{s:'特別な場合：a = 0、b = 1、Δx = '},{numerator:'1',denominator:'n'}],W*.5,H*.65,S(22),W*.8);
   if(s.crystal>.95){ctx.save();ctx.globalAlpha=.12+.035*Math.sin(t*2.4);text(ctx,'∫',W*.5,H*(portrait?.49:.49),S(portrait?170:180),GOLD,'center');ctx.restore()}
   if(s.crystal>.95)text(ctx,'有限の和は近似。等号は極限に対して成り立つ。',W*(portrait?.46:.5),H*(portrait?.9:.963),S(16),'#8297a9','center');
   ctx.fillStyle='#132b3a';ctx.fillRect(W*.06,H*.98,W*.88,S(2));ctx.fillStyle=GOLD;ctx.fillRect(W*.06,H*.98,W*.88*s.progress,S(2));
