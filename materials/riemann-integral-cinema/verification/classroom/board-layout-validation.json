@@ -1,0 +1,75 @@
+{
+  "passed": true,
+  "formulaContainedInBlackboard": true,
+  "bothOriginalDurationsMaintained": true,
+  "results": [
+    {
+      "mode": "pc",
+      "file": "riemann-integral-120s-classroom.mp4",
+      "passed": true,
+      "reencodedIntroFrames": 500,
+      "copiedTailFrames": 3100,
+      "totalFrames": 3600,
+      "fullDecode": true,
+      "entireExplanatoryTailPixelIdentical": true,
+      "openingChanged": true,
+      "sha256": "8c30a35223b87902a44affb9167edfaf4b20735bd5e20a268ebb5be0cc08b163",
+      "metadata": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "width": 1920,
+            "height": 1080,
+            "pix_fmt": "yuv420p",
+            "r_frame_rate": "30/1",
+            "start_time": "0.000000",
+            "nb_read_frames": "3600"
+          }
+        ],
+        "format": {
+          "duration": "120.000000"
+        }
+      }
+    },
+    {
+      "mode": "portrait",
+      "file": "riemann-integral-30s-classroom.mp4",
+      "passed": true,
+      "reencodedIntroFrames": 250,
+      "copiedTailFrames": 650,
+      "totalFrames": 900,
+      "fullDecode": true,
+      "entireExplanatoryTailPixelIdentical": true,
+      "openingChanged": true,
+      "sha256": "031532a960078cd27af5a9d3b972c6ad81e72ed1e161e459ebb5a90466a09822",
+      "metadata": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "width": 1080,
+            "height": 1920,
+            "pix_fmt": "yuv420p",
+            "r_frame_rate": "30/1",
+            "start_time": "0.000000",
+            "nb_read_frames": "900"
+          }
+        ],
+        "format": {
+          "duration": "30.000000"
+        }
+      }
+    }
+  ],
+  "visualChecks": {
+    "pcOpening": true,
+    "portraitOpening": true,
+    "pcPushIn": true,
+    "portraitPushIn": true,
+    "formulaAboveHeads": true,
+    "duplicateScreenFormulaHiddenDuringClassroom": true
+  }
+}

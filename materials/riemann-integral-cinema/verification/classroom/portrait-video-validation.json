@@ -16,11 +16,10 @@
       }
     ],
     "format": {
-      "duration": "30.000000",
-      "size": "8776123"
+      "duration": "30.000000"
     }
   },
-  "sha256": "88a3097561d4661c591c2df6dc67f5d817a5f3ebb55b6f989a5b5eede6fb4ae4",
+  "sha256": "031532a960078cd27af5a9d3b972c6ad81e72ed1e161e459ebb5a90466a09822",
   "distinctSceneSamples": [
     0,
     2,
@@ -34,5 +33,6 @@
   "teacherRemoved": true,
   "entireExplanatoryTailPixelIdentical": true,
   "updatedIntroFrames": 250,
-  "preservedTailFrames": 650
+  "preservedTailFrames": 650,
+  "revision": "Formula confined to blackboard above students"
 }

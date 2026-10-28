@@ -86,7 +86,8 @@ export function drawWorld(ctx,W,H,s,options={}){
   // Screen-stable mathematical typography remains readable during camera motion.
   ctx.save();if(classroom)ctx.globalAlpha=.15+.85*classroomInfo.foregroundAlpha;text(ctx,'MATHEMATICS Ⅲ  /  RIEMANN → INTEGRAL',W*(portrait?.085:.06),H*(portrait?.092:.075),S(portrait?20:18),'#8aa4b5','left',500);
   text(ctx,classroom?(t<(portrait?4:15)?'教室から、黒板の向こうへ':s.formulaStage==='limit'?'黒板の奥へ、極限へ':s.chapter):reference&&s.formulaStage==='limit'?'波面の奥へ、極限へ':s.chapter,W*(portrait?.085:.06),H*(portrait?.137:.128),S(portrait?40:38),'#f4f8fa','left',600);ctx.restore();
-  const fy=H*(portrait?.688:.785),tokens=formulaTokens(s.formulaStage,s.unitInterval);ctx.save();if(s.formation>0&&s.formation<1){ctx.beginPath();ctx.rect(0,fy-S(110),W*smooth((s.formation-.4)/.6),S(245));ctx.clip()}if(s.crystal>.95)ctx.globalAlpha=.88+.12*Math.sin(t*2.4);
+  // Keep introductory mathematics on the photographed board until the classroom fades.
+  const fy=H*(portrait?.688:.785),tokens=formulaTokens(s.formulaStage,s.unitInterval);ctx.save();if(classroom)ctx.globalAlpha=classroomInfo.foregroundAlpha;if(s.formation>0&&s.formation<1){ctx.beginPath();ctx.rect(0,fy-S(110),W*smooth((s.formation-.4)/.6),S(245));ctx.clip()}if(s.crystal>.95)ctx.globalAlpha=.88+.12*Math.sin(t*2.4);
   if(portrait&&(s.formulaStage==='identity'||s.formulaStage==='unit')){equation(ctx,formulaTokens('sum-limit'),W*.46,fy-S(22),S(37),W*.75);equation(ctx,[{s:'= '},{s:'∫',up:'b',down:'a'},{s:' f(x) dx'}],W*.46,fy+S(85),S(43),W*.73)}else equation(ctx,tokens,W*(portrait?.46:.5),fy,S(portrait?43:45),W*(portrait?.76:.87));
   ctx.restore();
   const caption=s.signed?'上側は正、下側は負。定積分は符号付きの和。':s.caption;
