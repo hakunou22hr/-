@@ -7,7 +7,7 @@ try{
  const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];
  page.on('pageerror',e=>errors.push(e.message));
  await page.goto(new URL('materials/infinite-area-cinema/',base).href,{waitUntil:'domcontentloaded'});
- if(!await page.getByText('GEOMETRIC MIST EDITION 05 / SHORT FILM',{exact:true}).count())throw Error('Old lesson edition');
+ if(!await page.getByText('FRACTAL MIST EDITION 06 / SHORT FILM',{exact:true}).count())throw Error('Old lesson edition');
  const video=page.locator('#short-film');
  await page.waitForFunction(()=>document.querySelector('video')?.readyState>=1,null,{timeout:45000});
  const metadata=await video.evaluate(v=>({duration:v.duration,width:v.videoWidth,height:v.videoHeight}));
@@ -26,8 +26,9 @@ try{
  const href=await page.locator('a[download]').getAttribute('href');
  const response=await page.request.get(new URL(href,page.url()).href);
  if(!response.ok()||!response.headers()['content-type']?.includes('video/mp4'))throw Error('Download is not an MP4');
+ const thunderResponse=await page.request.get(new URL('../../media/infinite-area/thunder-preview.wav',page.url()).href);if(!thunderResponse.ok()||(await thunderResponse.body()).subarray(0,4).toString()!=='RIFF')throw Error('Preview thunder missing');
  const manifestResponse=await page.request.get(new URL('../../media/infinite-area/media-manifest.json',page.url()).href);
- const manifest=await manifestResponse.json();if(manifest.edition!=='infinite-area-cinema-v5')throw Error('Old video manifest');
+ const manifest=await manifestResponse.json();if(manifest.edition!=='infinite-area-cinema-v6')throw Error('Old video manifest');
  const expected=manifest.files.find(f=>f.duration===30).sha256;
  if(createHash('sha256').update(await response.body()).digest('hex')!==expected)throw Error('Downloaded video differs from new master');
  await page.setViewportSize({width:390,height:844});

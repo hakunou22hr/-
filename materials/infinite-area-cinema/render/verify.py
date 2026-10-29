@@ -1,6 +1,7 @@
 import subprocess,json,hashlib,sys
+import numpy as np
 from pathlib import Path
-root=Path(sys.argv[1]);files=[]
+root=Path(sys.argv[1]);files=[];schedule=json.loads((Path(__file__).parent/'storm.json').read_text())
 for duration in (30,120):
  p=root/f'infinite-area-{duration}s.mp4'
  probe=json.loads(subprocess.check_output(['ffprobe','-v','error','-count_frames','-show_streams','-show_format','-of','json',str(p)]))
@@ -13,8 +14,9 @@ for duration in (30,120):
  assert abs(float(a['duration'])-duration)<.05
  data=p.read_bytes();assert data.find(b'moov')<data.find(b'mdat')
  subprocess.run(['ffmpeg','-v','error','-i',str(p),'-f','null','-'],check=True)
- files.append(dict(file=p.name,duration=duration,width=1280,height=720,fps=24,frames=duration*24,audio='aac',bytes=p.stat().st_size,sha256=hashlib.sha256(p.read_bytes()).hexdigest()))
+ decoded=np.frombuffer(subprocess.check_output(['ffmpeg','-v','error','-i',str(p),'-vn','-f','f32le','-acodec','pcm_f32le','pipe:1']),dtype='<f4');peak=float(np.max(abs(decoded)));assert peak<.98
+ files.append(dict(thunderEvents=len(schedule['thunder'][str(duration)]),decodedAudioPeak=peak,file=p.name,duration=duration,width=1280,height=720,fps=24,frames=duration*24,audio='aac',bytes=p.stat().st_size,sha256=hashlib.sha256(p.read_bytes()).hexdigest()))
 for n in (1,4,16,256):
  actual=sum((2+3*k/n)**2*3/n for k in range(1,n+1));assert abs(actual-(39+31.5/n+4.5/n**2))<1e-10
-(root/'media-manifest.json').write_text(json.dumps(dict(edition='infinite-area-cinema-v5',files=files,fullDecode=True,rightEndpointFormulaVerified=True),indent=2)+'\n')
+(root/'media-manifest.json').write_text(json.dumps(dict(edition='infinite-area-cinema-v6',files=files,fullDecode=True,rightEndpointFormulaVerified=True),indent=2)+'\n')
 print('Both films: duration, frame count, audio, full decode and mathematics verified')

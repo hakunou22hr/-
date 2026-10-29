@@ -4,7 +4,7 @@ const {createCanvas,GlobalFonts,loadImage}=require(process.env.CANVAS_MODULE||'@
 const {spawn}=require('child_process'),{once}=require('events'),fs=require('fs'),path=require('path');
 GlobalFonts.registerFromPath('/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc','JP');
 GlobalFonts.registerFromPath('/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf','Math');
-const W=1280,H=720,FPS=24,D=Number(process.env.DURATION||120),out=path.resolve(process.env.OUTPUT||'work/infinite-area-v5');
+const W=1280,H=720,FPS=24,D=Number(process.env.DURATION||120),out=path.resolve(process.env.OUTPUT||'work/infinite-area-v6');
 if(![30,120].includes(D))throw Error('DURATION must be 30 or 120');fs.mkdirSync(out,{recursive:true});
 const C=createCanvas(W,H),c=C.getContext('2d'),R=createCanvas(W,H),r=R.getContext('2d');
 const F=createCanvas(W,H),fctx=F.getContext('2d'),G=createCanvas(W,H),gctx=G.getContext('2d');
@@ -87,11 +87,11 @@ function draw(realTime){let t=timeAt(realTime),shot=Math.max(0,original.findInde
  for(let n of ['sum','parts','integral','calc','answer'])images[n]=await loadImage(Buffer.from(fs.readFileSync(path.join(__dirname,'assets',n+'.png.b64'),'utf8').trim(),'base64'));
  images.environment=await loadImage(path.join(__dirname,'assets','environment.png'));storm=createStorm(W,H,D,images.environment);
  const samples=process.env.SAMPLE_TIMES?JSON.parse(process.env.SAMPLE_TIMES):(D===120?[4,10,22,38,53,66,84,102,114]:[1.25,1.5,3,5.5,9,11.15,13,13.7,16,19.15,21.5,25.5,27.1,28.5]);
- for(let t of samples){draw(t);fs.writeFileSync(path.join(out,`v5-${D}s-${t}.jpg`),C.toBuffer('image/jpeg',90))}
+ for(let t of samples){draw(t);fs.writeFileSync(path.join(out,`v6-${D}s-${t}.jpg`),C.toBuffer('image/jpeg',90))}
  if(process.argv.includes('--samples'))return;
  const start=Number(process.env.CLIP_START||0),end=Number(process.env.CLIP_END||D);
  const finalPath=process.env.VIDEO_OUT||path.join(out,`infinite-area-${D}s.mp4`),tempPath=finalPath.replace(/\.mp4$/,`.rendering-${process.pid}.mp4`);
  let args=['-hide_banner','-loglevel','error','-y','-f','rawvideo','-pixel_format','rgba','-video_size',`${W}x${H}`,'-framerate',String(FPS),'-i','pipe:0','-ss',String(start),'-i',path.join(out,`score-${D}.wav`),'-c:v','libx264','-preset','fast','-crf','24','-profile:v','high','-pix_fmt','yuv420p','-af','apad','-c:a','aac','-b:a','128k','-movflags','+faststart','-t',String(end-start),tempPath];
  const ff=spawn('ffmpeg',args,{stdio:['pipe','ignore','pipe']});let err='';ff.stderr.on('data',b=>err=(err+b).slice(-6000));ff.stdin.on('error',()=>{});let done=once(ff,'close');const began=Date.now();
- for(let i=Math.round(start*FPS);i<Math.round(end*FPS);i++){draw(i/FPS);if(ff.exitCode!==null)throw Error(err);if(!ff.stdin.write(C.data()))await once(ff.stdin,'drain');if(i%240===0)console.log(`v5 ${D}s ${i}/${D*FPS} | ${((Date.now()-began)/1000).toFixed(1)}s`)}ff.stdin.end();let [code]=await done;if(code)throw Error(err);fs.renameSync(tempPath,finalPath);console.log('DONE');
+ for(let i=Math.round(start*FPS);i<Math.round(end*FPS);i++){draw(i/FPS);if(ff.exitCode!==null)throw Error(err);if(!ff.stdin.write(C.data()))await once(ff.stdin,'drain');if(i%240===0)console.log(`v6 ${D}s ${i}/${D*FPS} | ${((Date.now()-began)/1000).toFixed(1)}s`)}ff.stdin.end();let [code]=await done;if(code)throw Error(err);fs.renameSync(tempPath,finalPath);console.log('DONE');
 })();

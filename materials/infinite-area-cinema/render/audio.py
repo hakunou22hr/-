@@ -17,12 +17,16 @@ for duration in ([int(sys.argv[2])] if len(sys.argv)>2 else [30,120]):
   start=real_at(story,duration);q=t-start;env=np.exp(-np.maximum(q,0)*3)*(q>=0)
   hit=.09*env*np.sin(2*np.pi*(48*q+22*(1-np.exp(-np.maximum(q,0)*5))))
   a[:,0]+=hit;a[:,1]+=hit
- for event in schedule['strikes']:
-  start=real_at(event['t'],duration)+.22
-  n=int(sr*3.4);q=np.arange(n)/sr;raw=rng.standard_normal(n);freq=np.fft.rfftfreq(n,1/sr)
+ for event in schedule['thunder'][str(duration)]:
+  start=event['time']+.22
+  n=int(sr*4.8);q=np.arange(n)/sr;raw=rng.standard_normal(n);freq=np.fft.rfftfreq(n,1/sr)
   spectrum=np.fft.rfft(raw);low=np.fft.irfft(spectrum/(1+(freq/150)**2),n=n);low/=max(np.std(low),1e-8)
-  crack=raw*.1*np.exp(-q*24);roll=low*.095*(1-np.exp(-q*40))*np.exp(-q*.95)*(1+.35*np.sin(q*17))
-  thunder=roll+crack;offset=int(start*sr);count=min(n,len(t)-offset)
+  crack=raw*.13*np.exp(-q*18)
+  roll=low*.15*(1-np.exp(-q*45))*np.exp(-q*.70)*(1+.38*np.sin(q*13)+.16*np.sin(q*29))
+  mid=np.fft.irfft(spectrum/(1+(freq/750)**4),n=n);mid/=max(np.std(mid),1e-8)
+  body=mid*.035*(1-np.exp(-q*24))*np.exp(-q*1.3)
+  sub=.035*np.sin(2*np.pi*(31*q+5*(1-np.exp(-q*3))))*(1-np.exp(-q*35))*np.exp(-q*.9)
+  thunder=(roll+crack+body+sub)*event['strength'];offset=int(start*sr);count=min(n,len(t)-offset)
   if count<=0:continue
   pan=event['x'];left=np.sqrt(1-pan*.75);right=np.sqrt(.25+pan*.75)
   a[offset:offset+count,0]+=thunder[:count]*left;a[offset:offset+count,1]+=thunder[:count]*right
@@ -33,7 +37,7 @@ for duration in ([int(sys.argv[2])] if len(sys.argv)>2 else [30,120]):
  for story,freq in [(47,440),(49,554.365),(51,659.255),(67,440),(67,554.365),(67,659.255)]:
   q=t-real_at(story,duration);tone=.028*np.exp(-np.maximum(q,0)/3)*(q>=0)*np.sin(2*np.pi*freq*q)
   a[:,0]+=tone;a[:,1]+=tone
- a=np.tanh(a*1.4)*.83*np.minimum(t/.8,1)[:,None]*np.minimum((duration-t)/1.2,1)[:,None]
+ a=np.tanh(a*1.9)*.88*np.minimum(t/.8,1)[:,None]*np.minimum((duration-t)/1.2,1)[:,None]
  with wave.open(str(out/f'score-{duration}.wav'),'wb') as w:
   w.setnchannels(2);w.setsampwidth(2);w.setframerate(sr);w.writeframes((a*32767).astype('<i2').tobytes())
- print(f'{duration}s stereo score with {len(schedule["strikes"])} synchronized thunder events')
+ print(f'{duration}s stereo score with {len(schedule["thunder"][str(duration)])} synchronized thunder events')

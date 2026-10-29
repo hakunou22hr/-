@@ -1,17 +1,17 @@
 {
-  "edition": "infinite-area-cinema-v5",
+  "edition": "infinite-area-cinema-v6",
   "inputCausesPixelChanges": {
     "gather": {
-      "mean": 1.1956799768518518,
-      "changed": 6717
+      "mean": 2.7012225115740742,
+      "changed": 22644
     },
     "vortex": {
-      "mean": 1.6618373842592593,
-      "changed": 10129
+      "mean": 3.7297800925925926,
+      "changed": 31317
     },
     "wave": {
-      "mean": 0.44706452546296294,
-      "changed": 1941
+      "mean": 1.0465104166666668,
+      "changed": 7936
     }
   },
   "resetRestoresBaseline": true,
