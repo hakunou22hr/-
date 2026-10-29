@@ -20,10 +20,10 @@
 
 ```sh
 npm install --prefix materials/infinite-area-cinema/render
-python3 materials/infinite-area-cinema/render/audio.py work/infinite-area-v4
+python3 materials/infinite-area-cinema/render/audio.py work/infinite-area-v5
 DURATION=120 node materials/infinite-area-cinema/render/render.cjs
 DURATION=30 node materials/infinite-area-cinema/render/render.cjs
-python3 materials/infinite-area-cinema/render/verify.py work/infinite-area-v4
+python3 materials/infinite-area-cinema/render/verify.py work/infinite-area-v5
 ```
 
 数式はMatplotlibで正確に組版した透過PNGをBase64テキストで保持する。`assets/*.png.b64` をレンダラーが直接読み込む。
@@ -51,3 +51,9 @@ python3 materials/infinite-area-cinema/render/verify.py work/infinite-area-v4
 空の画像変形を撤去。`effects-core.js` が、煙の発生・風の力・拡散・冷却・消散、火花の放物運動、爆発と衝撃波を描く。写真を使うのは平面の床だけ。動画と操作プレビューは同じ粒子エンジンを使う。
 
 ページの「吹き込み・放電・爆発」は入力位置と時刻から新しい演出を発生させる。分割数スライダーは正しい右端和を再計算して吹き込みを発生させる。リセットで手動イベントを取り除く。MP4は同じ演出を時系列に収録した映像で、操作プレビューと区別して案内する。v3で確認済みのステレオ雷鳴は変更しない。
+
+## 幾何学的な煙の映画版 v5
+
+煙が立ち込める濃紺の空間と反射床に戻し、曲線・点群・薄い網目の立体波面を透視投影する。左右の煙に沿う面がねじれ、等高線上を光が伝わり、細い軌跡が面からほどける。元画像の画素をゆがませる処理、粒子の吹き込み、爆発、火花、衝撃リングは使用しない。
+
+操作は「流れを集める・光の波・渦をつくる」。入力位置と時刻が3D頂点へ作用する。数学の図形を背後の幾何学から区別し、中央は発光を抑える。動画の遠雷と音楽は承認済みの音声を維持。操作時の音は穏やかな共鳴音へ変更する。

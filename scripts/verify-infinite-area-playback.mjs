@@ -7,7 +7,7 @@ try{
  const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];
  page.on('pageerror',e=>errors.push(e.message));
  await page.goto(new URL('materials/infinite-area-cinema/',base).href,{waitUntil:'domcontentloaded'});
- if(!await page.getByText('PARTICLE EFFECTS EDITION 04 / SHORT FILM',{exact:true}).count())throw Error('Old lesson edition');
+ if(!await page.getByText('GEOMETRIC MIST EDITION 05 / SHORT FILM',{exact:true}).count())throw Error('Old lesson edition');
  const video=page.locator('#short-film');
  await page.waitForFunction(()=>document.querySelector('video')?.readyState>=1,null,{timeout:45000});
  const metadata=await video.evaluate(v=>({duration:v.duration,width:v.videoWidth,height:v.videoHeight}));
@@ -19,7 +19,7 @@ try{
  await page.waitForFunction(()=>document.querySelector('video').ended);
  const stage=page.locator('#effects-stage');await stage.scrollIntoViewIfNeeded();
  await page.waitForFunction(()=>document.querySelector('#effects-stage').dataset.ready==='true');
- for(const type of ['wind','lightning','explosion']){const before=Number(await stage.getAttribute('data-events'));await page.locator(`[data-effect="${type}"]`).click();if(Number(await stage.getAttribute('data-events'))!==before+1||await stage.getAttribute('data-last-effect')!==type)throw Error('Effect does not respond: '+type)}
+ for(const type of ['gather','vortex','wave']){const before=Number(await stage.getAttribute('data-events'));await page.locator(`[data-effect="${type}"]`).click();if(Number(await stage.getAttribute('data-events'))!==before+1||await stage.getAttribute('data-last-effect')!==type)throw Error('Effect does not respond: '+type)}
  await stage.click({position:{x:150,y:150}});if(Number(await stage.getAttribute('data-events'))!==4)throw Error('Pointer trigger');
  await page.locator('#effect-n').evaluate(el=>{el.value='3';el.dispatchEvent(new Event('input',{bubbles:true}))});if(await page.locator('#effect-n-value').textContent()!=='32')throw Error('Partition interaction');
  await page.locator('#effects-reset').click();if(await stage.getAttribute('data-events')!=='0')throw Error('Reset');
@@ -27,7 +27,7 @@ try{
  const response=await page.request.get(new URL(href,page.url()).href);
  if(!response.ok()||!response.headers()['content-type']?.includes('video/mp4'))throw Error('Download is not an MP4');
  const manifestResponse=await page.request.get(new URL('../../media/infinite-area/media-manifest.json',page.url()).href);
- const manifest=await manifestResponse.json();if(manifest.edition!=='infinite-area-cinema-v4')throw Error('Old video manifest');
+ const manifest=await manifestResponse.json();if(manifest.edition!=='infinite-area-cinema-v5')throw Error('Old video manifest');
  const expected=manifest.files.find(f=>f.duration===30).sha256;
  if(createHash('sha256').update(await response.body()).digest('hex')!==expected)throw Error('Downloaded video differs from new master');
  await page.setViewportSize({width:390,height:844});

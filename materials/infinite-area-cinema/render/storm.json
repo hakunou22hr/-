@@ -36,49 +36,42 @@
       "t": 3,
       "x": 0.15,
       "color": "blue",
-      "impact": "discharge",
       "y": 0.64
     },
     {
       "t": 10.8,
       "x": 0.88,
       "color": "violet",
-      "impact": "burst",
       "y": 0.64
     },
     {
       "t": 28.2,
       "x": 0.12,
       "color": "blue",
-      "impact": "burst",
       "y": 0.64
     },
     {
       "t": 34.2,
       "x": 0.87,
       "color": "violet",
-      "impact": "discharge",
       "y": 0.64
     },
     {
       "t": 40.2,
       "x": 0.1,
       "color": "blue",
-      "impact": "burst",
       "y": 0.64
     },
     {
       "t": 47.2,
       "x": 0.88,
       "color": "gold",
-      "impact": "burst",
       "y": 0.64
     },
     {
       "t": 67.1,
       "x": 0.14,
       "color": "gold",
-      "impact": "burst",
       "y": 0.64
     }
   ]
