@@ -1,5 +1,5 @@
 {
-  "edition": "infinite-area-cinema-v6",
+  "edition": "infinite-area-cinema-v7",
   "files": [
     {
       "thunderEvents": 24,
@@ -11,8 +11,8 @@
       "fps": 24,
       "frames": 720,
       "audio": "aac",
-      "bytes": 6430709,
-      "sha256": "ef6366705094d94a62c46713a2db5a11956105600d479636a32021d39d910d94"
+      "bytes": 7060612,
+      "sha256": "d846c803f868c663a1e063691e17167ba9d377f42986cf5fa86f42486432b59a"
     },
     {
       "thunderEvents": 84,
@@ -24,8 +24,8 @@
       "fps": 24,
       "frames": 2880,
       "audio": "aac",
-      "bytes": 23890871,
-      "sha256": "c9e19775debdfcf915dda8dac25b11f9ded6e12371ca8d4f7ffa2c58dcfba4b9"
+      "bytes": 26418058,
+      "sha256": "5562b3d0571b44bd5a52d0e8ad8b393789a3d32404a727747d4235d8b912c2d8"
     }
   ],
   "fullDecode": true,

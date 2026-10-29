@@ -7,7 +7,7 @@
  function create(W,H,makeCanvas,atmosphere,schedule,duration=30){
   const original=schedule.storyCuts,cuts=schedule.editions[String(duration)];
   function realAt(t){let i=original.findIndex((v,j)=>j&&t<v)-1;if(i<0)i=6;return cuts[i]+(t-original[i])/(original[i+1]-original[i])*(cuts[i+1]-cuts[i])}
-  const strikes=(schedule.thunder?.[String(duration)]||schedule.strikes).map((e,i)=>({...e,type:'wave',real:e.time??realAt(e.t),y:e.y??.64,seed:i+30,rgb:palette[e.color]})),manual=[],layer=makeCanvas(W,H),lc=layer.getContext('2d');let serial=200;
+  const strikes=(schedule.thunder?.[String(duration)]||schedule.strikes).map((e,i)=>({...e,type:'wave',real:e.time??realAt(e.t),y:e.y??.64,seed:i+30,rgb:palette[e.color]})),manual=[],layer=makeCanvas(W,H),lc=layer.getContext('2d'),lightning=makeCanvas(W,H),bc=lightning.getContext('2d');let serial=200;
   function trigger(type,time,x=.5,y=.5){let e={type,real:time,x:clamp(x,.04,.96),y:clamp(y,.1,.8),seed:serial++,rgb:type==='gather'?palette.gold:palette.blue};manual.push(e);if(manual.length>64)manual.shift();return e}
   function glow(ctx,x,y,rx,ry,rgb,a){if(a<.001)return;ctx.save();ctx.translate(x,y);ctx.scale(rx,ry);let g=ctx.createRadialGradient(0,0,0,0,0,1);g.addColorStop(0,`rgba(${rgb},${clamp(a)})`);g.addColorStop(1,'transparent');ctx.fillStyle=g;ctx.fillRect(-1,-1,2,2);ctx.restore()}
   function render(ctx,time,story=22,options={}){
@@ -26,7 +26,8 @@
    }return out}
    function point(side,u,b){let theta=u*4.7+time*.18+side*.9,width=1.05+2.1*u,fractal=.30*Math.sin(u*10+time*.24+b)+.14*Math.sin(u*23-time*.36+b*2)+.065*Math.sin(u*51+time*.48+b*4),x=side*(6.9-1.15*u)+Math.sin(u*7-time*.34+side)*(.32+u*.55)+b*width*Math.cos(theta)+Math.sin(b*1.8+theta)*width*.32+fractal,y=.12+u*8.3+.20*Math.sin(u*13+time*.42+b*2)+fractal*.22,z=Math.sin(u*5-time*.25+side)*1.15+b*width*Math.sin(theta)+Math.cos(b*1.8+theta)*width*.40+fractal*.55;return deform([x,y,z])}
    function path(ct,pts){ct.beginPath();pts.forEach((p,i)=>i?ct.lineTo(p[0],p[1]):ct.moveTo(p[0],p[1]))}
-   function poly(pts,col,a,width=.7,blur=0){let center=pts[Math.floor(pts.length/2)];lc.strokeStyle=`rgba(${col},${a*protect(center)})`;lc.lineWidth=width;lc.shadowColor=`rgb(${col})`;lc.shadowBlur=blur;path(lc,pts);lc.stroke();lc.shadowBlur=0}
+   const lightningEnergy=events.filter(e=>e.type==='wave').reduce((sum,e)=>sum+Math.exp(-Math.pow((time-e.real-.12)/.09,2))*.7,0);
+   function poly(pts,col,a,width=.7,blur=0){let center=pts[Math.floor(pts.length/2)];lc.strokeStyle=`rgba(${col},${clamp(a*(1+lightningEnergy))*protect(center)})`;lc.lineWidth=width;lc.shadowColor=`rgb(${col})`;lc.shadowBlur=blur;path(lc,pts);lc.stroke();lc.shadowBlur=0}
    lc.clearRect(0,0,W,H);
    for(const side of [-1,1]){
     const rows=49,cols=21,grid=[];for(let i=0;i<rows;i++){let row=[];for(let j=0;j<cols;j++)row.push(project(point(side,i/(rows-1),j/(cols-1)*2-1)));grid.push(row)}
@@ -46,6 +47,30 @@
    ctx.drawImage(layer,0,0);ctx.save();ctx.beginPath();ctx.rect(0,H*.67,W,H*.33);ctx.clip();ctx.globalAlpha=.17;ctx.translate(0,H*1.02);ctx.scale(1,-.35);ctx.drawImage(layer,0,0);ctx.restore();
    for(let i=0;i<190;i++){let u=(time*.035+rand(i+55))%1,side=i%2?1:-1,v=point(side,u,(rand(i+11)-.5)*2.8),p=project(v),alpha=Math.sin(u*Math.PI)*.58*protect(p);ctx.fillStyle=`rgba(${base},${alpha})`;ctx.beginPath();ctx.arc(p[0],p[1],.7+rand(i+72),0,Math.PI*2);ctx.fill()}
    for(const e of events){let age=time-e.real,a=Math.sin(clamp(age/5.5)*Math.PI),x=e.x*W,y=e.y*H;glow(ctx,x,y,120+age*45,85+age*25,e.rgb,a*.07*(e.visualGain??1))}
+   // A growing leader, branching return stroke and reflected afterglow share
+   // the audio event clock. Only the scenery is illuminated; math is drawn later.
+   bc.clearRect(0,0,W,H);
+   for(const e of events){if(e.type!=='wave')continue;let age=time-e.real;if(age>1.45)continue;
+    const gain=e.visualGain??1,side=e.x<.5?-1:1,seed=e.seed*113,
+     flash=Math.exp(-Math.pow((age-.12)/.055,2))+.60*Math.exp(-Math.pow((age-.32)/.075,2)),
+     tail=age>.12?Math.exp(-(age-.12)*4.1):0,
+     energy=(flash*.82+tail*.22)*(.65+gain*.35),leader=clamp(age/.12),
+     sx=clamp(e.x+side*.025,.045,.955)*W,ex=clamp(e.x-side*.045,.055,.945)*W,
+     top=H*.055,bottom=H*.685,pts=[];
+    for(let j=0;j<=28;j++){let u=j/28;pts.push([mix(sx,ex,u)+(rand(seed+j)-.5)*W*.048*Math.sin(u*Math.PI),mix(top,bottom,u)])}
+    const visible=pts.slice(0,Math.max(2,Math.ceil(pts.length*leader)));
+    function stroke(points,alpha,width,blur){bc.strokeStyle=`rgba(153,212,255,${clamp(alpha)})`;bc.lineWidth=width;bc.lineJoin='round';bc.shadowColor='#78baff';bc.shadowBlur=blur;path(bc,points);bc.stroke();bc.shadowBlur=0}
+    stroke(visible,energy*.25,13,26);stroke(visible,energy*.80,3.4,9);
+    bc.strokeStyle=`rgba(235,249,255,${clamp(energy)})`;bc.lineWidth=1.25;path(bc,visible);bc.stroke();
+    for(let k=0;k<7;k++){let j=4+k*3;if(j>=visible.length)continue;let p=pts[j],branch=[p],dir=k%2?side:-side;
+     for(let m=1;m<=6;m++)branch.push([p[0]+dir*m*W*.010+(rand(seed+k*41+m)-.5)*W*.016,p[1]+m*H*.016+(rand(seed+k*71+m)-.5)*H*.018]);
+     stroke(branch,energy*.60,1.05,5)}
+    glow(ctx,sx,H*.22,W*.30,H*.44,palette.blue,flash*.14);
+    glow(ctx,ex,bottom,W*.17,H*.13,palette.blue,energy*.22);
+    // Rippled, elongated light on the wet floor follows the same strike.
+    for(let k=0;k<13;k++){let y=bottom+k*H*.019,w=(12+k*5)*(1+rand(seed+k));bc.strokeStyle=`rgba(143,209,255,${energy*.34*(1-k/14)})`;bc.lineWidth=1.2;bc.beginPath();bc.moveTo(ex-w,y);bc.lineTo(ex+w,y+Math.sin(k)*2);bc.stroke()}
+   }
+   ctx.drawImage(lightning,0,0);ctx.save();ctx.beginPath();ctx.rect(0,H*.69,W,H*.31);ctx.clip();ctx.globalAlpha=.32;ctx.translate(0,H*1.12);ctx.scale(1,-.6);ctx.drawImage(lightning,0,0);ctx.restore();
    return {manualEvents:manual.length,activeEvents:events.length};
   }
   return {render,trigger,strikes,realAt,reset(){manual.length=0}};

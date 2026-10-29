@@ -1,18 +1,22 @@
 {
-  "edition": "infinite-area-cinema-v6",
+  "edition": "infinite-area-cinema-v7",
   "inputCausesPixelChanges": {
     "gather": {
-      "mean": 2.7012225115740742,
+      "mean": 2.7011140046296296,
       "changed": 22644
     },
     "vortex": {
-      "mean": 3.7297800925925926,
+      "mean": 3.729597800925926,
       "changed": 31317
     },
     "wave": {
-      "mean": 1.0465104166666668,
-      "changed": 7936
+      "mean": 1.0463859953703705,
+      "changed": 7935
     }
+  },
+  "lightningFlash": {
+    "mean": 2.909140625,
+    "changed": 16242
   },
   "resetRestoresBaseline": true,
   "skyImageWarping": false
