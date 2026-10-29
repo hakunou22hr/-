@@ -1,0 +1,29 @@
+import {chromium} from '/tmp/integral-browser-tools/node_modules/playwright/index.mjs';
+import {mkdir,writeFile} from 'node:fs/promises';
+const base=process.env.INFINITE_AREA_BASE_URL||'https://hakunou22hr.github.io/-/';
+const browser=await chromium.launch({args:['--no-sandbox']});
+try{
+ const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];
+ page.on('pageerror',e=>errors.push(e.message));
+ await page.goto(new URL('materials/infinite-area-cinema/',base).href,{waitUntil:'domcontentloaded'});
+ const video=page.locator('#short-film');
+ await page.waitForFunction(()=>document.querySelector('video')?.readyState>=1,null,{timeout:45000});
+ const metadata=await video.evaluate(v=>({duration:v.duration,width:v.videoWidth,height:v.videoHeight}));
+ if(Math.abs(metadata.duration-30)>.05||metadata.width!==1280||metadata.height!==720)throw Error(JSON.stringify(metadata));
+ await video.evaluate(v=>{v.muted=true;return v.play()});
+ await page.waitForFunction(()=>document.querySelector('video').currentTime>.5);
+ await video.evaluate(v=>new Promise(resolve=>{v.pause();v.addEventListener('seeked',resolve,{once:true});v.currentTime=28}));
+ await video.evaluate(v=>{v.playbackRate=2;return v.play()});
+ await page.waitForFunction(()=>document.querySelector('video').ended);
+ const href=await page.locator('a[download]').getAttribute('href');
+ const response=await page.request.get(new URL(href,page.url()).href);
+ if(!response.ok()||!response.headers()['content-type']?.includes('video/mp4'))throw Error('Download is not an MP4');
+ await page.setViewportSize({width:390,height:844});
+ if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw Error('Mobile overflow');
+ await page.goto(base,{waitUntil:'domcontentloaded'});
+ if(await page.locator('a[href*="infinite-area-cinema"]').count()<1)throw Error('Library card missing');
+ if(errors.length)throw Error(errors.join('\n'));
+ await mkdir('work/infinite-area-check',{recursive:true});
+ await writeFile('work/infinite-area-check/playback.json',JSON.stringify({base,metadata,played:true,seeked:true,ended:true,download:true,mobileOverflow:false,libraryRegistered:true,errors},null,2));
+ console.log('Infinite-area film playback, download and library card verified');
+}finally{await browser.close()}
