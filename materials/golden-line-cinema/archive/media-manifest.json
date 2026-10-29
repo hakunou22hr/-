@@ -1,6 +1,6 @@
 {
   "title": "円の領域　x+y=K　点と直線の距離",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "files": [
     {
       "kind": "original",
@@ -10,8 +10,8 @@
       "height": 1080,
       "fps": "30/1",
       "frames": 2700,
-      "bytes": 55903309,
-      "sha256": "6ac0f219ab5b9a2da0ffe76616bc31c7bf11769e54b85beef935243a8e1dba74"
+      "bytes": 57885784,
+      "sha256": "1c1ca098d732b1b76c711300d9e42f0475ad0589b73fb94aa3cdcf2c9fbadf8d"
     },
     {
       "kind": "playback",
@@ -21,9 +21,10 @@
       "height": 720,
       "fps": "30/1",
       "frames": 2700,
-      "bytes": 16126411,
-      "sha256": "7a5bf0e24e1561ba77bf236df9298226abc490e5815f1ab00213096aa73c7fe5"
+      "bytes": 16747756,
+      "sha256": "5c84d02c96d4886317b380c83f4288c7c7a81615d42db28c523740f0b46d4dd9"
     }
   ],
-  "videoTitle": "黄金の直線が暴く 最大値・最小値"
+  "videoTitle": "黄金の直線が暴く 最大値・最小値",
+  "revision": "最大値でもy切片(0,2√5)が見える構図"
 }

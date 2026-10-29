@@ -35,10 +35,12 @@ export function createWorld(w=1280,h=720,view={}){
  const plate=add(new THREE.PlaneGeometry(9.3,8.7),makeMat('#06101e',.65),graph);plate.position.z=-.15;
  const gridPts=[];for(let i=-4;i<=4;i++){gridPts.push(new THREE.Vector3(i,-4.2,-.08),new THREE.Vector3(i,4.2,-.08));gridPts.push(new THREE.Vector3(-4.4,i,-.08),new THREE.Vector3(4.4,i,-.08));}
  const grid=new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(gridPts),new THREE.LineBasicMaterial({color:'#497890',transparent:true,opacity:.25}));graph.add(grid);
+ const upperGrid=new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(5,-4.2,-.08),new THREE.Vector3(5,5.6,-.08),new THREE.Vector3(-4.4,5,-.08),new THREE.Vector3(5.4,5,-.08)]),grid.material.clone());upperGrid.visible=false;graph.add(upperGrid);
  const lineObject=(points,color,opacity=1,parent=graph)=>{const obj=new THREE.Line(new THREE.BufferGeometry().setFromPoints(points.map(p=>new THREE.Vector3(...p))),new THREE.LineBasicMaterial({color,transparent:true,opacity,toneMapped:false,depthWrite:false}));parent.add(obj);return obj;};
  const tube=(points,radius,color,opacity=1)=>{const path=new THREE.CatmullRomCurve3(points.map(p=>new THREE.Vector3(...p)));return add(new THREE.TubeGeometry(path,Math.max(1,points.length*2),radius,5,false),makeMat(color,opacity),graph);};
  const axisX=lineObject([[-4.4,0,0],[4.4,0,0]],ice,.8),axisY=lineObject([[0,-4.2,0],[0,4.2,0]],ice,.8);
- for(const [x,y,rot] of [[4.36,0,-Math.PI/2],[0,4.16,0]]){const m=add(new THREE.ConeGeometry(.048,.16,8),makeMat(ice),graph);m.position.set(x,y,.015);m.rotation.z=rot;}
+ const axisArrows=[];
+ for(const [x,y,rot] of [[4.36,0,-Math.PI/2],[0,4.16,0]]){const m=add(new THREE.ConeGeometry(.048,.16,8),makeMat(ice),graph);m.position.set(x,y,.015);m.rotation.z=rot;axisArrows.push(m);}
  const circlePts=Array.from({length:257},(_,i)=>[R*Math.cos(i/256*TAU),R*Math.sin(i/256*TAU),.04]);
  const circle=tube(circlePts,.012,new THREE.Color(1.15,1.65,2.05));
  const boundary=tube([[.4,4.2,.075],[4.3,-3.6,.075]],.018,ice);
@@ -48,19 +50,23 @@ export function createWorld(w=1280,h=720,view={}){
  const objective=lineObject([[-4,3,.14],[4,-5,.14]],gold);const goldTube=add(new THREE.CylinderGeometry(.018,.018,1,8),makeMat(gold),graph);
  const goldHalo=add(new THREE.CylinderGeometry(.052,.052,1,8),makeMat(new THREE.Color(1.5,.8,.15),.16),graph);
  const trail=Array.from({length:5},()=>lineObject([[-4,0,.12],[4,-8,.12]],gold,.06));
- function segment(k){const a=Math.max(-4.4,k-4.2),b=Math.min(4.4,k+4.2);return [[a,k-a,.16],[b,k-b,.16]];}
- const ghosts=[MIN,MAX].map(k=>lineObject(segment(k),gold,.28));
+ function frameFor(q){const fit=!portrait&&q.s>=4?(q.s===4?ease(q.u):1):0;return {fit,top:4.2+1.4*fit,right:4.4+fit};}
+ function segment(k,fit=0){const top=4.2+1.4*fit,right=4.4+fit,a=Math.max(-4.4,k-top),b=Math.min(right,k+4.2);return [[a,k-a,.16],[b,k-b,.16]];}
+ const ghosts=[MIN,MAX].map(k=>lineObject(segment(k,portrait?0:1),gold,.28));
  function glowPoint(color,size){const s=new THREE.Sprite(new THREE.SpriteMaterial({map:tex,color,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false,toneMapped:false}));s.scale.setScalar(size);graph.add(s);return s;}
  const vertices=[[1,3],[3,-1]].map(p=>{const s=glowPoint(ice,.18);s.position.set(...p,.2);return s;});
  const hit=glowPoint(gold,.5),hitCore=glowPoint(new THREE.Color(5,4,2),.13),star=glowPoint(gold,.3);star.scale.set(1.8,.025,1);
  const contacts=[glowPoint(gold,.22),glowPoint(gold,.22)];
+ // The y-intercept is a separate point on the axis, not a point of the region.
+ const yIntercept=glowPoint(gold,.32),yInterceptCore=glowPoint(new THREE.Color(3,2.6,1.5),.10);yIntercept.visible=yInterceptCore.visible=false;
+ const interceptGuide=lineObject([[0,0,.18],[0,0,.18]],gold,.2),interceptTick=lineObject([[-.11,0,.23],[.11,0,.23]],gold,.8);interceptGuide.visible=interceptTick.visible=false;
  const waves=Array.from({length:3},()=>add(new THREE.TorusGeometry(1,.009,4,96),makeMat(gold,.6),graph));
  const burstN=200,burstP=new Float32Array(burstN*3),burstG=new THREE.BufferGeometry();burstG.setAttribute('position',new THREE.BufferAttribute(burstP,3));
  const burst=new THREE.Points(burstG,new THREE.PointsMaterial({map:tex,size:.05,color:gold,transparent:true,opacity:.8,blending:THREE.AdditiveBlending,depthWrite:false,toneMapped:false}));graph.add(burst);
  const radius=new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,.17),new THREE.Vector3(...MAX_POINT,.17)]),new THREE.LineDashedMaterial({color:ice,dashSize:.1,gapSize:.09,transparent:true,opacity:.55}));radius.computeLineDistances();graph.add(radius);
  const n=Math.SQRT1_2,z=.19,P=MAX_POINT;const square=lineObject([[P[0]-n*.24,P[1]-n*.24,z],[P[0],P[1]-n*.48,z],[P[0]+n*.24,P[1]-n*.24,z]],ice,.7);
  let last;
- function render(q){last=q;const {t,s,u,k,portrait,min,max,impact}=q,rear=s>=2;
+ function render(q){last=q;const {t,s,u,k,portrait,min,max,impact}=q,rear=s>=2,{fit,top,right}=frameFor(q);
   // Slow fly-through at the opening; distinct dolly/orbit shots in the graph scenes.
   camera.position.set(s===0?Math.sin(t*.13)*.65:Math.sin(t*.07)*.16,s===0?.28*Math.cos(t*.1):.1*Math.sin(t*.11),s===0?23-ease(u)*1.2:22);camera.lookAt(0,0,-12);camera.updateMatrixWorld();
   hall.position.z=(t*(s===0?1.3:.42))%11;hall.rotation.y=Math.sin(t*.06)*.012;hall.visible=s<2;mirror.visible=true;
@@ -73,17 +79,24 @@ export function createWorld(w=1280,h=720,view={}){
   if(s===4){rotY=.16*Math.sin(u*Math.PI);rotX=.055*Math.sin(u*Math.PI);zoom=1+.035*Math.sin(u*Math.PI);}
   if(s===5){zoom=1.06-.04*ease(u);rotY=.025*Math.sin(u*Math.PI);}
   if(s===6){zoom=mix(1.03,.96,u);}
-  graph.visible=q.graph;if(portrait)zoom=1+(zoom-1)*.35;graph.position.set(portrait?0:6.5,portrait?-.9:-.15,portrait?1.2:0);graph.scale.setScalar((portrait?.90:1.56)*zoom);graph.rotation.set(rotX,rotY,0);graph.updateMatrixWorld(true);
+  graph.visible=q.graph;if(portrait)zoom=1+(zoom-1)*.35;graph.position.set(portrait?0:6.5+.5*fit,portrait?-.9:-.15-1.4*fit,portrait?1.2:0);graph.scale.setScalar((portrait?.90:1.56)*zoom*(1-.20*fit));graph.rotation.set(rotX,rotY,0);graph.updateMatrixWorld(true);
+  // Extend the actual graph as well as the view; k=2√5 is above the old y=4.2 crop.
+  axisX.geometry.setFromPoints([new THREE.Vector3(-4.4,0,.16*fit),new THREE.Vector3(right,0,.16*fit)]);axisY.geometry.setFromPoints([new THREE.Vector3(0,-4.2,.16*fit),new THREE.Vector3(0,top,.16*fit)]);axisArrows[0].position.x=right-.04;axisArrows[1].position.y=top-.04;axisArrows.forEach(a=>a.position.z=.015+.16*fit);
+  const extended=[];for(let i=-4;i<=4;i++){extended.push(new THREE.Vector3(i,-4.2,-.08),new THREE.Vector3(i,top,-.08));extended.push(new THREE.Vector3(-4.4,i,-.08),new THREE.Vector3(right,i,-.08));}grid.geometry.setFromPoints(extended);upperGrid.geometry.setFromPoints([new THREE.Vector3(5,-4.2,-.08),new THREE.Vector3(5,top,-.08),new THREE.Vector3(-4.4,5,-.08),new THREE.Vector3(right,5,-.08)]);upperGrid.visible=fit>.6;upperGrid.material.opacity=.25*ease((fit-.6)/.4);
+  plate.position.set(.5*fit,.7*fit,-.15);plate.scale.set(1+.09*fit,1+.16*fit,1);
+  yIntercept.visible=yInterceptCore.visible=interceptGuide.visible=interceptTick.visible=Boolean(!portrait&&s>=4&&q.objective);
+  if(yIntercept.visible){yIntercept.position.set(0,k,.16);yInterceptCore.position.copy(yIntercept.position);yIntercept.scale.setScalar(.30+.045*Math.sin(t*3));interceptGuide.geometry.setFromPoints([new THREE.Vector3(0,0,.16),new THREE.Vector3(0,k,.16)]);interceptTick.geometry.setFromPoints([new THREE.Vector3(-.11,k,.16),new THREE.Vector3(.11,k,.16)]);}
+  if(fit>0){const ax=(5-top)/2,bx=4.3+.3*fit,by=5-2*bx,scale=(bx-ax)/3.9;boundary.scale.set(scale,scale,1);boundary.position.set((ax+bx)/2-2.35*scale,(top+by)/2-.3*scale,0);}else{boundary.scale.set(1,1,1);boundary.position.set(0,0,0);}
   // Intro draws each boundary, then illuminates only the exact circular segment.
   const circleCount=circle.geometry.index.count;circle.geometry.setDrawRange(0,Math.floor(circleCount*ease(q.reveal*1.7)/3)*3);
   boundary.visible=q.reveal>.35;boundary.material.opacity=ease((q.reveal-.35)/.3);
   region.visible=q.reveal>.6;region.material.uniforms.time.value=t;region.material.uniforms.strength.value=ease((q.reveal-.6)/.3)*(1+impact*.5);
   arcEdge.visible=chord.visible=q.reveal>.72;arcEdge.material.opacity=chord.material.opacity=ease((q.reveal-.72)/.28);
   grid.material.opacity=.12+.14*q.reveal;axisX.material.opacity=axisY.material.opacity=.3+.55*q.reveal;vertices.forEach(v=>v.visible=q.reveal>.85);
-  const ps=segment(k).map(p=>new THREE.Vector3(...p));
+  const ps=segment(k,fit).map(p=>new THREE.Vector3(...p));
   objective.visible=goldTube.visible=goldHalo.visible=q.objective;
   if(q.objective){objective.geometry.setFromPoints(ps);for(const m of [goldTube,goldHalo]){m.position.copy(ps[0]).add(ps[1]).multiplyScalar(.5);m.scale.set(1,ps[0].distanceTo(ps[1]),1);m.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),ps[1].clone().sub(ps[0]).normalize());}}
-  for(let i=0;i<trail.length;i++){const obj=trail[i];obj.visible=q.objective&&!(min||max);obj.geometry.setFromPoints(segment(k-(i+1)*.045).map(p=>new THREE.Vector3(...p)));obj.material.opacity=.065*(1-i/5);}
+  for(let i=0;i<trail.length;i++){const obj=trail[i];obj.visible=q.objective&&!(min||max);obj.geometry.setFromPoints(segment(k-(i+1)*.045,fit).map(p=>new THREE.Vector3(...p)));obj.material.opacity=.065*(1-i/5);}
   contacts.forEach((m,i)=>{m.visible=Boolean(q.objective&&q.contacts[i]&&!min&&!max);m.scale.setScalar(.20+.04*Math.sin(t*2));if(q.contacts[i])m.position.set(...q.contacts[i],.21);});
   const active=min||max,point=max?MAX_POINT:MIN_POINT,age=portrait?t-(max?22:12):t-(max?74:48);
   hit.visible=hitCore.visible=star.visible=burst.visible=active;
@@ -98,6 +111,7 @@ export function createWorld(w=1280,h=720,view={}){
   const suspense=s===4?ease((u-.65)/.35):0;bloom.strength=.8+impact*.7-suspense*.12;scene.traverse(o=>{if(typeof o.visible!=='boolean')throw Error('Object visibility must be explicit: '+o.type);});composer.render();return labels(q);
  }
  function project(x,y,z=.22){const v=new THREE.Vector3(x,y,z);graph.localToWorld(v);v.project(camera);return [(v.x+1)*(portrait?540:960),(1-v.y)*(portrait?960:540)];}
- function labels(q=last){return {ticks:[-3,-2,-1,1,2,3].flatMap(i=>[{text:String(i),p:project(i,-.24),kind:'x'},{text:String(i),p:project(-.24,i),kind:'y'}]),min:project(...MIN_POINT),max:project(...MAX_POINT),other:project(1,3),origin:project(0,0),region:project(2.55,1.1),x:project(4.3,-.25),y:project(-.24,portrait?3.7:4.05)};}
+ function labels(q=last){const {fit,top,right}=frameFor(q),labelLift=ease(fit/.35),values=[-3,-2,-1,1,2,3,...(fit>.6?[4,5]:[])];return {ticks:values.flatMap(i=>[{text:String(i),p:project(i,-.24),kind:'x'},{text:String(i),p:project(-.24,i),kind:'y'}]),min:project(...MIN_POINT),max:project(...MAX_POINT),other:project(1,3),origin:project(0,0),region:project(2.55,1.1),x:project(right-.1+.4*labelLift,-.25),y:project(-.24,portrait?3.7:top-.15+.5*labelLift),yIntercept:!portrait&&q.s>=4&&q.objective?project(0,q.k,.16):null,axisTop:project(0,top,.16*fit),objectiveEndpoints:q.objective?segment(q.k,fit).map(p=>project(p[0],p[1],p[2])):[],plotBounds:{left:-4.4,right,bottom:-4.2,top}};}
+
  return {canvas:renderer.domElement,renderer,render,labels,dispose(){composer.dispose();renderer.dispose();}};
 }
