@@ -1,20 +1,42 @@
-[
-  {
-    "duration": 30,
-    "thunderEvents": 24,
-    "rms": 0.1828024026021816,
-    "previousRms": 0.04750440830684906,
-    "rmsRatio": 3.848114503845439,
-    "peak": 0.840087890625,
-    "stereo": true
-  },
-  {
-    "duration": 120,
-    "thunderEvents": 84,
-    "rms": 0.16557054005727773,
-    "previousRms": 0.03159015788412995,
-    "rmsRatio": 5.241206475275514,
-    "peak": 0.84283447265625,
-    "stereo": true
-  }
-]
+{
+  "edition": "infinite-area-cinema-v8",
+  "fullSkyDistribution": true,
+  "checks": [
+    {
+      "duration": 30,
+      "events": 24,
+      "horizontalBins": [
+        3,
+        6,
+        6,
+        5,
+        4
+      ],
+      "types": {
+        "ground": 10,
+        "crawler": 7,
+        "sheet": 7
+      },
+      "peak": 0.831878662109375,
+      "rms": 0.18334961814950368
+    },
+    {
+      "duration": 120,
+      "events": 84,
+      "horizontalBins": [
+        11,
+        21,
+        20,
+        19,
+        13
+      ],
+      "types": {
+        "ground": 36,
+        "crawler": 24,
+        "sheet": 24
+      },
+      "peak": 0.839263916015625,
+      "rms": 0.1660678038022542
+    }
+  ]
+}

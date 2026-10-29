@@ -1,9 +1,9 @@
 {
-  "edition": "infinite-area-cinema-v7",
+  "edition": "infinite-area-cinema-v8",
   "files": [
     {
       "thunderEvents": 24,
-      "decodedAudioPeak": 0.8596302270889282,
+      "decodedAudioPeak": 0.8606380224227905,
       "file": "infinite-area-30s.mp4",
       "duration": 30,
       "width": 1280,
@@ -11,12 +11,12 @@
       "fps": 24,
       "frames": 720,
       "audio": "aac",
-      "bytes": 7060612,
-      "sha256": "d846c803f868c663a1e063691e17167ba9d377f42986cf5fa86f42486432b59a"
+      "bytes": 7183128,
+      "sha256": "d114ab417c3349406010aab932d213d24df0487e5dc1195f048ee951e389090d"
     },
     {
       "thunderEvents": 84,
-      "decodedAudioPeak": 0.8959753513336182,
+      "decodedAudioPeak": 0.8845007419586182,
       "file": "infinite-area-120s.mp4",
       "duration": 120,
       "width": 1280,
@@ -24,8 +24,8 @@
       "fps": 24,
       "frames": 2880,
       "audio": "aac",
-      "bytes": 26418058,
-      "sha256": "5562b3d0571b44bd5a52d0e8ad8b393789a3d32404a727747d4235d8b912c2d8"
+      "bytes": 26953497,
+      "sha256": "778b75724538ca0501692d49e9e9da6964ca49826085cadedb6d32df15e99429"
     }
   ],
   "fullDecode": true,

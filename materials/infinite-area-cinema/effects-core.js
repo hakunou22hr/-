@@ -51,24 +51,36 @@
    // the audio event clock. Only the scenery is illuminated; math is drawn later.
    bc.clearRect(0,0,W,H);
    for(const e of events){if(e.type!=='wave')continue;let age=time-e.real;if(age>1.45)continue;
-    const gain=e.visualGain??1,side=e.x<.5?-1:1,seed=e.seed*113,
+    const gain=e.visualGain??1,seed=e.seed*113,kind=e.kind||'ground',depth=e.depth??.85,
      flash=Math.exp(-Math.pow((age-.12)/.055,2))+.60*Math.exp(-Math.pow((age-.32)/.075,2)),
      tail=age>.12?Math.exp(-(age-.12)*4.1):0,
-     energy=(flash*.82+tail*.22)*(.65+gain*.35),leader=clamp(age/.12),
-     sx=clamp(e.x+side*.025,.045,.955)*W,ex=clamp(e.x-side*.045,.055,.945)*W,
-     top=H*.055,bottom=H*.685,pts=[];
-    for(let j=0;j<=28;j++){let u=j/28;pts.push([mix(sx,ex,u)+(rand(seed+j)-.5)*W*.048*Math.sin(u*Math.PI),mix(top,bottom,u)])}
+     energy=(flash*.82+tail*.22)*(.65+gain*.35)*depth,leader=clamp(age/.12),
+     sx=e.x*W,top=(.045+rand(seed+88)*.12)*H,
+     ex=clamp(e.x+(rand(seed+91)-.5)*.32,.04,.96)*W,
+     bottom=kind==='ground'?H*(.62+depth*.065):H*(.16+rand(seed+92)*.23),pts=[];
+    // Sheet lightning lights a volume; crawlers travel across the upper sky.
+    glow(ctx,sx,(e.y??.28)*H,W*(kind==='sheet'?.48:.29),H*.39,palette.blue,flash*(kind==='sheet'?.29:.15)*depth);
+    glow(ctx,mix(sx,W*.5,.55),H*.22,W*.42,H*.24,palette.violet,flash*.07*depth);
+    if(kind==='sheet'){
+     for(let k=0;k<4;k++)glow(ctx,clamp(e.x+(rand(seed+k)-.5)*.46)*W,(.08+rand(seed+k+10)*.30)*H,W*.19,H*.16,palette.blue,flash*.12*depth);
+     glow(ctx,sx,H*.78,W*.28,H*.10,palette.blue,energy*.09);
+     continue;
+    }
+    const endX=kind==='crawler'?clamp(e.x+(e.x<.5?1:-1)*(.30+rand(seed+93)*.24),.03,.97)*W:ex;
+    for(let j=0;j<=36;j++){let u=j/36,
+     rough=(rand(seed+j)-.5)*.024+Math.sin(u*17+seed)*.012+Math.sin(u*43+seed*.7)*.006;
+     pts.push([mix(sx,endX,u)+(kind==='ground'?rough*W:Math.sin(u*8+seed)*W*.014),mix(top,bottom,u)+(kind==='crawler'?rough*H*2:Math.sin(u*13+seed)*H*.008)])}
     const visible=pts.slice(0,Math.max(2,Math.ceil(pts.length*leader)));
     function stroke(points,alpha,width,blur){bc.strokeStyle=`rgba(153,212,255,${clamp(alpha)})`;bc.lineWidth=width;bc.lineJoin='round';bc.shadowColor='#78baff';bc.shadowBlur=blur;path(bc,points);bc.stroke();bc.shadowBlur=0}
-    stroke(visible,energy*.25,13,26);stroke(visible,energy*.80,3.4,9);
-    bc.strokeStyle=`rgba(235,249,255,${clamp(energy)})`;bc.lineWidth=1.25;path(bc,visible);bc.stroke();
-    for(let k=0;k<7;k++){let j=4+k*3;if(j>=visible.length)continue;let p=pts[j],branch=[p],dir=k%2?side:-side;
-     for(let m=1;m<=6;m++)branch.push([p[0]+dir*m*W*.010+(rand(seed+k*41+m)-.5)*W*.016,p[1]+m*H*.016+(rand(seed+k*71+m)-.5)*H*.018]);
-     stroke(branch,energy*.60,1.05,5)}
-    glow(ctx,sx,H*.22,W*.30,H*.44,palette.blue,flash*.14);
-    glow(ctx,ex,bottom,W*.17,H*.13,palette.blue,energy*.22);
-    // Rippled, elongated light on the wet floor follows the same strike.
-    for(let k=0;k<13;k++){let y=bottom+k*H*.019,w=(12+k*5)*(1+rand(seed+k));bc.strokeStyle=`rgba(143,209,255,${energy*.34*(1-k/14)})`;bc.lineWidth=1.2;bc.beginPath();bc.moveTo(ex-w,y);bc.lineTo(ex+w,y+Math.sin(k)*2);bc.stroke()}
+    stroke(visible,energy*.25,10*depth,22);stroke(visible,energy*.80,2.8*depth,8);
+    bc.strokeStyle=`rgba(235,249,255,${clamp(energy)})`;bc.lineWidth=.7+depth*.6;path(bc,visible);bc.stroke();
+    for(let k=0;k<8;k++){let j=3+k*4;if(j>=visible.length)continue;let p=pts[j],branch=[p],dir=rand(seed+k*33)>.5?1:-1;
+     for(let m=1;m<=7;m++)branch.push([p[0]+dir*m*W*(.006+rand(seed+k)*.009)+(rand(seed+k*41+m)-.5)*W*.018,p[1]+m*H*(kind==='crawler'?.009:.014)+(rand(seed+k*71+m)-.5)*H*.020]);
+     stroke(branch,energy*.52,.6+depth*.5,4)}
+    glow(ctx,endX,bottom,W*.14,H*.10,palette.blue,energy*(kind==='ground'?.21:.08));
+    // Broad sky flashes and ground strikes both produce wet-floor reflections.
+    for(let k=0;k<13;k++){let y=H*.69+k*H*.019,w=(10+k*5)*(1+rand(seed+k));bc.strokeStyle=`rgba(143,209,255,${energy*(kind==='ground'?.34:.15)*(1-k/14)})`;bc.lineWidth=1.2;bc.beginPath();bc.moveTo(endX-w,y);bc.lineTo(endX+w,y+Math.sin(k)*2);bc.stroke()}
+
    }
    ctx.drawImage(lightning,0,0);ctx.save();ctx.beginPath();ctx.rect(0,H*.69,W,H*.31);ctx.clip();ctx.globalAlpha=.32;ctx.translate(0,H*1.12);ctx.scale(1,-.6);ctx.drawImage(lightning,0,0);ctx.restore();
    return {manualEvents:manual.length,activeEvents:events.length};

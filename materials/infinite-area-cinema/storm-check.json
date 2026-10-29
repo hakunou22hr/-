@@ -1,5 +1,5 @@
 {
-  "edition": "infinite-area-cinema-v7",
+  "edition": "infinite-area-cinema-v8",
   "inputCausesPixelChanges": {
     "gather": {
       "mean": 2.7011140046296296,
@@ -15,8 +15,8 @@
     }
   },
   "lightningFlash": {
-    "mean": 2.909140625,
-    "changed": 16242
+    "mean": 2.8038035300925928,
+    "changed": 13566
   },
   "resetRestoresBaseline": true,
   "skyImageWarping": false
