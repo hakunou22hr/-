@@ -1,6 +1,6 @@
 {
-  "title": "黄金の直線が暴く 最大値・最小値",
-  "version": "2.1.0",
+  "title": "円の領域　x+y=K　点と直線の距離",
+  "version": "2.1.1",
   "files": [
     {
       "kind": "original",
@@ -24,5 +24,6 @@
       "bytes": 16126411,
       "sha256": "7a5bf0e24e1561ba77bf236df9298226abc490e5815f1ab00213096aa73c7fe5"
     }
-  ]
+  ],
+  "videoTitle": "黄金の直線が暴く 最大値・最小値"
 }
