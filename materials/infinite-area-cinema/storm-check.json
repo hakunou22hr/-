@@ -1,0 +1,16 @@
+{
+  "edition": "infinite-area-cinema-v3",
+  "fixedCameraSkyChange": 18.055305788702942,
+  "cloudFlashChange": 51.23442489047301,
+  "floorWaveChange": 9.184934895833333,
+  "flashTimes30s": [
+    1.2,
+    4.300000000000001,
+    11.08421052631579,
+    13.610526315789475,
+    16.13684210526316,
+    19.083333333333336,
+    27.037499999999998
+  ],
+  "thunderDelaySeconds": 0.22
+}

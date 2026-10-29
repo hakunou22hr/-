@@ -1,10 +1,10 @@
-// Cinematic edition v2: atmospheric plate, a moving perspective camera,
+// Dynamic storm edition v3: atmospheric plate, a moving perspective camera,
 // projected planar mathematics, floor reflections, layered fog and light.
 const {createCanvas,GlobalFonts,loadImage}=require(process.env.CANVAS_MODULE||'@napi-rs/canvas');
 const {spawn}=require('child_process'),{once}=require('events'),fs=require('fs'),path=require('path');
 GlobalFonts.registerFromPath('/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc','JP');
 GlobalFonts.registerFromPath('/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf','Math');
-const W=1280,H=720,FPS=24,D=Number(process.env.DURATION||120),out=path.resolve(process.env.OUTPUT||'work/infinite-area-v2');
+const W=1280,H=720,FPS=24,D=Number(process.env.DURATION||120),out=path.resolve(process.env.OUTPUT||'work/infinite-area-v3');
 if(![30,120].includes(D))throw Error('DURATION must be 30 or 120');fs.mkdirSync(out,{recursive:true});
 const C=createCanvas(W,H),c=C.getContext('2d'),R=createCanvas(W,H),r=R.getContext('2d');
 const F=createCanvas(W,H),fctx=F.getContext('2d'),G=createCanvas(W,H),gctx=G.getContext('2d');
@@ -16,23 +16,10 @@ function timeAt(t){let i=cuts.findIndex((v,j)=>j>0&&t<v)-1;if(i<0)i=6;return ori
 function shape(ctx,pts,close=false){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(...p):ctx.moveTo(...p));if(close)ctx.closePath()}
 function stroke(ctx,pts,col,width=1,glow=0,close=false){shape(ctx,pts,close);ctx.strokeStyle=col;ctx.lineWidth=width;ctx.shadowColor=col;ctx.shadowBlur=glow;ctx.stroke();ctx.shadowBlur=0}
 function text(ctx,s,x,y,size=22,col=WHITE,align='left',alpha=1){ctx.save();ctx.globalAlpha*=alpha;ctx.font=`${size}px JP`;ctx.textAlign=align;ctx.textBaseline='middle';ctx.shadowColor='#00101c';ctx.shadowBlur=9;ctx.fillStyle=col;ctx.fillText(s,x,y);ctx.restore()}
-let images={};
+let images={},storm;const {createStorm}=require('./storm.cjs');
 function equation(ctx,name,x,y,w,a=1,reflection=false){let im=images[name],h=w*im.height/im.width;ctx.save();ctx.globalAlpha*=a;ctx.shadowColor='#95d9ff';ctx.shadowBlur=14;ctx.drawImage(im,x-w/2,y-h/2,w,h);ctx.shadowBlur=0;if(reflection){ctx.globalAlpha*=.15;ctx.translate(0,1000);ctx.scale(1,-.47);ctx.drawImage(im,x-w/2,y-h/2,w,h)}ctx.restore()}
 function ellipseGlow(ctx,x,y,rx,ry,color,alpha){ctx.save();ctx.translate(x,y);ctx.scale(rx,ry);let g=ctx.createRadialGradient(0,0,0,0,0,1);g.addColorStop(0,color);g.addColorStop(1,'transparent');ctx.globalAlpha*=alpha;ctx.fillStyle=g;ctx.fillRect(-1,-1,2,2);ctx.restore()}
-function background(t,shot){
- c.fillStyle='#010509';c.fillRect(0,0,W,H);
- let zoom=1.045+.018*Math.sin(t*.09)+.012*shot,dx=18*Math.sin(t*.07),dy=-5*Math.sin(t*.06);
- c.drawImage(images.environment,0,0,images.environment.width,images.environment.height,-(zoom-1)*W/2+dx,-(zoom-1)*H/2+dy,W*zoom,H*zoom);
- c.fillStyle='rgba(0,6,14,.24)';c.fillRect(0,0,W,H);
- // A second layer moves independently from the background for depth.
- c.save();c.beginPath();c.rect(0,0,W,450);c.clip();c.globalAlpha=.13;c.globalCompositeOperation='screen';
- c.drawImage(images.environment,0,0,images.environment.width,images.environment.height*.62,-85+40*Math.sin(t*.04),-20,W*1.15,480);c.restore();
- // Side-lit low mist, soft rather than an opaque overlay.
- for(let i=0;i<5;i++){let x=((rand(i+800)*1500+t*(i%2?3:-2))%1600+1600)%1600-150;ellipseGlow(c,x,460+18*Math.sin(t*.13+i),180+80*rand(i),22,'#7ecbff',.022+.009*Math.sin(t*.2+i))}
- // Anamorphic optical streak and its floor glint.
- let lx=300+95*Math.sin(t*.1);ellipseGlow(c,lx,468,210,1.3,'#a9e8ff',.24);ellipseGlow(c,lx,490,28,4,'#c1ecff',.10);
- for(let i=0;i<75;i++){let depth=.3+rand(i+330)*1.3,x=(rand(i)*W+t*(rand(i+140)-.5)*5*depth+W*3)%(W+100)-50,y=(rand(i+10)*H-t*(.2+rand(i+290))*depth+H*2)%H;let a=(.08+.18*rand(i+65))*(y<620?1:.4);c.fillStyle=`rgba(191,225,247,${a})`;c.beginPath();c.arc(x,y,depth*(rand(i+40)>.92?2:0.7),0,Math.PI*2);c.fill()}
-}
+function background(t,shot,realTime){storm.render(c,realTime,t);}
 function camera(t){
  let yaw,dist,base,center,pitch;
  if(t<18){let u=smooth((t-10)/8);yaw=mix(-.62,-.30,u);dist=mix(22,19,u);base=mix(526,515,u);center=570;pitch=.06;}
@@ -75,7 +62,7 @@ function intro(t){let u=smooth(t/5),w=mix(1220,870,u),h=w*images.sum.height/imag
 }
 const titles=['','2から5へ。','幅と、高さ。','細分化。','和から、積分へ。','計算する。','無限の先に、39。'];
 const captions=['','幅は 3/n。区間の長さは3。','右端の位置を二乗した値が、長方形の高さになる。','分けるほど細かく。面積の和は39へ近づく。','無限に細かい長方形の和。それが、定積分。','原始関数に、5と2を代入する。','無数の長方形が、ひとつの面積へ。'];
-function draw(realTime){let t=timeAt(realTime),shot=Math.max(0,original.findIndex((v,i)=>i>0&&t<v)-1),local=t-original[shot];background(t,shot);
+function draw(realTime){let t=timeAt(realTime),shot=Math.max(0,original.findIndex((v,i)=>i>0&&t<v)-1),local=t-original[shot];background(t,shot,realTime);
  if(t<10)intro(t);else{let cam=camera(t),{n}=graph(t,cam);text(c,titles[shot],74,76,21,WHITE,'left',smooth(local/.6));
  if(t<18){text(c,'a = 2',1040,284,25,CY,'center');text(c,'b = 5',1040,330,25,GOLD,'center');}
  else if(t<28){equation(c,'parts',640,602,780,smooth((t-18)/1.2));}
@@ -98,13 +85,13 @@ function draw(realTime){let t=timeAt(realTime),shot=Math.max(0,original.findInde
 }
 (async()=>{
  for(let n of ['sum','parts','integral','calc','answer'])images[n]=await loadImage(Buffer.from(fs.readFileSync(path.join(__dirname,'assets',n+'.png.b64'),'utf8').trim(),'base64'));
- images.environment=await loadImage(path.join(__dirname,'assets','environment.png'));
- const samples=D===120?[4,10,22,38,53,66,84,102,114]:[1.5,3,5.5,9,13,16,21.5,25.5,28.5];
- for(let t of samples){draw(t);fs.writeFileSync(path.join(out,`v2-${D}s-${t}.jpg`),C.toBuffer('image/jpeg',90))}
+ images.environment=await loadImage(path.join(__dirname,'assets','environment.png'));storm=createStorm(W,H,D,images.environment);
+ const samples=process.env.SAMPLE_TIMES?JSON.parse(process.env.SAMPLE_TIMES):(D===120?[4,10,22,38,53,66,84,102,114]:[1.25,1.5,3,5.5,9,11.15,13,13.7,16,19.15,21.5,25.5,27.1,28.5]);
+ for(let t of samples){draw(t);fs.writeFileSync(path.join(out,`v3-${D}s-${t}.jpg`),C.toBuffer('image/jpeg',90))}
  if(process.argv.includes('--samples'))return;
  const start=Number(process.env.CLIP_START||0),end=Number(process.env.CLIP_END||D);
  const finalPath=process.env.VIDEO_OUT||path.join(out,`infinite-area-${D}s.mp4`),tempPath=finalPath.replace(/\.mp4$/,`.rendering-${process.pid}.mp4`);
- let args=['-hide_banner','-loglevel','error','-y','-f','rawvideo','-pixel_format','rgba','-video_size',`${W}x${H}`,'-framerate',String(FPS),'-i','pipe:0','-ss',String(start*75/D),'-i',path.join(out,'score.wav'),'-c:v','libx264','-preset','fast','-crf','24','-profile:v','high','-pix_fmt','yuv420p','-af',`atempo=${75/D},apad`,'-c:a','aac','-b:a','128k','-movflags','+faststart','-t',String(end-start),tempPath];
+ let args=['-hide_banner','-loglevel','error','-y','-f','rawvideo','-pixel_format','rgba','-video_size',`${W}x${H}`,'-framerate',String(FPS),'-i','pipe:0','-ss',String(start),'-i',path.join(out,`score-${D}.wav`),'-c:v','libx264','-preset','fast','-crf','24','-profile:v','high','-pix_fmt','yuv420p','-af','apad','-c:a','aac','-b:a','128k','-movflags','+faststart','-t',String(end-start),tempPath];
  const ff=spawn('ffmpeg',args,{stdio:['pipe','ignore','pipe']});let err='';ff.stderr.on('data',b=>err=(err+b).slice(-6000));ff.stdin.on('error',()=>{});let done=once(ff,'close');const began=Date.now();
- for(let i=Math.round(start*FPS);i<Math.round(end*FPS);i++){draw(i/FPS);if(ff.exitCode!==null)throw Error(err);if(!ff.stdin.write(C.data()))await once(ff.stdin,'drain');if(i%240===0)console.log(`v2 ${D}s ${i}/${D*FPS} | ${((Date.now()-began)/1000).toFixed(1)}s`)}ff.stdin.end();let [code]=await done;if(code)throw Error(err);fs.renameSync(tempPath,finalPath);console.log('DONE');
+ for(let i=Math.round(start*FPS);i<Math.round(end*FPS);i++){draw(i/FPS);if(ff.exitCode!==null)throw Error(err);if(!ff.stdin.write(C.data()))await once(ff.stdin,'drain');if(i%240===0)console.log(`v3 ${D}s ${i}/${D*FPS} | ${((Date.now()-began)/1000).toFixed(1)}s`)}ff.stdin.end();let [code]=await done;if(code)throw Error(err);fs.renameSync(tempPath,finalPath);console.log('DONE');
 })();

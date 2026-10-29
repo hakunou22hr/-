@@ -20,10 +20,10 @@
 
 ```sh
 npm install --prefix materials/infinite-area-cinema/render
-python3 materials/infinite-area-cinema/render/audio.py work/infinite-area-v2
+python3 materials/infinite-area-cinema/render/audio.py work/infinite-area-v3
 DURATION=120 node materials/infinite-area-cinema/render/render.cjs
 DURATION=30 node materials/infinite-area-cinema/render/render.cjs
-python3 materials/infinite-area-cinema/render/verify.py work/infinite-area-v2
+python3 materials/infinite-area-cinema/render/verify.py work/infinite-area-v3
 ```
 
 数式はMatplotlibで正確に組版した透過PNGをBase64テキストで保持する。`assets/*.png.b64` をレンダラーが直接読み込む。
@@ -37,3 +37,11 @@ python3 materials/infinite-area-cinema/render/verify.py work/infinite-area-v2
 図形は透視投影した平面。ショットごとに接近・旋回・後退し、長方形と曲線を床へ反射させる。反射のフェードと水面の揺れは光学演出であり、面積の計算には含めない。計算・積分の場面ではカメラを正面近くへ落ち着かせる。
 
 旧版はGit履歴の `05df268` に保持。現在のMP4、ポスター、教材カードを映画版へ更新。
+
+## 動的な嵐の映画版 v3
+
+`render/storm.cjs` が各フレームの雲の流れ場・密度・色と局所照明を計算する。写真は雲と床の素材としてサンプリングし、空は変形したサンプリング座標で再構成する。青・紫・金の光が移動し、雲はカメラが静止していても変形する。
+
+`render/storm.json` を映像と音声で共用。枝分かれした放電、雲の局所発光、床の反射と広がる波紋を7回のタイミングに同期させる。雷鳴は閃光の0.22秒後に始まり、左右の定位と遅延反射を持つ。計算の章は放電を止め、式を読みやすくする。
+
+音声は30秒・120秒をそれぞれ48kHzステレオで生成し、時間伸縮で同期をずらさない。旧版はGit履歴の `ab066f5`。
