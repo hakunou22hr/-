@@ -50,7 +50,7 @@ export function createWorld(w=1280,h=720,view={}){
  const objective=lineObject([[-4,3,.14],[4,-5,.14]],gold);const goldTube=add(new THREE.CylinderGeometry(.018,.018,1,8),makeMat(gold),graph);
  const goldHalo=add(new THREE.CylinderGeometry(.052,.052,1,8),makeMat(new THREE.Color(1.5,.8,.15),.16),graph);
  const trail=Array.from({length:5},()=>lineObject([[-4,0,.12],[4,-8,.12]],gold,.06));
- function frameFor(q){const fit=!portrait&&q.s>=4?(q.s===4?ease(q.u):1):0;return {fit,top:4.2+1.4*fit,right:4.4+fit};}
+ function frameFor(q){const fit=q.s>=4?(q.s===4?ease(q.u):1):0;return {fit,top:4.2+1.4*fit,right:4.4+fit};}
  function segment(k,fit=0){const top=4.2+1.4*fit,right=4.4+fit,a=Math.max(-4.4,k-top),b=Math.min(right,k+4.2);return [[a,k-a,.16],[b,k-b,.16]];}
  const ghosts=[MIN,MAX].map(k=>lineObject(segment(k,portrait?0:1),gold,.28));
  function glowPoint(color,size){const s=new THREE.Sprite(new THREE.SpriteMaterial({map:tex,color,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false,toneMapped:false}));s.scale.setScalar(size);graph.add(s);return s;}
@@ -79,12 +79,12 @@ export function createWorld(w=1280,h=720,view={}){
   if(s===4){rotY=.16*Math.sin(u*Math.PI);rotX=.055*Math.sin(u*Math.PI);zoom=1+.035*Math.sin(u*Math.PI);}
   if(s===5){zoom=1.06-.04*ease(u);rotY=.025*Math.sin(u*Math.PI);}
   if(s===6){zoom=mix(1.03,.96,u);}
-  graph.visible=q.graph;if(portrait)zoom=1+(zoom-1)*.35;graph.position.set(portrait?0:6.5+.5*fit,portrait?-.9:-.15-1.4*fit,portrait?1.2:0);graph.scale.setScalar((portrait?.90:1.56)*zoom*(1-.20*fit));graph.rotation.set(rotX,rotY,0);graph.updateMatrixWorld(true);
+  graph.visible=q.graph;if(portrait)zoom=1+(zoom-1)*.35;graph.position.set(portrait?0:6.5+.5*fit,portrait?-.9-.42*fit:-.15-1.4*fit,portrait?1.2:0);graph.scale.setScalar((portrait?.90:1.56)*zoom*(1-.20*fit));graph.rotation.set(rotX,rotY,0);graph.updateMatrixWorld(true);
   // Extend the actual graph as well as the view; k=2√5 is above the old y=4.2 crop.
   axisX.geometry.setFromPoints([new THREE.Vector3(-4.4,0,.16*fit),new THREE.Vector3(right,0,.16*fit)]);axisY.geometry.setFromPoints([new THREE.Vector3(0,-4.2,.16*fit),new THREE.Vector3(0,top,.16*fit)]);axisArrows[0].position.x=right-.04;axisArrows[1].position.y=top-.04;axisArrows.forEach(a=>a.position.z=.015+.16*fit);
   const extended=[];for(let i=-4;i<=4;i++){extended.push(new THREE.Vector3(i,-4.2,-.08),new THREE.Vector3(i,top,-.08));extended.push(new THREE.Vector3(-4.4,i,-.08),new THREE.Vector3(right,i,-.08));}grid.geometry.setFromPoints(extended);upperGrid.geometry.setFromPoints([new THREE.Vector3(5,-4.2,-.08),new THREE.Vector3(5,top,-.08),new THREE.Vector3(-4.4,5,-.08),new THREE.Vector3(right,5,-.08)]);upperGrid.visible=fit>.6;upperGrid.material.opacity=.25*ease((fit-.6)/.4);
   plate.position.set(.5*fit,.7*fit,-.15);plate.scale.set(1+.09*fit,1+.16*fit,1);
-  yIntercept.visible=yInterceptCore.visible=interceptGuide.visible=interceptTick.visible=Boolean(!portrait&&s>=4&&q.objective);
+  yIntercept.visible=yInterceptCore.visible=interceptGuide.visible=interceptTick.visible=Boolean(s>=4&&q.objective);
   if(yIntercept.visible){yIntercept.position.set(0,k,.16);yInterceptCore.position.copy(yIntercept.position);yIntercept.scale.setScalar(.30+.045*Math.sin(t*3));interceptGuide.geometry.setFromPoints([new THREE.Vector3(0,0,.16),new THREE.Vector3(0,k,.16)]);interceptTick.geometry.setFromPoints([new THREE.Vector3(-.11,k,.16),new THREE.Vector3(.11,k,.16)]);}
   if(fit>0){const ax=(5-top)/2,bx=4.3+.3*fit,by=5-2*bx,scale=(bx-ax)/3.9;boundary.scale.set(scale,scale,1);boundary.position.set((ax+bx)/2-2.35*scale,(top+by)/2-.3*scale,0);}else{boundary.scale.set(1,1,1);boundary.position.set(0,0,0);}
   // Intro draws each boundary, then illuminates only the exact circular segment.
@@ -111,7 +111,7 @@ export function createWorld(w=1280,h=720,view={}){
   const suspense=s===4?ease((u-.65)/.35):0;bloom.strength=.8+impact*.7-suspense*.12;scene.traverse(o=>{if(typeof o.visible!=='boolean')throw Error('Object visibility must be explicit: '+o.type);});composer.render();return labels(q);
  }
  function project(x,y,z=.22){const v=new THREE.Vector3(x,y,z);graph.localToWorld(v);v.project(camera);return [(v.x+1)*(portrait?540:960),(1-v.y)*(portrait?960:540)];}
- function labels(q=last){const {fit,top,right}=frameFor(q),labelLift=ease(fit/.35),values=[-3,-2,-1,1,2,3,...(fit>.6?[4,5]:[])];return {ticks:values.flatMap(i=>[{text:String(i),p:project(i,-.24),kind:'x'},{text:String(i),p:project(-.24,i),kind:'y'}]),min:project(...MIN_POINT),max:project(...MAX_POINT),other:project(1,3),origin:project(0,0),region:project(2.55,1.1),x:project(right-.1+.4*labelLift,-.25),y:project(-.24,portrait?3.7:top-.15+.5*labelLift),yIntercept:!portrait&&q.s>=4&&q.objective?project(0,q.k,.16):null,axisTop:project(0,top,.16*fit),objectiveEndpoints:q.objective?segment(q.k,fit).map(p=>project(p[0],p[1],p[2])):[],plotBounds:{left:-4.4,right,bottom:-4.2,top}};}
+ function labels(q=last){const {fit,top,right}=frameFor(q),labelLift=ease(fit/.35),values=[-3,-2,-1,1,2,3,...(fit>.6?[4,5]:[])];return {ticks:values.flatMap(i=>[{text:String(i),p:project(i,-.24),kind:'x'},{text:String(i),p:project(-.24,i),kind:'y'}]),min:project(...MIN_POINT),max:project(...MAX_POINT),other:project(1,3),origin:project(0,0),region:project(2.55,1.1),x:project(right-.1+.4*labelLift,-.25),y:project(portrait?.35:-.24,portrait?top-.35:top-.15+.5*labelLift),yIntercept:q.s>=4&&q.objective?project(0,q.k,.16):null,axisTop:project(0,top,.16*fit),objectiveEndpoints:q.objective?segment(q.k,fit).map(p=>project(p[0],p[1],p[2])):[],plotBounds:{left:-4.4,right,bottom:-4.2,top}};}
 
  return {canvas:renderer.domElement,renderer,render,labels,dispose(){composer.dispose();renderer.dispose();}};
 }
