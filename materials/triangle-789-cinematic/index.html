@@ -1,0 +1,30 @@
+<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>三角形の3辺と面積｜映画型プレビュー</title>
+<style>body{margin:0;background:#070e20;color:#eef5ff;font:16px system-ui;text-align:center}main{max-width:1100px;margin:auto;padding:16px}h1{font-size:clamp(22px,3vw,35px)}canvas{max-width:100%;height:auto;border-radius:17px;box-shadow:0 0 30px #143d60;background:#06101e}button,input{accent-color:#ffbc54}button{padding:11px 17px;border-radius:10px;background:#123c60;color:white;border:1px solid #6fbeec;cursor:pointer;margin:5px}button[aria-pressed=true]{background:#9f6718}input[type=range]{width:min(650px,85vw)}.note{color:#a7c2d8;font-size:14px;line-height:1.7}</style>
+<main><p><a href="../../" style="color:#aee8ff">← 教材ライブラリ</a></p><h1>三角形の3辺と面積｜映画型アニメーション</h1><p>山岳測量 → 幾何学空間 → 余弦定理 → 高さ → 面積</p><div><button id="pc" aria-pressed="true">PC用120秒</button><button id="insta" aria-pressed="false">Instagram用30秒</button><button id="play">一時停止</button><button id="restart">最初から</button></div><canvas id="v" width="960" height="540" aria-label="三角形の面積を求める動的アニメーション"></canvas><div><input id="seek" type="range" min="0" max="120" step=".1" value="0"><output id="clock">0.0 / 120秒</output></div><p class="note">GitHub Pagesで直接動く数学アニメーションです。これはMP4動画そのものではありません。数学的な寸法は正確に計算して表示します。</p></main>
+<script>
+const c=document.querySelector('#v'),g=c.getContext('2d'),seek=document.querySelector('#seek'),clock=document.querySelector('#clock');let duration=120,t=0,playing=true,last=0;const pi=Math.PI;
+function label(s,x,y,size=20,color='#fff',align='center'){g.textAlign=align;g.font='600 '+size+'px system-ui';g.shadowBlur=12;g.shadowColor=color;g.fillStyle=color;g.fillText(s,x,y);g.shadowBlur=0}
+function line(a,b,color,w=3){g.beginPath();g.moveTo(...a);g.lineTo(...b);g.strokeStyle=color;g.lineWidth=w;g.shadowBlur=13;g.shadowColor=color;g.stroke();g.shadowBlur=0}
+function dot(x,y,col='#ffbf66',r=5){g.fillStyle=col;g.shadowColor=col;g.shadowBlur=20;g.beginPath();g.arc(x,y,r,0,pi*2);g.fill();g.shadowBlur=0}
+function frame(now){const dt=last?Math.min(.05,(now-last)/1000):0;last=now;if(playing){t+=dt;if(t>=duration)t=0}seek.value=t;clock.textContent=t.toFixed(1)+' / '+duration+'秒';const W=c.width,H=c.height;const p=t/duration;const phase=Math.min(4,Math.floor(p*5)),q=p*5-phase;
+let grad=g.createRadialGradient(W*.5,H*.5,10,W*.5,H*.5,W*.7);grad.addColorStop(0,phase===0?'#3c2d27':'#10375c');grad.addColorStop(1,'#040817');g.fillStyle=grad;g.fillRect(0,0,W,H);
+for(let i=0;i<50;i++){let x=((i*137.23+now*.013*(1+i%3))%W),y=((i*51.91+Math.sin(now/1100+i)*20+H)%H);dot(x,y,i%5===0?'#ffc56b':'#4caed5',i%7===0?1.7:.7)}
+g.save();g.translate(W/2,H*.57);g.rotate(Math.sin(now/15000)*.055);for(let j=-9;j<=9;j++){line([-480,j*42+115],[480,j*42+115],'#14466e',.8);line([j*70,-300],[j*70+180,300],'#123a61',.8)}g.restore();
+if(phase===0){for(let i=0;i<9;i++){let y=H*.54+i*23;line([0,y+100],[W,y+100],'#734a30',1)}label('3つの測量点から、三角形が生まれる',W/2,60,25,'#ffe2a0')}
+else if(phase===1){label('3辺 7・8・9 の幾何学空間',W/2,60,25,'#ace9ff');for(let i=0;i<4;i++){g.beginPath();g.ellipse(W/2,H*.5,190+i*44,130+i*22,now/17000+i*.2,0,2*pi);g.strokeStyle='#205d93';g.stroke()}}
+else if(phase===2) label('余弦定理から cos A を求める',W/2,60,25,'#ffdf97');
+else if(phase===3) label('sin A から高さを導く',W/2,60,25,'#b5eafd');
+else label('三角形の面積が結晶化する',W/2,60,25,'#ffdf97');
+const scale=Math.min(W/16,H/12),ax=W/2-4.5*scale,by=H*.78, A=[ax,by], B=[ax+9*scale,by], C=[ax+6*scale,by-2*Math.sqrt(5)*scale],D=[C[0],by];
+if(phase===4){g.beginPath();g.moveTo(...A);g.lineTo(...B);g.lineTo(...C);g.closePath();let area=g.createLinearGradient(A[0],C[1],B[0],by);area.addColorStop(0,'#ffdd7b');area.addColorStop(1,'#bd721b');g.globalAlpha=.35+.16*Math.sin(now/500);g.fillStyle=area;g.fill();g.globalAlpha=1}
+line(A,B,'#ffd077',4);line(A,C,'#00dbff',4);line(B,C,'#ffbd64',4);for(const z of [A,B,C])dot(...z);label('A',A[0]-14,A[1]+27,21);label('B',B[0]+16,B[1]+27,21);label('C',C[0],C[1]-18,21);label('9',(A[0]+B[0])/2,by+28,22,'#ffe3aa');label('8',(A[0]+C[0])/2-22,(A[1]+C[1])/2,22,'#91edff');label('7',(B[0]+C[0])/2+22,(B[1]+C[1])/2,22,'#ffd393');
+if(phase>=2){g.beginPath();g.arc(A[0],A[1],48,-Math.acos(2/3),0);g.strokeStyle='#ffdb78';g.lineWidth=4;g.stroke();label('A角',A[0]+67,A[1]-24,20,'#ffe1a1')}
+if(phase>=3){line(C,D,'#fcefa1',3);label('2√5',D[0]+31,(C[1]+D[1])/2,22,'#fff0b0');g.strokeStyle='#fff';g.strokeRect(D[0]-15,D[1]-15,15,15)}
+if(phase===2)label('cos A = (8² + 9² − 7²) / (2 × 8 × 9) = 2/3',W/2,H*.94,22,'#f9e4ac');
+if(phase===3)label('sin A = √(1 − (2/3)²) = √5/3',W/2,H*.94,23,'#d2faff');
+if(phase===4)label('S = 1/2 × 8 × 9 × √5/3 = 12√5',W/2,H*.94,26,'#ffe2a0');
+requestAnimationFrame(frame)}requestAnimationFrame(frame);
+document.querySelector('#play').onclick=()=>{playing=!playing;document.querySelector('#play').textContent=playing?'一時停止':'再生'};document.querySelector('#restart').onclick=()=>t=0;seek.oninput=()=>t=Number(seek.value);
+function mode(v){duration=v;seek.max=v;t=0;c.width=v===30?540:960;c.height=v===30?960:540;document.querySelector('#pc').setAttribute('aria-pressed',v===120);document.querySelector('#insta').setAttribute('aria-pressed',v===30)}
+document.querySelector('#pc').onclick=()=>mode(120);document.querySelector('#insta').onclick=()=>mode(30);
+</script></html>
