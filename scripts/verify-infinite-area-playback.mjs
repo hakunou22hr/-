@@ -1,4 +1,5 @@
 import {chromium} from '/tmp/integral-browser-tools/node_modules/playwright/index.mjs';
+import {createHash} from 'node:crypto';
 import {mkdir,writeFile} from 'node:fs/promises';
 const base=process.env.INFINITE_AREA_BASE_URL||'https://hakunou22hr.github.io/-/';
 const browser=await chromium.launch({args:['--no-sandbox']});
@@ -6,6 +7,7 @@ try{
  const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];
  page.on('pageerror',e=>errors.push(e.message));
  await page.goto(new URL('materials/infinite-area-cinema/',base).href,{waitUntil:'domcontentloaded'});
+ if(!await page.getByText('CINEMATIC EDITION 02 / SHORT FILM',{exact:true}).count())throw Error('Old lesson edition');
  const video=page.locator('#short-film');
  await page.waitForFunction(()=>document.querySelector('video')?.readyState>=1,null,{timeout:45000});
  const metadata=await video.evaluate(v=>({duration:v.duration,width:v.videoWidth,height:v.videoHeight}));
@@ -18,12 +20,16 @@ try{
  const href=await page.locator('a[download]').getAttribute('href');
  const response=await page.request.get(new URL(href,page.url()).href);
  if(!response.ok()||!response.headers()['content-type']?.includes('video/mp4'))throw Error('Download is not an MP4');
+ const manifestResponse=await page.request.get(new URL('../../media/infinite-area/media-manifest.json',page.url()).href);
+ const manifest=await manifestResponse.json();if(manifest.edition!=='infinite-area-cinema-v2')throw Error('Old video manifest');
+ const expected=manifest.files.find(f=>f.duration===30).sha256;
+ if(createHash('sha256').update(await response.body()).digest('hex')!==expected)throw Error('Downloaded video differs from new master');
  await page.setViewportSize({width:390,height:844});
  if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw Error('Mobile overflow');
  await page.goto(base,{waitUntil:'domcontentloaded'});
  if(await page.locator('a[href*="infinite-area-cinema"]').count()<1)throw Error('Library card missing');
  if(errors.length)throw Error(errors.join('\n'));
  await mkdir('work/infinite-area-check',{recursive:true});
- await writeFile('work/infinite-area-check/playback.json',JSON.stringify({base,metadata,played:true,seeked:true,ended:true,download:true,mobileOverflow:false,libraryRegistered:true,errors},null,2));
+ await writeFile('work/infinite-area-check/playback.json',JSON.stringify({base,edition:manifest.edition,downloadHashVerified:true,metadata,played:true,seeked:true,ended:true,download:true,mobileOverflow:false,libraryRegistered:true,errors},null,2));
  console.log('Infinite-area film playback, download and library card verified');
 }finally{await browser.close()}

@@ -1,5 +1,5 @@
 {
-  "edition": "infinite-area-cinema-v1",
+  "edition": "infinite-area-cinema-v2",
   "files": [
     {
       "file": "infinite-area-30s.mp4",
@@ -9,8 +9,8 @@
       "fps": 24,
       "frames": 720,
       "audio": "aac",
-      "bytes": 2113950,
-      "sha256": "0247b6ad981457d7ded9bd41aa32ea803ecaabc003899d454c35ba8ac7bc8c1e"
+      "bytes": 3611518,
+      "sha256": "69213f0f1b6b04c2124e7e2edaca1cb7bd7ef6a90775fd2defc998a773a7bd9c"
     },
     {
       "file": "infinite-area-120s.mp4",
@@ -20,8 +20,8 @@
       "fps": 24,
       "frames": 2880,
       "audio": "aac",
-      "bytes": 6256959,
-      "sha256": "c1c658d969d402e7918758f415fe225dbc75a9792b4b626c45a29c5a4e486c77"
+      "bytes": 9508285,
+      "sha256": "5e43786a8538ce22f9131d3db1f66f77841176283092bdf85fb14c4967ab8380"
     }
   ],
   "fullDecode": true,
