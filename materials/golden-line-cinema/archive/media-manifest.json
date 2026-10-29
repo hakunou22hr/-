@@ -1,0 +1,28 @@
+{
+  "title": "黄金の直線が暴く 最大値・最小値",
+  "version": "2.1.0",
+  "files": [
+    {
+      "kind": "original",
+      "path": "materials/golden-line-cinema/archive/golden-line-cinema-90s.mp4",
+      "duration": 90,
+      "width": 1920,
+      "height": 1080,
+      "fps": "30/1",
+      "frames": 2700,
+      "bytes": 55903309,
+      "sha256": "6ac0f219ab5b9a2da0ffe76616bc31c7bf11769e54b85beef935243a8e1dba74"
+    },
+    {
+      "kind": "playback",
+      "path": "public/media/golden-line/golden-line-cinema-90s-play.mp4",
+      "duration": 90,
+      "width": 1280,
+      "height": 720,
+      "fps": "30/1",
+      "frames": 2700,
+      "bytes": 16126411,
+      "sha256": "7a5bf0e24e1561ba77bf236df9298226abc490e5815f1ab00213096aa73c7fe5"
+    }
+  ]
+}

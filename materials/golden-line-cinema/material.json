@@ -1,0 +1,10 @@
+{
+  "id": "golden-line-cinema",
+  "name": "数学Ⅱ｜黄金の直線が暴く 最大値・最小値",
+  "subject": "数学Ⅱ",
+  "unit": "図形と方程式／領域と最大・最小",
+  "description": "円と直線が囲む領域へ、黄金の直線 x+y=k が近づく。最小2と最大2√5の瞬間を、3D回廊・鏡面反射・粒子・オリジナル音楽で描く90秒映画。視聴とフルHD原版の保存に対応。",
+  "thumbnail": "thumbnail.svg",
+  "version": "2.1.0",
+  "durationSeconds": 90
+}
