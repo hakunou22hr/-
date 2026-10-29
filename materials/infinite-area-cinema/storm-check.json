@@ -1,16 +1,19 @@
 {
-  "edition": "infinite-area-cinema-v3",
-  "fixedCameraSkyChange": 18.055305788702942,
-  "cloudFlashChange": 51.23442489047301,
-  "floorWaveChange": 9.184934895833333,
-  "flashTimes30s": [
-    1.2,
-    4.300000000000001,
-    11.08421052631579,
-    13.610526315789475,
-    16.13684210526316,
-    19.083333333333336,
-    27.037499999999998
-  ],
-  "thunderDelaySeconds": 0.22
+  "edition": "infinite-area-cinema-v4",
+  "inputCausesPixelChanges": {
+    "wind": {
+      "mean": 6.131559606481481,
+      "changed": 45594
+    },
+    "lightning": {
+      "mean": 0.8373611111111111,
+      "changed": 2344
+    },
+    "explosion": {
+      "mean": 2.2916666666666665,
+      "changed": 20806
+    }
+  },
+  "resetRestoresBaseline": true,
+  "skyImageWarping": false
 }

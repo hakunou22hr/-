@@ -1,10 +1,11 @@
 {
-  "edition": "infinite-area-cinema-v3",
+  "edition": "infinite-area-cinema-v4",
   "metadata": {
     "duration": 30,
     "width": 1280,
     "height": 720
   },
+  "interactiveEffects": true,
   "played": true,
   "seeked": true,
   "ended": true,

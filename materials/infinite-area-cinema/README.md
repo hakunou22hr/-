@@ -20,10 +20,10 @@
 
 ```sh
 npm install --prefix materials/infinite-area-cinema/render
-python3 materials/infinite-area-cinema/render/audio.py work/infinite-area-v3
+python3 materials/infinite-area-cinema/render/audio.py work/infinite-area-v4
 DURATION=120 node materials/infinite-area-cinema/render/render.cjs
 DURATION=30 node materials/infinite-area-cinema/render/render.cjs
-python3 materials/infinite-area-cinema/render/verify.py work/infinite-area-v3
+python3 materials/infinite-area-cinema/render/verify.py work/infinite-area-v4
 ```
 
 数式はMatplotlibで正確に組版した透過PNGをBase64テキストで保持する。`assets/*.png.b64` をレンダラーが直接読み込む。
@@ -45,3 +45,9 @@ python3 materials/infinite-area-cinema/render/verify.py work/infinite-area-v3
 `render/storm.json` を映像と音声で共用。枝分かれした放電、雲の局所発光、床の反射と広がる波紋を7回のタイミングに同期させる。雷鳴は閃光の0.22秒後に始まり、左右の定位と遅延反射を持つ。計算の章は放電を止め、式を読みやすくする。
 
 音声は30秒・120秒をそれぞれ48kHzステレオで生成し、時間伸縮で同期をずらさない。旧版はGit履歴の `ab066f5`。
+
+## 粒子演出・操作版 v4
+
+空の画像変形を撤去。`effects-core.js` が、煙の発生・風の力・拡散・冷却・消散、火花の放物運動、爆発と衝撃波を描く。写真を使うのは平面の床だけ。動画と操作プレビューは同じ粒子エンジンを使う。
+
+ページの「吹き込み・放電・爆発」は入力位置と時刻から新しい演出を発生させる。分割数スライダーは正しい右端和を再計算して吹き込みを発生させる。リセットで手動イベントを取り除く。MP4は同じ演出を時系列に収録した映像で、操作プレビューと区別して案内する。v3で確認済みのステレオ雷鳴は変更しない。
