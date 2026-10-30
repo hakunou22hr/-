@@ -1,0 +1,39 @@
+{
+  "geometricMotion": [
+    {
+      "scene": 1,
+      "changedPixels": 72765,
+      "clouds": false,
+      "cameraHeldFixed": true
+    },
+    {
+      "scene": 2,
+      "changedPixels": 66115,
+      "clouds": false,
+      "cameraHeldFixed": true
+    },
+    {
+      "scene": 3,
+      "changedPixels": 74495,
+      "clouds": false,
+      "cameraHeldFixed": true
+    },
+    {
+      "scene": 4,
+      "changedPixels": 49222,
+      "clouds": false,
+      "cameraHeldFixed": true
+    }
+  ],
+  "cameraHorizontalTravel": 15.166645177728743,
+  "cameraVerticalTravel": 2.697262498306223,
+  "subdivisionSpeeds": [
+    4.6,
+    5.4,
+    6.2,
+    7
+  ],
+  "shockwavesSynchronized": true,
+  "convergingStreams": true,
+  "deterministicSeek": true
+}
