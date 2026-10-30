@@ -1,0 +1,4 @@
+export const clamp=x=>Math.max(0,Math.min(1,x));export const ease=x=>{x=clamp(x);return x*x*(3-2*x)};
+export const cuts=[0,10,32,54,78,90],reelsCuts=[0,3,10,17,25,30];
+export function state(t,portrait=false){const timeline=portrait?reelsCuts:cuts,duration=portrait?30:90;t=clamp(t/duration)*duration;let s=timeline.findIndex((a,i)=>t>=a&&t<timeline[i+1]);if(s<0)s=4;const u=clamp((t-timeline[s])/(timeline[s+1]-timeline[s]));const phase=s===1?(u<.23?0:u<.54?1:u<.73?2:3):s===2?(u<.27?0:u<.56?1:u<.8?2:3):s===3?(u<.32?0:u<.58?1:u<.76?2:3):0;const x=.65+4.8*ease(u);const collision=s===1?Math.exp(-Math.abs(u-.5)*45):s===3?Math.exp(-Math.abs(u-.53)*45):s===4?Math.exp(-Math.abs(u-.58)*35):0;return{t,s,u,phase,x,portrait,duration,collision};}
+export const F=x=>1-Math.cos(x),derivative=x=>Math.sin(x),kernel=(x,t)=>(x-t)*Math.cos(t);

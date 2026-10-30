@@ -92,3 +92,29 @@ jobs:
         with:
           name: integral-live-playback-check
           path: work/playback-check/
+
+  verify-teisekibun-playback:
+    needs: deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Install lesson playback browser
+        run: |
+          npm install --prefix /tmp/teisekibun-browser-tools playwright@1.62.1
+          node /tmp/teisekibun-browser-tools/node_modules/playwright/cli.js install --with-deps chromium
+      - name: Verify published 90s and 30s movies and download
+        env:
+          PLAYWRIGHT_MODULE_PATH: /tmp/teisekibun-browser-tools/node_modules/playwright/index.mjs
+          LESSON_ORIGIN: https://hakunou22hr.github.io/-
+          CHECK_OUTPUT_DIR: work/teisekibun-playback-check
+        run: node materials/teisekibun-to-bibun/render/playback.check.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: teisekibun-live-playback-check
+          path: work/teisekibun-playback-check/

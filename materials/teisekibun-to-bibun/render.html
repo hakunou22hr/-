@@ -1,0 +1,3 @@
+<!doctype html><html><head><meta charset="utf-8"><style>body{margin:0;background:#020611}canvas{display:block;width:100vw}</style></head><body><script type="module">
+import{loadMath}from'./math.js';import{createFilm}from'./film.js';await loadMath(url=>new Promise((resolve,reject)=>{const im=new Image;im.onload=()=>resolve(im);im.onerror=reject;im.src=url}));const portrait=new URLSearchParams(location.search).has('portrait');const make=(w,h)=>{const c=document.createElement('canvas');c.width=w;c.height=h;return c};const film=createFilm(make,portrait);document.body.append(film.canvas);window.movieRender={frame(t){const r=film.render(t);return{...r,png:film.canvas.toDataURL('image/png').split(',')[1]}}};movieRender.frame(0);
+</script></body></html>
