@@ -29,7 +29,7 @@ KaTeXで生成した透過PNGを最終解像度で合成。分数・添字・上
 - `film.js`：ブラウザとNodeに共通の決定的描画。
 - `render/audio.py`：音源を外部利用しない独自スコア生成。
 - `render/export.mjs 90` / `30`：同じ描画から実MP4を書き出し、FFprobeと全デコードで検証。
-- `render/check.mjs`：負のxを含む独立数値積分、微分、端点ゼロ、シーク復元、動的フレーム、31場面の見切れ確認。
+- `render/check.mjs`：負のxを含む独立数値積分、微分、端点ゼロ、シーク復元、動的フレーム、31場面の見切れと140時刻の数式間の重なり確認。
 - `render/playback.check.mjs`：教材カード、PCとスマートフォン相当画面の動画再生・シーク、実MP4保存、ページ組版を確認。
 
 依存関係は既存リポジトリのKaTeX、`render/package.json`のPlaywrightと@napi-rs/canvas。Noto Sans CJK JPを使用。既存の参考教材は `../trig-integral-cinema/`。既存教材は変更・置換しません。

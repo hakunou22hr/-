@@ -60,10 +60,10 @@ export function createFilm(make,portrait=false){
    caption='ひとつの積分。３つの道。';sub='積分変数は t。x は、動く上端とパラメータ。';
   }
   if(s===1){
-   if(phase===0){math('fx',cx,Y,fs,white);math('splitA',cx,Y+step,fs,ice);math('splitB',cx,Y+step*2,fs,orange);const jump=Math.sin(ease(u/.23)*Math.PI);math('x',cx-(portrait?310:470),Y+step-jump*80,fs,gold);caption='x は定数として、積分の外へ。';sub='(x − t) cos t を、２つの積分に分ける。';}
+   if(phase===0){math('fx',cx,Y,fs,white);const im=mathMetrics('cosIntegral',fs),xm=mathMetrics('x',fs),gap=fs*.18,total=im.width+xm.width+gap,join=ease(u/.23),jump=Math.sin(join*Math.PI);math('cosIntegral',cx+(xm.width+gap)/2,portrait?650:420,fs,ice);math('x',cx-total/2+xm.width/2-(1-join)*90,(portrait?650:420)-jump*80,fs,gold);math('splitB',cx,portrait?900:650,fs,orange);caption='x は定数として、積分の外へ。';sub='(x − t) cos t を、２つの積分に分ける。';}
    else if(phase===1){const sweep=clamp((u-.23)/.16);g.save();g.strokeStyle=ice;g.globalAlpha=Math.sin(sweep*Math.PI)*.8;g.lineWidth=2;g.beginPath();g.ellipse(W*.15+W*.7*sweep,Y+step,portrait?35:55,portrait?230:200,0,0,TAU);g.stroke();g.restore();math('leftDerivative',cx,Y,fs,ice);const v=clamp((u-.23)/.31),move=ease((v-.25)/.6),sep=(portrait?250:430)*(1-move),a=1-ease((v-.79)/.2);math('plus',cx-sep,Y+step*1.3,portrait?61:75,gold,W-160,a);math('minus',cx+sep,Y+step*2.1-(step*.8*move),portrait?61:75,orange,W-160,a);if(q.collision>.15){g.save();g.globalAlpha=q.collision;glow(g,[[cx-350,Y+step*1.3],[cx+350,Y+step*1.3]],gold,3,1);g.restore();}caption='積の微分で生まれる項が、相殺する。';sub='+x cos x と −x cos x が消える。';}
-   else if(phase===2){math('leftDerivative',cx,Y+step*.7,fs,ice);math('fundamental',cx,Y+step*1.8,portrait?47:65,gold,W-150);caption='残るのは、cos t の定積分。';sub='微積分の基本定理で、sin x へ。';}
-   else{math('result',cx,Y+step,portrait?104:120,gold);caption='分解して微分すると、sin x。';sub='相殺のあとに、ひとつの波が残る。';}graph('sine');
+   else if(phase===2){math('leftDerivative',cx,portrait?520:320,fs,ice);math('fundamental',cx,portrait?760:560,portrait?47:65,gold,W-150);caption='残るのは、cos t の定積分。';sub='微積分の基本定理で、sin x へ。';}
+   else{math('result',cx,Y+step,portrait?104:120,gold);caption='分解して微分すると、sin x。';sub='相殺のあとに、ひとつの波が残る。';}if(phase>0)graph('sine');
   }
   if(s===2){
    if(phase===0){const spin=Math.sin(u/.27*TAU)*55;math('u',cx-(portrait?130:350),Y,portrait?57:72,ice);math('dv',cx+(portrait?100:340),Y+step*.75,portrait?57:72,gold);math('du',cx-(portrait?120:340)+spin,Y+step*1.6,portrait?57:72,violet);math('v',cx+(portrait?120:350)-spin,Y+step*2.4,portrait?57:72,orange);caption='t で部分積分する。x は定数。';sub='u = x − t を微分、cos t を積分する。';}
@@ -72,17 +72,17 @@ export function createFilm(make,portrait=false){
    else{math('result',cx,Y+step,portrait?104:120,gold);caption='先に積分しても、sin x。';sub='1 − cos x の微分が、sin x。';}graph(phase<3?'function':'sine');
   }
   if(s===3){
-   if(phase===0){math('leibnizA',cx,Y,portrait?68:78,ice);math('leibnizB',cx,Y+step*1.3,portrait?51:73,gold,W-130);math('kernel',cx,Y+step*2.55,portrait?57:62,violet);caption='上端の移動と、中身の変化を分ける。';sub='金：新しい区間　青：もとの区間の変化';}
-   else if(phase===1){if(u<.45){math(portrait?'plugA':'plug',cx,Y,portrait?66:70,ice,W-130);if(portrait)math('plusIntegral',cx,Y+step*.75,66,gold,W-130);}else math('leftDerivative',cx,Y,portrait?71:82,ice);const vanish=1-ease((u-.45)/.13);math('endpointZero',cx,Y+step*(portrait?1.65:1.15),portrait?70:83,red,W-130,vanish);math('partial',cx,Y+step*2.3,portrait?45:57,gold,W-120);caption='端点の寄与は、(x − x) cos x = 0。';sub='中身の偏微分は cos t。こちらは残る。';}
-   else if(phase===2){math('leftDerivative',cx,Y+step*.5,portrait?79:95,ice);math('fundamental',cx,Y+step*1.7,portrait?46:64,gold,W-140);caption='上端の高さはゼロ。中身の変化を積分する。';sub='新しい小区間の寄与は、微分の極限でゼロ。';}
+   if(phase===0){math('leibnizA',cx,portrait?430:220,portrait?68:78,ice);math('leibnizB',cx,portrait?680:480,portrait?51:73,gold,W-130);math('kernel',cx,portrait?900:640,portrait?57:48,violet);caption='上端の移動と、中身の変化を分ける。';sub='金：新しい区間　青：もとの区間の変化';}
+   else if(phase===1){if(u<.45){math(portrait?'plugA':'plug',cx,portrait?430:220,portrait?66:70,ice,W-130);if(portrait)math('plusIntegral',cx,570,66,gold,W-130);}else math('leftDerivative',cx,portrait?430:220,portrait?71:82,ice);const vanish=1-ease((u-.45)/.13);math('endpointZero',cx,portrait?770:Y+step*1.15,portrait?70:83,red,W-130,vanish);math('partial',cx,portrait?940:Y+step*2.3,portrait?45:57,gold,W-120);caption='端点の寄与は、(x − x) cos x = 0。';sub='中身の偏微分は cos t。こちらは残る。';}
+   else if(phase===2){math('leftDerivative',cx,portrait?550:280,portrait?79:82,ice);math('fundamental',cx,portrait?800:535,portrait?46:64,gold,W-140);caption='上端の高さはゼロ。中身の変化を積分する。';sub='新しい小区間の寄与は、微分の極限でゼロ。';}
    else{math('result',cx,Y+step,portrait?104:120,gold);caption='直接微分しても、sin x。';sub='上端だけでなく、被積分関数の x も微分する。';}graph(phase<3?'kernel':'sine');
   }
   if(s===4){
-   const merge=ease((u-.15)/.43);if(u<.65){for(let i=0;i<3;i++){const x=cx+(portrait?0:(i-1)*560)*(1-merge),y=(portrait?430+i*210:390)+(portrait?(730-(430+i*210))*merge:(i===1?0:80)*(1-merge));math('result',x,y,portrait?76:68,[ice,gold,violet][i],portrait?900:550);if(merge<.6)text(['① 分解して微分','② 積分して微分','③ 上端と中身を微分'][i],x,y+(portrait?90:110),portrait?26:25,[ice,gold,violet][i]);}}
+   const merge=ease((u-.15)/.43);if(u<.65){for(let i=0;i<3;i++){const x=cx+(portrait?0:(i-1)*560)*(1-merge),y=(portrait?430+i*210:390)+(portrait?(730-(430+i*210))*merge:(i===1?0:80)*(1-merge));math('result',x,y,portrait?76:68,[ice,gold,violet][i],portrait?900:550);if(merge<.18)text(['① 分解して微分','② 積分して微分','③ 上端と中身を微分'][i],x,y+(portrait?90:110),portrait?26:25,[ice,gold,violet][i]);}}
    else math('resultBox',cx,portrait?690:410,portrait?110:144,gold,W-160);
    if(u>.5)graph('sine');caption=u<.6?'３つの道が、ひとつの答えへ。':'積分と微分は、ひとつの波でつながる。';sub='分解・部分積分・上端と中身の微分';
   }
-  if(q.collision>.05){g.save();g.globalCompositeOperation='lighter';const burstY=s===4?(portrait?730:410):s===3?Y+step*1.65:Y+step*1.3;for(let i=0;i<75;i++){const a=rand(i)*TAU,r=(1-q.collision)*(80+rand(i+100)*420),x=cx+Math.cos(a)*r,y=burstY+Math.sin(a)*r*.55;g.globalAlpha=q.collision*.8;g.fillStyle=s===3?red:gold;g.beginPath();g.arc(x,y,1+rand(i+50)*3,0,TAU);g.fill();}g.globalAlpha=q.collision;g.strokeStyle=s===3?red:gold;g.lineWidth=2;g.beginPath();g.ellipse(cx,burstY,20+(1-q.collision)*500,10+(1-q.collision)*140,0,0,TAU);g.stroke();g.restore();g.save();g.globalAlpha=q.collision*.065;g.fillStyle=gold;g.fillRect(0,0,W,H);g.restore();}
+  if(q.collision>.05){g.save();g.globalCompositeOperation='lighter';const burstY=s===4?(portrait?730:410):s===3?(portrait?770:Y+step*1.15):Y+step*1.3;for(let i=0;i<75;i++){const a=rand(i)*TAU,r=(1-q.collision)*(80+rand(i+100)*420),x=cx+Math.cos(a)*r,y=burstY+Math.sin(a)*r*.55;g.globalAlpha=q.collision*.8;g.fillStyle=s===3?red:gold;g.beginPath();g.arc(x,y,1+rand(i+50)*3,0,TAU);g.fill();}g.globalAlpha=q.collision;g.strokeStyle=s===3?red:gold;g.lineWidth=2;g.beginPath();g.ellipse(cx,burstY,20+(1-q.collision)*500,10+(1-q.collision)*140,0,0,TAU);g.stroke();g.restore();g.save();g.globalAlpha=q.collision*.065;g.fillStyle=gold;g.fillRect(0,0,W,H);g.restore();}
   text(caption,cx,portrait?1485:985,portrait?32:32,white);text(sub,cx,portrait?1560:1034,portrait?25:23,ice);
   const fade=ease(q.t/.45)*ease((q.duration-q.t)/.5);g.fillStyle=`rgba(2,6,17,${1-fade})`;g.fillRect(0,0,W,H);
   return {q,bounds:[...bounds]};
