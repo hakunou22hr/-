@@ -27,11 +27,11 @@ export function createFilm(make,portrait=false){const W=portrait?1080:1920,H=por
   else if(s===3){
    if(!min){math('sum',cx,top,88);text(`k = ${k.toFixed(3)}`,100,520,66,gold);text('小さい k から、もう一度。',100,666,35);text('最初に触れる瞬間を探す。',100,748,32,ice);sub='直線を、小さい側から領域へ近づける。';}
    else{ text('MINIMUM',portrait?520:100,portrait?417:301,portrait?33:30,gold,portrait?'center':'left');math('mink',cx,portrait?500:431,portrait?102:122);math('minPoint',cx,portrait?613:602,portrait?62:76,ice);if(!portrait){math('evalMin',cx,744,70);text('最初に触れる点',100,851,30);}
-    sub='最初に触れる点は、(3, −1)。';sub2='最小値は 2。';}
+    sub='最初に触れる点は、(3, −1)。';sub2='最小値 2 ＝ y 切片 2。';}
   }else if(s===4){math('sum',cx,top,portrait?88:95);if(portrait)text(`k = ${k.toFixed(3)}`,520,548,44,gold,'center');else{math('line',cx,500,65,ice);text(`k = ${k.toFixed(3)}`,100,676,72,gold);text('交わりながら、さらに上へ。',100,814,32);}
    sub=portrait?'y 切片 (0, k) が上がる。':'y 切片 (0, k) が上がる。直線をさらに動かす。';sub2='最後に触れる直線は、どこに？';
   }else if(s===5){text('MAXIMUM',portrait?520:100,portrait?417:301,portrait?33:30,gold,portrait?'center':'left');math('maxk',cx,portrait?500:431,portrait?94:110);math('maxPoint',cx,portrait?613:602,portrait?61:76,ice,portrait?850:720);if(!portrait){math('evalMax',cx,744,66);text('円との接点',100,851,30);text('y 切片：(0, 2√5)',100,911,28,gold);}
-   sub=portrait?'円との接点と、y 軸との交点に注目。':'円との接点 (√5, √5) と、y 切片 (0, 2√5)。';sub2='最大値は 2√5。';
+   sub=portrait?'円との接点と、y 軸との交点に注目。':'円との接点 (√5, √5) と、y 切片 (0, 2√5)。';sub2='最大値 2√5 ＝ y 切片 2√5。';
   }else {math('range',cx,portrait?451:360,portrait?77:72,gold,portrait?870:730);
    if(portrait){text('最小 2  /  最大 2√5',520,562,42,white,'center');sub='極値は、触れる瞬間に現れる。';sub2='動く直線が、最大値・最小値を可視化する。';}
    else {math('min',cx,525,65);math('minPoint',cx,618,50,ice);math('max',cx,753,65);math('maxPoint',cx,846,50,ice);sub='極値は、領域に触れる瞬間に現れる。';}}
@@ -46,7 +46,7 @@ export function createFilm(make,portrait=false){const W=portrait?1080:1920,H=por
     if(s<5||s===6)callout(labels.other,'(1, 3)',-30,-41,ice);
     if(s<5||s===6)callout(labels.min,'(3, −1)',portrait?-45:35,portrait?65:58,gold);
     if(max){callout(labels.max,'(√5, √5)',portrait?-30:-35,portrait?-75:-67,gold);}
-    if(labels.yIntercept){callout(labels.yIntercept,max?'y 切片 (0, 2√5)':`y 切片 (0, ${k.toFixed(3)})`,-38,-14,gold);}
+    if(labels.yIntercept){const exact=min?'2':max?'2√5':k.toFixed(3);callout(labels.yIntercept,`y 切片 = ${exact}`,-38,-24,gold);if(min||max)text(`(0, ${exact})`,labels.yIntercept[0]-38,labels.yIntercept[1]+15,labelSize,gold,'right');}
    }
   }
   if(portrait){text(sub,520,1450,s===6?39:37,white,'center');text(sub2,520,1530,s===6?30:35,gold,'center');}
