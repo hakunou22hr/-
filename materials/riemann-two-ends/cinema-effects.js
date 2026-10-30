@@ -10,7 +10,7 @@ function noise(x,y,z){let a=Math.floor(x),b=Math.floor(y),c=Math.floor(z),u=x-a,
 function fbm(x,y,z){return noise(x,y,z)*.53+noise(x*2.03,y*2.03,z*2.03)*.27+noise(x*4.07,y*4.07,z*4.07)*.13+noise(x*8.1,y*8.1,z*8.1)*.07}
 function glow(g,x,y,r,color,alpha=1){g.save();g.globalCompositeOperation='screen';g.globalAlpha=alpha;let a=g.createRadialGradient(x,y,0,x,y,r);a.addColorStop(0,color+'dd');a.addColorStop(.12,color+'65');a.addColorStop(.45,color+'1c');a.addColorStop(1,color+'00');g.fillStyle=a;g.fillRect(x-r,y-r,r*2,r*2);g.restore()}
 export function createAtmosphere(makeCanvas,W,H){
- const dynamics=createDynamicStage(W,H,makeCanvas);const rw=H>W?180:320,rh=Math.round(rw*H/W*.78),buffers=[makeCanvas(rw,rh),makeCanvas(rw,rh)],keys=[null,null];
+ const dynamics=createDynamicStage(W,H,makeCanvas),lightScale=W>=1000?2/3:1,lightCanvas=makeCanvas(Math.round(W*lightScale),Math.round(H*lightScale)),lightContext=lightCanvas.getContext('2d');const rw=H>W?180:320,rh=Math.round(rw*H/W*.78),buffers=[makeCanvas(rw,rh),makeCanvas(rw,rh)],keys=[null,null];
  // A small procedural emissive sprite is reused for hundreds of moving 3D sparks.
  const spark=makeCanvas(48,48),sg=spark.getContext('2d'),rad=sg.createRadialGradient(24,24,0,24,24,24);rad.addColorStop(0,'#ffffff');rad.addColorStop(.09,'#fff2cf');rad.addColorStop(.23,'#ffc85caa');rad.addColorStop(1,'#ffa83b00');sg.fillStyle=rad;sg.fillRect(0,0,48,48);
  function cloudAt(key,d){const slot=((key%2)+2)%2;if(keys[slot]!==key){const cloud=buffers[slot],cg=cloud.getContext('2d'),pixels=cg.createImageData(rw,rh),sampleTime=key/8,q=state(sampleTime,d),pose=cameraPose(q,H>W),phase=sampleTime*.045,camx=pose.x*.038,camy=pose.y*.04;
@@ -40,7 +40,8 @@ cg.putImageData(pixels,0,0);keys[slot]=key}return buffers[slot]}
   g.save();g.globalCompositeOperation='screen';const speed=q.s===3?2.8:1+Math.log2(q.n||4)*.06;
   for(let i=0;i<65;i++){const z=-25+((i*.719+t*(q.s===3?6:3)*speed)%30),x=Math.sin(i*73.17)*15,y=Math.sin(i*19.43)*7;const p=project(x,y,z),r=1.2+((z+25)/30)*5;g.globalAlpha=.15+((i*11)%17)/26;g.drawImage(spark,p[0]-r,p[1]-r,r*2,r*2);if(i%2===0){const tail=project(x,y,z-1.5*speed);g.beginPath();g.moveTo(...tail);g.lineTo(...p);g.strokeStyle='#a9dcff99';g.lineWidth=1;g.stroke()}}
   g.restore();
-  dynamics.render(g,q,project);
+  // Soft volumetric light uses its own buffer; graph and main formulas stay native.
+  lightContext.setTransform(1,0,0,1,0,0);lightContext.clearRect(0,0,lightCanvas.width,lightCanvas.height);lightContext.setTransform(lightScale,0,0,lightScale,0,0);dynamics.render(lightContext,q,project);g.drawImage(lightCanvas,0,0,W,H);
   if(q.s===3){const pulse=Math.sin(Math.PI*q.p)**6;glow(g,W*.5,H*.43,W*.42,'#ffdfae',pulse*.9);glow(g,W*.5,H*.43,W*.2,'#c4a0ff',pulse*.7)}
  },
  graphLight(g,q,project,{left=false,scale=1,ox=0,oy=0,oz=0}={}){
