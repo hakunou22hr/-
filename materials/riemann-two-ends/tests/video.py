@@ -1,6 +1,6 @@
 import json, subprocess, pathlib, hashlib
 root=pathlib.Path('public/media/riemann-two-ends');results=[]
-for name,w,h,d,frames in [('lesson-90s',1920,1080,90,5400),('instagram-30s',1080,1920,30,1800)]:
+for name,w,h,d,frames in [('lesson-90s',1920,1080,90,5400),('instagram-30s',1080,1920,30,1800),('motion-preview-6s',1920,1080,6,360)]:
  p=root/(name+'.mp4')
  info=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_streams','-show_format','-of','json',str(p)]));s=next(s for s in info['streams'] if s['codec_type']=='video')
  assert (s['width'],s['height'])==(w,h)
@@ -9,7 +9,7 @@ for name,w,h,d,frames in [('lesson-90s',1920,1080,90,5400),('instagram-30s',1080
  assert abs(float(info['format']['duration'])-d)<.001
  subprocess.run(['ffmpeg','-v','error','-i',str(p),'-f','null','-'],check=True)
  sums=[]
- for t in ([0,8,18,40,61,70,89.9] if d==90 else [0,3,8,15,22,29.9]):
+ for t in ([0,8,18,40,61,70,89.9] if d==90 else [0,1,2,3,4,5.9] if d==6 else [0,3,8,15,22,29.9]):
   jpg=subprocess.check_output(['ffmpeg','-v','error','-ss',str(t),'-i',str(p),'-frames:v','1','-f','image2pipe','-vcodec','mjpeg','-'])
   sums.append(hashlib.sha256(jpg).hexdigest())
  assert len(set(sums))==len(sums),'Repeated static scenes'
