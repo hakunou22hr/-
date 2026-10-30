@@ -1,5 +1,5 @@
 {
-  "revision": "reference-worlds-v3-golden-dust",
+  "revision": "reference-worlds-v4-spatial-interferometer",
   "files": [
     {
       "kind": "original",
@@ -8,8 +8,8 @@
       "width": 1920,
       "height": 1080,
       "frames": 2700,
-      "bytes": 51409398,
-      "sha256": "ab6c897c08a8cf96a76bc1f80926515d9eda5329e43fd9f49a3c6b2e1c3a419e"
+      "bytes": 68416523,
+      "sha256": "0a7473cdd5ed4d55089adb3107bd6b3013d3c1b7b56243f2578086364d072376"
     },
     {
       "file": "teisekibun_to_bibun_90s.mp4",
@@ -17,8 +17,8 @@
       "width": 1280,
       "height": 720,
       "frames": 2700,
-      "bytes": 27395452,
-      "sha256": "6f626e06718c532c61522901c4acf160c8e5ae69460ee9e6b6477f858e16eed4"
+      "bytes": 36365481,
+      "sha256": "f0f971984410a3610fda7177c7621ed0798ef91ff919170b665654c5fa04582c"
     },
     {
       "file": "teisekibun_to_bibun_instagram_30s.mp4",
@@ -26,8 +26,8 @@
       "width": 1080,
       "height": 1920,
       "frames": 900,
-      "bytes": 16986847,
-      "sha256": "ae350ac00708cab4f4a133165c30599edd69b5f85d8aa7cc25b430d6fbcafaad"
+      "bytes": 22991648,
+      "sha256": "2d02e58422691d473513b8d039bd515cfc749da1601328559cd898b3f4ab2708"
     }
   ]
 }
