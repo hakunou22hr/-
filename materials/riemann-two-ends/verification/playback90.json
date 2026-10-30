@@ -1,0 +1,373 @@
+{
+  "base": "http://127.0.0.1:4180",
+  "results": [
+    {
+      "duration": 90,
+      "normalSpeedFullPlayback": true,
+      "pause": true,
+      "seek": true,
+      "samples": [
+        {
+          "t": 0.994833,
+          "ended": false
+        },
+        {
+          "t": 2.081314,
+          "ended": false
+        },
+        {
+          "t": 2.941857,
+          "ended": false
+        },
+        {
+          "t": 3.783572,
+          "ended": false
+        },
+        {
+          "t": 4.742872,
+          "ended": false
+        },
+        {
+          "t": 5.748274,
+          "ended": false
+        },
+        {
+          "t": 6.699249,
+          "ended": false
+        },
+        {
+          "t": 7.757427,
+          "ended": false
+        },
+        {
+          "t": 8.767797,
+          "ended": false
+        },
+        {
+          "t": 9.78485,
+          "ended": false
+        },
+        {
+          "t": 10.862394,
+          "ended": false
+        },
+        {
+          "t": 11.899159,
+          "ended": false
+        },
+        {
+          "t": 12.964466,
+          "ended": false
+        },
+        {
+          "t": 14.005028,
+          "ended": false
+        },
+        {
+          "t": 15.065549,
+          "ended": false
+        },
+        {
+          "t": 16.086376,
+          "ended": false
+        },
+        {
+          "t": 17.108353,
+          "ended": false
+        },
+        {
+          "t": 18.179709,
+          "ended": false
+        },
+        {
+          "t": 19.200774,
+          "ended": false
+        },
+        {
+          "t": 20.271338,
+          "ended": false
+        },
+        {
+          "t": 21.298912,
+          "ended": false
+        },
+        {
+          "t": 22.379191,
+          "ended": false
+        },
+        {
+          "t": 23.402762,
+          "ended": false
+        },
+        {
+          "t": 24.420396,
+          "ended": false
+        },
+        {
+          "t": 25.489392,
+          "ended": false
+        },
+        {
+          "t": 26.56117,
+          "ended": false
+        },
+        {
+          "t": 27.599515,
+          "ended": false
+        },
+        {
+          "t": 28.619879,
+          "ended": false
+        },
+        {
+          "t": 29.640613,
+          "ended": false
+        },
+        {
+          "t": 30.708918,
+          "ended": false
+        },
+        {
+          "t": 31.736194,
+          "ended": false
+        },
+        {
+          "t": 32.765189,
+          "ended": false
+        },
+        {
+          "t": 33.826966,
+          "ended": false
+        },
+        {
+          "t": 34.847872,
+          "ended": false
+        },
+        {
+          "t": 35.864934,
+          "ended": false
+        },
+        {
+          "t": 36.921776,
+          "ended": false
+        },
+        {
+          "t": 37.93762,
+          "ended": false
+        },
+        {
+          "t": 39.008928,
+          "ended": false
+        },
+        {
+          "t": 40.050778,
+          "ended": false
+        },
+        {
+          "t": 41.065273,
+          "ended": false
+        },
+        {
+          "t": 42.129098,
+          "ended": false
+        },
+        {
+          "t": 43.156065,
+          "ended": false
+        },
+        {
+          "t": 44.209835,
+          "ended": false
+        },
+        {
+          "t": 45.233429,
+          "ended": false
+        },
+        {
+          "t": 46.251915,
+          "ended": false
+        },
+        {
+          "t": 47.265885,
+          "ended": false
+        },
+        {
+          "t": 48.311275,
+          "ended": false
+        },
+        {
+          "t": 49.322823,
+          "ended": false
+        },
+        {
+          "t": 50.341551,
+          "ended": false
+        },
+        {
+          "t": 51.356067,
+          "ended": false
+        },
+        {
+          "t": 52.371391,
+          "ended": false
+        },
+        {
+          "t": 53.412387,
+          "ended": false
+        },
+        {
+          "t": 54.424485,
+          "ended": false
+        },
+        {
+          "t": 55.439191,
+          "ended": false
+        },
+        {
+          "t": 56.466623,
+          "ended": false
+        },
+        {
+          "t": 57.512781,
+          "ended": false
+        },
+        {
+          "t": 58.524487,
+          "ended": false
+        },
+        {
+          "t": 59.546523,
+          "ended": false
+        },
+        {
+          "t": 60.558074,
+          "ended": false
+        },
+        {
+          "t": 61.620084,
+          "ended": false
+        },
+        {
+          "t": 62.642383,
+          "ended": false
+        },
+        {
+          "t": 63.740863,
+          "ended": false
+        },
+        {
+          "t": 64.764076,
+          "ended": false
+        },
+        {
+          "t": 65.777082,
+          "ended": false
+        },
+        {
+          "t": 66.82248,
+          "ended": false
+        },
+        {
+          "t": 67.84625,
+          "ended": false
+        },
+        {
+          "t": 68.860658,
+          "ended": false
+        },
+        {
+          "t": 69.871283,
+          "ended": false
+        },
+        {
+          "t": 70.916932,
+          "ended": false
+        },
+        {
+          "t": 71.932151,
+          "ended": false
+        },
+        {
+          "t": 72.943406,
+          "ended": false
+        },
+        {
+          "t": 73.951829,
+          "ended": false
+        },
+        {
+          "t": 74.96375,
+          "ended": false
+        },
+        {
+          "t": 76.006957,
+          "ended": false
+        },
+        {
+          "t": 77.025928,
+          "ended": false
+        },
+        {
+          "t": 78.045293,
+          "ended": false
+        },
+        {
+          "t": 79.061971,
+          "ended": false
+        },
+        {
+          "t": 80.072121,
+          "ended": false
+        },
+        {
+          "t": 81.137276,
+          "ended": false
+        },
+        {
+          "t": 82.15619,
+          "ended": false
+        },
+        {
+          "t": 83.172063,
+          "ended": false
+        },
+        {
+          "t": 84.211272,
+          "ended": false
+        },
+        {
+          "t": 85.219528,
+          "ended": false
+        },
+        {
+          "t": 86.237757,
+          "ended": false
+        },
+        {
+          "t": 87.24814,
+          "ended": false
+        },
+        {
+          "t": 88.259924,
+          "ended": false
+        },
+        {
+          "t": 89.316045,
+          "ended": false
+        },
+        {
+          "t": 90,
+          "ended": true
+        }
+      ]
+    },
+    {
+      "download": "lesson-90s.mp4",
+      "bytes": 28387611,
+      "sha256": "014ca19a146234640e533d25003ecc56547a5a96290fbddcd384b785622b9a96"
+    }
+  ],
+  "liveControls": true,
+  "mobile": true,
+  "errors": []
+}

@@ -1,0 +1,141 @@
+{
+  "base": "http://127.0.0.1:4180",
+  "results": [
+    {
+      "duration": 30,
+      "normalSpeedFullPlayback": true,
+      "pause": true,
+      "seek": true,
+      "samples": [
+        {
+          "t": 1.072579,
+          "ended": false
+        },
+        {
+          "t": 1.987671,
+          "ended": false
+        },
+        {
+          "t": 2.903518,
+          "ended": false
+        },
+        {
+          "t": 3.821663,
+          "ended": false
+        },
+        {
+          "t": 4.887016,
+          "ended": false
+        },
+        {
+          "t": 5.840338,
+          "ended": false
+        },
+        {
+          "t": 6.912648,
+          "ended": false
+        },
+        {
+          "t": 7.93393,
+          "ended": false
+        },
+        {
+          "t": 8.952943,
+          "ended": false
+        },
+        {
+          "t": 10.015665,
+          "ended": false
+        },
+        {
+          "t": 11.040621,
+          "ended": false
+        },
+        {
+          "t": 12.06257,
+          "ended": false
+        },
+        {
+          "t": 13.139286,
+          "ended": false
+        },
+        {
+          "t": 14.217729,
+          "ended": false
+        },
+        {
+          "t": 15.247651,
+          "ended": false
+        },
+        {
+          "t": 16.262072,
+          "ended": false
+        },
+        {
+          "t": 17.315526,
+          "ended": false
+        },
+        {
+          "t": 18.347077,
+          "ended": false
+        },
+        {
+          "t": 19.409065,
+          "ended": false
+        },
+        {
+          "t": 20.42357,
+          "ended": false
+        },
+        {
+          "t": 21.457273,
+          "ended": false
+        },
+        {
+          "t": 22.532357,
+          "ended": false
+        },
+        {
+          "t": 23.566454,
+          "ended": false
+        },
+        {
+          "t": 24.616034,
+          "ended": false
+        },
+        {
+          "t": 25.712498,
+          "ended": false
+        },
+        {
+          "t": 26.730605,
+          "ended": false
+        },
+        {
+          "t": 27.756784,
+          "ended": false
+        },
+        {
+          "t": 28.818922,
+          "ended": false
+        },
+        {
+          "t": 29.847599,
+          "ended": false
+        },
+        {
+          "t": 30,
+          "ended": true
+        }
+      ]
+    },
+    {
+      "download": "instagram-30s.mp4",
+      "bytes": 9317045,
+      "sha256": "2b23a473cebcc249c6f91734dcbccdf4aee7c5d421e60ff669f6a24b282461be"
+    }
+  ],
+  "liveControls": true,
+  "mobile": true,
+  "errors": []
+}

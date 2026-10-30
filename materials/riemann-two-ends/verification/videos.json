@@ -1,0 +1,26 @@
+[
+  {
+    "file": "public/media/riemann-two-ends/lesson-90s.mp4",
+    "width": 1920,
+    "height": 1080,
+    "duration": 90,
+    "fps": 60,
+    "frames": 5400,
+    "bytes": 28387611,
+    "sha256": "014ca19a146234640e533d25003ecc56547a5a96290fbddcd384b785622b9a96",
+    "fullDecode": true,
+    "distinctSamples": 7
+  },
+  {
+    "file": "public/media/riemann-two-ends/instagram-30s.mp4",
+    "width": 1080,
+    "height": 1920,
+    "duration": 30,
+    "fps": 60,
+    "frames": 1800,
+    "bytes": 9317045,
+    "sha256": "2b23a473cebcc249c6f91734dcbccdf4aee7c5d421e60ff669f6a24b282461be",
+    "fullDecode": true,
+    "distinctSamples": 6
+  }
+]

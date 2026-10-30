@@ -1,0 +1,28 @@
+# 動作確認記録
+
+対象: 区分求積法の右端と左端、２種類
+
+- 数式: KaTeXで12式を正常描画。分数、総和の上下限、極限、積分区間を画像サンプルで確認。
+- 数学: n=4,8,16,32,64,128,256について独立した直接和で Rn > 1/3 > Ln、Rn−Ln=1/n を確認。
+- タイムライン: 90秒5401時刻、30秒1801時刻で5シーンを通ることを確認。
+- WebGL: 6シーン画像を生成。JavaScriptエラーなし。
+- 30秒MP4: 1080×1920、60fps、1800フレーム、30.000秒。ブラウザで通常速度の全再生、停止、シーク、実ダウンロードのバイト一致、ライブ制御、390px表示を確認。
+- 90秒MP4: 1920×1080、60fps、5400フレーム、90.000秒。製品ビルドで通常速度の90秒完走・停止・シーク・実ダウンロードのバイト一致・ライブ制御・390px表示を確認。
+- 両動画の全フレームをffmpegでエラーなくデコード。各シーンの抽出画像がすべて異なることを確認。
+- 製品ビルド: 成功。30秒版は製品ビルドでも通常速度完走・実ダウンロード・ライブ操作を確認。
+- 既存の必須 trig-cinema テスト: 6件成功。
+- 全体テスト: 305件成功、既存の2件不合格、負荷中の描画テスト1件タイムアウト。描画テストは20秒制限で再実行し2件とも成功。
+- 既存不合格1: `src/materials.test.ts` の全教材サムネイル検査。既存 `triangle-789-cinematic/material.json` に thumbnail がない。
+- 既存不合格2: `materials/region-circle-radius/src/math.test.ts` の「共通領域が三角形にならない場合も例外にしない」。既存 math の valid が true を返す。
+- これらの既存教材のソースは変更していない。
+
+公開後の自動確認は `.github/workflows/riemann-two-ends.yml`。GitHub Pagesの公開URLで90秒・30秒の通常速度完走と実MP4保存を検査する。
+この作業環境から GitHub Pages への接続は通信ポリシーで403となるため、公開先のブラウザ検査はGitHub Actionsで実施する。
+
+詳細ログの再生成:
+
+```
+node materials/riemann-two-ends/tests/check.cjs
+node materials/riemann-two-ends/tests/playback.cjs
+python materials/riemann-two-ends/tests/video.py
+```

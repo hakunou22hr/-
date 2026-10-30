@@ -1,0 +1,53 @@
+name: Verify Riemann right and left cinema
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'materials/riemann-two-ends/**'
+      - 'public/media/riemann-two-ends/**'
+      - '.github/workflows/riemann-two-ends.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  public-playback:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Install playback browser
+        run: |
+          npm install --prefix /tmp/riemann-browser playwright@1.62.1
+          node /tmp/riemann-browser/node_modules/playwright/cli.js install --with-deps chromium
+          echo "CHROMIUM_PATH=$(node -e 'console.log(require("/tmp/riemann-browser/node_modules/playwright").chromium.executablePath())')" >> "$GITHUB_ENV"
+      - name: Wait for this lesson on GitHub Pages
+        run: |
+          python - <<'PYWAIT'
+          import time, urllib.request, urllib.error
+          for attempt in range(100):
+              try:
+                  url='https://hakunou22hr.github.io/-/materials/riemann-two-ends/?qa='+str(time.time_ns())
+                  with urllib.request.urlopen(url,timeout=20) as r:
+                      body=r.read().decode('utf-8')
+                  if '区分求積法の右端と左端、２種類' in body:
+                      break
+              except (urllib.error.URLError,TimeoutError):
+                  pass
+              time.sleep(10)
+          else:
+              raise SystemExit('Published lesson unavailable')
+          PYWAIT
+      - name: Normal-speed full playback and real MP4 downloads
+        env:
+          PLAYWRIGHT_MODULE_PATH: /tmp/riemann-browser/node_modules/playwright
+          RIEMANN_ORIGIN: https://hakunou22hr.github.io/-
+        run: |
+          mkdir -p work/riemann-two-ends
+          node materials/riemann-two-ends/tests/playback.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: riemann-two-ends-public-playback
+          path: work/riemann-two-ends/

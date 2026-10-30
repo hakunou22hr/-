@@ -1,0 +1,9 @@
+{
+  "mathematics": true,
+  "timelines": [
+    30,
+    90
+  ],
+  "webgl": true,
+  "errors": []
+}
