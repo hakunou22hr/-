@@ -1,0 +1,7 @@
+<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#030914}canvas{display:block}</style></head><body><script type="module">
+import {loadMath} from './math.js';import {createWorld} from './world.js';import {state} from './model.js';import {createFilm} from './film.js';
+await loadMath(url=>new Promise((resolve,reject)=>{const im=new Image;im.onload=()=>resolve(im);im.onerror=reject;im.src=url}));
+const params=new URLSearchParams(location.search),portrait=params.has('portrait'),width=+(params.get('bgw')||960),height=Math.round(width*(portrait?16/9:9/16)),world=createWorld(width,height,{portrait});document.body.append(world.canvas);
+const make=(w,h)=>{const c=document.createElement('canvas');c.width=w;c.height=h;return c;};const film=createFilm(make,portrait),output=make(portrait?1080:1920,portrait?1920:1080),ctx=output.getContext('2d');
+window.movieRender={background(t){const q=state(t,portrait),labels=world.render(q);return {jpg:world.canvas.toDataURL('image/jpeg',.97).split(',')[1],labels}},frame(t){const q=state(t,portrait),labels=world.render(q),result=film.render(t,labels);ctx.drawImage(world.canvas,0,0,output.width,output.height);ctx.drawImage(film.canvas,0,0);return {...result,labels,png:output.toDataURL('image/png').split(',')[1]};},info(){return {webgl:world.renderer.capabilities.isWebGL2,width,height}}};movieRender.background(0);
+</script></body></html>

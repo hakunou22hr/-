@@ -1,0 +1,30 @@
+{
+  "title": "円の領域　x+y=K　点と直線の距離",
+  "version": "2.2.0",
+  "files": [
+    {
+      "kind": "original",
+      "path": "materials/golden-line-cinema/archive/golden-line-cinema-90s.mp4",
+      "duration": 90,
+      "width": 1920,
+      "height": 1080,
+      "fps": "30/1",
+      "frames": 2700,
+      "bytes": 57885784,
+      "sha256": "1c1ca098d732b1b76c711300d9e42f0475ad0589b73fb94aa3cdcf2c9fbadf8d"
+    },
+    {
+      "kind": "playback",
+      "path": "public/media/golden-line/golden-line-cinema-90s-play.mp4",
+      "duration": 90,
+      "width": 1280,
+      "height": 720,
+      "fps": "30/1",
+      "frames": 2700,
+      "bytes": 16747756,
+      "sha256": "5c84d02c96d4886317b380c83f4288c7c7a81615d42db28c523740f0b46d4dd9"
+    }
+  ],
+  "videoTitle": "黄金の直線が暴く 最大値・最小値",
+  "revision": "最大値でもy切片(0,2√5)が見える構図"
+}
