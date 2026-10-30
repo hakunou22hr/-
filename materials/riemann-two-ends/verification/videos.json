@@ -6,8 +6,8 @@
     "duration": 90,
     "fps": 60,
     "frames": 5400,
-    "bytes": 28387611,
-    "sha256": "014ca19a146234640e533d25003ecc56547a5a96290fbddcd384b785622b9a96",
+    "bytes": 23531016,
+    "sha256": "9d9badf53fceb3171528537f1f0bbf2788348db40eeddd4a7ec0bab0f750b78f",
     "fullDecode": true,
     "distinctSamples": 7
   },
@@ -18,8 +18,8 @@
     "duration": 30,
     "fps": 60,
     "frames": 1800,
-    "bytes": 9317045,
-    "sha256": "2b23a473cebcc249c6f91734dcbccdf4aee7c5d421e60ff669f6a24b282461be",
+    "bytes": 9535084,
+    "sha256": "ce824b9ce9126f0fd1f978a596cad23ec7e6c3613c8f8ebde614ff47621c6ca7",
     "fullDecode": true,
     "distinctSamples": 6
   }
