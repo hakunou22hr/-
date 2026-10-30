@@ -31,7 +31,7 @@ jobs:
                   url='https://hakunou22hr.github.io/-/materials/riemann-two-ends/?qa='+str(time.time_ns())
                   with urllib.request.urlopen(url,timeout=20) as r:
                       body=r.read().decode('utf-8')
-                  if '区分求積法の右端と左端、２種類' in body:
+                  if 'nebula-v2' in body:
                       break
               except (urllib.error.URLError,TimeoutError):
                   pass
