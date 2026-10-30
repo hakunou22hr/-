@@ -34,13 +34,25 @@ export function createStage(make,portrait=false){
   const nodes=[];for(let i=0;i<24;i++){const a=i*.39+q.t*.09,p=project(12*Math.cos(a),7*Math.sin(a),-7+3*Math.cos(a*.6));nodes.push(p);if(i)poly([nodes[i-1],p],'#7f58f0',.75,.6);if(i>2&&i%3===0)poly([nodes[i-3],p],'#7f58f0',.6,.5);flare(p,1,15,.85);}
   for(let i=0;i<12;i++){const a=i*.62+q.t*.11,p=project(13*Math.cos(a),7*Math.sin(a),-5);if(!p)continue;g.save();g.globalAlpha=.4;drawMath(g,make,['intSymbol','sumSymbol','sine','cosIntegral'][i%4],p[0],p[1],Math.min(52,p[2]*1.1),i%2?'#c49bff':'#8bdfff');g.restore();}
  }
- function spiral(a,j=0){const r=10.5*Math.pow(1-a,.92)+.22,theta=a*TAU*2.65-q.t*.62+j*.014;return[4.7+r*Math.cos(theta),1+r*Math.sin(theta)*.83,-2+r*Math.sin(theta)*.32+j*.025];}
+ function spiral(a,j=0){const r=10.5*Math.pow(1-a,.92)+.22,theta=a*TAU*2.65-q.t*.92+j*.014;return[4.7+r*Math.cos(theta),1+r*Math.sin(theta)*.83,-2+r*Math.sin(theta)*.32+j*.025];}
  function vortex(){
   // A luminous accretion spiral: dense gold filament, orbiting symbols, dust and deep clouds.
   for(let j=0;j<42;j++){const pts=[];for(let i=0;i<=150;i++)pts.push(project(...spiral(i/150,j)));if(j%12===0)ray(pts,j%24?'#ffebad':'#ffa62b',2.0,1.35);else poly(pts,j%3?'#ffc84b':'#fff0b1',j%4===0?.95:.55,.45);}
-  for(let i=0;i<360;i++){const a=(seed(i)+q.t*(.045+.025*seed(i+31)))%1,p=project(...spiral(a,(seed(i+15)-.5)*85));if(!p)continue;const tail=project(...spiral(Math.max(0,a-.006),0));if(i%4===0)flare(p,2,8+seed(i+9)*17,.95);else poly([tail,p],i%3?'#ffcf6b':'#faffce',.8,.85);}
-  for(let i=0;i<25;i++){const a=(i/25+q.t*.026)%1,p=project(...spiral(a,(i%3-1)*75));if(!p)continue;g.save();g.globalAlpha=.45+seed(i)*.25;g.translate(p[0],p[1]);g.rotate(Math.sin(a*TAU*2.65-q.t*.62)*.25);drawMath(g,make,['intSymbol','sumSymbol','u','dv','v','du'][i%6],0,0,Math.min(35,18+p[2]*.3),'#ffe6ac');g.restore();}
-  const core=project(4.7,1,-2);flare(core,2,175,.8);flare(core,2,60,1);if(core){ray([[core[0]-120,core[1]],[core[0]+150,core[1]]],'#ffdb80',.8,.9);}
+  // Golden dust flows in depth from the outer arm into the core. Heads and curved
+  // tails share an orbit; a few long streaks pass close to the camera.
+  function dust(a,i){const j=(seed(i+15)-.5)*55,p=spiral(a,j),angle=a*TAU*2.65-q.t*.92+j*.014,spread=(seed(i+91)-.5)*(1+3*(1-a));p[0]+=Math.cos(angle)*spread;p[1]+=Math.sin(angle)*spread*.83;p[2]+=(seed(i+92)-.5)*(2+6*(1-a));return p;}
+  g.save();g.globalCompositeOperation='lighter';
+  for(let i=0;i<1440;i++){
+   const a=(seed(i)+q.t*(.065+.065*seed(i+31)))%1,world=dust(a,i),p=project(...world);if(!p)continue;
+   const fade=clamp(a*14)*clamp((1-a)*22),twinkle=.8+.2*Math.sin(q.t*(2.5+seed(i+44)*2)+i),alpha=fade*(.7+.3*seed(i+21))*twinkle,color=i%5?'#ffd05f':'#fff6cc';
+   if(i%4===0){const trail=[],length=i%68===0?.065:.008+seed(i+8)*.014;for(let k=0;k<7;k++)trail.push(project(...dust(Math.max(0,a-length*(1-k/6)),i)));if(i%68===0)ray(trail,'#ffd678',1.35,alpha);else poly(trail,color,.65,alpha*.8);}
+   if(i%8===0)flare(p,2,(9+seed(i+9)*22)*Math.min(1.8,p[2]/24),alpha);else{g.globalAlpha=clamp(alpha);g.fillStyle=color;g.beginPath();g.arc(p[0],p[1],(.7+seed(i+13)*1.6)*Math.min(1.8,p[2]/24),0,TAU);g.fill();}
+  }
+  // A second stream carries dust out of the blue cloud and into the golden arm.
+  for(let i=0;i<160;i++){const a=(seed(i+600)+q.t*(.11+.05*seed(i+32)))%1,offset=(seed(i+61)-.5)*1.3,p=project(-20+a*25,2*Math.sin(a*5-q.t*.4)+offset,-5+3*Math.sin(a*4)+offset);if(!p)continue;const tail=project(-20+(a-.015)*25,2*Math.sin((a-.015)*5-q.t*.4)+offset,-5+3*Math.sin((a-.015)*4)+offset);poly([tail,p],'#ffe3a1',1,clamp(a*10)*clamp((1-a)*10)*.8);if(i%9===0)flare(p,2,15,.8);}
+  g.restore();
+  for(let i=0;i<25;i++){const a=(i/25+q.t*.026)%1,p=project(...spiral(a,(i%3-1)*75));if(!p)continue;g.save();g.globalAlpha=.45+seed(i)*.25;g.translate(p[0],p[1]);g.rotate(Math.sin(a*TAU*2.65-q.t*.92)*.25);drawMath(g,make,['intSymbol','sumSymbol','u','dv','v','du'][i%6],0,0,Math.min(35,18+p[2]*.3),'#ffe6ac');g.restore();}
+  const core=project(4.7,1,-2);flare(core,2,175+16*Math.sin(q.t*2.3),.8);flare(core,2,60,1);if(core){ray([[core[0]-120,core[1]],[core[0]+150,core[1]]],'#ffdb80',.8,.9);}
   // Material is visibly pulled out of the cloud into the vortex.
   for(let j=0;j<8;j++){const pts=[];for(let i=0;i<70;i++){const a=i/69;pts.push(project(-20+a*25,2*Math.sin(a*5-q.t*.4)+(j-4)*.13,-5+3*Math.sin(a*4)));}ray(pts,j%2?'#ffd583':'#8dc4ff',j%3===0?1.3:.6,.75);}
  }

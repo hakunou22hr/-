@@ -1,0 +1,41 @@
+[
+  {
+    "t": 6,
+    "mode": "neon-river",
+    "camera": {
+      "ry": 0.13286978070330374,
+      "rx": 0.16593846719714733,
+      "distance": 26.464
+    },
+    "meanLuminance": 55.797029363816094,
+    "brightArea": 0.15292052469135803,
+    "coloredArea": 0.3777237654320988,
+    "motionDifference": 19.729374356995883
+  },
+  {
+    "t": 40,
+    "mode": "gold-vortex",
+    "camera": {
+      "ry": -0.09377911344853496,
+      "rx": 0.00038353911641593463,
+      "distance": 24.271104013936444
+    },
+    "meanLuminance": 75.7063756242102,
+    "brightArea": 0.12765046296296295,
+    "coloredArea": 0.17771219135802468,
+    "motionDifference": 27.694974922839506
+  },
+  {
+    "t": 84,
+    "mode": "glass-wave-lattice",
+    "camera": {
+      "ry": 0,
+      "rx": -0.72,
+      "distance": 26
+    },
+    "meanLuminance": 54.098056739177196,
+    "brightArea": 0.06398148148148149,
+    "coloredArea": 0.3251658950617284,
+    "motionDifference": 18.75005787037037
+  }
+]
