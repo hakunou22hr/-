@@ -1,0 +1,39 @@
+{
+  "lightTransport": [
+    {
+      "scene": 1,
+      "changedPixels": 37245,
+      "goldPixels": 16125,
+      "clouds": false,
+      "cameraHeldFixed": true
+    },
+    {
+      "scene": 2,
+      "changedPixels": 55282,
+      "goldPixels": 28582,
+      "clouds": false,
+      "cameraHeldFixed": true
+    },
+    {
+      "scene": 3,
+      "changedPixels": 45873,
+      "goldPixels": 20396,
+      "clouds": false,
+      "cameraHeldFixed": true
+    },
+    {
+      "scene": 4,
+      "changedPixels": 40752,
+      "goldPixels": 21378,
+      "clouds": false,
+      "cameraHeldFixed": true
+    }
+  ],
+  "satelliteVortices": 5,
+  "totalVortices": 6,
+  "movingGrowingMerging": true,
+  "fieldDeforms": true,
+  "finiteAtEndpoints": true,
+  "deterministicSeek": true,
+  "bothTimelines": true
+}
