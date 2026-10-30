@@ -1,0 +1,36 @@
+{
+  "lightTransport": [
+    {
+      "scene": 1,
+      "changedPixels": 19766,
+      "goldPixels": 7890,
+      "clouds": false,
+      "cameraHeldFixed": true
+    },
+    {
+      "scene": 2,
+      "changedPixels": 23449,
+      "goldPixels": 6014,
+      "clouds": false,
+      "cameraHeldFixed": true
+    },
+    {
+      "scene": 3,
+      "changedPixels": 33480,
+      "goldPixels": 7072,
+      "clouds": false,
+      "cameraHeldFixed": true
+    },
+    {
+      "scene": 4,
+      "changedPixels": 16206,
+      "goldPixels": 4879,
+      "clouds": false,
+      "cameraHeldFixed": true
+    }
+  ],
+  "fieldDeforms": true,
+  "finiteAtEndpoints": true,
+  "deterministicSeek": true,
+  "bothTimelines": true
+}

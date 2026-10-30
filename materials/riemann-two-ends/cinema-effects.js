@@ -10,7 +10,7 @@ function noise(x,y,z){let a=Math.floor(x),b=Math.floor(y),c=Math.floor(z),u=x-a,
 function fbm(x,y,z){return noise(x,y,z)*.53+noise(x*2.03,y*2.03,z*2.03)*.27+noise(x*4.07,y*4.07,z*4.07)*.13+noise(x*8.1,y*8.1,z*8.1)*.07}
 function glow(g,x,y,r,color,alpha=1){g.save();g.globalCompositeOperation='screen';g.globalAlpha=alpha;let a=g.createRadialGradient(x,y,0,x,y,r);a.addColorStop(0,color+'dd');a.addColorStop(.12,color+'65');a.addColorStop(.45,color+'1c');a.addColorStop(1,color+'00');g.fillStyle=a;g.fillRect(x-r,y-r,r*2,r*2);g.restore()}
 export function createAtmosphere(makeCanvas,W,H){
- const dynamics=createDynamicStage(W,H);const rw=H>W?180:320,rh=Math.round(rw*H/W*.78),buffers=[makeCanvas(rw,rh),makeCanvas(rw,rh)],keys=[null,null];
+ const dynamics=createDynamicStage(W,H,makeCanvas);const rw=H>W?180:320,rh=Math.round(rw*H/W*.78),buffers=[makeCanvas(rw,rh),makeCanvas(rw,rh)],keys=[null,null];
  // A small procedural emissive sprite is reused for hundreds of moving 3D sparks.
  const spark=makeCanvas(48,48),sg=spark.getContext('2d'),rad=sg.createRadialGradient(24,24,0,24,24,24);rad.addColorStop(0,'#ffffff');rad.addColorStop(.09,'#fff2cf');rad.addColorStop(.23,'#ffc85caa');rad.addColorStop(1,'#ffa83b00');sg.fillStyle=rad;sg.fillRect(0,0,48,48);
  function cloudAt(key,d){const slot=((key%2)+2)%2;if(keys[slot]!==key){const cloud=buffers[slot],cg=cloud.getContext('2d'),pixels=cg.createImageData(rw,rh),sampleTime=key/8,q=state(sampleTime,d),pose=cameraPose(q,H>W),phase=sampleTime*.045,camx=pose.x*.038,camy=pose.y*.04;
@@ -36,18 +36,9 @@ cg.putImageData(pixels,0,0);keys[slot]=key}return buffers[slot]}
   // Light pools and a luminous horizon give the grid a reflective floor.
   let horizon=project(0,-3.15,-14),floor=g.createLinearGradient(0,H*.39,0,H*.9);floor.addColorStop(0,'#04122a00');floor.addColorStop(.45,'#1267af38');floor.addColorStop(1,'#01071400');g.fillStyle=floor;g.fillRect(0,H*.39,W,H*.51);
   glow(g,horizon[0],horizon[1],W*.42,q.s===2?'#a477ff':'#257ecc',.38);
-  // Thick orbiting light ribbons, with perspective and layered emission.
-  const rings=0;
-  for(let ring=0;ring<rings;ring++){
-   const pts=[],angle=t*.08+ring*2.3,rx=8+ring*2,rz=2.7+ring*.8;
-   for(let j=0;j<=180;j++){const a=j/180*Math.PI*2,x=Math.cos(a)*rx,z=Math.sin(a)*rz-4;pts.push(project(x,-.4+ring*1.5+Math.sin(a+angle)*1.1,z))}
-   const color=q.s===2?'#ad7aff':ring%2?'#ffe1a0':'#6ad7ff';g.save();g.globalCompositeOperation='screen';
-   for(const[width,alpha]of[[30,.035],[13,.08],[5,.27],[1.5,.9]]){g.beginPath();pts.forEach((p,i)=>i?g.lineTo(...p):g.moveTo(...p));g.lineWidth=width;g.strokeStyle=color;g.globalAlpha=alpha;g.stroke()}
-   g.restore();const a=angle*1.3,head=project(Math.cos(a)*rx,-.4+ring*1.5+Math.sin(a+angle)*1.1,Math.sin(a)*rz-4);glow(g,...head,80,color,.75);
-  }
   // Receding sparks and streaks respond to increasing subdivision density.
   g.save();g.globalCompositeOperation='screen';const speed=q.s===3?2.8:1+Math.log2(q.n||4)*.06;
-  for(let i=0;i<190;i++){const z=-25+((i*.719+t*(q.s===3?6:3)*speed)%30),x=Math.sin(i*73.17)*15,y=Math.sin(i*19.43)*7;const p=project(x,y,z),r=1.2+((z+25)/30)*5;g.globalAlpha=.15+((i*11)%17)/26;g.drawImage(spark,p[0]-r,p[1]-r,r*2,r*2);if(i%2===0){const tail=project(x,y,z-1.5*speed);g.beginPath();g.moveTo(...tail);g.lineTo(...p);g.strokeStyle='#a9dcff99';g.lineWidth=1;g.stroke()}}
+  for(let i=0;i<65;i++){const z=-25+((i*.719+t*(q.s===3?6:3)*speed)%30),x=Math.sin(i*73.17)*15,y=Math.sin(i*19.43)*7;const p=project(x,y,z),r=1.2+((z+25)/30)*5;g.globalAlpha=.15+((i*11)%17)/26;g.drawImage(spark,p[0]-r,p[1]-r,r*2,r*2);if(i%2===0){const tail=project(x,y,z-1.5*speed);g.beginPath();g.moveTo(...tail);g.lineTo(...p);g.strokeStyle='#a9dcff99';g.lineWidth=1;g.stroke()}}
   g.restore();
   dynamics.render(g,q,project);
   if(q.s===3){const pulse=Math.sin(Math.PI*q.p)**6;glow(g,W*.5,H*.43,W*.42,'#ffdfae',pulse*.9);glow(g,W*.5,H*.43,W*.2,'#c4a0ff',pulse*.7)}
