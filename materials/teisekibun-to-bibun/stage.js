@@ -69,12 +69,37 @@ export function createStage(make,portrait=false){
   // Volumetric overhead light and a hot centre give the surface physical depth.
   const centre=project(0,.3,0);flare(centre,q.s===4?2:0,140,.65);flare(project(0,5,-1),2,180,.35);
  }
+ function spatialArchitecture(){
+  // An open, twisting interferometer: staggered diamond ribs, never a closed corridor.
+  // Depth travel is analytic, so seeking reproduces every parallax crossing.
+  for(let i=15;i>=0;i--){const z=-22+((i*4.3-q.t*1.6)%68+68)%68,twist=.22*Math.sin(z*.11+q.t*.16),radius=12+1.8*Math.sin(z*.18-q.t*.3),pts=[];
+   for(let k=0;k<=4;k++){const a=k*Math.PI/2+Math.PI/4+twist;pts.push(project(radius*Math.cos(a)*1.55,radius*Math.sin(a),z));}
+   const alpha=.18+.38*(1-(z+22)/68),color=q.s===2?'#ffc86a':i%2?'#8f82ff':'#49e9ff';
+   // Missing alternate sides keep the frame open and retain visual breathing room.
+   poly(pts.slice(0,3),color,.8,alpha);poly(pts.slice(3),color,.8,alpha);
+   for(const k of[0,2]){const a=k*Math.PI/2+Math.PI/4+twist,p=project(radius*Math.cos(a)*1.55,radius*Math.sin(a),z);flare(p,q.s===2?2:i%2,18,alpha);}
+  }
+  // Split travelling light sails skim the edges and reveal the camera's depth.
+  for(let side of[-1,1]){const pts=[];for(let k=0;k<=80;k++){const z=-18+k*.7,x=side*(14+2*Math.sin(z*.14+q.t*.25)),y=5*Math.sin(z*.10-q.t*.28);pts.push(project(x,y,z));}ray(pts,q.s===2?'#f4b54b':'#6e8cff',1,.55);}
+ }
+ function vortexJets(){
+  // Three tilted, precessing orbital arcs break the flat-spiral silhouette.
+  const tilt=.7+.25*Math.sin(q.t*.33);
+  for(let band=0;band<3;band++){const pts=[];for(let k=0;k<=110;k++){const a=k/110*TAU*.82+q.t*(band%2?-.45:.32)+band*2.1,r=6.5+band*1.25;pts.push(project(4.7+Math.cos(a)*r,1+Math.sin(a)*r*Math.cos(tilt),-2+Math.sin(a)*r*Math.sin(tilt)+(band-1)*1.6));}ray(pts,band===1?'#9ccfff':'#ffcf70',band===1?.65:1.1,.75);}
+  // Bipolar corkscrew ejecta: outward motion counters the inward accretion dust.
+  for(let side of[-1,1])for(let i=0;i<190;i++){const a=(seed(i+1800)+q.t*(.17+seed(i+11)*.1))%1,ang=i*2.399+q.t*1.3,r=.3+a*2.8,world=v=>[4.7+Math.cos(ang)*r+side*v*3,1+side*v*17,-2+Math.sin(ang)*r+v*2],p=project(...world(a)),tail=project(...world(Math.max(0,a-.035))),power=clamp(a*10)*Math.pow(1-a,.7)*.75;poly([tail,p],i%5?'#ffce71':'#b6dfff',.8,power);if(i%13===0)flare(p,i%5?2:0,17,power);}
+ }
+ function wavefronts(){
+  // Elliptical caustics propagate across the physical lattice, then rise as sparks.
+  for(let ring=0;ring<4;ring++){const age=(q.t*.32+ring*.25)%1,r=age*19,pts=[];for(let k=0;k<=100;k++){const a=k/100*TAU,x=Math.cos(a)*r,z=Math.sin(a)*r*.72;if(Math.abs(x)>11||Math.abs(z)>8){pts.push(null);continue;}pts.push(project(...gridPoint(x,z)));}ray(pts,ring%2?'#b796ff':'#8cffff',1.1,(1-age)*.8);}
+  for(let i=0;i<90;i++){const age=(seed(i+2200)+q.t*.22)%1,a=i*2.399,r=4+seed(i+1)*6,p=project(Math.cos(a)*r,-2+age*10,Math.sin(a)*r*.65);flare(p,i%3,5+age*7,Math.sin(age*Math.PI)*.65);}
+ }
  function shock(){if(q.collision<.02)return;const p=project(q.s===2?4.7:0,q.s===4?5:1,0);if(!p)return;const r=(1-q.collision)*W*.8;g.save();g.globalCompositeOperation='lighter';g.globalAlpha=q.collision;g.strokeStyle='#ffebba';g.lineWidth=2;g.beginPath();g.ellipse(p[0],p[1],Math.max(3,r),Math.max(2,r*.35),-.15,0,TAU);g.stroke();g.restore();flare(p,2,100+q.collision*240,.65*q.collision);}
  function render(state){q=state;g.globalCompositeOperation='source-over';g.globalAlpha=1;const base=g.createLinearGradient(0,0,W,H);base.addColorStop(0,q.s===2?'#061227':'#100a3c');base.addColorStop(.6,'#030d25');base.addColorStop(1,q.s<2?'#101a5d':'#07192a');g.fillStyle=base;g.fillRect(0,0,W,H);
   // Dolly, orbit and crane moves have distinct trajectories in the three acts.
-  const s=q.s,u=q.u,t=q.t,ry=s<2?-.20+.35*Math.sin(u*Math.PI):s===2?-.22+.42*ease(u):-.45+.9*ease(u),rx=s>=3?-.60-.12*Math.sin(u*Math.PI):.10+.10*Math.sin(t*.12),distance=s===0?mix(31,24,ease(u)):s===2?27-3*Math.sin(u*Math.PI):s>=3?30-4*Math.sin(u*Math.PI):28-2*Math.sin(u*Math.PI);camera={ry,rx,distance};
+  const s=q.s,u=q.u,t=q.t,ry=s<2?-.32+.64*ease(u):s===2?-.40+.80*ease(u):-.45+.9*ease(u),rx=s>=3?-.60-.12*Math.sin(u*Math.PI):.10+.10*Math.sin(t*.12),distance=s===0?mix(31,24,ease(u)):s===2?29-6*Math.sin(u*Math.PI):s>=3?30-4*Math.sin(u*Math.PI):28-2*Math.sin(u*Math.PI);camera={ry,rx,distance};
   project=(x,y,z)=>{let xx=x*Math.cos(ry)-z*Math.sin(ry),zz=x*Math.sin(ry)+z*Math.cos(ry),yy=y*Math.cos(rx)-zz*Math.sin(rx),depth=y*Math.sin(rx)+zz*Math.cos(rx)+distance;if(depth<2)return null;const scale=(portrait?530:650)/depth;return[W*.5+xx*scale,H*(portrait?.57:.54)-yy*scale,scale];};
-  volume(s);stars();coordinates();if(s<2)waveRiver();else if(s===2)vortex();else waveLattice();shock();
+  volume(s);stars();coordinates();spatialArchitecture();if(s<2)waveRiver();else if(s===2){vortex();vortexJets();}else{waveLattice();wavefronts();}shock();
   // Broad coloured bloom is composited behind the pin-sharp luminous cores.
   bl.clearRect(0,0,bloom.width,bloom.height);bl.drawImage(canvas,0,0,bloom.width,bloom.height);g.save();g.globalCompositeOperation='lighter';g.globalAlpha=.48;g.filter='blur(7px)';g.drawImage(bloom,0,0,W,H);g.filter='none';g.restore();
   // A subtle lens vignette shapes the frame; it does not dim the central stage.

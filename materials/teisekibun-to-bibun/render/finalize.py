@@ -24,5 +24,5 @@ for name,n in [('teisekibun_to_bibun_90s.mp4',90),('teisekibun_to_bibun_instagra
  assert int(v['nb_frames'])==n*30
  if n==90:subprocess.run(['ffmpeg','-v','error','-xerror','-i',str(p),'-f','null','-'],check=True)
  files.append(dict(file=name,seconds=n,width=v['width'],height=v['height'],frames=int(v['nb_frames']),bytes=p.stat().st_size,sha256=hashlib.sha256(p.read_bytes()).hexdigest()))
-(root/'materials/teisekibun-to-bibun/media-manifest.json').write_text(json.dumps(dict(revision='reference-worlds-v3-golden-dust',files=files),indent=2)+'\n')
+(root/'materials/teisekibun-to-bibun/media-manifest.json').write_text(json.dumps(dict(revision='reference-worlds-v4-spatial-interferometer',files=files),indent=2)+'\n')
 print(json.dumps(files))
