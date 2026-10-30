@@ -1,1 +1,10 @@
-{"id":"teisekibun-to-bibun","name":"定積分と微分","subject":"数学Ⅲ","unit":"積分法／定積分と微分／部分積分","description":"F(x)=∫₀ˣ(x−t)cos t dtを３つの解法で解く90秒数学映画。数式の相殺、部分積分、動く上端と被積分関数の変化を、立体的な光と波で可視化。Instagram用30秒MP4も保存可能。","thumbnail":"thumbnail.svg","durationSeconds":90,"version":"1.0.0"}
+{
+  "id": "teisekibun-to-bibun",
+  "name": "定積分と微分",
+  "subject": "数学Ⅲ",
+  "unit": "積分法／定積分と微分／部分積分",
+  "description": "青紫の光の奔流、約1600個の金色粒子と光跡が流れ込む黄金の渦、透明な立体格子で衝突する波を背景に、F(x)=∫₀ˣ(x−t)cos t dt を３つの解法で理解する90秒数学映画。Instagram30秒MP4とフルHD原版も保存できます。",
+  "thumbnail": "thumbnail.svg",
+  "durationSeconds": 90,
+  "version": "2.1.0"
+}

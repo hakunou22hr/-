@@ -1,38 +1,14 @@
+import {createStage} from './stage.js';
 import {state,ease,clamp,kernel} from './model.js';
 import {drawMath,mathMetrics} from './math.js';
 const TAU=Math.PI*2,ice='#7de8ff',violet='#b597ff',gold='#ffdb91',orange='#ffb173',white='#eff8ff',red='#ff8797';
 const rand=i=>{const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)};
 export function createFilm(make,portrait=false){
- const W=portrait?1080:1920,H=portrait?1920:1080,canvas=make(W,H),g=canvas.getContext('2d'),bg=make(portrait?540:960,portrait?960:540),b=bg.getContext('2d');let q,bounds=[];
+ const W=portrait?1080:1920,H=portrait?1920:1080,canvas=make(W,H),g=canvas.getContext('2d'),stage=createStage(make,portrait),bg=stage.canvas;let q,bounds=[];
  function text(s,x,y,size=30,color=white,align='center'){g.font=`${size}px "Noto Sans CJK JP",sans-serif`;g.textAlign=align;g.textBaseline='middle';g.fillStyle=color;g.shadowColor='#020711';g.shadowBlur=7;g.fillText(s,x,y);g.shadowBlur=0;const w=g.measureText(s).width;bounds.push({key:s,left:x-(align==='center'?w/2:align==='right'?w:0),right:x+(align==='center'?w/2:align==='right'?0:w),top:y-size*.6,bottom:y+size*.6});}
- function math(key,x,y,size=66,color=gold,max=W-180,alpha=1){const m=mathMetrics(key,size);if(m.width>max)size*=max/m.width;g.save();g.globalAlpha=alpha;bounds.push({key,...drawMath(g,make,key,x,y,size,color)});g.restore();}
+ function math(key,x,y,size=66,color=gold,max=W-180,alpha=1){const m=mathMetrics(key,size);if(m.width>max)size*=max/m.width;g.save();g.globalAlpha=alpha;const plate=mathMetrics(key,size);if(key!=='x'){g.save();g.translate(x,y);g.scale((plate.width+64)/2,(plate.height+36)/2);const veil=g.createRadialGradient(0,0,0,0,0,1.1);veil.addColorStop(0,'#010818e8');veil.addColorStop(.77,'#010818bf');veil.addColorStop(1,'#01081800');g.fillStyle=veil;g.fillRect(-1.1,-1.1,2.2,2.2);g.restore();}g.shadowColor='#010615';g.shadowBlur=14;bounds.push({key,...drawMath(g,make,key,x,y,size,color)});g.restore();}
  function path(ctx,pts,color,width=1,alpha=1){ctx.save();ctx.globalAlpha=alpha;ctx.strokeStyle=color;ctx.lineWidth=width;ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(...p):ctx.moveTo(...p));ctx.stroke();ctx.restore();}
  function glow(ctx,pts,color,width=1,power=1){ctx.save();ctx.globalCompositeOperation='lighter';path(ctx,pts,color,width*9,.035*power);path(ctx,pts,color,width*4,.12*power);path(ctx,pts,color,width,.8*power);path(ctx,pts,'#f1fdff',width*.3,.7*power);ctx.restore();}
- function background(){const w=bg.width,h=bg.height,t=q.t,s=q.s,u=q.u;b.globalCompositeOperation='source-over';b.fillStyle='#020611';b.fillRect(0,0,w,h);
-  const ry=.11*Math.sin(t*.13)+.12*Math.sin(u*TAU)*(s===3?1.8:1),rx=.18+.075*Math.sin(t*.11),cz=29-(s===0?ease(u)*7:s===4?ease(u)*5:2*Math.sin(u*Math.PI)),cy=s===3?1.8*Math.sin(u*Math.PI):0;
-  const project=(x,y,z)=>{const xx=x*Math.cos(ry)-z*Math.sin(ry),zz=x*Math.sin(ry)+z*Math.cos(ry),yy=(y-cy)*Math.cos(rx)-zz*Math.sin(rx),depth=(y-cy)*Math.sin(rx)+zz*Math.cos(rx)+cz;if(depth<1)return null;const scale=(portrait?620:720)/depth;return[w/2+xx*scale,h*(portrait?.56:.57)-yy*scale,scale];};
-  function line3(points,color,width=1,alpha=1){const p=points.map(v=>project(...v)).filter(Boolean);if(p.length>1)path(b,p,color,width,alpha)}
-  // Procedural luminous nebulae: every cloud drifts; no background image is used.
-  for(let i=0;i<7;i++){const cx=w*(.5+.5*Math.sin(i*2.7+t*.025)),yy=h*(.5+.5*Math.cos(i*3.4+t*.018)),r=w*(.25+.08*Math.sin(t*.1+i)),gr=b.createRadialGradient(cx,yy,0,cx,yy,r);gr.addColorStop(0,s===2?'#21385844':i%2?'#27285d55':'#09465450');gr.addColorStop(1,'#02061100');b.fillStyle=gr;b.fillRect(0,0,w,h);}
-  // Perspective coordinate volume and travelling lights.
-  for(let k=-8;k<=8;k++){line3([[k*2,-5,-22],[k*2,-5,17]],'#3d8ab1',.5,.17);line3([[-17,-5,k*3],[17,-5,k*3]],'#5281bc',.5,.17);if(k%2===0)line3([[k*2,-5,-20],[k*2,12,-20]],'#6e75af',.45,.13);}
-  b.globalCompositeOperation='lighter';for(let i=0;i<210;i++){const z=18-((rand(i)*62+t*(s===0?1.25:.65))%62),p=project((rand(i+300)-.5)*42,(rand(i+600)-.45)*24,z);if(!p)continue;const r=clamp(p[2]/38)*1.6+.15;b.globalAlpha=.18+.55*rand(i+12);b.fillStyle=i%4?ice:gold;b.beginPath();b.arc(p[0],p[1],r,0,TAU);b.fill();}b.globalAlpha=1;b.globalCompositeOperation='source-over';
-  // Sixteen independent 3D light filaments; form changes with the mathematical act.
-  for(let j=0;j<18;j++){const pts=[];for(let i=0;i<=105;i++){const a=i/105,x=(a-.5)*38;let y,z;
-   if(s===2){const th=a*TAU*2.25-t*.42+j*.021,r=(1-a)*10+.45;y=2+Math.sin(th)*r+j*.035;z=-7+Math.cos(th)*r;pts.push(project(5+Math.cos(th)*r,y,z));continue;}
-   if(s===3){y=2.4*Math.cos(a*TAU*1.15+t*.48+j*.045)+j*.10-1.5;z=-5+5*Math.sin(a*TAU+j*.12+t*.09);}
-   else if(s===4){const converge=ease((u-.15)/.45);y=(j%3-1)*5*(1-converge)+Math.sin(a*TAU*1.15-t*.65+j*.03)*(1.7+converge);z=-4+(j-9)*.28*(1-converge)+3*Math.cos(a*TAU-t*.2);}
-   else {y=2.1*Math.sin(a*TAU*1.45-t*.55+j*.065)+(j-9)*.14;z=-6+4*Math.cos(a*TAU+t*.16+j*.11);if(s===1)y+=(a<.5?-1:1)*(j%2?1:-1)*ease(u)*1.5;}
-   pts.push(project(x,y,z));}
-   const p=pts.filter(Boolean);glow(b,p,s===2?(j%3?gold:orange):j%3===0?gold:j%3===1?ice:violet,j%6===0?1.7:.72,j%6===0?1.6:.9);
-  }
-  // Nodes, triangulated geometry, and a rotating wave surface.
-  if(s===3||s===4){for(let j=0;j<11;j++){const pts=[];for(let i=0;i<30;i++){const x=(i-15)*.75,z=(j-5)*.85,y=-2+1.4*Math.sin(x*.52+t*.8)*Math.exp(-z*z/30);pts.push([x,y,z]);}line3(pts,j%3?ice:violet,.7,.5);}for(let i=0;i<21;i++){const x=(i-10)*1.05,pts=[];for(let j=0;j<14;j++){const z=(j-7)*.72;pts.push([x,-2+1.4*Math.sin(x*.52+t*.8)*Math.exp(-z*z/30),z]);}line3(pts,gold,.4,.25);}}
-  for(let i=0;i<20;i++){const a=i*.56+t*.11,r=9+2*Math.sin(i),p=project(r*Math.cos(a),r*.65*Math.sin(a),-8+3*Math.sin(i+t*.12)),p2=project(r*Math.cos(a+.56),r*.65*Math.sin(a+.56),-8+3*Math.sin(i+1+t*.12));if(!p||!p2)continue;path(b,[p,p2],violet,.7,.22);b.strokeStyle='#a69fff77';b.beginPath();b.arc(p[0],p[1],2.1,0,TAU);b.stroke();}
-  // Correct KaTeX fragments float in the same perspective coordinate volume.
-  for(let i=0;i<14;i++){const a=i*.7+t*.038,z=-10+9*Math.sin(a*.7),p=project(14*Math.cos(a),8*Math.sin(a),z);if(!p)continue;b.save();b.globalAlpha=.13+.09*rand(i);const key=['intSymbol','sumSymbol','sine','cosIntegral','diff'][i%5];drawMath(b,make,key,p[0],p[1],Math.min(35,p[2]*.85),i%2?ice:violet);b.restore();}
-  if(q.collision>.015){const p=project(0,0,0),r=(1-q.collision)*w*.7;b.save();b.globalCompositeOperation='lighter';b.strokeStyle=gold;b.globalAlpha=q.collision*.8;b.lineWidth=2;b.beginPath();b.ellipse(p[0],p[1],Math.max(2,r),Math.max(2,r*.38),-.1,0,TAU);b.stroke();b.restore();}
- }
  function graph(mode){const gx=portrait?150:450,gy=portrait?1080:685,gw=portrait?780:1020,gh=portrait?260:220,ox=gx,oy=gy+gh*.66,scaleX=gw/(TAU+.3),scaleY=gh*.27;g.save();
   const map=(x,y)=>[ox+x*scaleX,oy-y*scaleY];
   const gr=g.createLinearGradient(gx,gy,gx,gy+gh+30);gr.addColorStop(0,'#02081533');gr.addColorStop(.4,'#020815d0');gr.addColorStop(1,'#02081533');g.fillStyle=gr;g.fillRect(gx-45,gy-30,gw+95,gh+65);
@@ -49,8 +25,8 @@ export function createFilm(make,portrait=false){
   }else{const pos=ease(q.u)*TAU,p=map(pos,mode==='function'?1-Math.cos(pos):Math.sin(pos));g.fillStyle=mode==='function'?violet:gold;g.beginPath();g.arc(...p,5,0,TAU);g.fill();}
   g.restore();
  }
- function render(t){q=state(t,portrait);bounds=[];background();g.clearRect(0,0,W,H);g.drawImage(bg,0,0,W,H);
-  const gr=g.createLinearGradient(0,0,0,H);gr.addColorStop(0,'#020713b0');gr.addColorStop(.35,'#02071396');gr.addColorStop(.65,'#02071308');gr.addColorStop(1,'#020713e8');g.fillStyle=gr;g.fillRect(0,0,W,H);
+ function render(t){q=state(t,portrait);bounds=[];stage.render(q);g.clearRect(0,0,W,H);g.drawImage(bg,0,0,W,H);
+  const shadeY=portrait?1400:935,gr=g.createLinearGradient(0,shadeY,0,H);gr.addColorStop(0,'#02071300');gr.addColorStop(portrait?.2:.45,'#020713d9');gr.addColorStop(1,'#020713e8');g.fillStyle=gr;g.fillRect(0,shadeY,W,H-shadeY);
   const {s,u,phase}=q,cx=W/2,Y=portrait?430:240,step=portrait?145:135,fs=portrait?74:78;let caption='',sub='';
   if(s>0&&s<4)text(['','01  分解して微分','02  積分して微分','03  上端と中身を微分'][s],cx,portrait?240:83,portrait?31:29,[ice,ice,gold,violet][s]);
   if(s===0){

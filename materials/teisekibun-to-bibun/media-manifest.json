@@ -1,4 +1,5 @@
 {
+  "revision": "reference-worlds-v3-golden-dust",
   "files": [
     {
       "kind": "original",
@@ -7,8 +8,8 @@
       "width": 1920,
       "height": 1080,
       "frames": 2700,
-      "bytes": 24781173,
-      "sha256": "c5942b4e0bcb3dc1115468705d48f95bc26544af1a528aec70673b60921d6d19"
+      "bytes": 51409398,
+      "sha256": "ab6c897c08a8cf96a76bc1f80926515d9eda5329e43fd9f49a3c6b2e1c3a419e"
     },
     {
       "file": "teisekibun_to_bibun_90s.mp4",
@@ -16,8 +17,8 @@
       "width": 1280,
       "height": 720,
       "frames": 2700,
-      "bytes": 14266535,
-      "sha256": "994930de9f16d85ba3fc90a42872da585cd64df7f66c6083170fc229eeadde5a"
+      "bytes": 27395452,
+      "sha256": "6f626e06718c532c61522901c4acf160c8e5ae69460ee9e6b6477f858e16eed4"
     },
     {
       "file": "teisekibun_to_bibun_instagram_30s.mp4",
@@ -25,8 +26,8 @@
       "width": 1080,
       "height": 1920,
       "frames": 900,
-      "bytes": 8673757,
-      "sha256": "1fc614faea812a8e434dad1b1237cceae21ecfd8b4ba8bd4ddd02adbea1a2a85"
+      "bytes": 16986847,
+      "sha256": "ae350ac00708cab4f4a133165c30599edd69b5f85d8aa7cc25b430d6fbcafaad"
     }
   ]
 }

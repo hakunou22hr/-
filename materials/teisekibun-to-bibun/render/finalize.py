@@ -1,8 +1,8 @@
 """Copy the verified exports into the library and record media hashes."""
 from pathlib import Path
-import hashlib,json,subprocess,shutil
+import hashlib,json,subprocess,shutil,os
 root=Path(__file__).resolve().parents[3]
-source=Path('/workspace/output/teisekibun-to-bibun')
+source=Path(os.environ.get('MOVIE_OUTPUT_DIR','/workspace/output/teisekibun-to-bibun'))
 dest=root/'public/media/teisekibun-to-bibun';dest.mkdir(parents=True,exist_ok=True)
 archive=root/'materials/teisekibun-to-bibun/archive';archive.mkdir(exist_ok=True)
 files=[]
@@ -21,6 +21,8 @@ for name,n in [('teisekibun_to_bibun_90s.mp4',90),('teisekibun_to_bibun_instagra
  else:shutil.copyfile(p,dest/name)
  p=dest/name;d=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_streams','-show_format','-of','json',str(p)]));v=next(x for x in d['streams'] if x['codec_type']=='video');a=next(x for x in d['streams'] if x['codec_type']=='audio')
  assert float(d['format']['duration'])==n and float(v['duration'])==n and float(a['duration'])==n
+ assert int(v['nb_frames'])==n*30
+ if n==90:subprocess.run(['ffmpeg','-v','error','-xerror','-i',str(p),'-f','null','-'],check=True)
  files.append(dict(file=name,seconds=n,width=v['width'],height=v['height'],frames=int(v['nb_frames']),bytes=p.stat().st_size,sha256=hashlib.sha256(p.read_bytes()).hexdigest()))
-(root/'materials/teisekibun-to-bibun/media-manifest.json').write_text(json.dumps(dict(files=files),indent=2)+'\n')
+(root/'materials/teisekibun-to-bibun/media-manifest.json').write_text(json.dumps(dict(revision='reference-worlds-v3-golden-dust',files=files),indent=2)+'\n')
 print(json.dumps(files))
