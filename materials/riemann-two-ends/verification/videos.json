@@ -6,10 +6,12 @@
     "duration": 90,
     "fps": 60,
     "frames": 5400,
-    "bytes": 36370419,
-    "sha256": "b22f2913696636fde6e7d3f56d1280b706c6a1e0a742db0577a5258076aa44ed",
+    "bytes": 36381712,
+    "sha256": "94ee14bc17a9c93ef5342dacb9102a00ff223e206fca0e8542ba03029ccf271e",
     "fullDecode": true,
-    "distinctSamples": 7
+    "distinctSamples": 7,
+    "mainFormulaVisible": true,
+    "minimumFormulaPixels": 1726
   },
   {
     "file": "public/media/riemann-two-ends/instagram-30s.mp4",
@@ -18,10 +20,12 @@
     "duration": 30,
     "fps": 60,
     "frames": 1800,
-    "bytes": 12339649,
-    "sha256": "f18698650785d6001dd1bb7f178126683ff483e303d2d4155d2864522457bf12",
+    "bytes": 12333714,
+    "sha256": "f7cd8590473bb937d8226821b868abb9e8dabb15106845bd85e7e4f83d7cbfa1",
     "fullDecode": true,
-    "distinctSamples": 6
+    "distinctSamples": 6,
+    "mainFormulaVisible": true,
+    "minimumFormulaPixels": 2854
   },
   {
     "file": "public/media/riemann-two-ends/motion-preview-6s.mp4",
@@ -30,9 +34,11 @@
     "duration": 6,
     "fps": 60,
     "frames": 360,
-    "bytes": 8217508,
-    "sha256": "78d88bdfc4a567669ba14d703b0881236e9b22929abed49eedc85dc1b415c097",
+    "bytes": 6946306,
+    "sha256": "1b572d22747fe936c75fdcd4c172f634754d615917ce6370d116a36c4924f38b",
     "fullDecode": true,
-    "distinctSamples": 6
+    "distinctSamples": 6,
+    "mainFormulaVisible": true,
+    "minimumFormulaPixels": 2451
   }
 ]

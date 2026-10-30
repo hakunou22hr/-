@@ -31,7 +31,7 @@ jobs:
                   url='https://hakunou22hr.github.io/-/materials/riemann-two-ends/?qa='+str(time.time_ns())
                   with urllib.request.urlopen(url,timeout=20) as r:
                       body=r.read().decode('utf-8')
-                  if 'vortex-swarm-v5' in body:
+                  if 'gold-storm-v6' in body:
                       break
               except (urllib.error.URLError,TimeoutError):
                   pass

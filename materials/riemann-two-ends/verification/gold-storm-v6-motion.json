@@ -1,0 +1,38 @@
+{
+  "largeLightFronts": [
+    {
+      "scene": 1,
+      "changedPixels": 86199,
+      "goldPixels": 23026,
+      "clouds": false,
+      "cameraHeldFixed": true
+    },
+    {
+      "scene": 2,
+      "changedPixels": 68635,
+      "goldPixels": 24765,
+      "clouds": false,
+      "cameraHeldFixed": true
+    },
+    {
+      "scene": 3,
+      "changedPixels": 84934,
+      "goldPixels": 29150,
+      "clouds": false,
+      "cameraHeldFixed": true
+    },
+    {
+      "scene": 4,
+      "changedPixels": 99392,
+      "goldPixels": 46493,
+      "clouds": false,
+      "cameraHeldFixed": true
+    }
+  ],
+  "horizontalTravelInScreenWidths": 1.2547619047619047,
+  "approachScaleRatio": 4.294297832233742,
+  "smallSpinnersRemoved": true,
+  "finiteAtEndpoints": true,
+  "deterministicSeek": true,
+  "bothTimelines": true
+}

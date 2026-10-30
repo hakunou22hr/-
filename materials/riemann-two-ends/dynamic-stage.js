@@ -1,55 +1,42 @@
-// Clock-driven mathematical light transport. No rigidly rotating wallpaper.
-const TAU=Math.PI*2,clamp=x=>Math.max(0,Math.min(1,x)),fract=x=>x-Math.floor(x);
-export function choreography(q){const beat=fract(q.p*(q.s===3?3:4));return{beat,pulse:Math.exp(-beat*7),envelope:Math.sin(Math.PI*q.p)**2,speed:q.s===3?5+q.p*15:3+Math.log2(q.n||4)*.8,contraction:q.s===3?1-clamp((q.p-.15)/.72):1}}
+// Large moving light fronts, perspective fly-throughs and impacts, all seekable.
+const TAU=Math.PI*2,clamp=x=>Math.max(0,Math.min(1,x)),fract=x=>x-Math.floor(x),smooth=x=>{x=clamp(x);return x*x*(3-2*x)},hash=i=>fract(Math.sin(i*127.1+311.7)*43758.5453);
 const equations=['∫₀¹ x² dx = ⅓','Rₙ = ∑ k² / n³','Lₙ = ∑ k² / n³','Δx = 1/n','lim Rₙ = lim Lₙ','y = x²','n → ∞','Rₙ − Lₙ = 1/n','∑ k² = n(n+1)(2n+1)/6','0 ≤ x ≤ 1'];
-const hash=i=>fract(Math.sin(i*127.1+311.7)*43758.5453);
-// A streamline starts upstream, accelerates into a deforming vortex, then ejects a spark.
-export function flowPoint(u,t,lane=0){const cx=.76+.025*Math.sin(t*.19),cy=.245+.025*Math.sin(t*.27);if(u<.43){const v=u/.43;const r0=.19+.024*Math.sin(t*.83)+.018*Math.sin(lane*.57+t*1.2);return[-.13+v*(cx-r0+.13),cy+.18*(1-v)+.025*Math.sin(v*8+t*.9+lane*.04)*(1-v)]}const v=clamp((u-.43)/.57),a=Math.PI+v*TAU*(1.85+.17*Math.sin(t*.41))+.11*Math.sin(lane*.4+t+v*12)*Math.sin(Math.PI*v),r=(.19+.024*Math.sin(t*.83+v*8)+.018*Math.sin(lane*.57+t*1.2+v*5))*Math.pow(1-v,.9),flutter=Math.sin(v*24+t*1.6+lane*.2)*.004*(1-v);return[cx+Math.cos(a)*r+flutter,cy+Math.sin(a)*r*.72+flutter]}
-// Five moving satellite vortices join the existing main vortex. Birth and merger
-// envelopes hide resets, so seeking remains deterministic without stored particles.
-export function vortexSwarm(q){const anchors=[[.12,.45],[.43,.10],[.40,.51],[.91,.53],[.94,.12]],core=flowPoint(1,q.t),smooth=x=>{x=clamp(x);return x*x*(3-2*x)};return anchors.map(([ax,ay],id)=>{const phase=fract(q.t/(10+id*.8)+id*.197),birth=smooth(phase/.12),merge=smooth((phase-.66)/.31),collect=q.s===3?smooth((q.p-.45)/.5):0,m=1-(1-merge)*(1-collect),dx=.045*Math.sin(q.t*.7+id*2),dy=.035*Math.cos(q.t*.9+id),x=(ax+dx)*(1-m)+core[0]*m,y=(ay+dy)*(1-m)+core[1]*m,radius=(.065+id%3*.018)*birth*(1-m*.93)*(1+.19*Math.sin(q.t*1.8+id)),alpha=birth*(1-smooth((phase-.94)/.06)),flash=Math.exp(-(((phase-.88)/.055)**2));return{id,phase,x:Math.max(radius+.015,Math.min(1-radius-.015,x)),y,radius,alpha,merge:m,flash}})}
+// Three overlapping shots of a storm front passing through the viewer's space.
+// Size increases with approach; there are no satellite-sized rotating ornaments.
+export function stormActors(q){return[0,1,2].map(id=>{const phase=fract(q.t/8.4+id/3),forward=phase*phase,alpha=smooth(phase/.13)*smooth((1-phase)/.16),direction=id%2?-1:1;return{id,phase,alpha,direction,x:id===0?-.3+phase*1.7:id===1?1.35-phase*1.7:.45+.22*Math.sin(phase*TAU),y:.25+.12*Math.sin(phase*Math.PI+id*1.7),radius:.18+forward*.88,tilt:direction*(-1.05+phase*2.1),squash:.22+.51*Math.sin(phase*Math.PI),flash:Math.exp(-(((phase-.68)/.075)**2))}})}
+export function stormPoint(v,u,lane,t){const a=v.direction*(u*TAU*(1.2+.12*Math.sin(t*.7+v.id))+.4)+lane*.023+t*.25*(1-u),turbulence=1+.09*Math.sin(u*23-t*2.3+lane*.5),r=v.radius*(1-u*.78)*turbulence,perspective=1/(1+.58*Math.sin(a)),x=Math.cos(a)*r*perspective,y=Math.sin(a)*r*v.squash*perspective;return[v.x+x*Math.cos(v.tilt)-y*Math.sin(v.tilt),v.y+x*Math.sin(v.tilt)*.55+y*Math.cos(v.tilt)]}
 export function createDynamicStage(W,H,makeCanvas){
- let activeQ;
- const scale=Math.min(W/1920,H/1080),portrait=H>W,sprites=[];
- if(makeCanvas)for(let k=0;k<equations.length;k++)for(let gold=0;gold<2;gold++){const c=makeCanvas(780,92),g=c.getContext('2d');g.font='italic 38px serif';g.textBaseline='middle';g.fillStyle=gold?'#ffe8ab':'#85ded6';g.shadowColor=gold?'#ffab26':'#28b5b2';g.shadowBlur=gold?16:5;g.fillText(equations[k],8,46);sprites[k*2+gold]=c}
- function glow(g,x,y,r,color,alpha){const a=g.createRadialGradient(x,y,0,x,y,r);a.addColorStop(0,color+'bb');a.addColorStop(.15,color+'55');a.addColorStop(.5,color+'13');a.addColorStop(1,color+'00');g.globalAlpha=alpha;g.fillStyle=a;g.fillRect(x-r,y-r,r*2,r*2)}
- function pos(u,t,lane){const p=flowPoint(u,t,lane),q=activeQ;if(q){const core=flowPoint(1,t,lane),f=q.s===3?1-.62*q.p:q.s===4?.38+.67*q.p:1;p[0]=core[0]+(p[0]-core[0])*f;p[1]=core[1]+(p[1]-core[1])*f}return[p[0]*W,(portrait?.03+p[1]*.75:p[1])*H]}
- function line(g,pts,color,width,alpha){g.beginPath();const groups=Array.isArray(pts[0]?.[0])?pts:[pts];for(const group of groups)for(let i=0;i<group.length;i++)i?g.lineTo(...group[i]):g.moveTo(...group[i]);g.strokeStyle=color;g.lineWidth=width;g.globalAlpha=clamp(alpha);g.stroke()}
- function text(g,id,x,y,size,hot,alpha,angle=0){g.save();g.translate(x,y);g.rotate(angle);g.globalAlpha=alpha;const s=sprites[id*2+(hot?1:0)];if(s)g.drawImage(s,0,-size*.65,size*8.5,size);else{g.font=`italic ${size*.55}px serif`;g.fillStyle=hot?'#ffe6a1':'#67c9c4';g.fillText(equations[id],0,0)}g.restore()}
- return{render(g,q,project){activeQ=q;const t=q.t,c=choreography(q),energy=.55+.45*Math.sin(Math.PI*q.p)**2,ignition=fract(t*.135),goldSweep=ignition*1.65-.3;g.save();g.globalCompositeOperation='screen';
-  // Three spatial walls of mathematical inscriptions. Text moves towards camera in depth;
-  // a travelling illumination front turns the turquoise equations into incandescent gold.
-  const cells=[];for(let i=0;i<180;i++){const depth=fract(hash(i+9)+t*(.024+(q.s===3?.024*q.p:0))),side=i%3,x=side===0?-10-hash(i)*5:side===1?9+hash(i)*5:(hash(i)-.5)*31,y=side===2?6+hash(i+2)*4:(hash(i+3)-.5)*17,z=-48+depth*43;const p=project(x,y,z),b=project(x+.7,y,z),size=Math.hypot(b[0]-p[0],b[1]-p[1])*1.7;if(size<3||size>H*.1||p[0]<-W*.4||p[0]>W*1.1||p[1]<-H*.1||p[1]>H*.67)continue;cells.push({i,p,size,depth})}
-  cells.sort((a,b)=>a.depth-b.depth);for(const{ i,p,size,depth}of cells){const hot=Math.abs(p[0]/W-goldSweep)<.15,alpha=(.19+depth*.48)*(hot?1.7:1)*(p[0]<W*.4&&p[1]<H*.34?.16:1);text(g,i%equations.length,p[0],p[1],size,hot,alpha,(i%3-1)*.045);if(hot&&i%4===0)glow(g,p[0],p[1],size*1.7,'#ffb83c',.35)}
-  for(let j=0;j<26;j++){const u=.44+j/26*.54,p=pos(u,t,0);glow(g,p[0],p[1],W*(.025+.028*(1-u)),'#f8a62b',(.16+.10*Math.sin(j*.6-t*2)**2)*energy)}
-  // Turbulent, nonuniform comet filaments: only short moving segments emit at a time.
-  for(let lane=0;lane<60;lane++){const head=fract(t*(.15+hash(lane)*.085)+hash(lane+80)),len=.055+hash(lane+12)*.19,pts=[];for(let j=0;j<=28;j++){const u=Math.max(0,head-len+j/28*len),p=pos(u,t,lane);p[1]+=Math.sin(u*24+t*1.8+lane)*H*.003*(1-u);pts.push(p)}const a=(.15+hash(lane+22)*.55)*energy;line(g,pts,'#ff9b21',(18+hash(lane)*28)*scale,a*.16);line(g,pts,'#ffc45c',(4+hash(lane)*3)*scale,a*.65);line(g,pts,'#fff0bb',(1+hash(lane)*1.4)*scale,a);const tip=pts[pts.length-1];glow(g,tip[0],tip[1],(9+hash(lane)*15)*scale,'#ffc251',a*.55)}
-  // Hundreds of independently accelerating grains leave irregular, curved exposure trails.
-  for(let i=0;i<560;i++){const u=fract(hash(i+390)+t*(.12+hash(i+4)*.10)),lane=i%48,p=pos(u,t,lane),jitter=(1-u)*(.001+hash(i+21)*.009);p[0]+=Math.sin(i*1.9+t*(.6+u*4))*W*jitter;p[1]+=Math.cos(i*2.3+t)*H*jitter;const tail=pos(Math.max(0,u-.003-.006*u),t,lane);tail[0]+=Math.sin(i*1.9+t*(.6+u*4))*W*jitter;tail[1]+=Math.cos(i*2.3+t)*H*jitter;const a=(.15+hash(i)*.7)*energy;line(g,[tail,p],i%5?'#ffd67e':'#f8f5e5',(.5+hash(i+2)*1.8)*scale,a);if(i%7===0)glow(g,p[0],p[1],(5+hash(i)*7)*scale,'#ffc45d',a*.7)}
-  // Actual formulas ride the light flow; their size, angle and brightness change on approach.
-  for(let i=0;i<26;i++){const u=fract(hash(i+902)+t*(.047+hash(i)*.03)),p=pos(u,t,i),p2=pos(Math.min(.998,u+.005),t,i),angle=Math.atan2(p2[1]-p[1],p2[0]-p[0]),fade=clamp(u*8)*clamp((1-u)*8),size=(portrait?H*.020:H*.036)*(1-u*.6);text(g,i%equations.length,p[0],p[1],size,true,fade*.7,Math.max(-.7,Math.min(.7,angle)))}
-  // A constellation of live vortices: they form, migrate, gulp light, then merge.
-  for(const v of vortexSwarm(q)){
-   const cy=(portrait?.03+v.y*(.9-.15*v.merge):v.y)*H,cx=v.x*W,r=v.radius*W,alpha=v.alpha;
-   if(r<1||alpha<.005)continue;
-   const point=(u,lane)=>{const a=u*TAU*(2.25+.28*Math.sin(t*.8+v.id))-t*(.75+v.id*.12)*(1-u)+lane*.22,rr=r*Math.pow(1-u,.84)*(1+.10*Math.sin(u*23+t*2+lane)),tilt=.25*Math.sin(t*.6+v.id),xx=Math.cos(a)*rr,yy=Math.sin(a)*rr*(portrait?.8:.66);return[cx+xx*Math.cos(tilt)-yy*Math.sin(tilt),cy+xx*Math.sin(tilt)+yy*Math.cos(tilt)]};
-   glow(g,cx,cy,r*1.7,'#e99b2b',alpha*.3);glow(g,cx,cy,r*.48,'#ffdc83',alpha*(.55+.4*v.flash));
-   const filaments=[];for(let lane=0;lane<14;lane++){const head=fract(t*(.22+v.id*.025)+lane*.071),len=.18+hash(lane+v.id)*.24,pts=[];for(let j=0;j<=36;j++)pts.push(point(Math.max(0,head-len+j/36*len),lane));filaments.push(pts)}
-   line(g,filaments,'#f9a830',Math.max(2,12*scale),alpha*.13);line(g,filaments,'#ffd16d',Math.max(1,3*scale),alpha*.65);line(g,filaments,'#ffe1a0',Math.max(.5,.9*scale),alpha*.55);
-   const grains=[];for(let i=0;i<30;i++){const u=fract(hash(i+v.id*71)+t*(.17+hash(i)*.16));grains.push([point(Math.max(0,u-.025),i%14),point(u,i%14)])}line(g,grains,'#ffe3a0',Math.max(.6,scale),alpha*.65);
-   for(let j=0;j<2;j++){const u=fract(t*.1+j*.5+v.id*.17),p=point(u,j*5);text(g,(v.id+j)%equations.length,p[0],p[1],Math.min(H*.03,r*.28),true,alpha*.7)}
-   // A satellite sheds an arcing trail into the main vortex as it is swallowed.
-   if(v.merge>.02){const core=pos(1,t,0),pts=[];for(let j=0;j<=24;j++){const u=j/24,arch=Math.sin(u*Math.PI);pts.push([cx*(1-u)+core[0]*u+arch*W*.06*Math.sin(t+v.id),cy*(1-u)+core[1]*u-arch*H*.09])}line(g,pts,'#ffca67',8*scale,alpha*v.merge*.12);line(g,pts,'#fff0b1',1.7*scale,alpha*v.merge*.7);glow(g,core[0],core[1],W*.12,'#ffd078',v.flash*alpha*.55)}
+ const scale=Math.min(W/1920,H/1080),portrait=H>W,sprites=[],halos=new Map();
+ if(makeCanvas)for(let k=0;k<equations.length;k++)for(let hot=0;hot<2;hot++){const c=makeCanvas(780,92),g=c.getContext('2d');g.font='italic 38px serif';g.textBaseline='middle';g.fillStyle=hot?'#ffe8ab':'#85ded6';g.shadowColor=hot?'#ffab26':'#28b5b2';g.shadowBlur=hot?16:5;g.fillText(equations[k],8,46);sprites[k*2+hot]=c}
+ function glow(g,x,y,r,color,alpha){if(![x,y,r].every(Number.isFinite)||r<=0)return;g.globalAlpha=clamp(alpha);if(makeCanvas){if(!halos.has(color)){const c=makeCanvas(128,128),cg=c.getContext('2d'),a=cg.createRadialGradient(64,64,0,64,64,64);a.addColorStop(0,color+'cc');a.addColorStop(.15,color+'65');a.addColorStop(.5,color+'18');a.addColorStop(1,color+'00');cg.fillStyle=a;cg.fillRect(0,0,128,128);halos.set(color,c)}g.drawImage(halos.get(color),x-r,y-r,r*2,r*2)}else{const a=g.createRadialGradient(x,y,0,x,y,r);a.addColorStop(0,color+'bb');a.addColorStop(1,color+'00');g.fillStyle=a;g.fillRect(x-r,y-r,r*2,r*2)}}
+ function line(g,groups,color,width,alpha){g.beginPath();for(const pts of groups){if(!pts.length)continue;g.moveTo(...pts[0]);if(pts.length===2){g.lineTo(...pts[1]);continue}for(let j=1;j<pts.length-1;j++){const a=pts[j],b=pts[j+1];g.quadraticCurveTo(a[0],a[1],(a[0]+b[0])/2,(a[1]+b[1])/2)}g.lineTo(...pts[pts.length-1])}g.strokeStyle=color;g.lineWidth=width;g.lineCap='round';g.lineJoin='round';g.globalAlpha=clamp(alpha);g.stroke()}
+ function text(g,id,x,y,size,hot,alpha,angle=0){g.save();g.translate(x,y);g.rotate(angle);g.globalAlpha=clamp(alpha);const s=sprites[id*2+(hot?1:0)];if(s)g.drawImage(s,0,-size*.65,size*8.5,size);else{g.font=`italic ${size*.55}px serif`;g.fillStyle=hot?'#ffe6a1':'#67c9c4';g.fillText(equations[id],0,0)}g.restore()}
+ const screen=p=>[p[0]*W,(portrait?.02+p[1]*.85:p[1])*H];
+ return{render(g,q,project){const t=q.t;g.save();g.globalCompositeOperation='screen';
+  // Mathematical walls travel in depth; the passing storm lights them gold.
+  const sweep=fract(t/8.4)*1.8-.4,cells=[];
+  for(let i=0;i<170;i++){const depth=fract(hash(i+9)+t*.038),side=i%3,x=side===0?-10-hash(i)*5:side===1?9+hash(i)*5:(hash(i)-.5)*31,y=side===2?6+hash(i+2)*4:(hash(i+3)-.5)*17,z=-48+depth*43,p=project(x,y,z),b=project(x+.7,y,z),size=Math.hypot(b[0]-p[0],b[1]-p[1])*1.7;if(!Number.isFinite(size)||size<3||size>H*.1||p[0]<-W*.4||p[0]>W*1.1||p[1]<-H*.1||p[1]>H*.66)continue;cells.push({i,p,size,depth})}
+  cells.sort((a,b)=>a.depth-b.depth);for(const{i,p,size,depth}of cells){const hot=Math.abs(p[0]/W-sweep)<.25; text(g,i%equations.length,p[0],p[1],size,hot,(.19+depth*.48)*(hot?1.5:1)*(p[0]<W*.4&&p[1]<H*.34?.13:1),(i%3-1)*.045)}
+  for(const v of stormActors(q)){
+   if(v.alpha<.005)continue;
+   const point=(u,lane)=>screen(stormPoint(v,u,lane,t)),filaments=[],sparks=[[],[],[]];
+   // Broad, broken plumes fill and cross the frame, instead of closed spinning discs.
+   for(let lane=0;lane<26;lane++){const head=fract(t*(.29+hash(lane)*.19)+lane*.071+v.id*.3),len=.12+hash(lane+v.id)*.28,pts=[];for(let j=0;j<=36;j++)pts.push(point(Math.max(0,head-len+j/36*len),lane));filaments.push(pts)}
+   line(g,filaments,'#d8750d',(48+v.phase*64)*scale,v.alpha*.14);line(g,filaments,'#ffb839',(10+v.phase*14)*scale,v.alpha*.4);line(g,filaments,'#ffe2a0',(1.8+v.phase*2)*scale,v.alpha*.5);
+   for(let k=0;k<10;k++){const p=point(.14+k*.075,k);glow(g,...p,W*(.035+v.phase*.035),'#e99c2e',v.alpha*.25)}
+   // Different grains have different speeds. Long exposure grows as the front approaches.
+   for(let i=0;i<240;i++){const u=fract(hash(i+v.id*251)+t*(.22+hash(i)*.3)),p=point(u,i%26),tail=point(Math.max(0,u-.012-v.phase*.027),i%26);if(p[0]<-W*.3||p[0]>W*1.3||p[1]<-H*.3||p[1]>H*.75)continue;sparks[i%3].push([tail,p]);if(i%19===0)glow(g,...p,(10+v.phase*16)*scale,'#ffcf72',v.alpha*.7)}
+   for(let k=0;k<3;k++)line(g,sparks[k],k===0?'#fff0c3':'#ffc65c',(k===0?1.6:.8)*scale*(1+v.phase),v.alpha*(.75-k*.16));
+   // Formulas are carried past the camera and change scale with the approaching sheet.
+   for(let i=0;i<7;i++){const u=fract(t*.16+i*.137+v.id*.2),p=point(u,i*3);if(p[1]>H*.65)continue;text(g,(i+v.id)%equations.length,...p,H*.025*(.6+v.phase),true,v.alpha*.65,Math.sin(t+i)*.25)}
+   // A pressure front expands across the full screen following the closest approach.
+   const hit=clamp((v.phase-.53)/.36),impact=v.flash,core=screen([.57+.1*Math.sin(v.id*2),.29]);
+   if(hit>0&&hit<1){const shock=[];for(let j=0;j<=90;j++){const a=-Math.PI*.95+j/90*Math.PI*1.9,r=W*(.08+hit*1.4);shock.push([core[0]+Math.cos(a)*r,core[1]+Math.sin(a)*r*(portrait?.75:.48)])}line(g,[shock],'#f5a32f',22*scale,(1-hit)*v.alpha*.08);line(g,[shock],'#ffe7ad',3*scale,(1-hit)*v.alpha*.5)}
+   glow(g,...core,W*(.12+impact*.20),'#ffc44c',impact*.55);
+   if(impact>.02){const jets=[];for(let i=0;i<34;i++){const a=i/34*TAU+.3*Math.sin(t),r=W*(.12+hit*.65),s=.2+hash(i)*.7;jets.push([[core[0]+Math.cos(a)*r*s,core[1]+Math.sin(a)*r*s*.45],[core[0]+Math.cos(a)*r,core[1]+Math.sin(a)*r*.45]])}line(g,jets,'#ffdf8d',1.6*scale,impact*.55)}
   }
-  // The core breathes, builds pressure, blooms, and sends an asymmetric light front outward.
-  const core=pos(.99,t,0),burst=Math.pow(clamp(1-Math.abs(fract(t*.135)-.72)*9),3),r=(.07+.025*Math.sin(t*2.1)+burst*.09)*W;
-  glow(g,core[0],core[1],r*2.6,'#d98b20',.24*energy);glow(g,core[0],core[1],r,'#ffc34d',.55+burst*.4);glow(g,core[0],core[1],r*.42,'#fff3ce',.95);
-  // Lens streak is driven by bursts, rather than spinning as a geometric decoration.
-  const streak=g.createLinearGradient(core[0]-W*.45,0,core[0]+W*.3,0);streak.addColorStop(0,'#ffad2600');streak.addColorStop(.58,'#ffd36a77');streak.addColorStop(.6,'#fff5c9ee');streak.addColorStop(.62,'#ffd36a66');streak.addColorStop(1,'#ffad2600');g.fillStyle=streak;g.globalAlpha=.15+burst*.65;g.fillRect(core[0]-W*.45,core[1]-1.3*scale,W*.75,2.6*scale);
-  // During refinement a gold front sweeps over the mathematical space and sheds sparks.
-  const sweep=fract(t*.135);if(sweep>.12&&sweep<.88){const x=(sweep*1.65-.3)*W;glow(g,x,H*(portrait?.19:.28),W*.19,'#f6ab39',.12+burst*.12)}
-  // Final convergence: a gold stream falls from the vortex toward the accumulated area.
-  if(q.s===3||q.s===4){const power=q.s===3?Math.sin(Math.PI*q.p)**2:1-q.p*.5;for(let k=0;k<8;k++){const pts=[];for(let j=0;j<45;j++){const u=j/44,front=fract(t*.3+k*.12);if(u>front||u<front-.35)continue;pts.push([core[0]*(1-u)+W*.51*u+Math.sin(u*9+t*2+k)*W*.018*u,core[1]*(1-u)+H*.56*u])}if(pts.length>1)line(g,pts,k%2?'#f5bdff':'#ffe3a0',(1+k%3)*scale,power*.4)}}
-  g.restore();return c;
+  // A travelling anamorphic light streak accompanies the sweep, not a stationary halo.
+  const phase=fract(t/8.4),x=(-.2+phase*1.4)*W,y=H*(.23+.1*Math.sin(phase*TAU)),beam=g.createLinearGradient(x-W*.5,0,x+W*.5,0);beam.addColorStop(0,'#ffb42b00');beam.addColorStop(.48,'#ffd57435');beam.addColorStop(.5,'#fff1bccc');beam.addColorStop(.52,'#ffd57435');beam.addColorStop(1,'#ffb42b00');g.fillStyle=beam;g.globalAlpha=.4;g.fillRect(x-W*.5,y-1.5*scale,W,3*scale);
+  g.restore();return{largeStormFronts:true};
  }}
 }
