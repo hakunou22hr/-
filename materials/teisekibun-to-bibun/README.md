@@ -4,7 +4,8 @@
 
 ## 映像と操作
 
-- `../../public/media/teisekibun-to-bibun/teisekibun_to_bibun_90s.mp4`：1920×1080、30fps、90秒。
+- `archive/teisekibun_to_bibun_90s_fullhd.mp4`：1920×1080、30fps、90秒のフルHD原版。ページの原版保存リンクから取得できます。
+- `../../public/media/teisekibun-to-bibun/teisekibun_to_bibun_90s.mp4`：同じ90秒の1280×720配信用版。Pagesの容量に収めるため、原版の保存と配信を分けています。
 - `../../public/media/teisekibun-to-bibun/teisekibun_to_bibun_instagram_30s.mp4`：1080×1920、30fps、30秒。ページでプレビュー・実ファイルのダウンロードが可能。
 - 両方ともH.264 / yuv420p / AAC stereo。ナレーションなし。独自生成のBGM・効果音付き。
 - HTML videoによる再生・停止・シーク・全画面表示。解法ごとのジャンプボタンを設置。

@@ -1,13 +1,23 @@
 {
   "files": [
     {
-      "file": "teisekibun_to_bibun_90s.mp4",
+      "kind": "original",
+      "file": "teisekibun_to_bibun_90s_fullhd.mp4",
       "seconds": 90,
       "width": 1920,
       "height": 1080,
       "frames": 2700,
       "bytes": 24781173,
       "sha256": "c5942b4e0bcb3dc1115468705d48f95bc26544af1a528aec70673b60921d6d19"
+    },
+    {
+      "file": "teisekibun_to_bibun_90s.mp4",
+      "seconds": 90,
+      "width": 1280,
+      "height": 720,
+      "frames": 2700,
+      "bytes": 14266535,
+      "sha256": "994930de9f16d85ba3fc90a42872da585cd64df7f66c6083170fc229eeadde5a"
     },
     {
       "file": "teisekibun_to_bibun_instagram_30s.mp4",
