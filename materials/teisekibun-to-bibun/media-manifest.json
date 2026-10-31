@@ -1,0 +1,33 @@
+{
+  "revision": "reference-worlds-v4-spatial-interferometer",
+  "files": [
+    {
+      "kind": "original",
+      "file": "teisekibun_to_bibun_90s_fullhd.mp4",
+      "seconds": 90,
+      "width": 1920,
+      "height": 1080,
+      "frames": 2700,
+      "bytes": 68416523,
+      "sha256": "0a7473cdd5ed4d55089adb3107bd6b3013d3c1b7b56243f2578086364d072376"
+    },
+    {
+      "file": "teisekibun_to_bibun_90s.mp4",
+      "seconds": 90,
+      "width": 1280,
+      "height": 720,
+      "frames": 2700,
+      "bytes": 36365481,
+      "sha256": "f0f971984410a3610fda7177c7621ed0798ef91ff919170b665654c5fa04582c"
+    },
+    {
+      "file": "teisekibun_to_bibun_instagram_30s.mp4",
+      "seconds": 30,
+      "width": 1080,
+      "height": 1920,
+      "frames": 900,
+      "bytes": 22991648,
+      "sha256": "2d02e58422691d473513b8d039bd515cfc749da1601328559cd898b3f4ab2708"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "id": "teisekibun-to-bibun",
+  "name": "定積分と微分",
+  "subject": "数学Ⅲ",
+  "unit": "積分法／定積分と微分／部分積分",
+  "description": "ねじれた光のフレームを進むカメラ、黄金の粒子渦と双方向ジェット、透明な立体格子を走る波紋で、F(x)=∫₀ˣ(x−t)cos t dt を３つの解法で理解する90秒数学映画。Instagram30秒MP4とフルHD原版も保存できます。",
+  "thumbnail": "thumbnail.svg",
+  "durationSeconds": 90,
+  "version": "2.2.0"
+}
