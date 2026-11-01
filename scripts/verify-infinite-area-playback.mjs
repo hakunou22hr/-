@@ -23,7 +23,7 @@ try{
  await stage.click({position:{x:150,y:150}});if(Number(await stage.getAttribute('data-events'))!==4)throw Error('Pointer trigger');
  await page.locator('#effect-n').evaluate(el=>{el.value='3';el.dispatchEvent(new Event('input',{bubbles:true}))});if(await page.locator('#effect-n-value').textContent()!=='32')throw Error('Partition interaction');
  await page.locator('#effects-reset').click();if(await stage.getAttribute('data-events')!=='0')throw Error('Reset');
- const href=await page.locator('a[download]').getAttribute('href');
+ const href=await page.locator('a[download]').first().getAttribute('href');
  const response=await page.request.get(new URL(href,page.url()).href);
  if(!response.ok()||!response.headers()['content-type']?.includes('video/mp4'))throw Error('Download is not an MP4');
  const thunderResponse=await page.request.get(new URL('../../media/infinite-area/thunder-preview.wav',page.url()).href);if(!thunderResponse.ok()||(await thunderResponse.body()).subarray(0,4).toString()!=='RIFF')throw Error('Preview thunder missing');
@@ -31,6 +31,15 @@ try{
  const manifest=await manifestResponse.json();if(manifest.edition!=='infinite-area-cinema-v8')throw Error('Old video manifest');
  const expected=manifest.files.find(f=>f.duration===30).sha256;
  if(createHash('sha256').update(await response.body()).digest('hex')!==expected)throw Error('Downloaded video differs from new master');
+ const reels=page.locator('#reels-film');await reels.scrollIntoViewIfNeeded();
+ await page.waitForFunction(()=>document.querySelector('#reels-film').readyState>=1,null,{timeout:45000});
+ const reelsMetadata=await reels.evaluate(v=>({width:v.videoWidth,height:v.videoHeight,duration:v.duration}));
+ if(reelsMetadata.width!==1080||reelsMetadata.height!==1920||Math.abs(reelsMetadata.duration-30)>.1)throw Error('Invalid reels metadata');
+ await reels.evaluate(v=>{v.muted=true;return v.play()});await page.waitForFunction(()=>document.querySelector('#reels-film').currentTime>.5);await reels.evaluate(v=>v.pause());
+ const reelsHref=await page.locator('a[download="infinite-area-30s-reels.mp4"]').getAttribute('href');
+ const reelsResponse=await page.request.get(new URL(reelsHref,page.url()).href);if(!reelsResponse.ok())throw Error('Reels download unavailable');
+ const reelsManifest=await (await page.request.get(new URL('media/infinite-area/reels-manifest.json',base).href)).json();
+ if(createHash('sha256').update(await reelsResponse.body()).digest('hex')!==reelsManifest.sha256)throw Error('Reels download differs from verified media');
  await page.setViewportSize({width:390,height:844});
  if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw Error('Mobile overflow');
  await page.goto(base,{waitUntil:'domcontentloaded'});

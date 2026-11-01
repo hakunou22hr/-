@@ -71,3 +71,13 @@ python3 materials/infinite-area-cinema/render/verify.py work/infinite-area-v6
 ## v8 空間全体の雷
 
 雷源を左右固定から画面幅全域に再配置。地面へ落ちる雷、上空を横断する雲間放電、雲内で広がる面発光を組み合わせ、距離によって太さと明るさを変える。音声の左右定位も新しい雷源に合わせて再生成。30秒24回／120秒84回。
+
+## Instagramリール向け30秒版
+
+1080×1920、9:16、30fps、H.264/yuv420p + AACステレオ。中央でグラフを拡大し、数式と2行字幕を縦に再配置。主要要素は上端220px・下端約340px・右端約120pxを避ける。雲・稲妻・幾何学的な煙は縦キャンバスに直接描画する。
+
+```sh
+FORMAT=reels DURATION=30 OUTPUT=work/infinite-area-reels node materials/infinite-area-cinema/render/render.cjs
+python materials/infinite-area-cinema/render/verify-reels.py work/infinite-area-reels
+```
+音声は同ディレクトリのscore-30.wavを使用。ダウンロード先はpublic/media/infinite-area/infinite-area-30s-reels.mp4。

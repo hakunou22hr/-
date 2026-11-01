@@ -4,7 +4,9 @@ const {createCanvas,GlobalFonts,loadImage}=require(process.env.CANVAS_MODULE||'@
 const {spawn}=require('child_process'),{once}=require('events'),fs=require('fs'),path=require('path');
 GlobalFonts.registerFromPath('/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc','JP');
 GlobalFonts.registerFromPath('/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf','Math');
-const W=1280,H=720,FPS=24,D=Number(process.env.DURATION||120),out=path.resolve(process.env.OUTPUT||'work/infinite-area-v8');
+const portrait=process.env.FORMAT==='reels';
+const W=1280,H=720,FPS=portrait?30:24,D=Number(process.env.DURATION||120),out=path.resolve(process.env.OUTPUT||'work/infinite-area-v8');
+if(portrait&&D!==30)throw Error('Reels edition must be 30 seconds');
 if(![30,120].includes(D))throw Error('DURATION must be 30 or 120');fs.mkdirSync(out,{recursive:true});
 const C=createCanvas(W,H),c=C.getContext('2d'),R=createCanvas(W,H),r=R.getContext('2d');
 const F=createCanvas(W,H),fctx=F.getContext('2d'),G=createCanvas(W,H),gctx=G.getContext('2d');
@@ -83,15 +85,46 @@ function draw(realTime){let t=timeAt(realTime),shot=Math.max(0,original.findInde
  c.fillStyle='#000';c.fillRect(0,0,W,34);c.fillRect(0,686,W,34);
  let fade=smooth(realTime/.7)*(1-smooth((realTime-(D-1.2))/1.2));if(fade<1){c.fillStyle=`rgba(0,0,0,${1-fade})`;c.fillRect(0,0,W,H)}
 }
+// Reels layout is composed vertically; no horizontal video is cropped.
+const OW=portrait?1080:W,OH=portrait?1920:H,P=portrait?createCanvas(OW,OH):C,pc=P.getContext('2d');let portraitStorm;
+function portraitDraw(realTime){
+ const t=timeAt(realTime),shot=Math.max(0,original.findIndex((v,i)=>i>0&&t<v)-1);
+ portraitStorm.render(pc,realTime,t);
+ // Shade the central reading area and leave top/right/bottom UI margins.
+ ellipseGlow(pc,520,880,530,800,'#010914',.62);
+ text(pc,'数学Ⅲ  /  無限と面積',510,250,25,CY,'center');
+ if(t<10){
+  text(pc,'無限が、面積になる瞬間',510,435,43,WHITE,'center');
+  equation(pc,'sum',510,820,870,smooth(realTime/.8));
+  text(pc,'無限の足し算が、',510,1260,36,WHITE,'center');
+  text(pc,'ひとつの面積になる。',510,1320,36,WHITE,'center');
+ }else{
+  text(pc,titles[shot],510,380,44,WHITE,'center');
+  const cam={...camera(t),center:510,base:500,dist:19,yaw:camera(t).yaw*.6,pitch:0};
+  pc.save();pc.translate(-10,600);pc.scale(.98,.98);graphLayer(pc,t,cam,false);pc.restore();
+  if(t<18){text(pc,'a = 2     b = 5',510,1195,38,CY,'center');text(pc,'5 − 2 = 3',510,1305,43,GOLD,'center')}
+  else if(t<28){equation(pc,'parts',510,1260,870)}
+  else if(t<47){const n=4*2**Math.min(6,Math.floor((t-28)/3));text(pc,`n = ${n}     Δx → 0`,510,1220,39,CY,'center');text(pc,`${(39+31.5/n+4.5/n**2).toFixed(3)} → 39`,510,1320,43,GOLD,'center')}
+  else if(t<59){equation(pc,'sum',365,1250,540);text(pc,'=',690,1250,45,GOLD,'center');equation(pc,'integral',820,1250,180)}
+  else if(t<67){equation(pc,'calc',510,1250,840)}
+  else{equation(pc,'answer',510,1300,660);text(pc,'THE AREA',510,1410,24,GOLD,'center')}
+  const lines=[[],['幅は3/n。','区間は2から5。'],['右端の位置を二乗すると、','長方形の高さになる。'],['分割を細かくすると、','面積の和は39へ近づく。'],['無限に細かい長方形の和が、','定積分になる。'],['原始関数に、','5と2を代入する。'],['無数の長方形が、','ひとつの面積へ。']][shot];
+  ellipseGlow(pc,510,1530,485,130,'#00050c',.9);
+  lines.forEach((line,i)=>text(pc,line,510,1505+i*56,34,WHITE,'center'));
+ }
+ const shade=pc.createLinearGradient(0,1610,0,1920);shade.addColorStop(0,'transparent');shade.addColorStop(1,'rgba(0,4,12,.65)');pc.fillStyle=shade;pc.fillRect(0,1610,1080,310);
+ const fade=smooth(realTime/.7)*(1-smooth((realTime-(D-1.2))/1.2));if(fade<1){pc.fillStyle=`rgba(0,0,0,${1-fade})`;pc.fillRect(0,0,OW,OH)}
+}
+function renderFrame(t){portrait?portraitDraw(t):draw(t)}
 (async()=>{
  for(let n of ['sum','parts','integral','calc','answer'])images[n]=await loadImage(Buffer.from(fs.readFileSync(path.join(__dirname,'assets',n+'.png.b64'),'utf8').trim(),'base64'));
- images.environment=await loadImage(path.join(__dirname,'assets','environment.png'));storm=createStorm(W,H,D,images.environment);
+ images.environment=await loadImage(path.join(__dirname,'assets','environment.png'));storm=createStorm(W,H,D,images.environment);if(portrait)portraitStorm=createStorm(OW,OH,D,images.environment);
  const samples=process.env.SAMPLE_TIMES?JSON.parse(process.env.SAMPLE_TIMES):(D===120?[4,10,22,38,53,66,84,102,114]:[1.25,1.5,3,5.5,9,11.15,13,13.7,16,19.15,21.5,25.5,27.1,28.5]);
- for(let t of samples){draw(t);fs.writeFileSync(path.join(out,`v8-${D}s-${t}.jpg`),C.toBuffer('image/jpeg',90))}
+ for(let t of samples){renderFrame(t);fs.writeFileSync(path.join(out,`${portrait?'reels':'v8'}-${D}s-${t}.jpg`),P.toBuffer('image/jpeg',90))}
  if(process.argv.includes('--samples'))return;
  const start=Number(process.env.CLIP_START||0),end=Number(process.env.CLIP_END||D);
- const finalPath=process.env.VIDEO_OUT||path.join(out,`infinite-area-${D}s.mp4`),tempPath=finalPath.replace(/\.mp4$/,`.rendering-${process.pid}.mp4`);
- let args=['-hide_banner','-loglevel','error','-y','-f','rawvideo','-pixel_format','rgba','-video_size',`${W}x${H}`,'-framerate',String(FPS),'-i','pipe:0','-ss',String(start),'-i',path.join(out,`score-${D}.wav`),'-c:v','libx264','-preset','fast','-crf','24','-profile:v','high','-pix_fmt','yuv420p','-af','apad','-c:a','aac','-b:a','128k','-movflags','+faststart','-t',String(end-start),tempPath];
+ const finalPath=process.env.VIDEO_OUT||path.join(out,`infinite-area-${D}s${portrait?'-reels':''}.mp4`),tempPath=finalPath.replace(/\.mp4$/,`.rendering-${process.pid}.mp4`);
+ let args=['-hide_banner','-loglevel','error','-y','-f','rawvideo','-pixel_format','rgba','-video_size',`${OW}x${OH}`,'-framerate',String(FPS),'-i','pipe:0','-ss',String(start),'-i',path.join(out,`score-${D}.wav`),'-c:v','libx264','-preset','fast','-crf',portrait?'21':'24','-profile:v','high','-pix_fmt','yuv420p','-af','apad','-c:a','aac','-b:a','128k','-movflags','+faststart','-t',String(end-start),tempPath];
  const ff=spawn('ffmpeg',args,{stdio:['pipe','ignore','pipe']});let err='';ff.stderr.on('data',b=>err=(err+b).slice(-6000));ff.stdin.on('error',()=>{});let done=once(ff,'close');const began=Date.now();
- for(let i=Math.round(start*FPS);i<Math.round(end*FPS);i++){draw(i/FPS);if(ff.exitCode!==null)throw Error(err);if(!ff.stdin.write(C.data()))await once(ff.stdin,'drain');if(i%240===0)console.log(`v8 ${D}s ${i}/${D*FPS} | ${((Date.now()-began)/1000).toFixed(1)}s`)}ff.stdin.end();let [code]=await done;if(code)throw Error(err);fs.renameSync(tempPath,finalPath);console.log('DONE');
+ for(let i=Math.round(start*FPS);i<Math.round(end*FPS);i++){renderFrame(i/FPS);if(ff.exitCode!==null)throw Error(err);if(!ff.stdin.write(P.data()))await once(ff.stdin,'drain');if(i%240===0)console.log(`v8 ${D}s ${i}/${D*FPS} | ${((Date.now()-began)/1000).toFixed(1)}s`)}ff.stdin.end();let [code]=await done;if(code)throw Error(err);fs.renameSync(tempPath,finalPath);console.log('DONE');
 })();

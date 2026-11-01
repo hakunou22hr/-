@@ -3,3 +3,5 @@
 .storyboard{margin:35px 0}.storyboard img{display:block;width:100%;border-radius:10px;border:1px solid #234557}.storyboard figcaption{font-size:12px;line-height:1.8;color:#9eb7c9;margin-top:10px}
 
 .effects-lab{margin-top:45px;padding-top:30px;border-top:1px solid #27404f}.effect-buttons{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:18px 0}.effect-buttons button{font:inherit;color:#e9f7ff;background:#102839;border:1px solid #41718b;border-radius:6px;padding:10px 16px;cursor:pointer}.effect-buttons button[aria-pressed=true]{color:#ffdb9b;border-color:#ffdb9b}.effect-buttons label{font-size:14px}.effects-lab canvas{display:block;width:100%;aspect-ratio:16/9;border:1px solid #31556c;border-radius:10px;background:#020710;cursor:crosshair}.effect-range{display:flex;align-items:center;gap:15px;flex-wrap:wrap;margin-top:18px}.effect-range input{flex:1;min-width:150px}#effects-status{font-size:14px;min-height:28px}button:focus-visible,canvas:focus-visible{outline:2px solid #ffd082;outline-offset:4px}
+
+.reels-edition{margin-top:45px;padding-top:30px;border-top:1px solid #27404f}#reels-film{width:min(100%,420px);aspect-ratio:9/16;margin-inline:auto}

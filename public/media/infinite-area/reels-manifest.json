@@ -1,0 +1,15 @@
+{
+  "edition": "infinite-area-reels-v1",
+  "file": "infinite-area-30s-reels.mp4",
+  "width": 1080,
+  "height": 1920,
+  "aspect": "9:16",
+  "fps": 30,
+  "frames": 900,
+  "duration": 30,
+  "video": "h264",
+  "audio": "aac stereo",
+  "fullDecode": true,
+  "bytes": 15373919,
+  "sha256": "582c2f768b9fdd77669bf408de7bb72674641ed7a5daaad44149489856131414"
+}
