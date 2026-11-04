@@ -1,0 +1,49 @@
+name: Verify cathedral cinematic preview
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'public/previews/wave-cathedral/**'
+      - 'preview-src/wave-cathedral/**'
+      - '.github/workflows/wave-cathedral-preview.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  public-playback:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Install playback browser
+        run: |
+          npm install --prefix /tmp/cathedral-browser playwright@1.62.1
+          node /tmp/cathedral-browser/node_modules/playwright/cli.js install --with-deps chromium
+          echo "CHROMIUM_PATH=$(node -e 'console.log(require("/tmp/cathedral-browser/node_modules/playwright").chromium.executablePath())')" >> "$GITHUB_ENV"
+      - name: Wait for preview publication
+        run: |
+          python - <<'PYWAIT'
+          import time,urllib.request,urllib.error
+          for attempt in range(100):
+              try:
+                  with urllib.request.urlopen('https://hakunou22hr.github.io/-/previews/wave-cathedral/?qa='+str(time.time_ns()),timeout=20) as r:
+                      if 'cathedral-v1' in r.read().decode('utf-8'):
+                          break
+              except (urllib.error.URLError,TimeoutError):
+                  pass
+              time.sleep(8)
+          else:
+              raise SystemExit('Preview unavailable')
+          PYWAIT
+      - name: Full playback and actual download
+        env:
+          PLAYWRIGHT_MODULE_PATH: /tmp/cathedral-browser/node_modules/playwright
+          CATHEDRAL_ORIGIN: https://hakunou22hr.github.io/-
+        run: node preview-src/wave-cathedral/verify.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cathedral-preview-public-playback
+          path: work/wave-cathedral/
