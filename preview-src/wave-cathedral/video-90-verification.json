@@ -1,0 +1,82 @@
+{
+  "file": "public/previews/wave-cathedral/lesson-90s.mp4",
+  "duration": 90,
+  "dimensions": [
+    1920,
+    1080
+  ],
+  "fps": 60,
+  "frames": 5400,
+  "fullDecode": true,
+  "samples": [
+    {
+      "time": 4,
+      "sha256": "f6241990784314e059fa12885e556b4ca4e42bfb0e20356ada23b6b52251682a"
+    },
+    {
+      "time": 8,
+      "sha256": "1de773c688ee2ae2c3ca24e5c78edbedd88e4b13a62cf3e4f39b10b30e16fd9f"
+    },
+    {
+      "time": 18,
+      "sha256": "c321581b43ee4b3305f6ef1f626c4cf3b3798e30b86797c44c6c273797678253"
+    },
+    {
+      "time": 29,
+      "sha256": "e1be4f592d0c25db2c590ab7158f08e6337340baf18af0ec5452036aa803614d",
+      "formulaPixels": 6067
+    },
+    {
+      "time": 34,
+      "sha256": "b14f2f871f4d09115bb24cf09fff6326d12223275acaf6e5be821738eb189cc2",
+      "formulaPixels": 3865
+    },
+    {
+      "time": 40,
+      "sha256": "fabb70142a4b1c2e84448c07a48ac6bf92dc1fbf4e46e3c19f7912c9790c245e",
+      "formulaPixels": 4531
+    },
+    {
+      "time": 47,
+      "sha256": "895ea528843c5a627c1261f317e44f68879bdcfeb7986f6ece789ceb9d0d2009",
+      "formulaPixels": 5585
+    },
+    {
+      "time": 53,
+      "sha256": "6c36bc53fc965c661777454ee4430a83fff594f6b74bedf155c8ef46803de66e",
+      "formulaPixels": 5089
+    },
+    {
+      "time": 59,
+      "sha256": "18247134e431aabd18864ab057101d304cb10bcbb13507626c44a34579b4c01c",
+      "formulaPixels": 5829
+    },
+    {
+      "time": 66,
+      "sha256": "399e3fcbe6a78ca0b2639bc51d330dd72b3fb23fe31a9d1265f1db23a5b0ed60",
+      "formulaPixels": 5791
+    },
+    {
+      "time": 73,
+      "sha256": "97a992301dab38bd8626956c1e91f67903b04c9d258f5eb7da49461f18680175",
+      "formulaPixels": 6825
+    },
+    {
+      "time": 80,
+      "sha256": "1581281b512d2a55a07bb8fda27a647d6d1977ab8a894cd457c0dbc4f7d53073",
+      "formulaPixels": 6911
+    },
+    {
+      "time": 85,
+      "sha256": "2523ee351a292e5655e78cea4b314d0e0142e9dd6f36630bb1ec1759bd0a23cb",
+      "formulaPixels": 4073
+    },
+    {
+      "time": 89,
+      "sha256": "cd9a1c5fc0081a6122fbfb6392e37ddbb57d0b9350341c42852c6e4b699d1367",
+      "formulaPixels": 5782
+    }
+  ],
+  "bytes": 19738087,
+  "sha256": "ba20392335f90df7c137782ac7ab4529e27124cfbcdb3378bb4e8b40ea86c681"
+}

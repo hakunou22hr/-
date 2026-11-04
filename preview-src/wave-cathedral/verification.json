@@ -1,10 +1,10 @@
 {
   "origin": "http://127.0.0.1:4195",
-  "fullPlayback": 24,
+  "fullPlayback": 90,
   "pause": true,
   "seek": true,
-  "downloadBytes": 9974053,
-  "sha256": "b62a7aad1482db4493e22e78d1570c17c2680bd1b56cb1593fc02fed25a1125a",
+  "downloadBytes": 19738087,
+  "sha256": "ba20392335f90df7c137782ac7ab4529e27124cfbcdb3378bb4e8b40ea86c681",
   "mobile": true,
   "mathematics": {
     "area": 2.8284271248624844,
