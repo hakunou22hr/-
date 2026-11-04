@@ -6,7 +6,7 @@ import {UnrealBloomPass} from 'three/addons/postprocessing/UnrealBloomPass.js';
 import katex from 'katex';
 const $=s=>document.querySelector(s),clamp=x=>Math.max(0,Math.min(1,x)),ease=x=>{x=clamp(x);return x*x*(3-2*x)},mix=(a,b,t)=>a+(b-a)*t;
 const params=new URLSearchParams(location.search);let portrait=params.has('portrait'),duration=portrait?30:90,playing=false,time=0,last=0;
-document.body.classList.toggle('portrait',portrait);document.body.classList.toggle('export',params.has('export'));
+document.body.classList.toggle('portrait',portrait);if(portrait)document.querySelector('.intro small').textContent='数学Ⅱ · 三角関数と弧度法　 /　30 SEC';document.body.classList.toggle('export',params.has('export'));
 const chapters=[['半径の誕生',0],['1ラジアンの誕生',12],['半円に半径を巻く',30],['πの出現',52],['180° = π rad',72]];
 $('#chapters').innerHTML=chapters.map(([s,t],i)=>`<button data-t="${t}"><b>0${i+1} / ${String(t).padStart(2,'0')} SEC</b>${s}</button>`).join('');
 $('#previews').innerHTML=[6,20,42,62,82].map(t=>`<a href="?t=${t}"><img src="./previews/${t}.jpg" alt="${t}秒のシーン"><span>${t} SEC</span></a>`).join('');
@@ -29,7 +29,7 @@ const tick=new T.BufferGeometry(),tp=[];for(let j=0;j<240;j++){let a=j/240*Math.
 let data=new Float32Array(1800*3);for(let i=0;i<1800;i++){let z=Math.sin(i*147.31)*43758.5453;let q=z-Math.floor(z);let a=i*2.399963,r=3+q*15;data[i*3]=Math.cos(a)*r;data[i*3+1]=Math.sin(a)*r;data[i*3+2]=-2-(i%71)/5}starBase=data.slice();let sg=new T.BufferGeometry();sg.setAttribute('position',new T.BufferAttribute(data,3));stars=new T.Points(sg,new T.PointsMaterial({color:0x77d5ff,size:.04,transparent:true,opacity:.72,blending:T.AdditiveBlending,depthWrite:false}));scene.add(stars);
 outline=line(gold);hero.add(outline);radius=line(blue);hero.add(radius);ray=line(gold);hero.add(ray);angle=line(gold);hero.add(angle);
 for(let i=0;i<4;i++){let b=line([blue,green,gold,red][i]);hero.add(b);bands.push(b);let glow=line([blue,green,gold,red][i]);glow.material.opacity=.12;hero.add(glow);b.userData.glow=glow}
-origin=new T.Mesh(new T.SphereGeometry(.045,16,16),new T.MeshBasicMaterial({color:0xffffff}));hero.add(origin);let lc=document.createElement('canvas');lc.width=128;lc.height=128;let lx=lc.getContext('2d');lx.fillStyle='#c2e8ff';lx.font='60px Georgia';lx.fillText('O',30,80);let label=new T.Sprite(new T.SpriteMaterial({map:new T.CanvasTexture(lc),transparent:true}));label.scale.set(.36,.36,.36);label.position.set(-.16,-.18,.1);hero.add(label);
+origin=new T.Mesh(new T.SphereGeometry(.045,16,16),new T.MeshBasicMaterial({color:0xffffff}));hero.add(origin);let lc=document.createElement('canvas');lc.width=128;lc.height=128;let lx=lc.getContext('2d');lx.fillStyle='#c2e8ff';lx.font='60px Georgia';lx.fillText('O',30,80);let label=new T.Sprite(new T.SpriteMaterial({map:new T.CanvasTexture(lc),transparent:true}));label.scale.set(.36,.36,.36);label.position.set(-.16,-.18,.1);hero.add(label);origin.userData.label=label;origin.material.transparent=true;
 // Extruded pi glyph: a solid beveled shape, lit inside the scene.
 let sh=new T.Shape();sh.moveTo(-.9,.55);sh.bezierCurveTo(-.7,.9,-.35,.9,.95,.85);sh.lineTo(.88,.55);sh.lineTo(.58,.55);sh.bezierCurveTo(.48,-.3,.35,-.75,.65,-.65);sh.lineTo(.8,-.52);sh.lineTo(.91,-.65);sh.bezierCurveTo(.42,-1.15,.07,-.85,.18,-.27);sh.lineTo(.3,.55);sh.lineTo(-.2,.55);sh.bezierCurveTo(-.25,-.1,-.38,-.65,-.65,-.9);sh.lineTo(-.96,-.86);sh.bezierCurveTo(-.66,-.46,-.6,.1,-.53,.55);sh.lineTo(-.9,.55);let pg=new T.ExtrudeGeometry(sh,{depth:.16,bevelEnabled:true,bevelSize:.035,bevelThickness:.035,bevelSegments:3,steps:1,curveSegments:24});pi=new T.Mesh(pg,new T.MeshStandardMaterial({color:gold,metalness:.65,roughness:.22,emissive:gold,emissiveIntensity:.4,transparent:true}));pi.position.set(0,.9,.4);hero.add(pi);
 let dg=new T.BufferGeometry();dg.setAttribute('position',new T.BufferAttribute(new Float32Array(220*3),3));dissolve=new T.Points(dg,new T.PointsMaterial({color:blue,size:.04,blending:T.AdditiveBlending,transparent:true,depthWrite:false}));hero.add(dissolve);
@@ -53,13 +53,13 @@ if(!renderer)return;
 const fade=1-ease((t-88)/2);hero.rotation.set(0,0,0);hero.position.y=-.55;
 if(idx===4){let q=ease((t-72)/5)*(1-ease((t-77)/3));hero.rotation.y=q*.9;hero.rotation.x=q*.35}
 let pos=new T.Vector3(0,1,10.7),look=new T.Vector3(0,.1,0),fov=42;
-if(idx===0){pos.set(mix(.2,1.2,ease(t/12)),mix(.2,.7,ease(t/12)),mix(8,10,ease(t/12)));look.x=.3*ease(t/12)}
+if(idx===0){pos.set(mix(.2,1.2,ease(t/12)),mix(.2,.7,ease(t/12)),mix(10.5,8.6,ease(t/12)));look.x=.3*ease(t/12)}
 if(idx===1){pos.set(.75*Math.sin((t-12)*.16),.8,9.9);look.set(.35+.25*Math.cos(k),.2+.15*Math.sin(k),0)}
 if(idx===2){pos.set(-.7,2.7,10.1);look.set(0,.35,0)}
 if(idx===3){pos.set(.3*(1-ease((t-58)/8)),mix(1.5,.3,ease((t-52)/12)),mix(10,12,ease((t-56)/12)))}
 if(idx===4){pos.set(0,.3,11.3);look.set(0,.15,0)}
 if(portrait){pos.multiplyScalar(1.45);fov=48;look.set(0,.25,0)}camera.position.copy(pos);camera.fov=fov;camera.lookAt(look);camera.updateProjectionMatrix();
-let grow=ease((t-2)/3);radius.visible=t>2;radius.material.opacity=(idx===3?1-ease((t-60)/4):.9)*fade;coords(radius,u=>[R*u*grow,0,0]);origin.scale.setScalar(ease(t/2));
+let grow=ease((t-2)/3);radius.visible=t>2;radius.material.opacity=(idx===3?1-ease((t-60)/4):.9)*fade;coords(radius,u=>[R*u*grow,0,0]);origin.scale.setScalar(ease(t/2));origin.material.opacity=fade;origin.userData.label.material.opacity=fade;
 arc(outline,0,Math.PI*2*ease((t-5)/6));outline.material.opacity=(idx===0?.6:.18)*fade;
 ray.visible=idx>0;coords(ray,u=>[R*u*Math.cos(theta),R*u*Math.sin(theta),.015]);ray.material.opacity=.8*fade;
 arc(angle,0,theta,.42);angle.visible=idx>0;angle.material.opacity=.8*fade;
@@ -80,5 +80,5 @@ window.__state={time,t,theta,camera:camera.position.toArray(),ring:rings[0].rota
 function fmt(t){return `${String(Math.floor(t/60)).padStart(2,'0')}:${String(Math.floor(t%60)).padStart(2,'0')}`}
 try{setup()}catch(e){$('#fallback').hidden=false;console.error(e)}
 function tick(now){if(playing){time+=(now-last)/1000;if(time>=duration){time=duration;playing=false;$('#play').textContent='▶ 再生'}}last=now;renderAt(time);requestAnimationFrame(tick)}
-$('#play').onclick=()=>{if(time>=duration)time=0;playing=!playing;$('#play').textContent=playing?'Ⅱ 一時停止':'▶ 再生'};$('#restart').onclick=()=>{time=0;playing=true;$('#play').textContent='Ⅱ 一時停止'};$('#seek').oninput=e=>{time=+e.target.value;renderAt(time)};$('#format').onclick=()=>{portrait=!portrait;duration=portrait?30:90;time=0;document.body.classList.toggle('portrait',portrait);$('#format').textContent=portrait?'横型 90秒へ':'縦型 30秒へ';resize()};$('#full').onclick=()=>$('#film').requestFullscreen?.();$('#chapters').onclick=e=>{let b=e.target.closest('button');if(b){if(portrait)$('#format').click();time=+b.dataset.t}};
+$('#play').onclick=()=>{if(time>=duration)time=0;playing=!playing;$('#play').textContent=playing?'Ⅱ 一時停止':'▶ 再生'};$('#restart').onclick=()=>{time=0;playing=true;$('#play').textContent='Ⅱ 一時停止'};$('#seek').oninput=e=>{time=+e.target.value;renderAt(time)};$('#format').onclick=()=>{portrait=!portrait;duration=portrait?30:90;time=0;document.body.classList.toggle('portrait',portrait);$('#format').textContent=portrait?'横型 90秒へ':'縦型 30秒へ';document.querySelector('.intro small').textContent='数学Ⅱ · 三角関数と弧度法　 /　'+duration+' SEC';resize()};$('#full').onclick=()=>$('#film').requestFullscreen?.();$('#chapters').onclick=e=>{let b=e.target.closest('button');if(b){if(portrait)$('#format').click();time=+b.dataset.t}};
 window.seekFilm=t=>{playing=false;renderAt(t)};window.filmReady=true;time=+(params.get('t')||0);renderAt(time);if(!params.has('export'))requestAnimationFrame(tick);

@@ -23,3 +23,11 @@ Chromium + SwiftShader で実際にWebGLを描画した画面です。背景画�
 - `materials/math3-lineage/render.test.js`: 既存の全30シーン検査が5秒制限を超過。
 
 iPhoneは390px幅のChromiumでレイアウトを確認したもので、実機Safari試験ではありません。実機の60fps維持は未検証です。
+
+## 縦型30秒MP4
+
+1080×1920、H.264/yuv420p、30fps、900フレーム、正確に30.000秒。ファイルサイズ47,413,759 bytes。FFmpegによる全編デコードはエラーなし。書き出し後、Noto Sans CJK JPによる36pxの説明字幕を重ねてスマートフォンでの可読性を確保しています。
+
+![30秒版の4秒地点](portrait-4s.jpg)
+
+動画のメタデータは `video.json`、ハッシュは `video.sha256`。ブラウザで1080×1920・30秒のメタデータ、15秒地点からの実再生、ダウンロード成功、保存したファイルのSHA-256一致を確認済みです。結果は `video-browser.json` に保存しています。

@@ -27,7 +27,7 @@
 
 `node materials/birth-of-radian/tests/length.check.cjs` で24条件の長さ保存を数値検査。検証結果は verification/、指定時刻の画像は previews/。
 
-render/ のスクリプトはリポジトリルートから実行します。Playwright Core、Chromium、FFmpegが必要です。今回の環境に合わせた既定のPlaywrightパスを使用しているため、別環境では冒頭のrequire先を変更してください。`preview.cjs` は1920×1080の5時刻、`export.cjs` は1080×1920・30fps・900フレームを描画し、H.264/yuv420p MP4を保存します。静止画のパン・ズームによる動画化は行いません。
+render/ のスクリプトはリポジトリルートから実行します。Playwright Core、Chromium、FFmpegが必要です。PlaywrightはPLAYWRIGHT_MODULE、ローカルのplaywright / playwright-core、今回の環境の順に検索します。ChromiumのパスはCHROMIUM_PATHで指定できます（既定 /usr/bin/chromium）。`preview.cjs` は1920×1080の5時刻、`export.cjs` は1080×1920・30fps・900フレームを描画し、H.264/yuv420p MP4を保存します。最後にfinish.cjsでcaptions.assの読みやすい日本語字幕を付けます。video.check.cjsで実再生・保存したファイルの一致を確認できます。静止画のパン・ズームによる動画化は行いません。
 
 ## 検証上の限界
 
