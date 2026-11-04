@@ -29,7 +29,7 @@ jobs:
           for attempt in range(100):
               try:
                   with urllib.request.urlopen('https://hakunou22hr.github.io/-/previews/wave-cathedral/?qa='+str(time.time_ns()),timeout=20) as r:
-                      if 'cathedral-v1' in r.read().decode('utf-8'):
+                      if 'cathedral-v2' in r.read().decode('utf-8'):
                           break
               except (urllib.error.URLError,TimeoutError):
                   pass
