@@ -1,0 +1,364 @@
+{
+  "timelineSamples": 25,
+  "shots": 4,
+  "cameraAndParticles": true,
+  "playPauseRestart": true,
+  "mobile": {
+    "width": 390,
+    "height": 219,
+    "overflow": false,
+    "aspect": 1.7808219178082192
+  },
+  "webglFallback": true,
+  "maximumBeltLengthError": 7.812568370013651e-10,
+  "shaderErrors": [],
+  "states": [
+    {
+      "time": 0,
+      "shot": 1,
+      "camera": [
+        7,
+        5.5,
+        12
+      ],
+      "beltAngle": null,
+      "galaxyRotation": 0,
+      "particleTime": 0,
+      "collapse": 0
+    },
+    {
+      "time": 1,
+      "shot": 1,
+      "camera": [
+        6.644444444444445,
+        5.344444444444444,
+        11.814814814814815
+      ],
+      "beltAngle": null,
+      "galaxyRotation": 0.07,
+      "particleTime": 1,
+      "collapse": 0
+    },
+    {
+      "time": 2,
+      "shot": 1,
+      "camera": [
+        5.7555555555555555,
+        4.955555555555556,
+        11.351851851851851
+      ],
+      "beltAngle": null,
+      "galaxyRotation": 0.14,
+      "particleTime": 2,
+      "collapse": 0
+    },
+    {
+      "time": 3,
+      "shot": 1,
+      "camera": [
+        4.6,
+        4.45,
+        10.75
+      ],
+      "beltAngle": null,
+      "galaxyRotation": 0.21000000000000002,
+      "particleTime": 3,
+      "collapse": 0
+    },
+    {
+      "time": 4,
+      "shot": 1,
+      "camera": [
+        3.4444444444444446,
+        3.9444444444444446,
+        10.148148148148149
+      ],
+      "beltAngle": null,
+      "galaxyRotation": 0.28,
+      "particleTime": 4,
+      "collapse": 0
+    },
+    {
+      "time": 5,
+      "shot": 1,
+      "camera": [
+        2.5555555555555554,
+        3.5555555555555554,
+        9.685185185185185
+      ],
+      "beltAngle": null,
+      "galaxyRotation": 0.35000000000000003,
+      "particleTime": 5,
+      "collapse": 0
+    },
+    {
+      "time": 6,
+      "shot": 2,
+      "camera": [
+        4.2,
+        2.5,
+        12
+      ],
+      "beltAngle": 0,
+      "galaxyRotation": 0.35000000000000003,
+      "particleTime": 6,
+      "collapse": 0
+    },
+    {
+      "time": 7,
+      "shot": 2,
+      "camera": [
+        3.859259259259259,
+        2.3666666666666667,
+        11.837037037037037
+      ],
+      "beltAngle": 0.012740740740740742,
+      "galaxyRotation": 0.35000000000000003,
+      "particleTime": 7,
+      "collapse": 0
+    },
+    {
+      "time": 8,
+      "shot": 2,
+      "camera": [
+        3.0074074074074075,
+        2.033333333333333,
+        11.42962962962963
+      ],
+      "beltAngle": 0.22202699492495406,
+      "galaxyRotation": 0.35000000000000003,
+      "particleTime": 8,
+      "collapse": 0
+    },
+    {
+      "time": 9,
+      "shot": 2,
+      "camera": [
+        1.9,
+        1.6,
+        10.9
+      ],
+      "beltAngle": 0.5641282798833821,
+      "galaxyRotation": 0.35000000000000003,
+      "particleTime": 9,
+      "collapse": 0
+    },
+    {
+      "time": 10,
+      "shot": 2,
+      "camera": [
+        0.7925925925925927,
+        1.1666666666666667,
+        10.37037037037037
+      ],
+      "beltAngle": 0.8770750458913724,
+      "galaxyRotation": 0.35000000000000003,
+      "particleTime": 10,
+      "collapse": 0
+    },
+    {
+      "time": 11,
+      "shot": 2,
+      "camera": [
+        -0.05925925925926023,
+        0.833333333333333,
+        9.962962962962964
+      ],
+      "beltAngle": 1,
+      "galaxyRotation": 0.35000000000000003,
+      "particleTime": 11,
+      "collapse": 0
+    },
+    {
+      "time": 12,
+      "shot": 3,
+      "camera": [
+        -4.8,
+        3.4,
+        12
+      ],
+      "beltAngle": null,
+      "galaxyRotation": 0.35000000000000003,
+      "particleTime": 12,
+      "collapse": 0
+    },
+    {
+      "time": 13,
+      "shot": 3,
+      "camera": [
+        -4.237037037037037,
+        3.2518518518518515,
+        11.814814814814815
+      ],
+      "beltAngle": null,
+      "galaxyRotation": 0.35000000000000003,
+      "particleTime": 13,
+      "collapse": 0
+    },
+    {
+      "time": 14,
+      "shot": 3,
+      "camera": [
+        -2.82962962962963,
+        2.8814814814814813,
+        11.351851851851851
+      ],
+      "beltAngle": null,
+      "galaxyRotation": 0.35000000000000003,
+      "particleTime": 14,
+      "collapse": 0
+    },
+    {
+      "time": 15,
+      "shot": 3,
+      "camera": [
+        -1,
+        2.4,
+        10.75
+      ],
+      "beltAngle": null,
+      "galaxyRotation": 0.35000000000000003,
+      "particleTime": 15,
+      "collapse": 0
+    },
+    {
+      "time": 16,
+      "shot": 3,
+      "camera": [
+        0.829629629629629,
+        1.9185185185185185,
+        10.148148148148149
+      ],
+      "beltAngle": null,
+      "galaxyRotation": 0.35000000000000003,
+      "particleTime": 16,
+      "collapse": 0
+    },
+    {
+      "time": 17,
+      "shot": 3,
+      "camera": [
+        2.2370370370370374,
+        1.5481481481481478,
+        9.685185185185185
+      ],
+      "beltAngle": null,
+      "galaxyRotation": 0.35000000000000003,
+      "particleTime": 17,
+      "collapse": 0
+    },
+    {
+      "time": 18,
+      "shot": 4,
+      "camera": [
+        0.8,
+        0.3,
+        11.5
+      ],
+      "beltAngle": null,
+      "galaxyRotation": 0.35000000000000003,
+      "particleTime": 18,
+      "collapse": 0
+    },
+    {
+      "time": 19,
+      "shot": 4,
+      "camera": [
+        0.7407407407407408,
+        0.28518518518518515,
+        11.818518518518518
+      ],
+      "beltAngle": null,
+      "galaxyRotation": 0.35000000000000003,
+      "particleTime": 19,
+      "collapse": 0
+    },
+    {
+      "time": 20,
+      "shot": 4,
+      "camera": [
+        0.5925925925925927,
+        0.24814814814814815,
+        12.614814814814816
+      ],
+      "beltAngle": null,
+      "galaxyRotation": 0.35000000000000003,
+      "particleTime": 20,
+      "collapse": 0.2436022027858762
+    },
+    {
+      "time": 21,
+      "shot": 4,
+      "camera": [
+        0.4,
+        0.2,
+        13.65
+      ],
+      "beltAngle": null,
+      "galaxyRotation": 0.35000000000000003,
+      "particleTime": 21,
+      "collapse": 0.708454810495627
+    },
+    {
+      "time": 22,
+      "shot": 4,
+      "camera": [
+        0.20740740740740748,
+        0.15185185185185185,
+        14.685185185185185
+      ],
+      "beltAngle": null,
+      "galaxyRotation": 0.35000000000000003,
+      "particleTime": 22,
+      "collapse": 0.7404444444444446
+    },
+    {
+      "time": 23,
+      "shot": 4,
+      "camera": [
+        0.05925925925925912,
+        0.11481481481481479,
+        15.481481481481483
+      ],
+      "beltAngle": null,
+      "galaxyRotation": 0.35000000000000003,
+      "particleTime": 23,
+      "collapse": 0.13155555555555543
+    },
+    {
+      "time": 24,
+      "shot": 4,
+      "camera": [
+        0,
+        0.1,
+        15.8
+      ],
+      "beltAngle": null,
+      "galaxyRotation": 0.35000000000000003,
+      "particleTime": 24,
+      "collapse": 0
+    }
+  ],
+  "pixelComparisons": [
+    {
+      "fromTime": 3,
+      "toTime": 4,
+      "changedFraction": 0.4292
+    },
+    {
+      "fromTime": 9,
+      "toTime": 10,
+      "changedFraction": 0.3665
+    },
+    {
+      "fromTime": 15,
+      "toTime": 16,
+      "changedFraction": 0.3873
+    },
+    {
+      "fromTime": 21,
+      "toTime": 22,
+      "changedFraction": 0.0979
+    }
+  ]
+}

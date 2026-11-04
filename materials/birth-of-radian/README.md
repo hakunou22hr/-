@@ -38,3 +38,16 @@ Chromiumでの確認であり、iPhone実機Safariの動作・60fpsの維持を�
 円環の微小な回転から、トンネル・水平円盤・螺旋光・粒子の前進による空間演出へ作り直しました。`cinematic-space.js` が演出本体です。`render/motion-preview.cjs` は16〜24秒の動きを960×540・30fpsの8秒動画として書き出します。`render/background.check.cjs` は各シーンの1秒差の画面と、帯の完成に同期したパルスを検証します。
 
 背景の画面差分検証は、Vite起動後に `node materials/birth-of-radian/render/background.check.cjs`、続いて `python3 materials/birth-of-radian/tests/background-pixels.check.py`（Pillow必要）で再実行できます。左右20%と下部15%の背景領域を比較し、RGB差の合計45超の画素を測定します。
+
+## 参考画像を基にした24秒映画版
+
+`reference.html` / `reference-film.js` に、提示された4構図を6秒ずつつないだ映画版を追加しています。既存の90秒教材と縦型30秒版から、映画版へのリンクで開けます。
+
+- 0〜6秒: 低い視点で青と金の円環・螺旋状の粒子を回り込む。
+- 6〜12秒: 金属の帯を追い、帯を長さ一定のまま曲げる。細い光の糸と金の粒子が帯を包む。
+- 12〜18秒: 円形の床と奥へ続く門、3D空間に浮く数式、青・緑・金・赤で形成される半円。
+- 18〜24秒: πの桁と目盛りを持つ紋様、立体の黄金π、星雲の収束・放出、カメラの引きと消灯。
+
+参考画像は背景画像として使用していません。円環・帯・文字・粒子・照明・カメラをThree.jsで再構築しています。室内環境の反射テクスチャはRoomEnvironmentから実行時に生成し、金属の質感にのみ使用します。
+
+入口: `/materials/birth-of-radian/reference.html`。MP4: `/media/birth-of-radian-reference-film.mp4`。`reference-export.cjs` が1920×1080・24fpsで576フレームを描画し、H.264/yuv420pの24秒MP4を書き出します。`reference-preview.cjs` は3・9・15・21秒の確認画像、`reference.check.cjs` はタイムライン・数学・操作・シェーダーを確認します。

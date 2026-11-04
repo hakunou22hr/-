@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "width": 1920,
+    "height": 1080,
+    "duration": 24
+  },
+  "playback": {
+    "time": 21.209991,
+    "error": null,
+    "readyState": 4
+  },
+  "downloadFilename": "birth-of-radian-reference-film.mp4",
+  "downloadHashMatches": true,
+  "sha256": "784332cde8071f2e8426078cea91c061d91d226af41e27ec16fdc8ce6454dd6b",
+  "result": "PASS"
+}
