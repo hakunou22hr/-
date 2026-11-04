@@ -1,0 +1,28 @@
+{
+  "result": "PASS",
+  "duration": 90,
+  "startFrame": 720,
+  "endFrameExclusive": 1392,
+  "renderedFrames": 672,
+  "originalSha256": "04f315a959d28fd6f42215e9bdc7dd2da878b2146a8a83b303e8a35f940d6da4",
+  "unchangedShotComparisons": [
+    {
+      "time": 6,
+      "meanPixelDifference": 0.2052951388888889
+    },
+    {
+      "time": 20,
+      "meanPixelDifference": 0.1232638888888889
+    },
+    {
+      "time": 62,
+      "meanPixelDifference": 0.18359375
+    },
+    {
+      "time": 82,
+      "meanPixelDifference": 0.17664930555555555
+    }
+  ],
+  "frames": 2160,
+  "errors": []
+}

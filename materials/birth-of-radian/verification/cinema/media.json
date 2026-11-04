@@ -10,8 +10,8 @@
       "frames": 720,
       "codec": "h264",
       "pixelFormat": "yuvj420p",
-      "bytes": 43709406,
-      "sha256": "3c1cb8757d03e9677279594bb7ad4fb3f2e55ab0ab439542baf45760e30701bb",
+      "bytes": 44579403,
+      "sha256": "2740598f9935bdb274d825be9ae1a372019126afe29760e6bdeba414b641939c",
       "fullDecode": "PASS"
     },
     {
@@ -23,8 +23,8 @@
       "frames": 2160,
       "codec": "h264",
       "pixelFormat": "yuvj420p",
-      "bytes": 84634309,
-      "sha256": "04f315a959d28fd6f42215e9bdc7dd2da878b2146a8a83b303e8a35f940d6da4",
+      "bytes": 84757158,
+      "sha256": "2a6ed7fa6813c436cda0c3d9868178e6f5502b9ce991f0f9381f870b3837a938",
       "fullDecode": "PASS"
     }
   ],
