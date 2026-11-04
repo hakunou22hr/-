@@ -1,0 +1,7 @@
+{
+  "samples": 24,
+  "maximumLengthError": 2.4482416094429027e-10,
+  "oneRadianDegrees": 57.29577951308232,
+  "semicircleRadians": 3.141592653589793,
+  "result": "PASS"
+}

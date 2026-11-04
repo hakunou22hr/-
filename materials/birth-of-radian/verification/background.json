@@ -1,0 +1,473 @@
+{
+  "actualWebGL": true,
+  "temporalPairs": 5,
+  "shaderErrors": [],
+  "completionPulse": true,
+  "completions": [
+    {
+      "time": 25,
+      "theta": 1,
+      "pulse": 1,
+      "collapse": 0
+    },
+    {
+      "time": 34.6,
+      "theta": 1,
+      "pulse": 1,
+      "collapse": 0
+    },
+    {
+      "time": 40,
+      "theta": 2,
+      "pulse": 1,
+      "collapse": 0
+    },
+    {
+      "time": 45.4,
+      "theta": 3,
+      "pulse": 1,
+      "collapse": 0
+    },
+    {
+      "time": 50.8,
+      "theta": 3.141592653589793,
+      "pulse": 1,
+      "collapse": 0
+    },
+    {
+      "time": 64,
+      "theta": 3.141592653589793,
+      "pulse": 1,
+      "collapse": 1
+    }
+  ],
+  "states": [
+    {
+      "time": 6,
+      "t": 6,
+      "theta": 0,
+      "camera": [
+        0.7,
+        0.44999999999999996,
+        9.55
+      ],
+      "ring": [
+        0.34504941414413126,
+        0.20327129042221276,
+        0,
+        "XYZ"
+      ],
+      "curvature": 0,
+      "scene": 1,
+      "background": {
+        "collapse": 0,
+        "pulse": 0.0937743508625086,
+        "accent": 16759621,
+        "event": 5,
+        "orbit": [
+          0.34504941414413126,
+          0.20327129042221276,
+          0,
+          "XYZ"
+        ],
+        "ribbon": -0.78,
+        "particlePhase": 6,
+        "shockScale": 4.857142857142857
+      }
+    },
+    {
+      "time": 7,
+      "t": 7,
+      "theta": 0,
+      "camera": [
+        0.8238425925925927,
+        0.5119212962962962,
+        9.314699074074074
+      ],
+      "ring": [
+        0.37264119670078416,
+        0.2319183674055688,
+        0,
+        "XYZ"
+      ],
+      "curvature": 0,
+      "scene": 1,
+      "background": {
+        "collapse": 0,
+        "pulse": 7.732790887362775e-05,
+        "accent": 16759621,
+        "event": 5,
+        "orbit": [
+          0.37264119670078416,
+          0.2319183674055688,
+          0,
+          "XYZ"
+        ],
+        "ribbon": -0.91,
+        "particlePhase": 7,
+        "shockScale": 7.7142857142857135
+      }
+    },
+    {
+      "time": 20,
+      "t": 20,
+      "theta": 0.4170096021947874,
+      "camera": [
+        1.2454206183759924,
+        1.1498507610645268,
+        9.83014612545027
+      ],
+      "ring": [
+        0.2849604389828685,
+        0.3273470736572454,
+        0,
+        "XYZ"
+      ],
+      "curvature": 0.4170096021947874,
+      "scene": 2,
+      "background": {
+        "collapse": 0,
+        "pulse": 5.480363769974202e-84,
+        "accent": 16759621,
+        "event": 11,
+        "orbit": [
+          0.2849604389828685,
+          0.3273470736572454,
+          0,
+          "XYZ"
+        ],
+        "ribbon": -2.4540466392318243,
+        "particlePhase": 20,
+        "shockScale": 12
+      }
+    },
+    {
+      "time": 21,
+      "t": 21,
+      "theta": 0.5829903978052127,
+      "camera": [
+        1.2888958526491925,
+        1.1408466708073683,
+        9.904203475121088
+      ],
+      "ring": [
+        0.24802223282957425,
+        0.31075537199359454,
+        0,
+        "XYZ"
+      ],
+      "curvature": 0.5829903978052127,
+      "scene": 2,
+      "background": {
+        "collapse": 0,
+        "pulse": 1.6158708637214457e-103,
+        "accent": 16759621,
+        "event": 11,
+        "orbit": [
+          0.24802223282957425,
+          0.31075537199359454,
+          0,
+          "XYZ"
+        ],
+        "ribbon": -2.5259533607681757,
+        "particlePhase": 21,
+        "shockScale": 12
+      }
+    },
+    {
+      "time": 42,
+      "t": 42,
+      "theta": 2.0089163237311385,
+      "camera": [
+        -1.035695102494696,
+        2.9563796724264844,
+        10.1
+      ],
+      "ring": [
+        0.2853391356813899,
+        -0.31376727806889176,
+        0,
+        "XYZ"
+      ],
+      "curvature": 0,
+      "scene": 3,
+      "background": {
+        "collapse": 0,
+        "pulse": 7.732790887362775e-05,
+        "accent": 16762718,
+        "event": 40,
+        "orbit": [
+          0.2853391356813899,
+          -0.31376727806889176,
+          0,
+          "XYZ"
+        ],
+        "ribbon": -4.756879286694102,
+        "particlePhase": 42,
+        "shockScale": 7.7142857142857135
+      }
+    },
+    {
+      "time": 43,
+      "t": 43,
+      "theta": 2.259259259259259,
+      "camera": [
+        -1.1123251649448862,
+        2.9203191293622344,
+        10.1
+      ],
+      "ring": [
+        0.3155230066149684,
+        -0.32981973722980373,
+        0,
+        "XYZ"
+      ],
+      "curvature": 0,
+      "scene": 3,
+      "background": {
+        "collapse": 0,
+        "pulse": 5.607336233106696e-10,
+        "accent": 16762718,
+        "event": 40,
+        "orbit": [
+          0.3155230066149684,
+          -0.32981973722980373,
+          0,
+          "XYZ"
+        ],
+        "ribbon": -4.79925925925926,
+        "particlePhase": 43,
+        "shockScale": 10.571428571428571
+      }
+    },
+    {
+      "time": 62,
+      "t": 62,
+      "theta": 3.141592653589793,
+      "camera": [
+        0.15,
+        0.38888888888888884,
+        11
+      ],
+      "ring": [
+        0.4332330147195992,
+        -0.029912185014298702,
+        0,
+        "XYZ"
+      ],
+      "curvature": 0,
+      "scene": 4,
+      "background": {
+        "collapse": 0.648,
+        "pulse": 1.1434713873892947e-129,
+        "accent": 16759621,
+        "event": 50.8,
+        "orbit": [
+          0.4332330147195992,
+          -0.029912185014298702,
+          0,
+          "XYZ"
+        ],
+        "ribbon": -6.960442571243573,
+        "particlePhase": 62,
+        "shockScale": 12
+      }
+    },
+    {
+      "time": 63,
+      "t": 63,
+      "theta": 3.141592653589793,
+      "camera": [
+        0.094921875,
+        0.32361111111111107,
+        11.247685185185185
+      ],
+      "ring": [
+        0.4221040040410303,
+        0.006053004174366216,
+        0,
+        "XYZ"
+      ],
+      "curvature": 0,
+      "scene": 4,
+      "background": {
+        "collapse": 0.8960000000000001,
+        "pulse": 1.0115618873082376e-153,
+        "accent": 16759621,
+        "event": 50.8,
+        "orbit": [
+          0.4221040040410303,
+          0.006053004174366216,
+          0,
+          "XYZ"
+        ],
+        "ribbon": -7.090442571243572,
+        "particlePhase": 63,
+        "shockScale": 12
+      }
+    },
+    {
+      "time": 82,
+      "t": 82,
+      "theta": 3.141592653589793,
+      "camera": [
+        0,
+        0.3,
+        11.3
+      ],
+      "ring": [
+        -0.18215083067553883,
+        0.3386630004047181,
+        0,
+        "XYZ"
+      ],
+      "curvature": 0,
+      "scene": 5,
+      "background": {
+        "collapse": 0,
+        "pulse": 0,
+        "accent": 16759621,
+        "event": 64,
+        "orbit": [
+          -0.18215083067553883,
+          0.3386630004047181,
+          0,
+          "XYZ"
+        ],
+        "ribbon": -9.560442571243573,
+        "particlePhase": 82,
+        "shockScale": 12
+      }
+    },
+    {
+      "time": 83,
+      "t": 83,
+      "theta": 3.141592653589793,
+      "camera": [
+        0,
+        0.3,
+        11.3
+      ],
+      "ring": [
+        -0.1932620534359401,
+        0.32478186015226557,
+        0,
+        "XYZ"
+      ],
+      "curvature": 0,
+      "scene": 5,
+      "background": {
+        "collapse": 0,
+        "pulse": 0,
+        "accent": 16759621,
+        "event": 64,
+        "orbit": [
+          -0.1932620534359401,
+          0.32478186015226557,
+          0,
+          "XYZ"
+        ],
+        "ribbon": -9.690442571243572,
+        "particlePhase": 83,
+        "shockScale": 12
+      }
+    },
+    {
+      "time": 34.6,
+      "t": 34.6,
+      "theta": 1,
+      "camera": [
+        -0.7601972400599819,
+        2.878391248404699,
+        10.1
+      ],
+      "ring": [
+        0.20005549718793192,
+        -0.11269956927706942,
+        0,
+        "XYZ"
+      ],
+      "curvature": 0,
+      "scene": 3,
+      "background": {
+        "collapse": 0,
+        "pulse": 1,
+        "accent": 5698987,
+        "event": 34.6,
+        "orbit": [
+          0.20005549718793192,
+          -0.11269956927706942,
+          0,
+          "XYZ"
+        ],
+        "ribbon": -4.148000000000001,
+        "particlePhase": 34.6,
+        "shockScale": 2
+      }
+    },
+    {
+      "time": 35.6,
+      "t": 35.6,
+      "theta": 1,
+      "camera": [
+        -0.7500845552358479,
+        2.922753981538741,
+        10.1
+      ],
+      "ring": [
+        0.20113876395199415,
+        -0.14627005277199018,
+        0,
+        "XYZ"
+      ],
+      "curvature": 0,
+      "scene": 3,
+      "background": {
+        "collapse": 0,
+        "pulse": 0.0937743508625086,
+        "accent": 5698987,
+        "event": 34.6,
+        "orbit": [
+          0.20113876395199415,
+          -0.14627005277199018,
+          0,
+          "XYZ"
+        ],
+        "ribbon": -4.2780000000000005,
+        "particlePhase": 35.6,
+        "shockScale": 4.857142857142857
+      }
+    }
+  ],
+  "pixelComparisons": [
+    {
+      "fromTime": 6,
+      "toTime": 7,
+      "backgroundChangedFraction": 0.2095
+    },
+    {
+      "fromTime": 20,
+      "toTime": 21,
+      "backgroundChangedFraction": 0.1776
+    },
+    {
+      "fromTime": 42,
+      "toTime": 43,
+      "backgroundChangedFraction": 0.2003
+    },
+    {
+      "fromTime": 62,
+      "toTime": 63,
+      "backgroundChangedFraction": 0.1086
+    },
+    {
+      "fromTime": 82,
+      "toTime": 83,
+      "backgroundChangedFraction": 0.2759
+    }
+  ],
+  "pixelComparisonMethod": {
+    "rgbDifferenceSumThreshold": 45,
+    "region": "left 20%, right 20%, bottom 15%"
+  }
+}
