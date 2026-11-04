@@ -36,3 +36,5 @@ Chromiumでの確認であり、iPhone実機Safariの動作・60fpsの維持を�
 ## 背景演出の改訂
 
 円環の微小な回転から、トンネル・水平円盤・螺旋光・粒子の前進による空間演出へ作り直しました。`cinematic-space.js` が演出本体です。`render/motion-preview.cjs` は16〜24秒の動きを960×540・30fpsの8秒動画として書き出します。`render/background.check.cjs` は各シーンの1秒差の画面と、帯の完成に同期したパルスを検証します。
+
+背景の画面差分検証は、Vite起動後に `node materials/birth-of-radian/render/background.check.cjs`、続いて `python3 materials/birth-of-radian/tests/background-pixels.check.py`（Pillow必要）で再実行できます。左右20%と下部15%の背景領域を比較し、RGB差の合計45超の画素を測定します。

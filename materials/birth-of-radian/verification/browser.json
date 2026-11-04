@@ -32,7 +32,9 @@
       "scene": 1,
       "background": {
         "collapse": 0,
-        "pulse": 0,
+        "pulse": 0.0937743508625086,
+        "accent": 16759621,
+        "event": 5,
         "orbit": [
           0.34504941414413126,
           0.20327129042221276,
@@ -41,7 +43,7 @@
         ],
         "ribbon": -0.78,
         "particlePhase": 6,
-        "shockScale": 8
+        "shockScale": 4.857142857142857
       }
     },
     {
@@ -63,7 +65,9 @@
       "scene": 2,
       "background": {
         "collapse": 0,
-        "pulse": 0.002436488246025053,
+        "pulse": 5.480363769974202e-84,
+        "accent": 16759621,
+        "event": 11,
         "orbit": [
           0.2849604389828685,
           0.3273470736572454,
@@ -72,7 +76,7 @@
         ],
         "ribbon": -2.4540466392318243,
         "particlePhase": 20,
-        "shockScale": 6
+        "shockScale": 12
       }
     },
     {
@@ -94,7 +98,9 @@
       "scene": 3,
       "background": {
         "collapse": 0,
-        "pulse": 0.9536437308783718,
+        "pulse": 0.00007732790887362775,
+        "accent": 16762718,
+        "event": 40,
         "orbit": [
           0.2853391356813899,
           -0.31376727806889176,
@@ -103,7 +109,7 @@
         ],
         "ribbon": -4.756879286694102,
         "particlePhase": 42,
-        "shockScale": 10
+        "shockScale": 7.7142857142857135
       }
     },
     {
@@ -125,7 +131,9 @@
       "scene": 4,
       "background": {
         "collapse": 0.648,
-        "pulse": 0,
+        "pulse": 1.1434713873892947e-129,
+        "accent": 16759621,
+        "event": 50.8,
         "orbit": [
           0.4332330147195992,
           -0.029912185014298702,
@@ -134,7 +142,7 @@
         ],
         "ribbon": -6.960442571243573,
         "particlePhase": 62,
-        "shockScale": 10
+        "shockScale": 12
       }
     },
     {
@@ -157,6 +165,8 @@
       "background": {
         "collapse": 0,
         "pulse": 0,
+        "accent": 16759621,
+        "event": 64,
         "orbit": [
           -0.18215083067553883,
           0.3386630004047181,
@@ -165,7 +175,7 @@
         ],
         "ribbon": -9.560442571243573,
         "particlePhase": 82,
-        "shockScale": 10
+        "shockScale": 12
       }
     }
   ]

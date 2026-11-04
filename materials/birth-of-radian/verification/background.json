@@ -3,6 +3,44 @@
   "temporalPairs": 5,
   "shaderErrors": [],
   "completionPulse": true,
+  "completions": [
+    {
+      "time": 25,
+      "theta": 1,
+      "pulse": 1,
+      "collapse": 0
+    },
+    {
+      "time": 34.6,
+      "theta": 1,
+      "pulse": 1,
+      "collapse": 0
+    },
+    {
+      "time": 40,
+      "theta": 2,
+      "pulse": 1,
+      "collapse": 0
+    },
+    {
+      "time": 45.4,
+      "theta": 3,
+      "pulse": 1,
+      "collapse": 0
+    },
+    {
+      "time": 50.8,
+      "theta": 3.141592653589793,
+      "pulse": 1,
+      "collapse": 0
+    },
+    {
+      "time": 64,
+      "theta": 3.141592653589793,
+      "pulse": 1,
+      "collapse": 1
+    }
+  ],
   "states": [
     {
       "time": 6,
@@ -403,29 +441,33 @@
   ],
   "pixelComparisons": [
     {
-      "from": 6,
-      "to": 7,
+      "fromTime": 6,
+      "toTime": 7,
       "backgroundChangedFraction": 0.2095
     },
     {
-      "from": 20,
-      "to": 21,
+      "fromTime": 20,
+      "toTime": 21,
       "backgroundChangedFraction": 0.1776
     },
     {
-      "from": 42,
-      "to": 43,
+      "fromTime": 42,
+      "toTime": 43,
       "backgroundChangedFraction": 0.2003
     },
     {
-      "from": 62,
-      "to": 63,
+      "fromTime": 62,
+      "toTime": 63,
       "backgroundChangedFraction": 0.1086
     },
     {
-      "from": 82,
-      "to": 83,
+      "fromTime": 82,
+      "toTime": 83,
       "backgroundChangedFraction": 0.2759
     }
-  ]
+  ],
+  "pixelComparisonMethod": {
+    "rgbDifferenceSumThreshold": 45,
+    "region": "left 20%, right 20%, bottom 15%"
+  }
 }
