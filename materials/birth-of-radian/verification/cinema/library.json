@@ -1,12 +1,12 @@
 {
   "defaultEdition": {
-    "src": "http://localhost:4173/media/birth-of-radian-cinema-90s.mp4?v=cinema-90-30-v1",
+    "src": "http://localhost:5173/media/birth-of-radian-cinema-90s.mp4?v=cinema-half-count-v2",
     "width": 1920,
     "height": 1080,
     "duration": 90
   },
   "shortEdition": {
-    "src": "http://localhost:4173/media/birth-of-radian-cinema-30s.mp4?v=cinema-90-30-v1",
+    "src": "http://localhost:5173/media/birth-of-radian-cinema-30s.mp4?v=cinema-half-count-v2",
     "width": 1080,
     "height": 1920,
     "duration": 30
@@ -15,8 +15,8 @@
   "restartControl": true,
   "mobileWidth": 390,
   "downloadFilename": "birth-of-radian-cinema-30s.mp4",
-  "downloadHash": "3c1cb8757d03e9677279594bb7ad4fb3f2e55ab0ab439542baf45760e30701bb",
-  "cacheVersion": "./materials/birth-of-radian/?v=cinema-90-30-v1",
+  "downloadHash": "2740598f9935bdb274d825be9ae1a372019126afe29760e6bdeba414b641939c",
+  "cacheVersion": "./materials/birth-of-radian/?v=cinema-half-count-v2",
   "pageErrors": [],
   "result": "PASS"
 }

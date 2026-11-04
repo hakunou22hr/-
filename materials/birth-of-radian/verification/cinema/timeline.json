@@ -26,7 +26,18 @@
         "collapse": 0
       },
       "formula": "",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 1,
@@ -49,7 +60,18 @@
         "collapse": 0
       },
       "formula": "",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 2,
@@ -72,7 +94,18 @@
         "collapse": 0
       },
       "formula": "",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 3,
@@ -95,7 +128,18 @@
         "collapse": 0
       },
       "formula": "",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 4,
@@ -118,7 +162,18 @@
         "collapse": 0
       },
       "formula": "",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 5,
@@ -141,7 +196,18 @@
         "collapse": 0
       },
       "formula": "r=1",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 6,
@@ -164,7 +230,18 @@
         "collapse": 0
       },
       "formula": "r=1",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 7,
@@ -187,7 +264,18 @@
         "collapse": 0
       },
       "formula": "r=1",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 8,
@@ -210,7 +298,18 @@
         "collapse": 0
       },
       "formula": "r=1",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 9,
@@ -233,7 +332,18 @@
         "collapse": 0
       },
       "formula": "r=1",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 10,
@@ -256,7 +366,18 @@
         "collapse": 0
       },
       "formula": "r=1",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 11,
@@ -279,7 +400,18 @@
         "collapse": 0
       },
       "formula": "r=1",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 12,
@@ -302,7 +434,18 @@
         "collapse": 0
       },
       "formula": "s=r\\theta",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 13,
@@ -325,7 +468,18 @@
         "collapse": 0
       },
       "formula": "s=r\\theta",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 14,
@@ -348,7 +502,18 @@
         "collapse": 0
       },
       "formula": "s=r\\theta",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 15,
@@ -371,7 +536,18 @@
         "collapse": 0
       },
       "formula": "s=r\\theta",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 16,
@@ -394,7 +570,18 @@
         "collapse": 0
       },
       "formula": "s=r\\theta",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 17,
@@ -417,7 +604,18 @@
         "collapse": 0
       },
       "formula": "s=r\\theta",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 18,
@@ -440,7 +638,18 @@
         "collapse": 0
       },
       "formula": "s=r\\theta",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 19,
@@ -463,7 +672,18 @@
         "collapse": 0
       },
       "formula": "s=r\\theta",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 20,
@@ -486,7 +706,18 @@
         "collapse": 0
       },
       "formula": "s=r\\theta",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 21,
@@ -509,7 +740,18 @@
         "collapse": 0
       },
       "formula": "s=r\\theta",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 22,
@@ -532,7 +774,18 @@
         "collapse": 0
       },
       "formula": "s=r\\theta",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 23,
@@ -555,7 +808,18 @@
         "collapse": 0
       },
       "formula": "s=r\\theta",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 24,
@@ -578,7 +842,18 @@
         "collapse": 0
       },
       "formula": "s=r\\theta",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 25,
@@ -601,7 +876,18 @@
         "collapse": 0
       },
       "formula": "1\\,\\mathrm{rad}=\\frac{180^\\circ}{\\pi}\\approx57.3^\\circ",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 26,
@@ -624,7 +910,18 @@
         "collapse": 0
       },
       "formula": "1\\,\\mathrm{rad}=\\frac{180^\\circ}{\\pi}\\approx57.3^\\circ",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 27,
@@ -647,7 +944,18 @@
         "collapse": 0
       },
       "formula": "1\\,\\mathrm{rad}=\\frac{180^\\circ}{\\pi}\\approx57.3^\\circ",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 28,
@@ -670,7 +978,18 @@
         "collapse": 0
       },
       "formula": "1\\,\\mathrm{rad}=\\frac{180^\\circ}{\\pi}\\approx57.3^\\circ",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 29,
@@ -693,7 +1012,18 @@
         "collapse": 0
       },
       "formula": "1\\,\\mathrm{rad}=\\frac{180^\\circ}{\\pi}\\approx57.3^\\circ",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 30,
@@ -715,8 +1045,19 @@
         "particleTime": 12,
         "collapse": 0
       },
-      "formula": "1+1+1",
-      "duration": 90
+      "formula": "r=1",
+      "duration": 90,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 31,
@@ -738,14 +1079,25 @@
         "particleTime": 12.272727272727273,
         "collapse": 0
       },
-      "formula": "1+1+1",
-      "duration": 90
+      "formula": "\\textcolor{#32baff}{1\\text{本}}",
+      "duration": 90,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "first",
+        "remainder": 0
+      }
     },
     {
       "time": 32,
       "t": 32,
       "scene": 3,
-      "theta": 0.18861454046639237,
+      "theta": 0.25925925925925924,
       "curvature": 0,
       "camera": [
         -4.622990232907588,
@@ -761,14 +1113,25 @@
         "particleTime": 12.545454545454545,
         "collapse": 0
       },
-      "formula": "1+1+1",
-      "duration": 90
+      "formula": "\\textcolor{#32baff}{1\\text{本}}",
+      "duration": 90,
+      "half": {
+        "count": 0.25925925925925924,
+        "progress": [
+          0.25925925925925924,
+          0,
+          0,
+          0
+        ],
+        "phase": "first",
+        "remainder": 0
+      }
     },
     {
       "time": 33,
       "t": 33,
       "scene": 3,
-      "theta": 0.5829903978052127,
+      "theta": 0.7407407407407407,
       "curvature": 0,
       "camera": [
         -4.41457550713749,
@@ -784,14 +1147,25 @@
         "particleTime": 12.818181818181818,
         "collapse": 0
       },
-      "formula": "1+1+1",
-      "duration": 90
+      "formula": "\\textcolor{#32baff}{1\\text{本}}",
+      "duration": 90,
+      "half": {
+        "count": 0.7407407407407407,
+        "progress": [
+          0.7407407407407407,
+          0,
+          0,
+          0
+        ],
+        "phase": "first",
+        "remainder": 0
+      }
     },
     {
       "time": 34,
       "t": 34,
       "scene": 3,
-      "theta": 0.9259259259259258,
+      "theta": 1,
       "curvature": 0,
       "camera": [
         -4.137640871525169,
@@ -807,8 +1181,19 @@
         "particleTime": 13.09090909090909,
         "collapse": 0
       },
-      "formula": "1+1+1",
-      "duration": 90
+      "formula": "\\textcolor{#32baff}{1\\text{本}}",
+      "duration": 90,
+      "half": {
+        "count": 1,
+        "progress": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "phase": "first",
+        "remainder": 0
+      }
     },
     {
       "time": 35,
@@ -830,14 +1215,25 @@
         "particleTime": 13.363636363636363,
         "collapse": 0
       },
-      "formula": "1+1+1",
-      "duration": 90
+      "formula": "\\textcolor{#32baff}{1\\text{本}}",
+      "duration": 90,
+      "half": {
+        "count": 1,
+        "progress": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "phase": "first",
+        "remainder": 0
+      }
     },
     {
       "time": 36,
       "t": 36,
       "scene": 3,
-      "theta": 1,
+      "theta": 1.1754074074074063,
       "curvature": 0,
       "camera": [
         -3.412471825694966,
@@ -853,14 +1249,25 @@
         "particleTime": 13.636363636363637,
         "collapse": 0
       },
-      "formula": "1+1+1",
-      "duration": 90
+      "formula": "1+\\textcolor{#59f2a5}{\\text{もう1本}}",
+      "duration": 90,
+      "half": {
+        "count": 1.1754074074074063,
+        "progress": [
+          1,
+          0.17540740740740632,
+          0,
+          0
+        ],
+        "phase": "second",
+        "remainder": 0
+      }
     },
     {
       "time": 37,
       "t": 37,
       "scene": 3,
-      "theta": 1.074074074074074,
+      "theta": 1.6479999999999988,
       "curvature": 0,
       "camera": [
         -2.9813673929376407,
@@ -876,14 +1283,25 @@
         "particleTime": 13.90909090909091,
         "collapse": 0
       },
-      "formula": "1+1+1",
-      "duration": 90
+      "formula": "1+\\textcolor{#59f2a5}{\\text{もう1本}}",
+      "duration": 90,
+      "half": {
+        "count": 1.6479999999999988,
+        "progress": [
+          1,
+          0.6479999999999987,
+          0,
+          0
+        ],
+        "phase": "second",
+        "remainder": 0
+      }
     },
     {
       "time": 38,
       "t": 38,
       "scene": 3,
-      "theta": 1.417009602194787,
+      "theta": 1.9872592592592588,
       "curvature": 0,
       "camera": [
         -2.5160030052592037,
@@ -899,14 +1317,25 @@
         "particleTime": 14.181818181818182,
         "collapse": 0
       },
-      "formula": "1+1+1",
-      "duration": 90
+      "formula": "1+\\textcolor{#59f2a5}{\\text{もう1本}}",
+      "duration": 90,
+      "half": {
+        "count": 1.9872592592592588,
+        "progress": [
+          1,
+          0.987259259259259,
+          0,
+          0
+        ],
+        "phase": "second",
+        "remainder": 0
+      }
     },
     {
       "time": 39,
       "t": 39,
       "scene": 3,
-      "theta": 1.8113854595336076,
+      "theta": 2,
       "curvature": 0,
       "camera": [
         -2.024943651389932,
@@ -922,14 +1351,25 @@
         "particleTime": 14.454545454545455,
         "collapse": 0
       },
-      "formula": "1+1+1",
-      "duration": 90
+      "formula": "1+1=2\\text{本分}",
+      "duration": 90,
+      "half": {
+        "count": 2,
+        "progress": [
+          1,
+          1,
+          0,
+          0
+        ],
+        "phase": "second",
+        "remainder": 0
+      }
     },
     {
       "time": 40,
       "t": 40,
       "scene": 3,
-      "theta": 2,
+      "theta": 2.1040000000000005,
       "curvature": 0,
       "camera": [
         -1.5167543200601057,
@@ -945,14 +1385,25 @@
         "particleTime": 14.727272727272727,
         "collapse": 0
       },
-      "formula": "1+1+1",
-      "duration": 90
+      "formula": "1+1+\\textcolor{#ffc253}{\\text{もう1本}}",
+      "duration": 90,
+      "half": {
+        "count": 2.1040000000000005,
+        "progress": [
+          1,
+          1,
+          0.10400000000000048,
+          0
+        ],
+        "phase": "third",
+        "remainder": 0
+      }
     },
     {
       "time": 41,
       "t": 41,
       "scene": 3,
-      "theta": 2,
+      "theta": 2.5499259259259266,
       "curvature": 0,
       "camera": [
         -1,
@@ -968,14 +1419,25 @@
         "particleTime": 15,
         "collapse": 0
       },
-      "formula": "1+1+1",
-      "duration": 90
+      "formula": "1+1+\\textcolor{#ffc253}{\\text{もう1本}}",
+      "duration": 90,
+      "half": {
+        "count": 2.5499259259259266,
+        "progress": [
+          1,
+          1,
+          0.5499259259259265,
+          0
+        ],
+        "phase": "third",
+        "remainder": 0
+      }
     },
     {
       "time": 42,
       "t": 42,
       "scene": 3,
-      "theta": 2.0089163237311385,
+      "theta": 2.951407407407408,
       "curvature": 0,
       "camera": [
         -0.48324567993989476,
@@ -991,14 +1453,25 @@
         "particleTime": 15.272727272727273,
         "collapse": 0
       },
-      "formula": "1+1+1",
-      "duration": 90
+      "formula": "1+1+\\textcolor{#ffc253}{\\text{もう1本}}",
+      "duration": 90,
+      "half": {
+        "count": 2.951407407407408,
+        "progress": [
+          1,
+          1,
+          0.9514074074074078,
+          0
+        ],
+        "phase": "third",
+        "remainder": 0
+      }
     },
     {
       "time": 43,
       "t": 43,
       "scene": 3,
-      "theta": 2.259259259259259,
+      "theta": 3,
       "curvature": 0,
       "camera": [
         0.024943651389933486,
@@ -1014,14 +1487,25 @@
         "particleTime": 15.545454545454547,
         "collapse": 0
       },
-      "formula": "1+1+1",
-      "duration": 90
+      "formula": "1+1+1=3\\text{本分}",
+      "duration": 90,
+      "half": {
+        "count": 3,
+        "progress": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "phase": "gap",
+        "remainder": 0
+      }
     },
     {
       "time": 44,
       "t": 44,
       "scene": 3,
-      "theta": 2.6639231824417005,
+      "theta": 3,
       "curvature": 0,
       "camera": [
         0.5160030052592033,
@@ -1037,14 +1521,25 @@
         "particleTime": 15.818181818181818,
         "collapse": 0
       },
-      "formula": "1+1+1",
-      "duration": 90
+      "formula": "1+1+1=3\\text{本分}",
+      "duration": 90,
+      "half": {
+        "count": 3,
+        "progress": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "phase": "gap",
+        "remainder": 0
+      }
     },
     {
       "time": 45,
       "t": 45,
       "scene": 3,
-      "theta": 2.9657064471879284,
+      "theta": 3,
       "curvature": 0,
       "camera": [
         0.9813673929376403,
@@ -1060,8 +1555,19 @@
         "particleTime": 16.09090909090909,
         "collapse": 0
       },
-      "formula": "1+1+1",
-      "duration": 90
+      "formula": "1+1+1=3\\text{本分}",
+      "duration": 90,
+      "half": {
+        "count": 3,
+        "progress": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "phase": "gap",
+        "remainder": 0
+      }
     },
     {
       "time": 46,
@@ -1083,8 +1589,19 @@
         "particleTime": 16.363636363636363,
         "collapse": 0
       },
-      "formula": "3+(\\pi-3)=\\pi\\approx3.14159",
-      "duration": 90
+      "formula": "1+1+1=3\\text{本分}",
+      "duration": 90,
+      "half": {
+        "count": 3,
+        "progress": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "phase": "gap",
+        "remainder": 0
+      }
     },
     {
       "time": 47,
@@ -1106,14 +1623,25 @@
         "particleTime": 16.636363636363637,
         "collapse": 0
       },
-      "formula": "3+(\\pi-3)=\\pi\\approx3.14159",
-      "duration": 90
+      "formula": "3+\\textcolor{#ff6578}{\\text{あと少し}}",
+      "duration": 90,
+      "half": {
+        "count": 3,
+        "progress": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "phase": "remainder",
+        "remainder": 0
+      }
     },
     {
       "time": 48,
       "t": 48,
       "scene": 3,
-      "theta": 3.017869031728753,
+      "theta": 3.0328400929956794,
       "curvature": 0,
       "camera": [
         2.1376408715251696,
@@ -1129,14 +1657,25 @@
         "particleTime": 16.90909090909091,
         "collapse": 0
       },
-      "formula": "3+(\\pi-3)=\\pi\\approx3.14159",
-      "duration": 90
+      "formula": "3+\\textcolor{#ff6578}{\\text{あと少し}}",
+      "duration": 90,
+      "half": {
+        "count": 3.0328400929956794,
+        "progress": [
+          1,
+          1,
+          1,
+          0.23193359375
+        ],
+        "phase": "remainder",
+        "remainder": 0.03284009299567936
+      }
     },
     {
       "time": 49,
       "t": 49,
       "scene": 3,
-      "theta": 3.0707963267948966,
+      "theta": 3.0967918530398975,
       "curvature": 0,
       "camera": [
         2.4145755071374904,
@@ -1152,14 +1691,25 @@
         "particleTime": 17.18181818181818,
         "collapse": 0
       },
-      "formula": "3+(\\pi-3)=\\pi\\approx3.14159",
-      "duration": 90
+      "formula": "3+\\textcolor{#ff6578}{\\text{あと少し}}",
+      "duration": 90,
+      "half": {
+        "count": 3.0967918530398975,
+        "progress": [
+          1,
+          1,
+          1,
+          0.68359375
+        ],
+        "phase": "remainder",
+        "remainder": 0.09679185303989746
+      }
     },
     {
       "time": 50,
       "t": 50,
       "scene": 3,
-      "theta": 3.12372362186104,
+      "theta": 3.140002501718423,
       "curvature": 0,
       "camera": [
         2.622990232907588,
@@ -1175,8 +1725,19 @@
         "particleTime": 17.454545454545453,
         "collapse": 0
       },
-      "formula": "3+(\\pi-3)=\\pi\\approx3.14159",
-      "duration": 90
+      "formula": "3+\\textcolor{#ff6578}{\\text{あと少し}}",
+      "duration": 90,
+      "half": {
+        "count": 3.140002501718423,
+        "progress": [
+          1,
+          1,
+          1,
+          0.98876953125
+        ],
+        "phase": "remainder",
+        "remainder": 0.1400025017184232
+      }
     },
     {
       "time": 51,
@@ -1198,8 +1759,19 @@
         "particleTime": 17.727272727272727,
         "collapse": 0
       },
-      "formula": "3+(\\pi-3)=\\pi\\approx3.14159",
-      "duration": 90
+      "formula": "3+\\textcolor{#ff6578}{0.14159\\ldots}=3.14159\\ldots",
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "sum",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 52,
@@ -1221,8 +1793,19 @@
         "particleTime": 18,
         "collapse": 0
       },
-      "formula": "L=\\pi r",
-      "duration": 90
+      "formula": "3+\\textcolor{#ff6578}{0.14159\\ldots}=3.14159\\ldots",
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "sum",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 53,
@@ -1244,8 +1827,19 @@
         "particleTime": 18.25,
         "collapse": 0
       },
-      "formula": "L=\\pi r",
-      "duration": 90
+      "formula": "3+\\textcolor{#ff6578}{0.14159\\ldots}=3.14159\\ldots",
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "sum",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 54,
@@ -1267,8 +1861,19 @@
         "particleTime": 18.5,
         "collapse": 0
       },
-      "formula": "L=\\pi r",
-      "duration": 90
+      "formula": "3.14159\\ldots\\text{本分}=\\pi\\text{本分}",
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "pi",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 55,
@@ -1290,8 +1895,19 @@
         "particleTime": 18.75,
         "collapse": 0
       },
-      "formula": "L=\\pi r",
-      "duration": 90
+      "formula": "3.14159\\ldots\\text{本分}=\\pi\\text{本分}",
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "pi",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 56,
@@ -1314,7 +1930,18 @@
         "collapse": 0
       },
       "formula": "L=\\pi r",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 57,
@@ -1337,7 +1964,18 @@
         "collapse": 0
       },
       "formula": "L=\\pi r",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 58,
@@ -1360,7 +1998,18 @@
         "collapse": 0
       },
       "formula": "\\theta=\\frac{L}{r}=\\frac{\\pi r}{r}",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 59,
@@ -1383,7 +2032,18 @@
         "collapse": 0
       },
       "formula": "\\theta=\\frac{L}{r}=\\frac{\\pi r}{r}",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 60,
@@ -1406,7 +2066,18 @@
         "collapse": 0.05555555555555555
       },
       "formula": "\\theta=\\frac{L}{r}=\\frac{\\pi r}{r}",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 61,
@@ -1429,7 +2100,18 @@
         "collapse": 0.19444444444444442
       },
       "formula": "\\theta=\\frac{L}{r}=\\frac{\\pi r}{r}",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 62,
@@ -1452,7 +2134,18 @@
         "collapse": 0.375
       },
       "formula": "\\theta=\\frac{L}{r}=\\frac{\\pi r}{r}",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 63,
@@ -1475,7 +2168,18 @@
         "collapse": 0.5555555555555556
       },
       "formula": "\\theta=\\frac{L}{r}=\\frac{\\pi r}{r}",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 64,
@@ -1498,7 +2202,18 @@
         "collapse": 0.6944444444444445
       },
       "formula": "\\theta=\\pi\\,\\mathrm{rad}",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 65,
@@ -1521,7 +2236,18 @@
         "collapse": 0.75
       },
       "formula": "\\theta=\\pi\\,\\mathrm{rad}",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 66,
@@ -1544,7 +2270,18 @@
         "collapse": 0.75
       },
       "formula": "\\theta=\\pi\\,\\mathrm{rad}",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 67,
@@ -1567,7 +2304,18 @@
         "collapse": 0.75
       },
       "formula": "\\theta=\\pi\\,\\mathrm{rad}",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 68,
@@ -1590,7 +2338,18 @@
         "collapse": 0.672
       },
       "formula": "\\theta=\\pi\\,\\mathrm{rad}",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 69,
@@ -1613,7 +2372,18 @@
         "collapse": 0.48599999999999993
       },
       "formula": "\\theta=\\pi\\,\\mathrm{rad}",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 70,
@@ -1636,7 +2406,18 @@
         "collapse": 0.264
       },
       "formula": "\\theta=\\pi\\,\\mathrm{rad}",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 71,
@@ -1659,7 +2440,18 @@
         "collapse": 0.0779999999999999
       },
       "formula": "\\theta=\\pi\\,\\mathrm{rad}",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 72,
@@ -1682,7 +2474,18 @@
         "collapse": 0
       },
       "formula": "180^\\circ=\\pi\\,\\mathrm{rad}",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 73,
@@ -1705,7 +2508,18 @@
         "collapse": 0
       },
       "formula": "180^\\circ=\\pi\\,\\mathrm{rad}",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 74,
@@ -1728,7 +2542,18 @@
         "collapse": 0
       },
       "formula": "180^\\circ=\\pi\\,\\mathrm{rad}",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 75,
@@ -1751,7 +2576,18 @@
         "collapse": 0
       },
       "formula": "180^\\circ=\\pi\\,\\mathrm{rad}",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 76,
@@ -1774,7 +2610,18 @@
         "collapse": 0
       },
       "formula": "180^\\circ=\\pi\\,\\mathrm{rad}",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 77,
@@ -1797,7 +2644,18 @@
         "collapse": 0
       },
       "formula": "180^\\circ=\\pi\\,\\mathrm{rad}",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 78,
@@ -1820,7 +2678,18 @@
         "collapse": 0
       },
       "formula": "180^\\circ=\\pi\\,\\mathrm{rad}",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 79,
@@ -1843,7 +2712,18 @@
         "collapse": 0
       },
       "formula": "180^\\circ=\\pi\\,\\mathrm{rad}",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 80,
@@ -1866,7 +2746,18 @@
         "collapse": 0
       },
       "formula": "180^\\circ=\\pi\\,\\mathrm{rad}",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 81,
@@ -1889,7 +2780,18 @@
         "collapse": 0
       },
       "formula": "180^\\circ=\\pi\\,\\mathrm{rad}",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 82,
@@ -1912,7 +2814,18 @@
         "collapse": 0
       },
       "formula": "180^\\circ=\\pi\\,\\mathrm{rad}",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 83,
@@ -1935,7 +2848,18 @@
         "collapse": 0
       },
       "formula": "180^\\circ=\\pi\\,\\mathrm{rad}",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 84,
@@ -1958,7 +2882,18 @@
         "collapse": 0
       },
       "formula": "180^\\circ=\\pi\\,\\mathrm{rad}",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 85,
@@ -1981,7 +2916,18 @@
         "collapse": 0
       },
       "formula": "360^\\circ=2\\pi\\,\\mathrm{rad}",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 86,
@@ -2004,7 +2950,18 @@
         "collapse": 0
       },
       "formula": "360^\\circ=2\\pi\\,\\mathrm{rad}",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 87,
@@ -2027,7 +2984,18 @@
         "collapse": 0
       },
       "formula": "360^\\circ=2\\pi\\,\\mathrm{rad}",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 88,
@@ -2050,7 +3018,18 @@
         "collapse": 0
       },
       "formula": "360^\\circ=2\\pi\\,\\mathrm{rad}",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 89,
@@ -2073,7 +3052,18 @@
         "collapse": 0
       },
       "formula": "360^\\circ=2\\pi\\,\\mathrm{rad}",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 90,
@@ -2096,7 +3086,18 @@
         "collapse": 0
       },
       "formula": "360^\\circ=2\\pi\\,\\mathrm{rad}",
-      "duration": 90
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 0,
@@ -2119,7 +3120,18 @@
         "collapse": 0
       },
       "formula": "",
-      "duration": 30
+      "duration": 30,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 1,
@@ -2142,7 +3154,18 @@
         "collapse": 0
       },
       "formula": "",
-      "duration": 30
+      "duration": 30,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 2,
@@ -2165,7 +3188,18 @@
         "collapse": 0
       },
       "formula": "r=1",
-      "duration": 30
+      "duration": 30,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 3,
@@ -2188,7 +3222,18 @@
         "collapse": 0
       },
       "formula": "s=r\\theta",
-      "duration": 30
+      "duration": 30,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 4,
@@ -2211,7 +3256,18 @@
         "collapse": 0
       },
       "formula": "s=r\\theta",
-      "duration": 30
+      "duration": 30,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 5,
@@ -2234,7 +3290,18 @@
         "collapse": 0
       },
       "formula": "s=r\\theta",
-      "duration": 30
+      "duration": 30,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 6,
@@ -2257,7 +3324,18 @@
         "collapse": 0
       },
       "formula": "s=r\\theta",
-      "duration": 30
+      "duration": 30,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 7,
@@ -2280,7 +3358,18 @@
         "collapse": 0
       },
       "formula": "s=r\\theta",
-      "duration": 30
+      "duration": 30,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 8,
@@ -2303,7 +3392,18 @@
         "collapse": 0
       },
       "formula": "s=r\\theta",
-      "duration": 30
+      "duration": 30,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 9,
@@ -2326,7 +3426,18 @@
         "collapse": 0
       },
       "formula": "1\\,\\mathrm{rad}=\\frac{180^\\circ}{\\pi}\\approx57.3^\\circ",
-      "duration": 30
+      "duration": 30,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 10,
@@ -2349,7 +3460,18 @@
         "collapse": 0
       },
       "formula": "1\\,\\mathrm{rad}=\\frac{180^\\circ}{\\pi}\\approx57.3^\\circ",
-      "duration": 30
+      "duration": 30,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 11,
@@ -2371,14 +3493,25 @@
         "particleTime": 12,
         "collapse": 0
       },
-      "formula": "1+1+1",
-      "duration": 30
+      "formula": "r=1",
+      "duration": 30,
+      "half": {
+        "count": 0,
+        "progress": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "phase": "ready",
+        "remainder": 0
+      }
     },
     {
       "time": 12,
       "t": 32.44444444444444,
       "scene": 3,
-      "theta": 0.35377868850916594,
+      "theta": 0.4722349235380778,
       "curvature": 0,
       "camera": [
         -6.582085048010974,
@@ -2394,8 +3527,19 @@
         "particleTime": 12.666666666666666,
         "collapse": 0
       },
-      "formula": "1+1+1",
-      "duration": 30
+      "formula": "\\textcolor{#32baff}{1\\text{本}}",
+      "duration": 30,
+      "half": {
+        "count": 0.4722349235380778,
+        "progress": [
+          0.4722349235380778,
+          0,
+          0,
+          0
+        ],
+        "phase": "first",
+        "remainder": 0
+      }
     },
     {
       "time": 13,
@@ -2417,14 +3561,25 @@
         "particleTime": 13.333333333333332,
         "collapse": 0
       },
-      "formula": "1+1+1",
-      "duration": 30
+      "formula": "\\textcolor{#32baff}{1\\text{本}}",
+      "duration": 30,
+      "half": {
+        "count": 1,
+        "progress": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "phase": "first",
+        "remainder": 0
+      }
     },
     {
       "time": 14,
       "t": 37.333333333333336,
       "scene": 3,
-      "theta": 1.1667936798252305,
+      "theta": 1.7978491083676267,
       "curvature": 0,
       "camera": [
         -4.102962962962962,
@@ -2440,14 +3595,25 @@
         "particleTime": 14,
         "collapse": 0
       },
-      "formula": "1+1+1",
-      "duration": 30
+      "formula": "1+\\textcolor{#59f2a5}{\\text{もう1本}}",
+      "duration": 30,
+      "half": {
+        "count": 1.7978491083676267,
+        "progress": [
+          1,
+          0.7978491083676266,
+          0,
+          0
+        ],
+        "phase": "second",
+        "remainder": 0
+      }
     },
     {
       "time": 15,
       "t": 39.77777777777778,
       "scene": 3,
-      "theta": 1.9890392348350994,
+      "theta": 2.0435783163135706,
       "curvature": 0,
       "camera": [
         -2.3645541838134423,
@@ -2463,14 +3629,25 @@
         "particleTime": 14.666666666666668,
         "collapse": 0
       },
-      "formula": "1+1+1",
-      "duration": 30
+      "formula": "1+1+\\textcolor{#ffc253}{\\text{もう1本}}",
+      "duration": 30,
+      "half": {
+        "count": 2.0435783163135706,
+        "progress": [
+          1,
+          1,
+          0.04357831631357057,
+          0
+        ],
+        "phase": "third",
+        "remainder": 0
+      }
     },
     {
       "time": 16,
       "t": 42.22222222222222,
       "scene": 3,
-      "theta": 2.0380399705705803,
+      "theta": 2.989881217294112,
       "curvature": 0,
       "camera": [
         -0.5354458161865571,
@@ -2486,14 +3663,25 @@
         "particleTime": 15.333333333333332,
         "collapse": 0
       },
-      "formula": "1+1+1",
-      "duration": 30
+      "formula": "1+1+\\textcolor{#ffc253}{\\text{もう1本}}",
+      "duration": 30,
+      "half": {
+        "count": 2.989881217294112,
+        "progress": [
+          1,
+          1,
+          0.9898812172941118,
+          0
+        ],
+        "phase": "third",
+        "remainder": 0
+      }
     },
     {
       "time": 17,
       "t": 44.666666666666664,
       "scene": 3,
-      "theta": 2.8924198546969455,
+      "theta": 3,
       "curvature": 0,
       "camera": [
         1.2029629629629608,
@@ -2509,14 +3697,25 @@
         "particleTime": 16,
         "collapse": 0
       },
-      "formula": "1+1+1",
-      "duration": 30
+      "formula": "1+1+1=3\\text{本分}",
+      "duration": 30,
+      "half": {
+        "count": 3,
+        "progress": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "phase": "gap",
+        "remainder": 0
+      }
     },
     {
       "time": 18,
       "t": 47.111111111111114,
       "scene": 3,
-      "theta": 3,
+      "theta": 3.0005002714332605,
       "curvature": 0,
       "camera": [
         2.669272976680386,
@@ -2532,14 +3731,25 @@
         "particleTime": 16.666666666666668,
         "collapse": 0
       },
-      "formula": "3+(\\pi-3)=\\pi\\approx3.14159",
-      "duration": 30
+      "formula": "3+\\textcolor{#ff6578}{\\text{あと少し}}",
+      "duration": 30,
+      "half": {
+        "count": 3.0005002714332605,
+        "progress": [
+          1,
+          1,
+          1,
+          0.00353317365397825
+        ],
+        "phase": "remainder",
+        "remainder": 0.0005002714332604796
+      }
     },
     {
       "time": 19,
       "t": 49.55555555555556,
       "scene": 3,
-      "theta": 3.1025316557415046,
+      "theta": 3.1266777365292153,
       "curvature": 0,
       "camera": [
         3.6820850480109737,
@@ -2555,8 +3765,19 @@
         "particleTime": 17.333333333333336,
         "collapse": 0
       },
-      "formula": "3+(\\pi-3)=\\pi\\approx3.14159",
-      "duration": 30
+      "formula": "3+\\textcolor{#ff6578}{\\text{あと少し}}",
+      "duration": 30,
+      "half": {
+        "count": 3.1266777365292153,
+        "progress": [
+          1,
+          1,
+          1,
+          0.8946631998028125
+        ],
+        "phase": "remainder",
+        "remainder": 0.12667773652921532
+      }
     },
     {
       "time": 20,
@@ -2578,8 +3799,19 @@
         "particleTime": 18,
         "collapse": 0
       },
-      "formula": "L=\\pi r",
-      "duration": 30
+      "formula": "\\begin{gathered}3+\\textcolor{#ff6578}{0.14159\\ldots}\\\\=3.14159\\ldots\\end{gathered}",
+      "duration": 30,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "sum",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 21,
@@ -2602,7 +3834,18 @@
         "collapse": 0
       },
       "formula": "L=\\pi r",
-      "duration": 30
+      "duration": 30,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 22,
@@ -2625,7 +3868,18 @@
         "collapse": 0.05555555555555555
       },
       "formula": "\\theta=\\frac{L}{r}=\\frac{\\pi r}{r}",
-      "duration": 30
+      "duration": 30,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 23,
@@ -2648,7 +3902,18 @@
         "collapse": 0.6944444444444445
       },
       "formula": "\\theta=\\pi\\,\\mathrm{rad}",
-      "duration": 30
+      "duration": 30,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 24,
@@ -2671,7 +3936,18 @@
         "collapse": 0.672
       },
       "formula": "\\theta=\\pi\\,\\mathrm{rad}",
-      "duration": 30
+      "duration": 30,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 25,
@@ -2694,7 +3970,18 @@
         "collapse": 0
       },
       "formula": "180^\\circ=\\pi\\,\\mathrm{rad}",
-      "duration": 30
+      "duration": 30,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 26,
@@ -2717,7 +4004,18 @@
         "collapse": 0
       },
       "formula": "180^\\circ=\\pi\\,\\mathrm{rad}",
-      "duration": 30
+      "duration": 30,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 27,
@@ -2740,7 +4038,18 @@
         "collapse": 0
       },
       "formula": "180^\\circ=\\pi\\,\\mathrm{rad}",
-      "duration": 30
+      "duration": 30,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 28,
@@ -2763,7 +4072,18 @@
         "collapse": 0
       },
       "formula": "180^\\circ=\\pi\\,\\mathrm{rad}",
-      "duration": 30
+      "duration": 30,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 29,
@@ -2786,7 +4106,18 @@
         "collapse": 0
       },
       "formula": "360^\\circ=2\\pi\\,\\mathrm{rad}",
-      "duration": 30
+      "duration": 30,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     },
     {
       "time": 30,
@@ -2809,7 +4140,18 @@
         "collapse": 0
       },
       "formula": "360^\\circ=2\\pi\\,\\mathrm{rad}",
-      "duration": 30
+      "duration": 30,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "length",
+        "remainder": 0.14159265358979312
+      }
     }
   ]
 }

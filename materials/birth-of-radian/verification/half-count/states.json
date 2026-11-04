@@ -1,0 +1,346 @@
+{
+  "result": "PASS",
+  "cases": [
+    {
+      "time": 34,
+      "t": 34,
+      "scene": 3,
+      "theta": 1,
+      "curvature": 0,
+      "camera": [
+        -4.137640871525169,
+        3.225694966190834,
+        11.782118707738542
+      ],
+      "ring": [
+        0,
+        0.04619127910678246,
+        0
+      ],
+      "background": {
+        "particleTime": 13.09090909090909,
+        "collapse": 0
+      },
+      "formula": "\\textcolor{#32baff}{1\\text{本}}",
+      "duration": 90,
+      "half": {
+        "count": 1,
+        "progress": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "phase": "first",
+        "remainder": 0
+      }
+    },
+    {
+      "time": 38.2,
+      "t": 38.2,
+      "scene": 3,
+      "theta": 2,
+      "curvature": 0,
+      "camera": [
+        -2.419572652141246,
+        2.7735717505634856,
+        11.216964688204357
+      ],
+      "ring": [
+        0,
+        0.04223857731124707,
+        0
+      ],
+      "background": {
+        "particleTime": 14.236363636363638,
+        "collapse": 0
+      },
+      "formula": "1+1=2\\text{本分}",
+      "duration": 90,
+      "half": {
+        "count": 2,
+        "progress": [
+          1,
+          1,
+          0,
+          0
+        ],
+        "phase": "second",
+        "remainder": 0
+      }
+    },
+    {
+      "time": 44,
+      "t": 44,
+      "scene": 3,
+      "theta": 3,
+      "curvature": 0,
+      "camera": [
+        0.5160030052592033,
+        2.001051840721262,
+        10.251314800901579
+      ],
+      "ring": [
+        0,
+        0.034766011776445,
+        0
+      ],
+      "background": {
+        "particleTime": 15.818181818181818,
+        "collapse": 0
+      },
+      "formula": "1+1+1=3\\text{本分}",
+      "duration": 90,
+      "half": {
+        "count": 3,
+        "progress": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "phase": "gap",
+        "remainder": 0
+      }
+    },
+    {
+      "time": 48.6,
+      "t": 48.6,
+      "scene": 3,
+      "theta": 3.0707963267948966,
+      "curvature": 0,
+      "camera": [
+        2.311544402704734,
+        1.5285409466566489,
+        9.660676183320811
+      ],
+      "ring": [
+        0,
+        0.027429779168218333,
+        0
+      ],
+      "background": {
+        "particleTime": 17.072727272727274,
+        "collapse": 0
+      },
+      "formula": "3+\\textcolor{#ff6578}{\\text{あと少し}}",
+      "duration": 90,
+      "half": {
+        "count": 3.0707963267948966,
+        "progress": [
+          1,
+          1,
+          1,
+          0.5000000000000007
+        ],
+        "phase": "remainder",
+        "remainder": 0.07079632679489656
+      }
+    },
+    {
+      "time": 51,
+      "t": 51,
+      "scene": 3,
+      "theta": 3.141592653589793,
+      "curvature": 0,
+      "camera": [
+        2.7543200601051847,
+        1.412021036814425,
+        9.515026296018032
+      ],
+      "ring": [
+        0,
+        0.0231998381410779,
+        0
+      ],
+      "background": {
+        "particleTime": 17.727272727272727,
+        "collapse": 0
+      },
+      "formula": "3+\\textcolor{#ff6578}{0.14159\\ldots}=3.14159\\ldots",
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "sum",
+        "remainder": 0.14159265358979312
+      }
+    },
+    {
+      "time": 55,
+      "t": 55,
+      "scene": 4,
+      "theta": 3.141592653589793,
+      "curvature": 0,
+      "camera": [
+        2.8,
+        1.4,
+        9.5
+      ],
+      "ring": [
+        0,
+        0.016159225349984343,
+        0
+      ],
+      "background": {
+        "particleTime": 18.75,
+        "collapse": 0
+      },
+      "formula": "3.14159\\ldots\\text{本分}=\\pi\\text{本分}",
+      "duration": 90,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "pi",
+        "remainder": 0.14159265358979312
+      }
+    },
+    {
+      "time": 16.8,
+      "t": 44.17777777777778,
+      "scene": 3,
+      "theta": 3,
+      "curvature": 0,
+      "camera": [
+        1.263304285322358,
+        4.160262030178327,
+        21.494702537722908
+      ],
+      "ring": [
+        0,
+        0.03450374917784682,
+        0
+      ],
+      "background": {
+        "particleTime": 15.866666666666667,
+        "collapse": 0
+      },
+      "formula": "1+1+1=3\\text{本分}",
+      "duration": 30,
+      "half": {
+        "count": 3,
+        "progress": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "phase": "gap",
+        "remainder": 0
+      }
+    },
+    {
+      "time": 18.6,
+      "t": 48.57777777777778,
+      "scene": 3,
+      "theta": 3.0693214981581898,
+      "curvature": 0,
+      "camera": [
+        4.847334803840881,
+        3.217096104252399,
+        20.315745130315495
+      ],
+      "ring": [
+        0,
+        0.027467771821356315,
+        0
+      ],
+      "background": {
+        "particleTime": 17.06666666666667,
+        "collapse": 0
+      },
+      "formula": "3+\\textcolor{#ff6578}{\\text{あと少し}}",
+      "duration": 30,
+      "half": {
+        "count": 3.0693214981581898,
+        "progress": [
+          1,
+          1,
+          1,
+          0.48958400312928907
+        ],
+        "phase": "remainder",
+        "remainder": 0.06932149815818978
+      }
+    },
+    {
+      "time": 19.8,
+      "t": 51.51111111111111,
+      "scene": 3,
+      "theta": 3.141592653589793,
+      "curvature": 0,
+      "camera": [
+        5.863678112482853,
+        2.9496373388203017,
+        19.981421673525375
+      ],
+      "ring": [
+        0,
+        0.02226873222709356,
+        0
+      ],
+      "background": {
+        "particleTime": 17.866666666666667,
+        "collapse": 0
+      },
+      "formula": "\\begin{gathered}3+\\textcolor{#ff6578}{0.14159\\ldots}\\\\=3.14159\\ldots\\end{gathered}",
+      "duration": 30,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "sum",
+        "remainder": 0.14159265358979312
+      }
+    },
+    {
+      "time": 20.7,
+      "t": 54.8,
+      "scene": 4,
+      "theta": 3.141592653589793,
+      "curvature": 0,
+      "camera": [
+        5.887,
+        2.9435,
+        19.97375
+      ],
+      "ring": [
+        0,
+        0.016513643536950808,
+        0
+      ],
+      "background": {
+        "particleTime": 18.7,
+        "collapse": 0
+      },
+      "formula": "3.14159\\ldots\\text{本分}=\\pi\\text{本分}",
+      "duration": 30,
+      "half": {
+        "count": 3.141592653589793,
+        "progress": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "phase": "pi",
+        "remainder": 0.14159265358979312
+      }
+    }
+  ],
+  "errors": []
+}

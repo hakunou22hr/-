@@ -1,4 +1,6 @@
 import katex from 'katex';
+import {halfLesson,updateHalfMeasure} from './half-lesson.js';
+import './half-lesson.css';
 import 'katex/dist/katex.min.css';
 import * as T from 'three';
 import {EffectComposer} from 'three/addons/postprocessing/EffectComposer.js';
@@ -10,7 +12,7 @@ const $=s=>document.querySelector(s),TAU=Math.PI*2,clamp=x=>Math.max(0,Math.min(
 const params=new URLSearchParams(location.search),exporting=params.has('export'),portrait=params.has('portrait'),duration=portrait?30:90;document.body.classList.toggle('portrait',portrait);document.body.classList.toggle('export',exporting);
 const GOLD=0xffc253,CYAN=0x1ac7ff,BLUE=0x4ba8ee,R=2.7;
 let renderer,scene,camera,composer,bloom,galaxy,portal,beltGroup,holo,medal,pi,belt,sparks,sky,dust,galaxyDust,haloLight;
-let rings=[],glyphs=[],digits=[],beltFrames=[],arcs=[],last=0,time=0,playing=false,mathBelt,mathHalf,birthRadius,birthCircle,primaryCircle,baseRadius,contactRadius,angleLine,halfBase,halfContact,halfAngle,lessonPieces=[];
+let rings=[],glyphs=[],digits=[],beltFrames=[],arcs=[],last=0,time=0,playing=false,mathBelt,mathHalf,birthRadius,birthCircle,primaryCircle,baseRadius,contactRadius,angleLine,halfBase,halfContact,halfAngle,gapGuide,unitLabels=[],lessonPieces=[];
 const shared={clock:{value:0},energy:{value:1},collapse:{value:0}};
 function glow(color,opacity=.7){let m=new T.MeshBasicMaterial({color,transparent:true,opacity,depthWrite:false,blending:T.AdditiveBlending});m.color.multiplyScalar(.75);return m}
 function torus(parent,r,width,color,rotation=[0,0,0],z=0,arc=TAU){const mesh=new T.Mesh(new T.TorusGeometry(r,width,5,180,arc),glow(color));mesh.rotation.set(...rotation);mesh.position.z=z;parent.add(mesh);rings.push(mesh);return mesh}
@@ -72,19 +74,21 @@ function setupLesson(){
  birthRadius=stroke(galaxy,CYAN,.04);birthCircle=torus(galaxy,R,.025,GOLD,[-Math.PI/2,0,0]);birthCircle.position.y=.18;
  mathHalf=new T.Group();holo.add(mathHalf);halfBase=stroke(mathHalf,CYAN,.026);halfContact=stroke(mathHalf,GOLD,.022);halfAngle=stroke(mathHalf,GOLD,.012);let ho=textMesh('O','#dcefff',.2);ho.position.set(-.15,-.45,.2);mathHalf.add(ho);
  for(let i=0;i<4;i++){const mesh=stroke(mathHalf,[0x32baff,0x59f2a5,GOLD,0xff6578][i],.045,161);mesh.userData.length=i===3?Math.PI-3:1;lessonPieces.push(mesh)}
+ for(let i=0;i<3;i++){let a=i+.5,label=textMesh(String(i+1),['#32baff','#59f2a5','#ffc253'][i],.23);label.position.set(3.35*Math.cos(a),3.35*Math.sin(a)-.2,.15);mathHalf.add(label);unitLabels.push(label)}
+ gapGuide=new T.Line(new T.BufferGeometry(),new T.LineDashedMaterial({color:0xff6578,dashSize:.055,gapSize:.035,transparent:true,depthWrite:false,opacity:.8}));mathHalf.add(gapGuide);
  const bottom=stroke(mathHalf,GOLD,.026,161);bottom.userData.bottom=true;lessonPieces.push(bottom);
 }
 function mapLesson(raw){if(!portrait)return raw;if(raw<3)return raw*4;if(raw<11)return 12+(raw-3)*18/8;if(raw<20)return 30+(raw-11)*22/9;if(raw<25)return 52+(raw-20)*4;return 72+(raw-25)*18/5}
 function renderAt(raw){time=Math.max(0,Math.min(duration,raw));const t=mapLesson(time),idx=t<12?0:t<30?1:t<52?2:t<72?3:4;let q=idx===0?t/12:idx===1?(t-12)/18:idx===2?(t-30)/22:idx===3?(t-58)/14:(t-72)/18;
  $('#seek').max=duration;$('#seek').value=time;$('#clock').textContent=`${Math.floor(time/60).toString().padStart(2,'0')}:${Math.floor(time%60).toString().padStart(2,'0')} / ${portrait?'00:30':'01:30'}`;
  const names=['半径の誕生','1ラジアンの誕生','半円に半径を巻く','πの出現','180° = π rad'];$('#scene').textContent=`0${idx+1} — ${names[idx]}`;
- let formula='',caption='',theta=0,k=0;
+ let formula='',caption='',theta=0,k=0;const half=halfLesson(t);
  if(idx===0){formula=t>4?'r=1':'';caption=t<4?'暗闇に、ひとつの点 O。':t<8?'中心から、長さ1の半径が伸びる。':'半径と同じ距離を保って、円が生まれる。'}
  if(idx===1){k=ease((t-16)/9);theta=k;formula=t<25?'s=r\\theta':'1\\,\\mathrm{rad}=\\frac{180^\\circ}{\\pi}\\approx57.3^\\circ';caption=t<16?'半径と同じ長さの帯を、もう一本。':t<25?'長さを変えず、円周へ巻き付ける。':'弧の長さが半径に等しい。この中心角が1ラジアン。'}
- if(idx===2){let j=Math.min(3,Math.max(0,Math.floor((t-31)/5.4))),w=ease((t-31-j*5.4)/3.6);theta=t<31?0:j+w*(j===3?Math.PI-3:1);formula=theta<3?'1+1+1':'3+(\\pi-3)=\\pi\\approx3.14159';caption=theta<3?'半径と同じ長さを、ひとつずつ巻いていく。':theta<Math.PI-1e-8?'3本では、半円に少し届かない。':'残りは約0.14159本。正確には、π本分。'}
- if(idx===3){theta=Math.PI;formula=t<58?'L=\\pi r':t<64?'\\theta=\\frac{L}{r}=\\frac{\\pi r}{r}':'\\theta=\\pi\\,\\mathrm{rad}';caption=t<58?'半円の弧長は、半径のπ倍。':t<64?'角度は、弧長と半径の比で決まる。':'大きさによらず、半円の角度はπラジアン。'}
+ if(idx===2){theta=half.count;caption=half.caption;formula=half.phase==='ready'?'r=1':half.phase==='first'?'\\textcolor{#32baff}{1\\text{本}}':half.phase==='second'?(half.progress[1]<1?'1+\\textcolor{#59f2a5}{\\text{もう1本}}':'1+1=2\\text{本分}'):half.phase==='third'?'1+1+\\textcolor{#ffc253}{\\text{もう1本}}':half.phase==='gap'?'1+1+1=3\\text{本分}':half.phase==='remainder'?'3+\\textcolor{#ff6578}{\\text{あと少し}}':portrait?'\\begin{gathered}3+\\textcolor{#ff6578}{0.14159\\ldots}\\\\=3.14159\\ldots\\end{gathered}':'3+\\textcolor{#ff6578}{0.14159\\ldots}=3.14159\\ldots';}
+ if(idx===3){theta=Math.PI;formula=t<54?(portrait?'\\begin{gathered}3+\\textcolor{#ff6578}{0.14159\\ldots}\\\\=3.14159\\ldots\\end{gathered}':'3+\\textcolor{#ff6578}{0.14159\\ldots}=3.14159\\ldots'):t<56?'3.14159\\ldots\\text{本分}=\\pi\\text{本分}':t<58?'L=\\pi r':t<64?'\\theta=\\frac{L}{r}=\\frac{\\pi r}{r}':'\\theta=\\pi\\,\\mathrm{rad}';caption=t<58?half.caption:t<64?'角度は、弧長と半径の比で決まる。':'大きさによらず、半円の角度はπラジアン。';}
  if(idx===4){theta=Math.PI+Math.PI*ease((t-85)/2.5);formula=t<85?'180^\\circ=\\pi\\,\\mathrm{rad}':'360^\\circ=2\\pi\\,\\mathrm{rad}';caption=t<85?'半回転を、πラジアンと呼ぶ。':'一周なら、2πラジアン。'}
- if($('#equation').dataset.formula!==formula){$('#equation').innerHTML=katex.renderToString(formula,{throwOnError:false});$('#equation').dataset.formula=formula}$('#caption').textContent=caption;
+ if($('#equation').dataset.formula!==formula){$('#equation').innerHTML=katex.renderToString(formula,{throwOnError:false});$('#equation').dataset.formula=formula}$('#caption').textContent=caption;updateHalfMeasure(half,t>=30&&t<56);
  if(!renderer||!galaxy)return;
  const artShot=idx===0?0:idx===1?1:idx===2||idx===4||idx===3&&t<58?2:3,artQ=clamp(idx===3&&t<58?1:idx===4?1:q),artTime=idx===3&&t<58?18+(t-52)*.25:idx===4?24+(t-72)*.25:artShot*6+artQ*6;renderArt(artShot,artQ,artTime);
  // The approved film's geometry and lighting remain the stage; these objects carry the lesson.
@@ -92,11 +96,13 @@ function renderAt(raw){time=Math.max(0,Math.min(duration,raw));const t=mapLesson
  const grow=ease((t-2)/3);path(birthRadius,u=>new T.Vector3(R*u*grow,.2,0));birthCircle.geometry.setDrawRange(0,Math.ceil(ease((t-5)/6)*180)*30);
  if(idx===1){updateBelt(k,artTime,ease((t-12)/4));beltGroup.rotation.z=-.35+.06*Math.sin(t*.14);const c=new T.Vector3(-R,0,.08);segment(baseRadius,c,new T.Vector3(0,0,.08));segment(contactRadius,c,new T.Vector3(-R+R*Math.cos(theta),R*Math.sin(theta),.08));angular(angleLine,c,.45,theta);camera.position.set(1.4*Math.sin(q*2),1.6,13.2);camera.lookAt(-.8,.6,0)}
  for(let i=0;i<arcs.length;i++)arcs[i].visible=false;
- if(mathHalf.visible){const c=new T.Vector3(0,-.2,.18);segment(halfBase,c,new T.Vector3(3,-.2,.18));segment(halfContact,c,new T.Vector3(3*Math.cos(theta),3*Math.sin(theta)-.2,.18));angular(halfAngle,c,.48,theta);for(let i=0;i<4;i++){const mesh=lessonPieces[i],len=mesh.userData.length,w=idx===2?ease((t-31-i*5.4)/3.6):1;mesh.visible=idx!==2||t>=31+i*5.4;path(mesh,u=>unitPoint(u,w,i,len))}const lower=lessonPieces[4];lower.visible=idx===4&&t>85;path(lower,u=>new T.Vector3(3*Math.cos(Math.PI+(theta-Math.PI)*u),3*Math.sin(Math.PI+(theta-Math.PI)*u)-.2,.1));}
+ if(mathHalf.visible){const c=new T.Vector3(0,-.2,.18);segment(halfBase,c,new T.Vector3(3,-.2,.18));segment(halfContact,c,new T.Vector3(3*Math.cos(theta),3*Math.sin(theta)-.2,.18));angular(halfAngle,c,.48,theta);for(let i=0;i<4;i++){const mesh=lessonPieces[i],len=mesh.userData.length,w=idx===2?half.progress[i]:1;mesh.visible=idx!==2||half.progress[i]>0;path(mesh,u=>unitPoint(u,w,i,len))}const lower=lessonPieces[4];lower.visible=idx===4&&t>85;path(lower,u=>new T.Vector3(3*Math.cos(Math.PI+(theta-Math.PI)*u),3*Math.sin(Math.PI+(theta-Math.PI)*u)-.2,.1));}
+ for(let i=0;i<unitLabels.length;i++)unitLabels[i].visible=t>=30&&t<56&&half.progress[i]>=1;
+ gapGuide.visible=t>=42.4&&t<50.2;if(gapGuide.visible){gapGuide.geometry.setFromPoints(Array.from({length:41},(_,i)=>unitPoint(i/40,1,Math.max(3,theta),Math.PI-Math.max(3,theta))));gapGuide.computeLineDistances();gapGuide.material.opacity=.55+.3*Math.sin(t*4)**2;}
  if(idx===3&&t>=58){pi.material.opacity=ease((t-60)/3);shared.collapse.value=ease((t-59)/6)*(1-ease((t-67)/5))*.75}
  if(idx===4){let turn=ease((t-72)/4)*(1-ease((t-77)/3));mathHalf.rotation.y=turn*.8;mathHalf.rotation.x=turn*.22;camera.position.set(0,.7,12.7);camera.lookAt(0,.3,-.1)}else{mathHalf.rotation.set(0,0,0)}
  if(portrait){camera.position.multiplyScalar(idx===0?2:1.45);camera.fov=50;camera.updateProjectionMatrix()}else{camera.fov=43;camera.updateProjectionMatrix()}
- const cuts=[0,12,30,52,58,72,90],near=Math.min(...cuts.map(c=>Math.abs(t-c)));$('#black').style.opacity=String(t>88?ease((t-88)/2):1-ease(near/.35));composer.render();window.__state={time,t,scene:idx+1,theta,curvature:k,camera:camera.position.toArray(),ring:[galaxy.rotation.y,holo.rotation.y,medal.rotation.z],background: {particleTime:shared.clock.value,collapse:shared.collapse.value},formula,duration};
+ const cuts=[0,12,30,52,58,72,90],near=Math.min(...cuts.map(c=>Math.abs(t-c)));$('#black').style.opacity=String(t>88?ease((t-88)/2):1-ease(near/.35));composer.render();window.__state={time,t,scene:idx+1,theta,curvature:k,camera:camera.position.toArray(),ring:[galaxy.rotation.y,holo.rotation.y,medal.rotation.z],background: {particleTime:shared.clock.value,collapse:shared.collapse.value},formula,duration,half:{count:half.count,progress:half.progress,phase:half.phase,remainder:half.remainder}};
 }
 
 function tick(now){if(playing){time+=(now-last)/1000;if(time>=duration){time=duration;playing=false;$('#play').textContent='▶ 再生'}renderAt(time)}last=now;requestAnimationFrame(tick)}
