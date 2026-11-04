@@ -14,7 +14,7 @@ const filters = [
 ] as const
 
 function MaterialCard({ material, index }: { material: Material; index: number }) {
-  const href = `./materials/${material.id}/`
+  const href = `./materials/${material.id}/${material.revision ? `?v=${encodeURIComponent(material.revision)}` : ''}`
 
   return (
     <article className={`card tone-${index % 4}`}>
