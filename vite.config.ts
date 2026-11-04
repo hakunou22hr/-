@@ -30,6 +30,9 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: { portal: resolve(root, 'index.html'), ...materialPages, ...appPages,
+        'radian-cinema-preview': resolve(root, 'materials/birth-of-radian/verification/cinema/index.html'),
+        'radian-cinema-render': resolve(root, 'materials/birth-of-radian/cinema.html'),
+        'radian-legacy': resolve(root, 'materials/birth-of-radian/legacy.html'),
         'radian-reference-film': resolve(root, 'materials/birth-of-radian/reference.html'),
         'trig-cinema-video': resolve(root, 'materials/trig-integral-cinema/video.html'),
         'moving-line-reels': resolve(root, 'materials/moving-line-cinema/reels.html'),

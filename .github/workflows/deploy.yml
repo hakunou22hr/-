@@ -118,3 +118,23 @@ jobs:
         with:
           name: teisekibun-live-playback-check
           path: work/teisekibun-playback-check/
+
+  verify-radian-cinema-playback:
+    needs: deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Install cinema playback browser
+        run: |
+          npm install --prefix /tmp/radian-browser-tools playwright@1.62.1
+          node /tmp/radian-browser-tools/node_modules/playwright/cli.js install --with-deps chromium
+      - name: Verify published radian movies and download
+        run: node scripts/verify-radian-cinema-playback.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: radian-cinema-live-playback-check
+          path: work/radian-playback-check/

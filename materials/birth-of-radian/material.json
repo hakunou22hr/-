@@ -1,1 +1,9 @@
-{"id":"birth-of-radian","name":"ラジアンの誕生","subject":"数学Ⅱ","unit":"三角関数・弧度法","description":"半径が長さを保って円弧へ曲がる90秒の3D映画。1 radからπ、180°への発見をたどる。","thumbnail":"thumbnail.svg"}
+{
+  "id": "birth-of-radian",
+  "name": "ラジアンの誕生",
+  "subject": "数学Ⅱ",
+  "unit": "三角関数・弧度法",
+  "description": "円環の宇宙と黄金の帯、πの紋様を舞台に、半径を巻いて弧度法を学ぶ90秒の映画教材。縦型30秒MP4もダウンロードできます。",
+  "thumbnail": "cinema-thumbnail.svg",
+  "revision": "cinema-90-30-v1"
+}

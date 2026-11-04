@@ -1,0 +1,58 @@
+{
+  "result": "PASS",
+  "videos": [
+    {
+      "path": "public/media/birth-of-radian-cinema-30s.mp4",
+      "duration": 30,
+      "width": 1080,
+      "height": 1920,
+      "fps": "24/1",
+      "frames": 720,
+      "codec": "h264",
+      "pixelFormat": "yuvj420p",
+      "bytes": 43709406,
+      "sha256": "3c1cb8757d03e9677279594bb7ad4fb3f2e55ab0ab439542baf45760e30701bb",
+      "fullDecode": "PASS"
+    },
+    {
+      "path": "public/media/birth-of-radian-cinema-90s.mp4",
+      "duration": 90,
+      "width": 1920,
+      "height": 1080,
+      "fps": "24/1",
+      "frames": 2160,
+      "codec": "h264",
+      "pixelFormat": "yuvj420p",
+      "bytes": 84634309,
+      "sha256": "04f315a959d28fd6f42215e9bdc7dd2da878b2146a8a83b303e8a35f940d6da4",
+      "fullDecode": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "time": 6,
+      "path": "6.jpg",
+      "source": "encoded 90-second MP4"
+    },
+    {
+      "time": 20,
+      "path": "20.jpg",
+      "source": "encoded 90-second MP4"
+    },
+    {
+      "time": 42,
+      "path": "42.jpg",
+      "source": "encoded 90-second MP4"
+    },
+    {
+      "time": 62,
+      "path": "62.jpg",
+      "source": "encoded 90-second MP4"
+    },
+    {
+      "time": 82,
+      "path": "82.jpg",
+      "source": "encoded 90-second MP4"
+    }
+  ]
+}

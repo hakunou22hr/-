@@ -4,6 +4,7 @@ export type Material = {
   subject: string
   unit: string
   description: string
+  revision?: string
   thumbnail?: string
 }
 
