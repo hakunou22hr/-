@@ -1,0 +1,53 @@
+{
+  "title": "積分を微分する",
+  "duration": 90,
+  "fps": 30,
+  "width": 1920,
+  "height": 1080,
+  "size": 131730672,
+  "sha256": "fc2026d6b6780249ef6b93471dc5c9af4dcc103e4c3414b44fc71282b4fb0afb",
+  "parts": [
+    {
+      "file": "part-000.bin",
+      "size": 16777216,
+      "sha256": "f9571a22226bed3a1d5baea620c1cc0770a5b0a5bda69cf56b0ba0dd192fb831"
+    },
+    {
+      "file": "part-001.bin",
+      "size": 16777216,
+      "sha256": "68578bd34a9353b602197b6f4b0c05f6546f12b5c528edeabac13b88706f6464"
+    },
+    {
+      "file": "part-002.bin",
+      "size": 16777216,
+      "sha256": "a39b52797b6645948567e3bb54b2d3fe72e25cc1ae1e1b173ad079a5ea6a0d48"
+    },
+    {
+      "file": "part-003.bin",
+      "size": 16777216,
+      "sha256": "51353d0d08b12a29dace589ff0c1910ee56e817674bda0041aa45a8279f41c09"
+    },
+    {
+      "file": "part-004.bin",
+      "size": 16777216,
+      "sha256": "77aa4156eacee7460a3d08026d8d9bcc8de6258ed5b8362700de2dcd3156c602"
+    },
+    {
+      "file": "part-005.bin",
+      "size": 16777216,
+      "sha256": "6fb0d67e6fb55efc84aefe2745515d82f67c4fc84e75398d8aff4e41c57b529d"
+    },
+    {
+      "file": "part-006.bin",
+      "size": 16777216,
+      "sha256": "dc1f79415502d17585f5e6f0d33d0736301048274d4c35467a3a6cfc36ce3bdb"
+    },
+    {
+      "file": "part-007.bin",
+      "size": 14290160,
+      "sha256": "b9c2fa688d1aa05fea2e76c57ae952935406b1805be8eeb03aad52f2f127a719"
+    }
+  ],
+  "teacher": false,
+  "audio": false
+}
