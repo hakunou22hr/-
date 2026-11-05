@@ -10,8 +10,8 @@
     "channels": 2,
     "fullDecode": true,
     "distinctSceneSamples": 13,
-    "bytes": 29943755,
-    "sha256": "dae060adbe8ab6d47291a33d734856b526455944b4f582b574ab5ed5c6cef3e3"
+    "bytes": 24606671,
+    "sha256": "0d407dc7588122f9e4e0ba0084c3599629e2ba5e87111561d81a205c64422176"
   },
   {
     "file": "public/previews/conic-cinema/conic-30s.mp4",
@@ -24,8 +24,8 @@
     "channels": 2,
     "fullDecode": true,
     "distinctSceneSamples": 6,
-    "bytes": 8505353,
-    "sha256": "869c0b2cdcd7cea14631817302020f4b024e33c36efbf574ca29e30ae433696a"
+    "bytes": 8585002,
+    "sha256": "10777a6acdb5257aa7b0dcd5365e27373cd26de868069b236059b62d2a247821"
   },
   {
     "file": "public/previews/conic-cinema/preview-12s.mp4",
@@ -38,7 +38,7 @@
     "channels": 2,
     "fullDecode": true,
     "distinctSceneSamples": 3,
-    "bytes": 3826798,
-    "sha256": "31543eaa3edbd54653e95482a0c510d922584ffdc0a6780a6205d475d52d56e7"
+    "bytes": 3807881,
+    "sha256": "09aa867ff6228f71535eb2bb4293b7ebac94f9ca2f9ca91c592e4f4fedf9b072"
   }
 ]

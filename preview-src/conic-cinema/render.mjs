@@ -18,13 +18,24 @@ const sprite=createCanvas(80,80),sg=sprite.getContext('2d'),gr=sg.createRadialGr
 // Stable dry-chalk texture: irregular pressure, broken edges and fine powder.
 // The grain stays attached to the board rather than flickering every frame.
 const chalk=createCanvas(1280,760),cg=chalk.getContext('2d');
-for(let pass=0;pass<4;pass++)for(let i=0;i<720;i++){
-  if(rnd(i+pass*1100)<.07)continue;
-  const u=i/720*TAU,u2=(i+1.5)/720*TAU,jitter=(rnd(i+pass*900)-.5)*3;
-  cg.strokeStyle=`rgba(249,248,232,${.18+rnd(i+pass*1700)*.48})`;cg.lineWidth=2+rnd(i+pass*800)*3;cg.lineCap='butt';
-  cg.beginPath();cg.moveTo(640+(520+jitter)*Math.cos(u),380+(276+jitter*.5)*Math.sin(u));cg.lineTo(640+(520+jitter)*Math.cos(u2),380+(276+jitter*.5)*Math.sin(u2));cg.stroke();
+function chalkPoint(u,offset=0){
+  // Low-frequency hand movement changes the silhouette, not just its color.
+  return[640+(520+9*Math.sin(3*u+.4)+4*Math.cos(5*u)+offset)*Math.cos(u)+4*Math.sin(2*u),380+(276+6*Math.sin(4*u+.8)+offset*.55)*Math.sin(u)+4*Math.cos(3*u)];
 }
-for(let i=0;i<3600;i++){const u=rnd(i+4000)*TAU,spread=(rnd(i+8000)-.5)*(rnd(i+12000)<.86?9:26),x=640+(520+spread)*Math.cos(u),y=380+(276+spread*.65)*Math.sin(u);cg.fillStyle=`rgba(250,249,233,${.08+rnd(i+16000)*.45})`;const size=.5+rnd(i+19000)*1.4;cg.fillRect(x,y,size,size);}
+for(let pass=0;pass<3;pass++)for(let i=0;i<720;i++){
+  const u=i/720*TAU,u2=(i+1.25)/720*TAU,pressure=.5+.28*Math.sin(u*2-.6)+.18*Math.sin(u*7+.4),dry=rnd(i+3200);
+  if(dry<.045||((i>115&&i<137)||(i>462&&i<480))&&dry<.46)continue;
+  const offset=(rnd(i+pass*900)-.5)*2.8;
+  cg.strokeStyle=`rgba(248,247,231,${.15+pressure*.39+rnd(i+pass*1700)*.12})`;cg.lineWidth=3.5+pressure*5+rnd(i+pass*800)*1.6;cg.lineCap='butt';
+  cg.beginPath();cg.moveTo(...chalkPoint(u,offset));cg.lineTo(...chalkPoint(u2,offset));cg.stroke();
+}
+// Pores in a dry chalk stroke and a few loose grains give a matte edge.
+cg.globalCompositeOperation='destination-out';
+for(let i=0;i<2600;i++){const u=rnd(i+4000)*TAU,[x,y]=chalkPoint(u,(rnd(i+8000)-.5)*9),size=.45+rnd(i+11000)*1.6;cg.fillStyle=`rgba(0,0,0,${.18+rnd(i+12000)*.7})`;cg.fillRect(x,y,size,size);}
+cg.globalCompositeOperation='source-over';
+for(let i=0;i<1700;i++){const u=rnd(i+16000)*TAU,[x,y]=chalkPoint(u,(rnd(i+19000)-.5)*23);cg.fillStyle=`rgba(250,249,233,${.04+rnd(i+22000)*.28})`;const size=.4+rnd(i+25000);cg.fillRect(x,y,size,size);}
+// A lightly retraced join, as a real hand closes the oval.
+cg.strokeStyle='#f8f7e74a';cg.lineWidth=2.5;cg.beginPath();for(let i=0;i<=24;i++){const u=TAU-.09+i/24*.19,[x,y]=chalkPoint(u,2.6);if(i)cg.lineTo(x,y);else cg.moveTo(x,y);}cg.stroke();
 const pools=Object.fromEntries(['#0785ff','#9d35ff','#ffae35'].map(col=>{const s=createCanvas(320,320),ctx=s.getContext('2d'),r=ctx.createRadialGradient(160,160,0,160,160,160);r.addColorStop(0,col+'99');r.addColorStop(.35,col+'55');r.addColorStop(.7,col+'20');r.addColorStop(1,col+'00');ctx.fillStyle=r;ctx.fillRect(0,0,320,320);return[col,s];}));
 function project(x,y,z=0){v.set(x,y,z).applyMatrix4(camera.matrixWorldInverse);if(v.z>-.6)return[NaN,NaN];v.set(x,y,z).project(camera);return[(v.x+1)*W/2,(1-v.y)*H/2];}
 function line(pts,col,w=2,alpha=1){if(pts.length<2)return;g.save();g.globalAlpha=alpha;g.strokeStyle=col;g.lineWidth=w;g.lineJoin='round';g.lineCap='round';g.beginPath();let started=false;pts.forEach(p=>{if(!p.every(Number.isFinite)){started=false;return;}if(started)g.lineTo(...p);else g.moveTo(...p);started=true;});g.stroke();g.restore();}
@@ -81,8 +92,8 @@ function cone(t,kind='ellipse',alpha=1){
   light(project(0,0),35,.7*alpha);
 }
 function classroomScene(t,returning=false){
-  const q=returning?1-ease((t-85)/4):ease((t-3)/6),scale=1+q*q*5,iw=Math.max(W,H*classroom.width/classroom.height)*scale,ih=iw*classroom.height/classroom.width,cx=W*.56,cy=H*(vertical?.40:.40);
-  g.drawImage(classroom,cx-iw*.56,cy-ih*.4,iw,ih);
+  const q=returning?1-ease((t-85)/4):ease((t-3)/6),scale=1+q*q*5,iw=Math.max(W,H*classroom.width/classroom.height)*scale,ih=iw*classroom.height/classroom.width,cx=W*.56,cy=H*.36;
+  g.drawImage(classroom,cx-iw*.56,cy-ih*.36,iw,ih);
   const rx=W*.17*scale,ry=rx*.53,pts=[];for(let j=0;j<=150;j++){let u=j/150*TAU;pts.push([cx+rx*Math.cos(u),cy+ry*Math.sin(u)]);}
   const ink=rx/520;g.drawImage(chalk,cx-640*ink,cy-380*ink,1280*ink,760*ink);
   // The hand-drawn chalk becomes a doorway only as the camera moves in.

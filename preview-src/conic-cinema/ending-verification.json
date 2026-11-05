@@ -1,0 +1,15 @@
+{
+  "revision": "conic-v4",
+  "checks": [
+    {
+      "seconds": 90,
+      "matchesUncreditedRender": true,
+      "burnedInAudioCredits": false
+    },
+    {
+      "seconds": 30,
+      "matchesUncreditedRender": true,
+      "burnedInAudioCredits": false
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # 黒板の向こう側 — 二次曲線の世界
 
-教師のいない教室から黒板に入り、円錐の切断と距離の関係を説明する動画。大聖堂は使用しない。
+生徒が着席する教室から黒板に入り、円錐の切断と距離の関係を説明する動画。大聖堂は使用しない。
 
 - 本編：90秒、1920×1080、30fps。
 - Instagram版：30秒、1080×1920、30fps。独立したカメラ・文字レイアウト。字幕・BGM・効果音のみで、声のナレーションは付けない。
@@ -23,7 +23,7 @@ Node.js、Python、FFmpeg、Chromium、Noto Sans CJKを使用。Node依存は `@
 3. `node preview-src/conic-cinema/render.mjs --samples` で静止サンプルを確認。
 4. `node preview-src/conic-cinema/render.mjs` と `node preview-src/conic-cinema/render.mjs --vertical`。
 5. `python preview-src/conic-cinema/audio.py`。初回はOpen JTalk辞書を取得する。ナレーションは `story.json` から生成。
-6. `python preview-src/conic-cinema/finalize.py`。音声と末尾クレジットを合成し、MP4を書き出す。
+6. `python preview-src/conic-cinema/finalize.py`。映像と音声を合成し、MP4を書き出す。
 7. `node preview-src/conic-cinema/math.check.mjs`、`python preview-src/conic-cinema/verify.py`。
 8. `npm run build` 後、`npm run preview -- --host 127.0.0.1 --port 4209` でRange対応の配信サーバーを起動する。`PLAYWRIGHT_MODULE_PATH=… node preview-src/conic-cinema/playback.cjs` で実際の通し再生・保存・スマートフォン幅・チャプターを確認。
 
@@ -33,7 +33,7 @@ Node.js、Python、FFmpeg、Chromium、Noto Sans CJKを使用。Node依存は `@
 
 教室画像はこの制作のために生成した静止背景。黒板の光、突入時の粒子、円錐・切断平面・曲線・距離表示はフレームごとに描画する。音声はOpen JTalk / HTS Voice Meiによる合成音声（人間の収録音声ではない）。音高を-1.5半音、発話速度を1.08に設定し、必要時のみ収録枠に合わせる。BGMと効果音はNumPyで合成した独自音源。
 
-Mei：MMDAgent Project Team / 名古屋工業大学、2009–2013、CC BY 3.0。音声のクレジットを動画末尾・MP4メタデータ・確認ページ・`credits.txt`に記載。元のライセンス文も同梱。90秒本編の音声を転載する際は説明欄にもクレジットを添える。30秒版にはMei音声を使わず、音声クレジットの末尾表示も入れない。
+Mei：MMDAgent Project Team / 名古屋工業大学、2009–2013、CC BY 3.0。音声のクレジットをMP4メタデータ・確認ページ・`credits.txt`に記載。元のライセンス文も同梱。90秒本編の音声を転載する際は説明欄にもクレジットを添える。30秒版にはMei音声を使わず、音声クレジットの末尾表示も入れない。
 
 検証結果は `video-verification.json` と `playback-verification.json`。
 
@@ -44,3 +44,7 @@ Mei：MMDAgent Project Team / 名古屋工業大学、2009–2013、CC BY 3.0。
 ## conic-v3
 
 冒頭の楕円を、かすれ・筆圧差・粉の粒を持つ白いチョーク描画へ変更。黒板へ入る直前に金色へ発光する。解説空間は青・紫の色光、金色の床反射と移動する光、光柱の発光を強化。中央の図・数式には暗い背景を残して読みやすさを保つ。教室画像を両画面比率で画面全体に配置し、端の余白を解消。数学・台本・音声構成は維持し、30秒版に声は付けない。
+
+## conic-v4
+
+教室の机に着席して学ぶ生徒を追加。教師は出さない。冒頭のチョーク線に手の揺れによる非対称な輪郭、筆圧差、乾いたかすれ、描き終わりの重ね線を加える。全動画の末尾に音声クレジットを焼き込まない。音声の出典は確認ページ・同梱クレジット・MP4メタデータに保持。解説背景の発色・発光、台本、90秒本編のナレーション、30秒版の声なし設定は維持。
