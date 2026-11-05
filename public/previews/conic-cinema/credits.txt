@@ -1,0 +1,9 @@
+黒板の向こう側 ― 二次曲線の世界
+日本語合成音声：Open JTalk / HTS Voice “Mei”
+MMDAgent Project Team / Nagoya Institute of Technology
+Copyright (c) 2009–2013 Nagoya Institute of Technology, Department of Computer Science
+Creative Commons Attribution 3.0: https://creativecommons.org/licenses/by/3.0/
+音高・発話速度の調整、音量の調整、BGMとのミックスを実施。
+教室背景：本教材用AI生成画像。
+図形・数式：座標計算による描画。BGM・効果音：本教材用手続き生成。
+SNS等への投稿時は、この音声クレジットを説明欄に添えてください。

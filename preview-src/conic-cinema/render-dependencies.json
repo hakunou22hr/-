@@ -1,0 +1,18 @@
+{
+  "node": {
+    "@napi-rs/canvas": "1.0.9",
+    "three": "0.186.0",
+    "katex": "0.18.9",
+    "playwright": "1.62.1"
+  },
+  "python": {
+    "pyopenjtalk": "0.4.1",
+    "numpy": "2.5.4"
+  },
+  "system": [
+    "ffmpeg",
+    "chromium",
+    "NotoSansCJK-Regular.ttc"
+  ],
+  "note": "Install rendering dependencies separately if the host project does not supply them."
+}

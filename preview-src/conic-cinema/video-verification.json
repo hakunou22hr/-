@@ -1,0 +1,44 @@
+[
+  {
+    "file": "public/previews/conic-cinema/conic-90s.mp4",
+    "seconds": 90,
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "frames": 2700,
+    "audio": "aac",
+    "channels": 2,
+    "fullDecode": true,
+    "distinctSceneSamples": 13,
+    "bytes": 15737715,
+    "sha256": "e86c4886df1cfa864dfd79e36a1721828bd58603ccc548e9181316cad913692e"
+  },
+  {
+    "file": "public/previews/conic-cinema/conic-30s.mp4",
+    "seconds": 30,
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "frames": 900,
+    "audio": "aac",
+    "channels": 2,
+    "fullDecode": true,
+    "distinctSceneSamples": 6,
+    "bytes": 5125201,
+    "sha256": "2de6fc3d7bb33e67828be34b5710a3d0c7828a68d7ff83db96753168667039fa"
+  },
+  {
+    "file": "public/previews/conic-cinema/preview-12s.mp4",
+    "seconds": 12,
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "frames": 360,
+    "audio": "aac",
+    "channels": 2,
+    "fullDecode": true,
+    "distinctSceneSamples": 3,
+    "bytes": 2368843,
+    "sha256": "fc169bb04a09799c1836af9e9614ae91fd613b5103c53ea5723c7a8fb3f6434f"
+  }
+]

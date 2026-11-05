@@ -1,0 +1,5 @@
+const {chromium}=require(process.env.PLAYWRIGHT_MODULE_PATH||'/workspace/scratch/conic-tools/node_modules/playwright');
+const fs=require('fs'),katex=require('katex');
+(async()=>{const b=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox']}),p=await b.newPage({viewport:{width:1800,height:320}});const css=fs.readFileSync('node_modules/katex/dist/katex.min.css','utf8').replace(/url\(fonts\//g,'url(http://127.0.0.1:4208/node_modules/katex/dist/fonts/');
+for(const[name,s]of Object.entries({parabola:String.raw`y^2=4px`,ellipse:String.raw`\frac{x^2}{a^2}+\frac{y^2}{b^2}=1`,hyperbola:String.raw`\frac{x^2}{a^2}-\frac{y^2}{b^2}=1`})){
+await p.setContent(`<style>${css}body{margin:0;background:transparent}#m{display:inline-block;padding:18px;color:#ffe5ad;font-size:65px}.katex-display{margin:0}</style><div id="m">${katex.renderToString(s,{displayMode:true,throwOnError:true})}</div>`);await p.evaluate(()=>document.fonts.ready);await p.locator('#m').screenshot({path:`public/previews/conic-cinema/formula-${name}.png`,omitBackground:true});}await b.close();})();
