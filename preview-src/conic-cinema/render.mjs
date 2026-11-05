@@ -15,6 +15,17 @@ const clamp=x=>Math.min(1,Math.max(0,x)),ease=x=>{x=clamp(x);return x*x*(3-2*x)}
 const rnd=n=>{let x=Math.sin(n*127.1+31.7)*43758.54;return x-Math.floor(x)};
 const GOLD='#ffd080',CYAN='#85e7ff',PURPLE='#ceabff';
 const sprite=createCanvas(80,80),sg=sprite.getContext('2d'),gr=sg.createRadialGradient(40,40,0,40,40,40);gr.addColorStop(0,'#fff8e8');gr.addColorStop(.08,'#ffeac0');gr.addColorStop(.25,'#ffd08080');gr.addColorStop(1,'#ffc36000');sg.fillStyle=gr;sg.fillRect(0,0,80,80);
+// Stable dry-chalk texture: irregular pressure, broken edges and fine powder.
+// The grain stays attached to the board rather than flickering every frame.
+const chalk=createCanvas(1280,760),cg=chalk.getContext('2d');
+for(let pass=0;pass<4;pass++)for(let i=0;i<720;i++){
+  if(rnd(i+pass*1100)<.07)continue;
+  const u=i/720*TAU,u2=(i+1.5)/720*TAU,jitter=(rnd(i+pass*900)-.5)*3;
+  cg.strokeStyle=`rgba(249,248,232,${.18+rnd(i+pass*1700)*.48})`;cg.lineWidth=2+rnd(i+pass*800)*3;cg.lineCap='butt';
+  cg.beginPath();cg.moveTo(640+(520+jitter)*Math.cos(u),380+(276+jitter*.5)*Math.sin(u));cg.lineTo(640+(520+jitter)*Math.cos(u2),380+(276+jitter*.5)*Math.sin(u2));cg.stroke();
+}
+for(let i=0;i<3600;i++){const u=rnd(i+4000)*TAU,spread=(rnd(i+8000)-.5)*(rnd(i+12000)<.86?9:26),x=640+(520+spread)*Math.cos(u),y=380+(276+spread*.65)*Math.sin(u);cg.fillStyle=`rgba(250,249,233,${.08+rnd(i+16000)*.45})`;const size=.5+rnd(i+19000)*1.4;cg.fillRect(x,y,size,size);}
+const pools=Object.fromEntries(['#0785ff','#9d35ff','#ffae35'].map(col=>{const s=createCanvas(320,320),ctx=s.getContext('2d'),r=ctx.createRadialGradient(160,160,0,160,160,160);r.addColorStop(0,col+'99');r.addColorStop(.35,col+'55');r.addColorStop(.7,col+'20');r.addColorStop(1,col+'00');ctx.fillStyle=r;ctx.fillRect(0,0,320,320);return[col,s];}));
 function project(x,y,z=0){v.set(x,y,z).applyMatrix4(camera.matrixWorldInverse);if(v.z>-.6)return[NaN,NaN];v.set(x,y,z).project(camera);return[(v.x+1)*W/2,(1-v.y)*H/2];}
 function line(pts,col,w=2,alpha=1){if(pts.length<2)return;g.save();g.globalAlpha=alpha;g.strokeStyle=col;g.lineWidth=w;g.lineJoin='round';g.lineCap='round';g.beginPath();let started=false;pts.forEach(p=>{if(!p.every(Number.isFinite)){started=false;return;}if(started)g.lineTo(...p);else g.moveTo(...p);started=true;});g.stroke();g.restore();}
 function luminous(pts,col=GOLD,w=3,alpha=1){line(pts,col,w*9,.035*alpha);line(pts,col,w*4,.13*alpha);line(pts,col,w,alpha);line(pts,'#fffaee',Math.max(.6,w*.3),.8*alpha);}
@@ -25,14 +36,25 @@ function equation(kind){const im=equations[kind],h=kind==='parabola'?91:116,scal
 function label(s,p,col=GOLD,dx=0,dy=-20){text(s,p[0]+dx,p[1]+dy,vertical?29:27,col);}
 function poly(pts,col,alpha){if(!pts.every(p=>p.every(Number.isFinite)))return;g.save();g.globalAlpha=alpha;g.fillStyle=col;g.beginPath();pts.forEach((p,i)=>i?g.lineTo(...p):g.moveTo(...p));g.closePath();g.fill();g.restore();}
 function stage(t,near=false){
-  const bg=g.createLinearGradient(0,0,W,H);bg.addColorStop(0,'#031521');bg.addColorStop(.5,'#02060c');bg.addColorStop(1,'#140e1d');g.fillStyle=bg;g.fillRect(0,0,W,H);
+  const bg=g.createLinearGradient(0,0,W,H);bg.addColorStop(0,'#052a4b');bg.addColorStop(.5,'#030b18');bg.addColorStop(1,'#29113e');g.fillStyle=bg;g.fillRect(0,0,W,H);
+  // Broad colored light fills the space; the graph's reading area stays dark.
+  g.save();g.globalCompositeOperation='screen';
+  for(const[col,x,y,rx,ry,a]of[
+    ['#0785ff',.07+.035*Math.sin(t*.19),.33,W*.68,H*.65,.80],
+    ['#9d35ff',.95+.03*Math.cos(t*.17),.39,W*.65,H*.69,.86],
+    ['#ffae35',.52+.08*Math.sin(t*.13),.88,W*.61,H*.38,.88]]){
+    g.globalAlpha=a*(.91+.09*Math.sin(t*.47));g.drawImage(pools[col],W*x-rx,H*y-ry,rx*2,ry*2);
+  }g.restore();
+  if(near){const shade=g.createRadialGradient(W*.5,H*.40,H*.13,W*.5,H*.44,H*.55);shade.addColorStop(0,'#02081399');shade.addColorStop(.6,'#02081348');shade.addColorStop(1,'#02081300');g.fillStyle=shade;g.fillRect(0,0,W,H);}
   const yaw=near?.07*Math.sin(t*.24):.85+.28*Math.sin(t*.17),z=vertical?17:15;
   camera.position.set(Math.sin(yaw)*z,near?1:2.7,Math.cos(yaw)*z);camera.lookAt(0,near?.1:.15,0);camera.updateMatrixWorld();
-  for(let k=-12;k<=12;k++){line([project(k*2,-4.4,-25),project(k*2,-4.4,9)],CYAN,.8,.09);line([project(-24,-4.4,k*2),project(24,-4.4,k*2)],GOLD,.8,.07);}
-  for(let r of[3.7,6.2,10]){let p=[];for(let i=0;i<=100;i++)p.push(project(r*Math.cos(i/100*TAU),-4.35,r*Math.sin(i/100*TAU)));luminous(p,GOLD,1,.2);}
+  for(let k=-12;k<=12;k++){line([project(k*2,-4.4,-25),project(k*2,-4.4,9)],'#56c5ff',1.2,.24);line([project(-24,-4.4,k*2),project(24,-4.4,k*2)],'#ffc45d',1.1,.22);}
+  for(let r of[3.7,6.2,10]){let p=[];for(let i=0;i<=100;i++)p.push(project(r*Math.cos(i/100*TAU),-4.35,r*Math.sin(i/100*TAU)));luminous(p,GOLD,1.8,.56);}
+  // Moving illumination travels along fixed world-space floor paths.
+  for(let i=0;i<10;i++){const z=-20+((t*1.7+i*2.6)%25),x=(i-4.5)*2.4;const a=project(x,-4.32,z),b=project(x,-4.32,z-2);luminous([a,b],i%3?GOLD:CYAN,2,.45);light(a,32,.55);}
   // World-space dust and light pillars give depth and camera parallax.
-  for(let i=0;i<95;i++){const x=(rnd(i)-.5)*32,zp=-22+rnd(i+400)*29,y=-4+rnd(i+200)*14;const p=project(x,y+Math.sin(t*.3+i)*.08,zp);if(p[0]<0||p[0]>W||p[1]<0||p[1]>H)continue;light(p,2+rnd(i+31)*7,.15+rnd(i)*.3);}
-  for(let i=0;i<7;i++){let x=(i-3)*5;line([project(x,-4.3,-12),project(x,5,-12)],i%2?PURPLE:CYAN,2,.05);light(project(x,-4.3,-12),35,.3);}
+  for(let i=0;i<125;i++){const x=(rnd(i)-.5)*32,zp=-22+rnd(i+400)*29,y=-4+rnd(i+200)*14;const p=project(x,y+Math.sin(t*.3+i)*.08,zp);if(p[0]<0||p[0]>W||p[1]<0||p[1]>H)continue;light(p,3+rnd(i+31)*9,.28+rnd(i)*.38);}
+  for(let i=0;i<9;i++){let x=(i-4)*4.6;const foot=project(x,-4.3,-12),top=project(x,6,-12),col=i%2?PURPLE:CYAN;luminous([foot,top],col,2,.18+.05*Math.sin(t*.35+i));light(foot,75,.85);}
 }
 function cone(t,kind='ellipse',alpha=1){
   // Actual 3D cone surface, not a rotating background texture.
@@ -59,9 +81,13 @@ function cone(t,kind='ellipse',alpha=1){
   light(project(0,0),35,.7*alpha);
 }
 function classroomScene(t,returning=false){
-  const q=returning?1-ease((t-85)/4):ease((t-3)/6),scale=1+q*q*5,iw=W*scale,ih=iw*classroom.height/classroom.width,cx=W*.56,cy=H*(vertical?.40:.40);
-  g.drawImage(classroom,W/2-iw*.56,cy-ih*.4,iw,ih);
-  const rx=W*.17*scale,ry=rx*.53,pts=[];for(let j=0;j<=150;j++){let u=j/150*TAU;pts.push([cx+rx*Math.cos(u),cy+ry*Math.sin(u)]);}luminous(pts,GOLD,3+q*4,ease(t/2));light([cx+rx,cy],60+q*100,.8);
+  const q=returning?1-ease((t-85)/4):ease((t-3)/6),scale=1+q*q*5,iw=Math.max(W,H*classroom.width/classroom.height)*scale,ih=iw*classroom.height/classroom.width,cx=W*.56,cy=H*(vertical?.40:.40);
+  g.drawImage(classroom,cx-iw*.56,cy-ih*.4,iw,ih);
+  const rx=W*.17*scale,ry=rx*.53,pts=[];for(let j=0;j<=150;j++){let u=j/150*TAU;pts.push([cx+rx*Math.cos(u),cy+ry*Math.sin(u)]);}
+  const ink=rx/520;g.drawImage(chalk,cx-640*ink,cy-380*ink,1280*ink,760*ink);
+  // The hand-drawn chalk becomes a doorway only as the camera moves in.
+  const awaken=returning?q:ease((t-5)/2.8);
+  if(awaken>0){luminous(pts,GOLD,3+q*4,awaken*.9);light([cx+rx,cy],60+q*100,.8*awaken);}
   if(!returning&&t>5){g.save();g.globalAlpha=ease((t-5)/5)*.9;for(let i=0;i<110;i++){let u=rnd(i)*TAU,r=.2+((rnd(i+50)+t*.35)%1)*1.6;let x=cx+Math.cos(u)*W*r,y=cy+Math.sin(u)*H*r;line([[x,y],[mix(cx,x,1+.12*q),mix(cy,y,1+.12*q)]],GOLD,1+rnd(i+22)*2,.5);light([x,y],6+rnd(i)*9,.7);}g.restore();}
   if(!returning&&t>7){g.save();g.globalAlpha=ease((t-7)/3);const save=createCanvas(W,H),sc=save.getContext('2d');sc.drawImage(c,0,0);stage(t);cone(t,'ellipse');const st=createCanvas(W,H);st.getContext('2d').drawImage(c,0,0);g.globalAlpha=1;g.drawImage(save,0,0);g.globalAlpha=ease((t-7)/3);g.drawImage(st,0,0);g.restore();}
 }

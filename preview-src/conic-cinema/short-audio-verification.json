@@ -1,5 +1,5 @@
 {
-  "revision": "conic-v2",
+  "revision": "conic-v3",
   "narration": false,
   "subtitles": true,
   "musicAndEffects": true,
@@ -7,6 +7,5 @@
   "audioCorrelation": 0.9993673721349395,
   "relativeAudioError": 0.001270607807361159,
   "videoMatchesOriginalSubtitleRender": true,
-  "otherMoviesUnchanged": true,
-  "sha256": "6acf894979ac72bb6a66f81c69ad12afc1c14fdb9c134fffd45e8cd6ef6cbb96"
+  "sha256": "869c0b2cdcd7cea14631817302020f4b024e33c36efbf574ca29e30ae433696a"
 }

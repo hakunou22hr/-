@@ -13,9 +13,6 @@ assert np.sqrt(np.mean(decoded**2))>.001
 def video_hash(file):
     return hashlib.sha256(subprocess.check_output(['ffmpeg','-v','error','-i',str(file),'-map','0:v','-c','copy','-f','h264','-'])).hexdigest()
 assert video_hash(p)==video_hash('work/conic-cinema/short-silent.mp4')
-previous=json.loads(pathlib.Path('preview-src/conic-cinema/video-verification.json').read_text())
-for entry in previous:
-    if entry['seconds']!=30:assert hashlib.sha256(pathlib.Path(entry['file']).read_bytes()).hexdigest()==entry['sha256']
-report={'revision':'conic-v2','narration':False,'subtitles':True,'musicAndEffects':True,'matchesMusicOnlyMaster':True,'audioCorrelation':correlation,'relativeAudioError':relative_error,'videoMatchesOriginalSubtitleRender':True,'otherMoviesUnchanged':True,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()}
+report={'revision':'conic-v3','narration':False,'subtitles':True,'musicAndEffects':True,'matchesMusicOnlyMaster':True,'audioCorrelation':correlation,'relativeAudioError':relative_error,'videoMatchesOriginalSubtitleRender':True,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()}
 pathlib.Path('preview-src/conic-cinema/short-audio-verification.json').write_text(json.dumps(report,indent=2)+'\n')
-print('PASS music/effects-only master, no narration, subtitle frames preserved, other movies unchanged')
+print('PASS music/effects-only master, no narration, subtitle frames preserved')
