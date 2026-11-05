@@ -1,7 +1,7 @@
 """Japanese narration (Open JTalk / Mei) and original procedural film score."""
-import json,pathlib,wave,subprocess,shutil
+import json,pathlib,wave,subprocess,shutil,sys
 import numpy as np
-import pyopenjtalk
+if '--short-only' not in sys.argv:import pyopenjtalk
 root=pathlib.Path('work/conic-cinema');root.mkdir(parents=True,exist_ok=True)
 public=pathlib.Path('public/previews/conic-cinema')
 story=json.loads(pathlib.Path('preview-src/conic-cinema/story.json').read_text())
@@ -13,9 +13,11 @@ def writewav(p,x):
 def stamp(t):
     ms=round(t*1000);return f'{ms//3600000:02}:{ms//60000%60:02}:{ms//1000%60:02},{ms%1000:03}'
 reports={}
-for mode,duration in [('long',90),('short',30)]:
+for mode,duration in ([('short',30)] if '--short-only' in sys.argv else [('long',90),('short',30)]):
     voice=np.zeros(SR*duration);report=[];subs=[]
     for i,(start,end,text) in enumerate(story[mode]):
+        subs.append(f'{i+1}\n{stamp(start)} --> {stamp(end)}\n{text}\n')
+        if mode=='short':continue
         p=root/f'{mode}-voice-{i}.wav'
         if not p.exists():
             x,sr=pyopenjtalk.tts(text,speed=1.08,half_tone=-1.5)
@@ -31,7 +33,6 @@ for mode,duration in [('long',90),('short',30)]:
             with wave.open(str(fitted)) as f:x=np.frombuffer(f.readframes(f.getnframes()),'<i2').astype(float)/32768
         x=x[:int(slot*SR)];idx=round(start*SR);voice[idx:idx+len(x)]+=x
         report.append({'text':text,'start':start,'end':end,'speedAdjustment':ratio,'seconds':len(x)/SR})
-        subs.append(f'{i+1}\n{stamp(start)} --> {stamp(end)}\n{text}\n')
         print(mode,i,'speech speed',round(ratio,2),flush=True)
     # Original D-minor score: soft pad, resonant arpeggios and transitions.
     n=len(voice);music=np.zeros((n,2));rng=np.random.default_rng(403)
@@ -49,14 +50,16 @@ for mode,duration in [('long',90),('short',30)]:
         count=min(int(1.3*SR),n-int(start*SR));t=np.arange(count)/SR;noise=rng.normal(0,1,count);noise=np.convolve(noise,np.ones(28)/28,mode='same');sig=noise*np.sin(np.pi*t/1.3)**2*.10+np.sin(2*np.pi*55*t)*np.exp(-t*5)*.03
         k=int(start*SR);music[k:k+count,:]+=sig[:,None]
     duck=np.ones(n)
-    for start,end,_ in story[mode]:duck[int(start*SR):int(end*SR)]=.48
+    if mode=='long':
+        for start,end,_ in story[mode]:duck[int(start*SR):int(end*SR)]=.48
     music*=duck[:,None];fade=np.minimum(np.arange(n)/SR/1.5,1)*np.minimum((n-np.arange(n))/SR/1.5,1)
     audio=(voice[:,None]+music)*fade[:,None];writewav(root/f'{mode}-mix.wav',audio)
     (public/f'{mode}-subtitles.srt').write_text('\n'.join(subs))
     (public/f'{mode}-subtitles.vtt').write_text('WEBVTT\n\n'+'\n'.join(subs).replace(',','.'))
     reports[mode]=report
 (root/'speech-report.json').write_text(json.dumps(reports,ensure_ascii=False,indent=2))
-voice_root=pathlib.Path(pyopenjtalk.__file__).parent/'htsvoice'
-for name in ['LICENSE_mei_normal.htsvoice','README.md']:
-    if (voice_root/name).exists():shutil.copy2(voice_root/name,public/('voice-'+name))
+if '--short-only' not in sys.argv:
+    voice_root=pathlib.Path(pyopenjtalk.__file__).parent/'htsvoice'
+    for name in ['LICENSE_mei_normal.htsvoice','README.md']:
+        if (voice_root/name).exists():shutil.copy2(voice_root/name,public/('voice-'+name))
 print('AUDIO DONE',flush=True)

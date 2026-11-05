@@ -11,7 +11,8 @@
       "seek": true,
       "mobile": true,
       "downloadBytes": 15737715,
-      "sha256": "e86c4886df1cfa864dfd79e36a1721828bd58603ccc548e9181316cad913692e"
+      "sha256": "e86c4886df1cfa864dfd79e36a1721828bd58603ccc548e9181316cad913692e",
+      "retainedFromPreviousRevision": true
     },
     {
       "mode": "short",
@@ -22,8 +23,8 @@
       "pause": true,
       "seek": true,
       "mobile": true,
-      "downloadBytes": 5125201,
-      "sha256": "2de6fc3d7bb33e67828be34b5710a3d0c7828a68d7ff83db96753168667039fa"
+      "downloadBytes": 4762973,
+      "sha256": "6acf894979ac72bb6a66f81c69ad12afc1c14fdb9c134fffd45e8cd6ef6cbb96"
     }
   ],
   "chapterNavigation": true,
