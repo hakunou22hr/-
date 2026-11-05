@@ -1,0 +1,14 @@
+{
+  "duration": 90,
+  "width": 1920,
+  "height": 1080,
+  "error": null,
+  "source": "http://127.0.0.1:8766/media/sekibun-wo-bibun-suru/playback.mp4",
+  "play": true,
+  "pause": true,
+  "seek": true,
+  "ended": true,
+  "replay": true,
+  "mobileOverflow": false,
+  "errors": []
+}
