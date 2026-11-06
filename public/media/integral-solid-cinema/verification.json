@@ -76,8 +76,8 @@
       "region-circle-radius existing region predicate"
     ]
   },
-  "githubSave": "pending explicit approval after automatic review rejection",
-  "deployment": "pending explicit approval after automatic review rejection",
+  "githubSave": "user approved saving to GitHub main",
+  "deployment": "user approved private publication",
   "limitations": [
     "90-second MP4 not generated",
     "Physical iPhone and iPad not tested",
