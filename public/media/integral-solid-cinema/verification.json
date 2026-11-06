@@ -1,0 +1,133 @@
+{
+  "date": "2026-11-06",
+  "mathematics": {
+    "passed": true,
+    "radius": 2,
+    "height": 2.5,
+    "centerArea": 5,
+    "endArea": 0,
+    "totalVolume": "5π",
+    "meshSegmentsTested": [
+      180,
+      1000
+    ],
+    "renderMeshAbsoluteVolumeErrorMax": 0.006885
+  },
+  "browser": {
+    "passed": true,
+    "errors": [],
+    "checks": [
+      "six-scenes",
+      "slider-endpoints-center",
+      "automatic-motion-pause",
+      "individual-visibility",
+      "2d-3d",
+      "slice-count",
+      "pythagoras",
+      "hide-show-answer",
+      "derivation-steps",
+      "mobile-no-overflow",
+      "tablet",
+      "library-search-navigation"
+    ]
+  },
+  "video": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1080,
+        "height": 1920,
+        "r_frame_rate": "60/1",
+        "nb_frames": "1800",
+        "side_data_list": [
+          {}
+        ]
+      }
+    ],
+    "format": {
+      "duration": "30.000000",
+      "size": "30440031"
+    }
+  },
+  "videoBrowser": {
+    "passed": true,
+    "metadata": {
+      "duration": 30,
+      "width": 1080,
+      "height": 1920
+    },
+    "playback": true,
+    "downloadChecksumMatch": true,
+    "errors": []
+  },
+  "timedPlayback": {
+    "filmWallSeconds": 89.964,
+    "reelWallSeconds": 30.018
+  },
+  "productionBuild": "passed",
+  "existingLibraryTests": {
+    "initialPassed": 305,
+    "initialFailed": 3,
+    "timeoutRetest": "2 tests passed at 30s timeout",
+    "remainingUnrelatedFailures": [
+      "triangle-789-cinematic missing thumbnail",
+      "region-circle-radius existing region predicate"
+    ]
+  },
+  "githubSave": "pending explicit approval after automatic review rejection",
+  "deployment": "pending explicit approval after automatic review rejection",
+  "limitations": [
+    "90-second MP4 not generated",
+    "Physical iPhone and iPad not tested",
+    "Realtime FPS depends on device"
+  ],
+  "videoSha256": "429e41fdea39ccf3e30c432f1c7d766c59b96c7496a8dafec2949ab214cbd8ea",
+  "generatedFiles": [
+    {
+      "name": "integral-solid-30s.mp4",
+      "bytes": 30440031
+    },
+    {
+      "name": "library.jpg",
+      "bytes": 89526
+    },
+    {
+      "name": "mobile.jpg",
+      "bytes": 91316
+    },
+    {
+      "name": "scene-01.jpg",
+      "bytes": 66906
+    },
+    {
+      "name": "scene-02.jpg",
+      "bytes": 54757
+    },
+    {
+      "name": "scene-03.jpg",
+      "bytes": 83494
+    },
+    {
+      "name": "scene-04.jpg",
+      "bytes": 102426
+    },
+    {
+      "name": "scene-05.jpg",
+      "bytes": 105432
+    },
+    {
+      "name": "scene-06.jpg",
+      "bytes": 105246
+    },
+    {
+      "name": "tablet.jpg",
+      "bytes": 124796
+    },
+    {
+      "name": "verification.html",
+      "bytes": 4613
+    }
+  ]
+}
