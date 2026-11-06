@@ -9,3 +9,5 @@
 両方とも60fps、H.264、AAC。授業資料として音声を消しても理解できる画面構成です。
 
 動的背景：本教材独自のCanvas座標描画。白金の光柱・上昇する金色の光輪・螺旋状に収束する粒子を、数学の説明時間に合わせて合成しています。
+
+Distant blue-white lightning: procedural branching paths and local glow, no third-party footage or new audio.

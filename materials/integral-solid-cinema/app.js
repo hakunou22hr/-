@@ -1,4 +1,4 @@
-import {paintBackground} from './dynamic-background.js';
+import {paintBackground} from './dynamic-background.js?fx=4';
 import katex from './vendor/katex.mjs';
 import * as THREE from './vendor/three.js';
 import {A,H,clamp,chord,area,volumeTo,totalVolume,SCENES,reelTime,solidVertices} from './model.js';

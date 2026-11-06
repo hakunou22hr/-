@@ -8,9 +8,33 @@ function sparkImage(){if(spark)return spark;spark=document.createElement('canvas
 function glow(ctx,x,y,rx,ry,color,alpha){ctx.save();ctx.translate(x,y);ctx.scale(rx,ry);const g=ctx.createRadialGradient(0,0,0,0,0,1);g.addColorStop(0,color);g.addColorStop(.45,color+'80');g.addColorStop(1,color+'00');ctx.globalAlpha=alpha;ctx.fillStyle=g;ctx.fillRect(-1,-1,2,2);ctx.restore()}
 function stroke(ctx,points,color,alpha,width){ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(...p):ctx.moveTo(...p));ctx.strokeStyle=color;ctx.globalAlpha=alpha*.12;ctx.lineWidth=width*6;ctx.stroke();ctx.globalAlpha=alpha;ctx.lineWidth=width;ctx.stroke()}
 function shield(ctx,x,y,rx,ry,alpha){ctx.save();ctx.translate(x,y);ctx.scale(rx,ry);const g=ctx.createRadialGradient(0,0,0,0,0,1);g.addColorStop(0,`rgba(0,0,0,${alpha})`);g.addColorStop(.45,`rgba(0,0,0,${alpha*.94})`);g.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=g;ctx.fillRect(-1,-1,2,2);ctx.restore()}
+// Deterministic distant storm: a new branching path every 4.8 s, with a soft afterglow.
+export function paintLightning(ctx,w,h,t,protect=true){
+ const period=4.8,cycle=Math.floor((t+.65)/period),age=(t+.65)%period;
+ if(age>1.1)return {cycle,age,intensity:0};
+ const intensity=(Math.exp(-age*7)+.36*Math.exp(-Math.pow((age-.23)/.10,2)))*.90;
+ const m=Math.min(w,h);ctx.save();ctx.globalCompositeOperation='screen';
+ for(let side=0;side<2;side++){
+  const seed=cycle*37+side*113,x0=w*(side?.88:.13),points=[];
+  for(let j=0;j<15;j++){const v=j/14,x=x0+(hash(seed+j+209)-.5)*w*.12+Math.sin(v*6+seed)*w*.035;points.push([x,h*(-.03+v*.89)])}
+  glow(ctx,x0,h*.35,w*.21,h*.57,'#366baf',intensity*.24);
+  stroke(ctx,points,'#74bfff',intensity*.60,m*.0035);
+  stroke(ctx,points,'#e6f5ff',intensity*.95,m*.00125);
+  for(const j of [3,7,10]){const [x,y]=points[j],branch=[[x,y]];for(let q=1;q<5;q++)branch.push([x+(side?-1:1)*w*q*.023+(hash(seed+j*9+q)-.5)*w*.028,y+h*q*.037]);stroke(ctx,branch,'#9bd9ff',intensity*.54,m*.0009)}
+ }
+ ctx.restore();return {cycle,age,intensity};
+}
 export function paintBackground(ctx,w,h,mathTime,options={}){
  const st=backgroundState(mathTime,options),{phase,u,clock:t,opacity,portrait,safeFrame,protect}=st;
  ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,w,h);if(opacity<=0){ctx.restore();return st}
+ if(options.lightningOnly){const frameScale=safeFrame?13/15:1;paintLightning(ctx,w,h,t,protect);ctx.globalAlpha=1;ctx.globalCompositeOperation='destination-out'; if(protect){
+  // A foreground silhouette and text are allowed to occlude the background column.
+  shield(ctx,w*.50,h*(portrait?.50*frameScale:.51),w*.26,h*.33,.73);
+  if(portrait)shield(ctx,w*.48,h*.14,w*.70,h*.21,.86);else shield(ctx,w*.20,h*.14,w*.40,h*.24,.91);
+  if((phase===4&&u>.38)||(phase===5&&u<.6))shield(ctx,w*(portrait?.5:.80),h*(portrait?.71*frameScale:.69),w*(portrait?.51:.24),h*(portrait?.20*frameScale:.24),.97);
+  shield(ctx,w*.5,h*(portrait?(safeFrame?.78:.90):.92),w*.40,h*.14,.97);
+ }
+ctx.globalCompositeOperation='destination-in';ctx.fillStyle=`rgba(0,0,0,${opacity})`;ctx.fillRect(0,0,w,h);ctx.restore();return st}
  const m=Math.min(w,h),frameScale=safeFrame?13/15:1,cx=w*.5,top=h*.035,bottom=h*.96,height=bottom-top,power=phase===5?1:phase===4?.9:.72;
  const base=ctx.createLinearGradient(0,0,w,h);base.addColorStop(0,'#051c24');base.addColorStop(.5,'#0b2830');base.addColorStop(1,'#061319');ctx.fillStyle=base;ctx.fillRect(0,0,w,h);
  glow(ctx,cx,h*.06,w*.40,h*.60,'#225b67',.64);
@@ -19,6 +43,7 @@ export function paintBackground(ctx,w,h,mathTime,options={}){
  for(let k=0;k<3;k++){const x=cx+Math.sin(t*.11+k*2.2)*w*.34,y=h*(.20+k*.25)+Math.cos(t*.09+k)*h*.06;glow(ctx,x,y,w*.55,h*.28,'#14545e',.24)}
  for(let i=0;i<12;i++){const yy=h*((hash(i+101)+t*.009)%1),xx=cx+Math.sin(t*.07+i*2.3)*w*.26;glow(ctx,xx,yy,w*(.14+.14*hash(i+121)),h*(.06+.06*hash(i+131)),yy>h*.6?'#78613a':'#23606a',.11+.06*Math.sin(t*.2+i));}
  ctx.globalCompositeOperation='screen';
+ paintLightning(ctx,w,h,t,protect);
  // The white-gold column is layered light, with visible upward-moving pulses.
  const beam=ctx.createLinearGradient(cx-w*.14,0,cx+w*.14,0);beam.addColorStop(0,'#f5d58b00');beam.addColorStop(.30,'#f2cb7c09');beam.addColorStop(.46,'#fce4ab45');beam.addColorStop(.495,'#fff4cde6');beam.addColorStop(.5,'#fffdf3');beam.addColorStop(.505,'#fff4cde6');beam.addColorStop(.54,'#fce4ab45');beam.addColorStop(.70,'#f2cb7c09');beam.addColorStop(1,'#f5d58b00');ctx.fillStyle=beam;ctx.globalAlpha=.72+.12*Math.sin(t*1.7);ctx.fillRect(cx-w*.14,0,w*.28,h);
  glow(ctx,cx,h*.03,w*.13,h*.26,'#e8f4e6',.52);
