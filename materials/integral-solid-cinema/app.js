@@ -5,7 +5,7 @@ const $=s=>document.querySelector(s), math=(el,tex)=>katex.render(tex,el,{throwO
 math($('#keyFormula'),String.raw`\underbrace{S(x)}_{\phantom{x}}\;\times\;\underbrace{dx}_{\phantom{x}}\;\longrightarrow\;V`);
 math($('#graphFormula'),String.raw`y=\sqrt{a^2-x^2}\qquad\text{面積}=\frac12\pi a^2`);
 const clock=t=>`${String(Math.floor(t/60)).padStart(2,'0')}:${String(Math.floor(t%60)).padStart(2,'0')}`;
-const query=new URLSearchParams(location.search), capture=query.has('capture');
+const query=new URLSearchParams(location.search), capture=query.has('capture'), surface=query.has('surface');
 let introPreview=true;
 let mode='film',time=32,playing=false,speed=1,last=0,x=0,sliceN=30,showAnswer=true,pyth=false,step=0,twoD=false,theta=-.64,phi=1.04,zoom=8.8,manualCamera=false,external=false;
 let renderer;try{renderer=new THREE.WebGLRenderer({canvas:$('#world'),alpha:true,antialias:true,preserveDrawingBuffer:true})}catch(e){$('#webglError').hidden=false;throw e}
@@ -27,6 +27,7 @@ for(let j=0;j<5;j++){const r=2.35+j*.32;const p=Array.from({length:201},(_,i)=>[
 const solidGeo=new THREE.BufferGeometry();solidGeo.setAttribute('position',new THREE.BufferAttribute(solidVertices(A),3));const solid=new THREE.Mesh(solidGeo,mat(0xbd914e,.16));root.add(solid);solid.renderOrder=1;
 const sectionGroup=new THREE.Group();root.add(sectionGroup);
 const slicePool=[];for(let i=0;i<180;i++){slicePool.push(line([[0,0,0],[0,H,0],[0,0,0],[0,0,0]],gold,.22,sectionGroup))}
+const combinedSliceGeo=new THREE.BufferGeometry();combinedSliceGeo.setAttribute('position',new THREE.BufferAttribute(new Float32Array(180*18),3));const combinedSlices=new THREE.LineSegments(combinedSliceGeo,new THREE.LineBasicMaterial({color:gold,transparent:true,opacity:.28,depthWrite:false}));if(surface)root.add(combinedSlices);
 const triangleGroup=new THREE.Group();root.add(triangleGroup);
 const triGeo=new THREE.BufferGeometry();triGeo.setAttribute('position',new THREE.BufferAttribute(new Float32Array(9),3));const triangle=new THREE.Mesh(triGeo,mat(gold,.27));triangleGroup.add(triangle);triangle.renderOrder=3;
 const edge=line([[0,0,0],[0,H,0],[0,0,0],[0,0,0]],0xffdba1,1,triangleGroup),base=line([[0,0,0],[0,0,0]],blue,1,triangleGroup),height=line([[0,0,0],[0,H,0]],red,1,triangleGroup);
@@ -57,8 +58,8 @@ function render(){const tt=mode==='reel'?reelTime(time):time;let si=SCENES.findI
  else{x=.7;to=A;count=60;graphOn=u<.6}
  circleGroup.visible=lab?$('#showCircle').checked:true;circle.geometry.setDrawRange(0,Math.max(1,Math.floor(257*circleProgress)));disk.material.opacity=.1*clamp((circleProgress-.6)/.4);diameter.scale.x=clamp((tt-6)/3);radius.scale.z=clamp((tt-8)/3);if(lab){diameter.scale.x=1;radius.scale.z=1}
  triangleGroup.visible=triangleOn&&(!lab||$('#showTriangle').checked);solid.visible=(lab?$('#showSolid').checked:si>=2);solid.material.opacity=pythOn?.035:si===4?.075:.17;
- sectionGroup.visible=solid.visible;ridge.visible=solid.visible&&to> -A+.01;setLine(ridge,[[-A,H,0],[to,H,0]]);ridge.material.opacity=.40;
- updateSolid(to);updateSlices(count,to);const tp=updateTriangle(x,rise);
+ sectionGroup.visible=solid.visible&&!surface;combinedSlices.visible=solid.visible;ridge.visible=solid.visible&&to> -A+.01;setLine(ridge,[[-A,H,0],[to,H,0]]);ridge.material.opacity=.40;
+ updateSolid(to);updateSlices(count,to);if(surface){const buf=combinedSliceGeo.attributes.position.array;for(let i=0;i<count;i++){const sx=-A+(to+A)*(i+.5)/count,w=chord(sx)/2;buf.set([sx,0,-w,sx,H,0,sx,H,0,sx,0,w,sx,0,w,sx,0,-w],i*18)}combinedSliceGeo.setDrawRange(0,count*6);combinedSliceGeo.attributes.position.needsUpdate=true;combinedSliceGeo.computeBoundingSphere();}const tp=updateTriangle(x,rise);
  // Construction: base first, then red altitude, then two luminous sides.
  if(!lab&&si===1){height.visible=tt>15;edge.visible=tt>19;triangle.visible=tt>21}else{height.visible=true;edge.visible=true;triangle.visible=true}
  pythGroup.visible=pythOn;const qw=chord(x)/2;setLine(oq,[[0,.018,0],[x,.018,qw]]);setLine(op,[[0,.024,0],[x,.024,0]]);setLine(pq,[[x,.03,0],[x,.03,qw]]);const dx=x<0?.15:-.15;setLine(rightAngle,[[x+dx,.035,0],[x+dx,.035,.15],[x,.035,.15]]);
@@ -93,5 +94,5 @@ $('#xSlider').oninput=e=>{x=+e.target.value*A;playing=false;syncPlay();render()}
 const pointers=new Map();let distance=0;const cvs=$('#world');cvs.onpointerdown=e=>{cvs.setPointerCapture(e.pointerId);pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});distance=0;manualCamera=true};cvs.onpointermove=e=>{if(!pointers.has(e.pointerId))return;const prev=pointers.get(e.pointerId);if(pointers.size===1){theta-=(e.clientX-prev.x)*.007;phi=clamp(phi+(e.clientY-prev.y)*.006,.12,2.7)}pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});if(pointers.size===2){const [p,q]=[...pointers.values()];const d=Math.hypot(p.x-q.x,p.y-q.y);if(distance)zoom=clamp(zoom*distance/d,5,17);distance=d}render()};cvs.onpointerup=cvs.onpointercancel=e=>{pointers.delete(e.pointerId);distance=0};cvs.onwheel=e=>{e.preventDefault();manualCamera=true;zoom=clamp(zoom+e.deltaY*.008,5,17);render()};cvs.addEventListener('wheel',()=>{},{passive:false});
 function animate(ts){const dt=last?(ts-last)/1000:0;last=ts;if(!external&&playing){if(mode==='lab'){x+=dt*.7*speed;if(x>A)x=-A}else{time+=dt*speed;const end=mode==='reel'?30:90;if(time>=end){time=end;playing=false;syncPlay()}}render()}requestAnimationFrame(animate)}
 window.lesson={setMode,seek(t){time=t;playing=false;external=true;render()},snapshot(){return{mode,time,x,area:area(x),volume:volumeTo(x),total:totalVolume(),height:H,renderer:renderer.info.render}},resume(){external=false},render};
-if(capture){document.body.classList.add('capture');setMode('reel');renderer.setPixelRatio(1);external=true;time=0;resize()}else if(query.get('mode')==='lab')setMode('lab');else if(query.get('mode')==='reel')setMode('reel');
+if(surface){document.body.classList.add('surface');if(query.get('surface')==='portrait')document.body.classList.add('portrait');setMode('film');renderer.setPixelRatio(1);external=true;time=0;resize()}else if(capture){document.body.classList.add('capture');setMode('reel');renderer.setPixelRatio(1);external=true;time=0;resize()}else if(query.get('mode')==='lab')setMode('lab');else if(query.get('mode')==='reel')setMode('reel');
 resize();requestAnimationFrame(animate);

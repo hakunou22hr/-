@@ -1,0 +1,158 @@
+{
+  "title": "黒板の、その先へ。― 積分が生み出す立体",
+  "date": "2026-11-06",
+  "films": {
+    "90": {
+      "file": "classroom-90s.mp4",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "pix_fmt": "yuv420p",
+            "r_frame_rate": "60/1",
+            "nb_frames": "5400",
+            "side_data_list": [
+              {}
+            ]
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "r_frame_rate": "0/0",
+            "nb_frames": "3877"
+          }
+        ],
+        "format": {
+          "duration": "90.000000",
+          "size": "22070627"
+        }
+      },
+      "sha256": "144609183f21bceb082f1be34b93b86b9c6e49fe2481d6d774c529807146d92b",
+      "fullDecode": "passed"
+    },
+    "30": {
+      "file": "classroom-30s.mp4",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1080,
+            "height": 1920,
+            "pix_fmt": "yuv420p",
+            "r_frame_rate": "60/1",
+            "nb_frames": "1800",
+            "side_data_list": [
+              {}
+            ]
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "r_frame_rate": "0/0",
+            "nb_frames": "1293"
+          }
+        ],
+        "format": {
+          "duration": "30.000000",
+          "size": "12152353"
+        }
+      },
+      "sha256": "c8020040136631f882e9c12091cda0e7cd4f4cdae29f452bb9911dc3a1429743",
+      "fullDecode": "passed"
+    }
+  },
+  "browser": {
+    "passed": true,
+    "errors": [],
+    "checks": [
+      "embedded90",
+      "portrait30",
+      "playback",
+      "seek",
+      "download-byte-match",
+      "mutual-pause",
+      "mobile390-no-overflow",
+      "saved-original-interactive"
+    ]
+  },
+  "mathematics": "shared original model; existing mathematics tests passed",
+  "originalPreserved": {
+    "page": "lesson-original.html",
+    "appSha256": "269996ba7e48250785966f26d9c61a55172312a2a7b3a69a5867f707451026b2",
+    "styleSha256": "f46917160b02077bbbca6e7ed5af3aa6571961e3e5c4535a304acf96a0480a08"
+  },
+  "classroomSource": "AI-generated classroom image reused from the existing library; animated 3D camera set, not live-action footage",
+  "audio": "original procedural music and chalk/portal effects; no narration",
+  "instagram": "uniformly scaled inner frame with bottom safe area; aspect ratios preserved",
+  "deviceVerification": "Chromium desktop and 390px mobile layout; physical iPad/iPhone not tested",
+  "generatedFiles": [
+    {
+      "file": "cinema-answer.jpg",
+      "bytes": 126661
+    },
+    {
+      "file": "cinema-classroom.jpg",
+      "bytes": 214150
+    },
+    {
+      "file": "cinema-embedded-mobile.jpg",
+      "bytes": 139376
+    },
+    {
+      "file": "cinema-integral.jpg",
+      "bytes": 166416
+    },
+    {
+      "file": "cinema-player-classroom30.jpg",
+      "bytes": 151494
+    },
+    {
+      "file": "cinema-player-classroom90.jpg",
+      "bytes": 148133
+    },
+    {
+      "file": "cinema-portal.jpg",
+      "bytes": 72543
+    },
+    {
+      "file": "cinema-report.html",
+      "bytes": 4563
+    },
+    {
+      "file": "cinema-return.jpg",
+      "bytes": 146278
+    },
+    {
+      "file": "cinema-solid.jpg",
+      "bytes": 121551
+    },
+    {
+      "file": "cinema-source.zip",
+      "bytes": 1148794
+    },
+    {
+      "file": "classroom-30s-poster.jpg",
+      "bytes": 89727
+    },
+    {
+      "file": "classroom-30s.mp4",
+      "bytes": 12152353
+    },
+    {
+      "file": "classroom-90s-poster.jpg",
+      "bytes": 214150
+    },
+    {
+      "file": "classroom-90s.mp4",
+      "bytes": 22070627
+    }
+  ]
+}
