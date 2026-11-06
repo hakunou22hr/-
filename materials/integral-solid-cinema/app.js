@@ -80,7 +80,7 @@ function render(){const tt=mode==='reel'?reelTime(time):time;let si=SCENES.findI
  else if(si===1&&tt>21)f=String.raw`QR=2\sqrt{a^2-x^2}\qquad\text{高さ }h`;
  else if(si===2)f=String.raw`S(x)=\frac12\,QR\cdot h=h\sqrt{a^2-x^2}`;
  else if(si===3)f=u<.32?String.raw`a^2=x^2+PQ^2`:u<.66?String.raw`PQ=\sqrt{a^2-x^2}`:String.raw`QR=2\sqrt{a^2-x^2}`;
- else if(si===4)f=u<.2?String.raw`S(x)=\frac12\cdot2\sqrt{a^2-x^2}\cdot h`:u<.4?String.raw`S(x)=h\sqrt{a^2-x^2}`:String.raw`V=\lim_{\Delta x\to0}\sum S(x)\Delta x=\int_{-a}^{a}S(x)\,dx`;
+ else if(si===4)f=u<.2?String.raw`S(x)=\frac12\cdot2\sqrt{a^2-x^2}\cdot h`:u<.4?String.raw`S(x)=h\sqrt{a^2-x^2}`:String.raw`V=\lim\limits_{\Delta x\to0}\sum S(x)\Delta x=\int_{-a}^{a}S(x)\,dx`;
  else if(si===5)f=u<.28?String.raw`V=h\int_{-a}^{a}\sqrt{a^2-x^2}\,dx`:u<.53?String.raw`V=h\times\frac12\pi a^2`:String.raw`\boxed{V=\frac12\pi a^2h}`;
  if((mode==='reel'||camera.aspect<1)&&si===4&&!lab&&u>=.4)f=String.raw`V=\int_{-a}^{a}S(x)\,dx`;if((mode==='reel'||camera.aspect<1)&&pythOn)f=String.raw`QR=2\sqrt{a^2-x^2}`;formula(f);$('#formula').style.opacity=fade;const kf=$('#formula .katex');const fit=kf?Math.min(1,$('#formula').clientWidth/(kf.offsetWidth||1)):1;$('#formula').style.zoom='';$('#formula').style.transform=`scale(${fit*(si===5&&u>.53?1+Math.sin(tt*3)*.012:1)})`;$('#graphPanel').style.display=graphOn?'block':'none';if(graphOn)graph(x,tt);
  $('#clock').innerHTML=`${clock(time)} <b>/ ${mode==='reel'?'00:30':'01:30'}</b>`;$('#timeline').value=time;

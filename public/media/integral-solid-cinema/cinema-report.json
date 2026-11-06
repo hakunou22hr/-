@@ -29,10 +29,10 @@
         ],
         "format": {
           "duration": "90.000000",
-          "size": "22228486"
+          "size": "22228097"
         }
       },
-      "sha256": "a722e25155e20ce5dc8c7128bacc5738a0e3ece0ee82f20c1242e81738ee57ca",
+      "sha256": "52fe59e04a1cbe3497b1ef3e20b811d504cde476f6f2b2fc55873e5a2ea5c8b5",
       "fullDecode": "passed"
     },
     "30": {
@@ -62,10 +62,10 @@
         ],
         "format": {
           "duration": "30.000000",
-          "size": "15009850"
+          "size": "15014871"
         }
       },
-      "sha256": "589b7964c35f7a5a6d5cdda81bd7e6670fafd055edfec2506cf02ee77a06b5fa",
+      "sha256": "5ccf4ab05c7fff474111ee23e189792f9246b468253c05ff1959aebd4680efc2",
       "fullDecode": "passed"
     }
   },
@@ -96,51 +96,51 @@
   "generatedFiles": [
     {
       "file": "cinema-answer.jpg",
-      "bytes": 135015
+      "bytes": 135754
     },
     {
       "file": "cinema-classroom.jpg",
-      "bytes": 210420
+      "bytes": 209064
     },
     {
       "file": "cinema-embedded-mobile.jpg",
-      "bytes": 146842
+      "bytes": 189336
     },
     {
       "file": "cinema-integral.jpg",
-      "bytes": 172349
+      "bytes": 168013
     },
     {
       "file": "cinema-player-classroom30.jpg",
-      "bytes": 148137
+      "bytes": 155439
     },
     {
       "file": "cinema-player-classroom90.jpg",
-      "bytes": 139971
+      "bytes": 146471
     },
     {
       "file": "cinema-portal.jpg",
-      "bytes": 71931
+      "bytes": 71513
     },
     {
       "file": "cinema-report.html",
-      "bytes": 4563
+      "bytes": 5003
     },
     {
       "file": "cinema-report.json",
-      "bytes": 3929
+      "bytes": 4857
     },
     {
       "file": "cinema-return.jpg",
-      "bytes": 143712
+      "bytes": 137715
     },
     {
       "file": "cinema-solid.jpg",
-      "bytes": 130012
+      "bytes": 141473
     },
     {
       "file": "cinema-source.zip",
-      "bytes": 1154481
+      "bytes": 1156589
     },
     {
       "file": "classroom-30s-poster.jpg",
@@ -148,27 +148,35 @@
     },
     {
       "file": "classroom-30s.mp4",
-      "bytes": 15009850
+      "bytes": 15014871
     },
     {
       "file": "classroom-90s-poster.jpg",
-      "bytes": 210420
+      "bytes": 209064
     },
     {
       "file": "classroom-90s.mp4",
-      "bytes": 22228486
+      "bytes": 22228097
+    },
+    {
+      "file": "convergence-background-6s.mp4",
+      "bytes": 3234207
+    },
+    {
+      "file": "convergence-background-poster.jpg",
+      "bytes": 134198
     },
     {
       "file": "dynamic-background-mobile.jpg",
-      "bytes": 159135
+      "bytes": 203874
     },
     {
       "file": "dynamic-background-stage.jpg",
-      "bytes": 93981
+      "bytes": 108699
     }
   ],
   "dynamicBackground": {
-    "version": 2,
+    "version": 3,
     "live": {
       "passed": true,
       "errors": [],
@@ -181,13 +189,29 @@
       ]
     },
     "effects": [
-      "moving cyan/teal aurora ribbons",
-      "rotating perspective rings",
-      "depth particles",
-      "golden wave following the sweep",
-      "light layers during integration"
+      "white-gold central light shaft",
+      "ascending horizontal golden rings",
+      "orbiting light packets",
+      "spiraling converging golden particles"
     ],
     "protection": "soft masks around title, main geometry, area graph and equation",
     "preserved": "same foreground geometry, original audio,90/30-second duration and60fps"
+  },
+  "limitLayout": {
+    "tex": "\\lim\\limits_{\\Delta x\\to0}",
+    "conditionPosition": "under lim",
+    "film90Range": [
+      64.8,
+      75
+    ],
+    "portrait": "compact integral retained"
+  },
+  "backgroundPreview": {
+    "duration": 6,
+    "width": 1080,
+    "height": 1920,
+    "muted": true,
+    "timeAdvanced": true,
+    "changedPixels": 40749
   }
 }
