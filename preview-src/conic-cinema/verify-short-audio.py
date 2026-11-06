@@ -13,6 +13,6 @@ assert np.sqrt(np.mean(decoded**2))>.001
 def video_hash(file):
     return hashlib.sha256(subprocess.check_output(['ffmpeg','-v','error','-i',str(file),'-map','0:v','-c','copy','-f','h264','-'])).hexdigest()
 assert video_hash(p)==video_hash('work/conic-cinema/short-silent.mp4')
-report={'revision':'conic-v4','narration':False,'subtitles':True,'musicAndEffects':True,'matchesMusicOnlyMaster':True,'audioCorrelation':correlation,'relativeAudioError':relative_error,'videoMatchesOriginalSubtitleRender':True,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()}
+report={'revision':'conic-v5','narration':False,'inSceneExplanations':True,'bottomSubtitleStrip':False,'musicAndEffects':True,'matchesMusicOnlyMaster':True,'audioCorrelation':correlation,'relativeAudioError':relative_error,'videoMatchesCurrentRender':True,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()}
 pathlib.Path('preview-src/conic-cinema/short-audio-verification.json').write_text(json.dumps(report,indent=2)+'\n')
-print('PASS music/effects-only master, no narration, subtitle frames preserved')
+print('PASS music/effects-only master, no narration, clean render and in-scene explanations preserved')

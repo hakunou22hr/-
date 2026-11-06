@@ -2,7 +2,7 @@ import pathlib,subprocess,json,hashlib,sys
 r=pathlib.Path('work/conic-cinema');out=pathlib.Path('public/previews/conic-cinema')
 for mode,seconds in ([('short',30)] if '--short-only' in sys.argv else [('long',90),('short',30)]):
     if mode=='short':
-        subprocess.run(['ffmpeg','-y','-loglevel','error','-i',str(r/'short-silent.mp4'),'-i',str(r/'short-mix.wav'),'-map','0:v','-map','1:a','-c:v','copy','-c:a','aac','-b:a','160k','-t','30','-movflags','+faststart','-metadata','title=黒板の向こう側 — 二次曲線の世界（字幕版）','-metadata','comment=No voice narration. Burned-in Japanese subtitles, original procedural music and effects.',str(out/'conic-30s.mp4')],check=True)
+        subprocess.run(['ffmpeg','-y','-loglevel','error','-i',str(r/'short-silent.mp4'),'-i',str(r/'short-mix.wav'),'-map','0:v','-map','1:a','-c:v','copy','-c:a','aac','-b:a','160k','-t','30','-movflags','+faststart','-metadata','title=黒板の向こう側 — 二次曲線の世界（画面内解説版）','-metadata','comment=No voice narration. In-scene Japanese explanations, original procedural music and effects. No bottom subtitle strip.',str(out/'conic-30s.mp4')],check=True)
         print('MUX DONE short — subtitles, music and effects; no narration',flush=True)
         continue
     subprocess.run(['ffmpeg','-y','-loglevel','error','-i',str(r/f'{mode}-silent.mp4'),'-i',str(r/f'{mode}-mix.wav'),'-map','0:v','-map','1:a','-c:v','copy','-c:a','aac','-b:a','160k','-t',str(seconds),'-movflags','+faststart','-metadata','title=黒板の向こう側 — 二次曲線の世界','-metadata','comment=Voice: Open JTalk / HTS Voice Mei, MMDAgent Project Team, Nagoya Institute of Technology, CC BY 3.0 https://creativecommons.org/licenses/by/3.0/ — pitch and speed adjusted; original procedural music and effects.',str(out/f'conic-{seconds}s.mp4')],check=True)

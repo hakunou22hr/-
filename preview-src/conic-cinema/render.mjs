@@ -1,6 +1,6 @@
 import {createCanvas,loadImage,GlobalFonts} from '@napi-rs/canvas';
 import * as T from 'three';
-import {writeFileSync,mkdirSync,readFileSync} from 'node:fs';
+import {writeFileSync,mkdirSync} from 'node:fs';
 import {spawn} from 'node:child_process';
 import {once} from 'node:events';
 import {parabola,ellipse,hyperbola,section} from './math.mjs';
@@ -8,7 +8,7 @@ GlobalFonts.registerFromPath('/usr/share/fonts/opentype/noto/NotoSansCJK-Regular
 const vertical=process.argv.includes('--vertical'),sample=process.argv.includes('--samples');
 const W=vertical?1080:1920,H=vertical?1920:1080,FPS=30,D=vertical?30:90,root='public/previews/conic-cinema/';
 mkdirSync('work/conic-cinema',{recursive:true});
-const c=createCanvas(W,H),g=c.getContext('2d'),classroom=await loadImage(root+'classroom.jpg'),story=JSON.parse(readFileSync('preview-src/conic-cinema/story.json'));
+const c=createCanvas(W,H),g=c.getContext('2d'),classroom=await loadImage(root+'classroom.jpg');
 const equations=Object.fromEntries(await Promise.all(['parabola','ellipse','hyperbola'].map(async k=>[k,await loadImage(root+'formula-'+k+'.png')])));
 const camera=new T.PerspectiveCamera(vertical?54:44,W/H,.1,200),v=new T.Vector3();
 const clamp=x=>Math.min(1,Math.max(0,x)),ease=x=>{x=clamp(x);return x*x*(3-2*x)},mix=(a,b,t)=>a+(b-a)*t,TAU=Math.PI*2;
@@ -142,7 +142,6 @@ function summary(t){
     text(names[j],cx,cy+(vertical?105:160),vertical?35:42);text(subs[j],cx,cy+(vertical?146:210),vertical?24:25,'#aac3d1');
   });
 }
-function subtitle(t){const cues=story[vertical?'short':'long'];const cue=cues.find(x=>t>=x[0]&&t<x[1]);if(!cue)return;const max=vertical?19:31,rows=[];let s='';for(const ch of cue[2]){s+=ch;if(s.length>=max){rows.push(s);s='';}}if(s)rows.push(s);const size=vertical?35:34,y=vertical?H*.84:H*.91;g.save();g.fillStyle='#02050bce';g.fillRect(W*.04,y-44,W*.92,rows.length*(size+14)+28);rows.forEach((r,i)=>text(r,W/2,y+i*(size+14),size,'#f1f4f6'));g.restore();}
 function draw(t){
   g.globalAlpha=1;g.globalCompositeOperation='source-over';g.fillStyle='#02060b';g.fillRect(0,0,W,H);
   if(vertical){
@@ -161,7 +160,7 @@ function draw(t){
     else{classroomScene(t,true);g.fillStyle='#01050b80';g.fillRect(0,0,W,H);text('黒板の向こう側',W/2,H*.36,83,'#ffe0a5');text('二次曲線の世界',W/2,H*.46,42);text('式と図形を、つなぐ。',W/2,H*.59,32,CYAN);}
   }
   const vignette=g.createRadialGradient(W/2,H*.45,H*.25,W/2,H*.5,H*.9);vignette.addColorStop(0,'#00000000');vignette.addColorStop(1,'#00081455');g.fillStyle=vignette;g.fillRect(0,0,W,H);
-  subtitle(t);const fade=t<.6?1-ease(t/.6):t>D-.65?ease((t-D+.65)/.65):0;if(fade){g.fillStyle=`rgba(0,0,0,${fade})`;g.fillRect(0,0,W,H);}
+  const fade=t<.6?1-ease(t/.6):t>D-.65?ease((t-D+.65)/.65):0;if(fade){g.fillStyle=`rgba(0,0,0,${fade})`;g.fillRect(0,0,W,H);}
 }
 if(sample){for(const t of(vertical?[2,7,13,19,24,28]:[3,8,11,15,18,28,36,47,55,61,70,80,87])){draw(t);writeFileSync(`work/conic-cinema/${vertical?'vertical':'wide'}-${t}.jpg`,c.toBuffer('image/jpeg',90));}process.exit(0);}
 const ff=spawn('ffmpeg',['-y','-loglevel','error','-f','rawvideo','-pix_fmt','rgba','-s',`${W}x${H}`,'-r',String(FPS),'-i','pipe:0','-an','-c:v','libx264','-threads','3','-preset','veryfast','-crf','19','-pix_fmt','yuv420p','-movflags','+faststart',`work/conic-cinema/${vertical?'short':'long'}-silent.mp4`],{stdio:['pipe','ignore','inherit']});

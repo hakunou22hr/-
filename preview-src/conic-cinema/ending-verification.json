@@ -1,15 +1,17 @@
 {
-  "revision": "conic-v4",
+  "revision": "conic-v5",
   "checks": [
     {
       "seconds": 90,
-      "matchesUncreditedRender": true,
-      "burnedInAudioCredits": false
+      "matchesCleanRender": true,
+      "burnedInAudioCredits": false,
+      "bottomSubtitleStrip": false
     },
     {
       "seconds": 30,
-      "matchesUncreditedRender": true,
-      "burnedInAudioCredits": false
+      "matchesCleanRender": true,
+      "burnedInAudioCredits": false,
+      "bottomSubtitleStrip": false
     }
   ]
 }

@@ -1,11 +1,12 @@
 {
-  "revision": "conic-v4",
+  "revision": "conic-v5",
   "narration": false,
-  "subtitles": true,
+  "inSceneExplanations": true,
+  "bottomSubtitleStrip": false,
   "musicAndEffects": true,
   "matchesMusicOnlyMaster": true,
   "audioCorrelation": 0.9993673721349395,
   "relativeAudioError": 0.001270607807361159,
-  "videoMatchesOriginalSubtitleRender": true,
-  "sha256": "10777a6acdb5257aa7b0dcd5365e27373cd26de868069b236059b62d2a247821"
+  "videoMatchesCurrentRender": true,
+  "sha256": "60aa13abc411cb7fe73a7c2f3ad462772e0ff3094ac40e5f36a77b82ceb449d4"
 }
