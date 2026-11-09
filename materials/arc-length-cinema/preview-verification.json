@@ -1,0 +1,26 @@
+{
+  "programs": [],
+  "stream_groups": [],
+  "streams": [
+    {
+      "codec_name": "h264",
+      "width": 1280,
+      "height": 720,
+      "pix_fmt": "yuv420p",
+      "r_frame_rate": "24/1",
+      "nb_read_frames": "720",
+      "side_data_list": [
+        {}
+      ]
+    }
+  ],
+  "format": {
+    "duration": "30.000000",
+    "size": "5521950"
+  },
+  "sha256": "ad5c311254c0cd744efb6410419d9624cf71e22b78598eae584b982f982074d0",
+  "fullDecode": "passed",
+  "faststart": true,
+  "audio": false,
+  "edition": "motion preview"
+}

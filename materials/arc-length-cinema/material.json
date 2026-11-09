@@ -1,0 +1,10 @@
+{
+  "id": "arc-length-cinema",
+  "name": "数学Ⅲ 曲線の長さ ― 曲線をほどく",
+  "subject": "数学Ⅲ",
+  "unit": "積分法／曲線の長さ／媒介変数",
+  "description": "先行公開：生徒のいる教室から黒板の奥へ入る30秒動作プレビュー。3分本編では細分化・三平方・微分・積分と、例題26・27の途中計算を解説します。",
+  "thumbnail": "thumbnail.svg",
+  "durationSeconds": 180,
+  "version": "0.9.0"
+}

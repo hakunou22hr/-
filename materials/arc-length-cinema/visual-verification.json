@@ -1,0 +1,23 @@
+{
+  "viewport": [
+    1280,
+    720
+  ],
+  "records": [
+    {
+      "time": 8,
+      "stage": 0
+    },
+    {
+      "time": 54,
+      "stage": 4
+    },
+    {
+      "time": 85,
+      "stage": 7
+    }
+  ],
+  "katexErrors": 0,
+  "formulaOverflow": 0,
+  "errors": []
+}

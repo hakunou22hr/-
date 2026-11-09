@@ -1,0 +1,50 @@
+# 曲線をほどく ― 曲線の長さ
+
+数学Ⅲの曲線の長さ。例題26 x=cos³t,y=sin³t（0≦t≦π/2）の3/2と、例題27 y=(e^x+e^(−x))/2（0≦x≦1）の(e−e^(−1))/2を、細分化・三平方・微分・積分の順に説明する、音声なしの3分映画です。
+
+現在の公開状態は src/release.json。full=falseの間は30秒動作プレビューを先行公開し、本編のボタンを無効にします。本編完成後にfull=trueへ切り替えます。
+
+## 再生
+
+教材ライブラリから開くか、`/materials/arc-length-cinema/` を開きます。`?edition=preview`でプレビューを選択できます。標準HTML動画プレーヤーで再生・シーク・全画面・保存ができます。
+
+## ソースと制作
+
+src/model.ts: 曲線・微分・長さ・180秒の字幕と計算式。
+src/World.ts: Three.jsの実時間3D、Bloom、座標空間、分割線分、レール、直角三角形、単位円、カメラ、教室の奥行きメッシュ。
+src/main.tsx: KaTeXの別レイヤー、段階的な式の表示、再生ページ。
+assets/classroom.png: 承認された生徒のいる教室イメージを基に生成した素材。生徒は実在の人物ではなく、撮影した授業映像ではありません。教室の画像を奥行きのあるメッシュへ投影し、カメラと光の粒子を動かします。黒板の線・実験空間・数学図形は画像に描かせずコードで生成します。
+
+実験空間は静止画像を背景にしていません。曲線・格子・床・粒子・測定フレームは同じ時間で動く3Dです。教室は1枚の生成画像を用いた2.5D表現で、生徒の手や身体を独立に動かす人物アニメーションではありません。
+
+## 数学
+
+有限の線分Δℓ=√(Δx²+Δy²)は弧長の近似。Δt>0として差商で表し、細分化の極限で媒介変数の積分公式へ進みます。線分をレールへ移す間は、移動と単位四元数の回転だけを用い、長さを変えません。
+
+例題26はdx/dt=−3cos²t sin t、dy/dt=3sin²t cos t。二乗和を9sin²t cos²t(cos²t+sin²t)へ整理し、平方根は3|sin t cos t|。区間の符号を単位円で確認して絶対値を外し、積分結果3/2へ。
+
+例題27は微分が(e^x−e^(−x))/2。1+(y')²=(e^x+e^(−x))²/4。正の平方根と原始関数を順に示し、結果(e−e^(−1))/2へ。
+
+グラフの点は実座標から生成します。表示用の平行移動・一様拡大はWorldのworldPointを通じて行い、長さのレールにも同じ縮尺を使います。曲面・光のパスの描画には細かい有限分割を使います。
+
+## 検証・起動
+
+ルートでnpm ci、npm run dev。数学の検証:
+```
+npx tsc -p materials/arc-length-cinema/tsconfig.json
+npx vitest run materials/arc-length-cinema/tests/math.test.ts
+```
+既存のReact、Three.js、KaTeX、Vite（MIT）を使います。外部の音声・音楽・有料APIへの依存はありません。音声・BGM・効果音はすべて無しです。
+
+## 書き出し
+
+個別ビルドを静的サーバーで配信し、Playwright、Chromium、ffmpegを使います。
+```
+APP_URL=http://127.0.0.1:8793/ \
+OUTPUT=/absolute/output/arc-length-180s.mp4 \
+PLAYWRIGHT_MODULE=/absolute/path/to/playwright/index.mjs \
+node materials/arc-length-cinema/render/render.mjs
+```
+EDITION=preview を付けると、180秒の時間軸から抜粋・短縮した30秒プレビューを描画します。出力は1280×720、24fps、H.264/yuv420p、BT.709 TV range、faststart、音声なし。出力先は開発サーバーの監視対象外にします。
+
+Windows、iPad、iPhone実機は未検証です。Chromiumでの描画・数式・再生と、モバイル幅でのページ表示を検証します。

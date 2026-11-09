@@ -172,3 +172,27 @@ jobs:
         with:
           name: rotation-volume-166-live-check
           path: work/rotation-volume-166/
+
+  verify-arc-length-cinema:
+    needs: deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: materials/arc-length-cinema/tests
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Install arc-length playback browser
+        run: |
+          npm install --prefix /tmp/arc-length-browser playwright@1.62.1
+          node /tmp/arc-length-browser/node_modules/playwright/cli.js install --with-deps chromium
+      - name: Verify arc-length movies at the public URL
+        env:
+          PLAYWRIGHT_MODULE_PATH: /tmp/arc-length-browser/node_modules/playwright/index.mjs
+        run: node materials/arc-length-cinema/tests/published.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: arc-length-cinema-live-check
+          path: work/arc-length-cinema/
