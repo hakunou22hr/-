@@ -1,0 +1,32 @@
+name: Verify velocity and distance cinema
+on:
+  workflow_run:
+    workflows: [Deploy to GitHub Pages]
+    types: [completed]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install playback browser
+        run: |
+          npm install --prefix work/velocity-browser --no-package-lock playwright@1.56.1
+          node work/velocity-browser/node_modules/playwright/cli.js install --with-deps chromium
+      - name: Verify published scenes, MP4 playback and download
+        env:
+          PLAYWRIGHT_MODULE_PATH: ${{ github.workspace }}/work/velocity-browser/node_modules/playwright
+        run: node materials/velocity-distance-cinema/render/published-check.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: velocity-distance-public-verification
+          path: work/velocity-public
+          retention-days: 7

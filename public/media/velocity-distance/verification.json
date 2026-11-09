@@ -1,0 +1,85 @@
+{
+  "results": [
+    {
+      "mathematics": {
+        "derivativeError": 5.850289142017573e-10,
+        "integral": 12.666666666666666,
+        "arcChordRatio": 1.0000000006002538,
+        "totalArc": 32.319369258079156
+      }
+    },
+    {
+      "viewport": "iPhone",
+      "width": 390,
+      "height": 844,
+      "scenes": 6,
+      "passed": true
+    },
+    {
+      "viewport": "iPad",
+      "width": 1024,
+      "height": 768,
+      "scenes": 6,
+      "passed": true
+    },
+    {
+      "viewport": "Windows",
+      "width": 1366,
+      "height": 768,
+      "scenes": 6,
+      "passed": true
+    },
+    {
+      "libraryRegistration": true
+    },
+    {
+      "playback": {
+        "90s": "play/end/replay controls passed",
+        "30s": "play/end/edition switch passed",
+        "clock": "real elapsed time, independent of frame rate"
+      }
+    },
+    {
+      "download": {
+        "passed": true,
+        "filename": "velocity-distance-30s.mp4",
+        "bytes": 12305566,
+        "sha256": "e9cbfc52d4c112ea025ca190076cc802a41a434d25661f765e71a608d566e1dc"
+      },
+      "browserVideoMetadata": {
+        "duration": 30,
+        "width": 1080,
+        "height": 1920
+      }
+    }
+  ],
+  "errors": [],
+  "limitations": [
+    "Viewport checks use Chromium emulation. Real iOS Safari and Windows devices were not tested.",
+    "60fps is a browser playback target, not a guaranteed frame rate. MP4 is 30fps."
+  ],
+  "repositoryChecks": {
+    "build": "passed",
+    "suite": {
+      "passed": 305,
+      "failed": 3,
+      "total": 308
+    },
+    "preexistingFailures": [
+      "triangle-789-cinematic thumbnail missing",
+      "math3-lineage render timeout under concurrent CPU rendering",
+      "region-circle-radius expectation mismatch"
+    ]
+  },
+  "mp4": {
+    "passed": true,
+    "duration": 30,
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "frames": 900,
+    "fullDecode": "passed",
+    "sha256": "e9cbfc52d4c112ea025ca190076cc802a41a434d25661f765e71a608d566e1dc",
+    "bytes": 12305566
+  }
+}
