@@ -34,7 +34,7 @@
       "start_time": "0.000000",
       "duration_ts": 460800,
       "duration": "30.000000",
-      "bit_rate": "9786995",
+      "bit_rate": "9174510",
       "bits_per_raw_sample": "8",
       "nb_frames": "900",
       "nb_read_frames": "900",
@@ -74,7 +74,7 @@
     }
   ],
   "format": {
-    "filename": "/workspace/work/velocity-distance-cinema-v2.mp4",
+    "filename": "/workspace/work/velocity-distance-cinema-final.mp4",
     "nb_streams": 1,
     "nb_programs": 0,
     "nb_stream_groups": 0,
@@ -82,8 +82,8 @@
     "format_long_name": "QuickTime / MOV",
     "start_time": "0.000000",
     "duration": "30.000000",
-    "size": "36713865",
-    "bit_rate": "9790364",
+    "size": "34417024",
+    "bit_rate": "9177873",
     "probe_score": 100,
     "tags": {
       "major_brand": "isom",

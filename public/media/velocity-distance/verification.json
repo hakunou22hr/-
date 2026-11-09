@@ -36,11 +36,14 @@
       "browserPlayback": "90s and 30s play/end/edition switching passed in production build"
     },
     {
+      "browserPlayback": "90s and 30s play/end/edition switching passed in production build"
+    },
+    {
       "download": {
         "passed": true,
         "filename": "velocity-distance-30s.mp4",
-        "bytes": 36713865,
-        "sha256": "3b572424fe4656fda706e9554bec9401c890290f24b9568b4d69dbfb086f96ea"
+        "bytes": 34417024,
+        "sha256": "addd77649b65bfbb93a40938261102d542c16ec0d7384374ec70830fa6e52407"
       },
       "browserVideoMetadata": {
         "duration": 30,
@@ -54,7 +57,7 @@
     "Viewport checks use Chromium emulation. Real iOS Safari and Windows devices were not tested.",
     "60fps is a browser playback target, not a guaranteed frame rate. MP4 is 30fps."
   ],
-  "version": "cinema-v2",
+  "version": "cinema-v2.1",
   "background": {
     "type": "Procedural 3D mesh deformation and instanced geometry",
     "movingParticles": 14500,
@@ -75,7 +78,12 @@
     "fullDecode": "passed",
     "colorRange": "tv",
     "colorSpace": "bt709",
-    "sha256": "3b572424fe4656fda706e9554bec9401c890290f24b9568b4d69dbfb086f96ea",
-    "bytes": 36713865
+    "sha256": "addd77649b65bfbb93a40938261102d542c16ec0d7384374ec70830fa6e52407",
+    "bytes": 34417024
+  },
+  "typography": {
+    "fontPreload": "all KaTeX FontFace resources loaded",
+    "videoMath": "correctly typeset equations on a local dark matte",
+    "background": "cinema-v2 3D animation preserved"
   }
 }
