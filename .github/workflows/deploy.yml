@@ -45,7 +45,10 @@ jobs:
       - name: Include verified same-origin lesson video
         run: |
           mkdir -p dist/media
-          curl --fail --location --retry 3 'https://github.com/hakunou22hr/-/releases/download/integral-differentiation-cinema-review-v4/integral-differentiation-cinema-90s-web-v1.mp4' -o dist/media/integral-differentiation-cinema-90s-web-v1.mp4
+          if ! curl --fail --location --retry 3 'https://github.com/hakunou22hr/-/releases/download/integral-differentiation-cinema-review-v4/integral-differentiation-cinema-90s-web-v1.mp4' -o dist/media/integral-differentiation-cinema-90s-web-v1.mp4; then
+            # Retain the same verified asset when the Release endpoint is unavailable.
+            curl --fail --location --retry 3 'https://hakunou22hr.github.io/-/media/integral-differentiation-cinema-90s-web-v1.mp4' -o dist/media/integral-differentiation-cinema-90s-web-v1.mp4
+          fi
           echo 'd786ed5efd37cada9f9acdbd7e720e42c5506296d266c43ee146a273bc3e7949  dist/media/integral-differentiation-cinema-90s-web-v1.mp4' | sha256sum -c -
 
       - name: Upload GitHub Pages artifact
