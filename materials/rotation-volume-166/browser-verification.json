@@ -1,0 +1,38 @@
+{
+  "desktop": "Chromium 1440×1050",
+  "mobile": "Chromium viewport390×844",
+  "angleSlider": [
+    0,
+    90,
+    360
+  ],
+  "cutPositions": [
+    0,
+    0.75,
+    1.6,
+    2.99,
+    3
+  ],
+  "displayModes": [
+    "outer",
+    "inner",
+    "difference"
+  ],
+  "views": [
+    "front",
+    "side",
+    "top",
+    "section",
+    "home"
+  ],
+  "drag": true,
+  "opacity": true,
+  "washerStack": true,
+  "formulaHighlight": true,
+  "filmPlayPause": true,
+  "allSixScenes": true,
+  "mobileOverflow": false,
+  "collapsibleControls": true,
+  "errors": [],
+  "physicalDevicesTested": false
+}

@@ -1,0 +1,17 @@
+{
+  "threeDimensionalTaps": [
+    {
+      "name": "outer",
+      "highlight": "formula radius outer focused"
+    },
+    {
+      "name": "inner",
+      "highlight": "formula radius inner focused"
+    },
+    {
+      "name": "area",
+      "highlight": "formula area focused"
+    }
+  ],
+  "areaOpensIntegral": true
+}

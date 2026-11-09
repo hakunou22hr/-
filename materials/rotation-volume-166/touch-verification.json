@@ -1,0 +1,11 @@
+{
+  "emulation": "Chromium mobile, real CDP touch events",
+  "oneFingerOrbit": true,
+  "twoFingerPinch": true,
+  "distanceBefore": 16.15549442140351,
+  "distanceAfter": 6.624261974157916,
+  "filmVisibleAfterResize": true,
+  "brightPixels64x64": 2329,
+  "errors": [],
+  "physicalDevices": false
+}

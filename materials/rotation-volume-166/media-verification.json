@@ -1,0 +1,39 @@
+{
+  "programs": [],
+  "stream_groups": [],
+  "streams": [
+    {
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1280,
+      "height": 720,
+      "pix_fmt": "yuv420p",
+      "color_range": "tv",
+      "color_space": "bt709",
+      "r_frame_rate": "24/1",
+      "nb_read_frames": "2160",
+      "side_data_list": [
+        {}
+      ]
+    }
+  ],
+  "format": {
+    "duration": "90.000000",
+    "size": "21877664"
+  },
+  "sha256": "198528d785d7a253af9374fcffb7f6644c134c37c75a916ab1ad30554d6d7e0a",
+  "fullDecode": "passed",
+  "faststart": true,
+  "narration": false,
+  "audio": false,
+  "mathematics": {
+    "volume": "108π/5",
+    "outerVolume": "153π/5",
+    "innerVolume": "9π",
+    "endpointAreas": [
+      0,
+      0
+    ]
+  },
+  "physicalDevicesTested": false
+}

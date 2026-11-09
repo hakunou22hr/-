@@ -1,0 +1,20 @@
+import {chromium} from 'playwright';
+import fs from 'node:fs';
+const b=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox','--enable-unsafe-swiftshader','--disable-dev-shm-usage']});const p=await b.newPage({viewport:{width:1440,height:1050}});const errors=[];p.on('pageerror',e=>errors.push(e.message));
+try{
+await p.goto(process.env.APP_URL||'http://127.0.0.1:8770/materials/rotation-volume-166/');await p.waitForFunction(()=>window.rotation166?.getState().ready);
+console.log('ready');const state=()=>p.evaluate(()=>window.rotation166.getState());
+async function slider(name,value){await p.getByRole('slider',{name,exact:true}).evaluate((el,v)=>{const setter=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set;setter.call(el,String(v));el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));},value);await p.waitForTimeout(70)}
+console.log('angles');await slider('領域の回転角',0);if((await state()).angle!==0)throw Error('angle0');await slider('領域の回転角',90);if((await state()).angle!==90)throw Error('angle90');await slider('領域の回転角',360);
+console.log('sections');for(const x of [0,.75,1.6,2.99,3]){await slider('輪切りの位置',x);const s=await state();const expected=Math.PI*((-x*x+4*x)**2-x*x);if(Math.abs(s.area-expected)>1e-8)throw Error('section '+x)}
+await slider('輪切りの位置',1.6);await slider('外側の不透明度',.08);await slider('円環の枚数',24);
+console.log('displays');for(const value of ['outer','inner','difference'])await p.getByRole('combobox',{name:'表示する立体'}).selectOption(value);
+for(const name of ['正面','側面','上面','断面方向','斜め'])await p.getByRole('button',{name,exact:true}).click();
+console.log('drag');const before=await p.locator('canvas').screenshot();const box=await p.locator('canvas').boundingBox();await p.mouse.move(box.x+box.width*.45,box.y+box.height*.5);await p.mouse.down();await p.mouse.move(box.x+box.width*.65,box.y+box.height*.4,{steps:12});await p.mouse.up();const after=await p.locator('canvas').screenshot();if(before.equals(after))throw Error('drag no effect');
+console.log('formulas');await p.getByRole('button',{name:'外半径',exact:false}).first().click();if(await p.locator('.focused').count()!==1)throw Error('formula highlight');
+console.log('film');await p.getByRole('button',{name:'映画型90秒動画',exact:true}).click();await p.getByRole('button',{name:'▶ 90秒を再生',exact:true}).click();await p.waitForFunction(()=>window.rotation166.getState().time>1);await p.getByRole('button',{name:'Ⅱ 一時停止',exact:true}).click();const stop=(await state()).time;await p.waitForTimeout(250);if((await state()).time!==stop)throw Error('pause');
+console.log('timeline');for(const t of [0,8,12,21,30,37,43,45,53,59.9,60,70,76,82,89.9,90]){await p.evaluate(t=>window.rotation166.setTime(t),t);await p.waitForFunction(t=>window.rotation166.getState().time===t,t);if(await p.locator('.webgl-error').count())throw Error('webgl')}
+console.log('mobile');await p.setViewportSize({width:390,height:844});await p.waitForTimeout(200);if(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw Error('mobile overflow');await p.screenshot({path:'/tmp/rotation166-mobile.png',fullPage:true});
+await p.getByRole('button',{name:'3D探究',exact:true}).click();await p.locator('.explore-controls summary').click();if(await p.locator('.explore-controls').getAttribute('open')!==null)throw Error('collapse');
+if(errors.length)throw Error(errors.join('\n'));fs.writeFileSync('/tmp/rotation166-browser-verification.json',JSON.stringify({desktop:'Chromium 1440×1050',mobile:'Chromium viewport390×844',angleSlider:[0,90,360],cutPositions:[0,.75,1.6,2.99,3],displayModes:['outer','inner','difference'],views:['front','side','top','section','home'],drag:true,opacity:true,washerStack:true,formulaHighlight:true,filmPlayPause:true,allSixScenes:true,mobileOverflow:false,collapsibleControls:true,errors,physicalDevicesTested:false},null,2)+'\n');console.log('PASS browser interactions and six-scene film')
+}finally{await b.close()}
