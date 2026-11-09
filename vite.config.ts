@@ -40,6 +40,7 @@ export default defineConfig({
         'moving-line-reels': resolve(root, 'materials/moving-line-cinema/reels.html'),
         'moving-line-reels-render': resolve(root, 'materials/moving-line-cinema/reels-render.html'),
         'moving-line-render': resolve(root, 'materials/moving-line-cinema/render.html'),
+        'rotation-volume-short': resolve(root, 'materials/rotation-volume-166/short.html'),
         'two-paths-render': resolve(root, 'materials/two-paths/render.html'),
       },
     },

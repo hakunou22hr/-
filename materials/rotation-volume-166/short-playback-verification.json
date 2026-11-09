@@ -1,0 +1,23 @@
+{
+  "url": "http://127.0.0.1:8783/materials/rotation-volume-166/short.html",
+  "info": {
+    "duration": 30,
+    "width": 1080,
+    "height": 1920,
+    "source": "http://127.0.0.1:8783/media/rotation-volume-166/rotation-volume-166-instagram-30s.mp4?v=short1"
+  },
+  "normalSpeedFullPlayback": {
+    "ended": true,
+    "totalFrames": 900,
+    "droppedFrames": 0
+  },
+  "play": true,
+  "pause": true,
+  "seek": true,
+  "end": true,
+  "replay": true,
+  "rangeStatus": 206,
+  "mobileAspectRatio": 0.5625115713189981,
+  "mobileOverflow": false,
+  "errors": []
+}

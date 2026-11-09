@@ -161,7 +161,9 @@ jobs:
       - name: Verify live 3D lesson and its 90-second MP4
         env:
           PLAYWRIGHT_MODULE_PATH: /tmp/rotation166-browser/node_modules/playwright/index.mjs
-        run: node materials/rotation-volume-166/tests/published.mjs
+        run: |
+          node materials/rotation-volume-166/tests/published.mjs
+          node materials/rotation-volume-166/tests/short-published.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

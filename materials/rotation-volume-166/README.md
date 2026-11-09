@@ -51,3 +51,24 @@ React、Three.js、KaTeX、ViteはMITライセンス。幾何メッシュ、背�
 公開後は GitHub Pages の専用ジョブ `verify-rotation-volume-166` が実URLで3D、6場面、MP4の再生・シーク・終了までを確認します。操作やタッチは `tests/browser.mjs`、`tests/touch.mjs` に再検証手順を含めています（PlaywrightとChromiumが必要）。
 
 全6場面と円環枚数が変わる時刻で、KaTeXの数式表示エラーが0であることも検証しています（`katex-verification.json`）。
+
+## Instagram用30秒縦版
+
+`short.html` で再生・保存できます。3D探究画面の「Instagram30秒」リンクからも開けます。1080×1920、9:16、30fps、30秒、H.264/yuv420p・BT.709、音声なし・日本語字幕と数式を焼き込んだMP4です。
+
+横版の切り抜きではなく、`src/short-model.ts` の30秒の時間軸から共通Worldを縦専用カメラで描画します。上部に見出し、中央に3D、下部に数式と字幕を再配置し、主な文字は上下のアプリUIを避けた位置に収めています。実際のInstagramアプリへの投稿は未検証です。
+
+0–4秒:領域 / 4–10秒:回転 / 10–15秒:空洞 / 15–21秒:円環 / 21–25秒:積み重ね / 25–30秒:差分と体積108π/5。
+
+再書き出しは静的ビルドを配信して次のコマンドを実行します。
+
+```
+APP_URL=http://127.0.0.1:8782/short.html \
+OUTPUT=/absolute/output/rotation-volume-166-instagram-30s.mp4 \
+PLAYWRIGHT_MODULE=/absolute/path/to/playwright/index.mjs \
+node materials/rotation-volume-166/render/short.mjs
+```
+
+GitHub Pagesの専用ジョブは、30秒版の縦横比、再生・シーク・再再生、保存リンク、モバイル幅での表示も検証します。
+
+縦版は24fpsの720時刻で3Dと字幕を描画し、投稿用MP4は30fpsのCFRへ変換します（中間フレームは同じ画面の保持）。

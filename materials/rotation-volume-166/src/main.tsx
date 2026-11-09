@@ -19,7 +19,7 @@ function App(){
  const scene=pose.scene,activeX=mode==='film'?pose.cut:x,formulaFocus=(s:string)=>setFocus(focus===s?'':s);
  function film(){setMode('film');setSpin(false);setPlaying(false)}
  return <main className={exporting?'export-mode':''}>
- {!exporting&&<><header><a href="../../">← 教材ライブラリ</a><span>MATHEMATICS III <b>166</b></span></header><div className="heading"><div><p className="eyebrow">SOLIDS OF REVOLUTION</p><h1>回して、輪切りにして、積分する。</h1><p>平面の領域は、空洞のある立体になる。</p></div><div className="tabs"><button aria-pressed={mode==='explore'} onClick={()=>{setMode('explore');setPlaying(false)}}>3D探究</button><button aria-pressed={mode==='film'} onClick={film}>映画型90秒動画</button></div></div></>}
+ {!exporting&&<><header><a href="../../">← 教材ライブラリ</a><span>MATHEMATICS III <b>166</b></span></header><div className="heading"><div><p className="eyebrow">SOLIDS OF REVOLUTION</p><h1>回して、輪切りにして、積分する。</h1><p>平面の領域は、空洞のある立体になる。</p></div><div className="tabs"><button aria-pressed={mode==='explore'} onClick={()=>{setMode('explore');setPlaying(false)}}>3D探究</button><button aria-pressed={mode==='film'} onClick={film}>映画型90秒動画</button><a href="./short.html">Instagram 30秒</a></div></div></>}
  <section className={'workbench '+(mode==='film'?'cinema':'')}>
  <div className="visual"><div ref={host} className="webgl" aria-label="x軸周りの回転体を操作できる3D空間"/>{error&&<p role="alert" className="webgl-error">{error}</p>}
  <div className="scene-label"><span>{mode==='film'?`SCENE 0${scene+1} / 06`:'3D LAB / EXAMPLE 166'}</span><h2>{mode==='film'?scenes[scene].title:'領域を回すと、何が残る？'}</h2></div>

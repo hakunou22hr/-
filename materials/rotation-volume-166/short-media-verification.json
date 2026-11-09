@@ -1,0 +1,35 @@
+{
+  "programs": [],
+  "stream_groups": [],
+  "streams": [
+    {
+      "codec_name": "h264",
+      "width": 1080,
+      "height": 1920,
+      "pix_fmt": "yuv420p",
+      "color_range": "tv",
+      "color_space": "bt709",
+      "r_frame_rate": "30/1",
+      "nb_read_frames": "900",
+      "side_data_list": [
+        {}
+      ]
+    }
+  ],
+  "format": {
+    "duration": "30.000000",
+    "size": "14608896"
+  },
+  "sha256": "3d0bf607abfa1edb8bd7571b66dc343633aa6cf600485bc00f59711c2587bd70",
+  "fullDecode": "passed",
+  "faststart": true,
+  "audio": false,
+  "ratio": "9:16",
+  "renderSamples": 720,
+  "renderSampleRate": 24,
+  "deliveryFPS": 30,
+  "katexErrors": 0,
+  "safeAreaLayout": "six scenes passed",
+  "mathematics": "V=108π/5",
+  "instagramPostingTested": false
+}
