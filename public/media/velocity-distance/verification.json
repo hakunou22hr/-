@@ -33,18 +33,14 @@
       "libraryRegistration": true
     },
     {
-      "playback": {
-        "90s": "play/end/replay controls passed",
-        "30s": "play/end/edition switch passed",
-        "clock": "real elapsed time, independent of frame rate"
-      }
+      "browserPlayback": "90s and 30s play/end/edition switching passed in production build"
     },
     {
       "download": {
         "passed": true,
         "filename": "velocity-distance-30s.mp4",
-        "bytes": 12305566,
-        "sha256": "e9cbfc52d4c112ea025ca190076cc802a41a434d25661f765e71a608d566e1dc"
+        "bytes": 36713865,
+        "sha256": "3b572424fe4656fda706e9554bec9401c890290f24b9568b4d69dbfb086f96ea"
       },
       "browserVideoMetadata": {
         "duration": 30,
@@ -58,18 +54,16 @@
     "Viewport checks use Chromium emulation. Real iOS Safari and Windows devices were not tested.",
     "60fps is a browser playback target, not a guaranteed frame rate. MP4 is 30fps."
   ],
-  "repositoryChecks": {
-    "build": "passed",
-    "suite": {
-      "passed": 305,
-      "failed": 3,
-      "total": 308
-    },
-    "preexistingFailures": [
-      "triangle-789-cinematic thumbnail missing",
-      "math3-lineage render timeout under concurrent CPU rendering",
-      "region-circle-radius expectation mismatch"
-    ]
+  "version": "cinema-v2",
+  "background": {
+    "type": "Procedural 3D mesh deformation and instanced geometry",
+    "movingParticles": 14500,
+    "fixedStars": 11000,
+    "scenePreviews": 6,
+    "staticBackgroundImages": false,
+    "bloom": "two-pass Gaussian",
+    "camera": "per-scene approach, flight, orbit and ascent",
+    "visualReview": "six landscape scenes and portrait layouts inspected"
   },
   "mp4": {
     "passed": true,
@@ -79,7 +73,9 @@
     "fps": 30,
     "frames": 900,
     "fullDecode": "passed",
-    "sha256": "e9cbfc52d4c112ea025ca190076cc802a41a434d25661f765e71a608d566e1dc",
-    "bytes": 12305566
+    "colorRange": "tv",
+    "colorSpace": "bt709",
+    "sha256": "3b572424fe4656fda706e9554bec9401c890290f24b9568b4d69dbfb086f96ea",
+    "bytes": 36713865
   }
 }
