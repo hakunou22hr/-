@@ -4,26 +4,34 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>積分を微分する — 90秒の映像</title>
 <style>
-*{box-sizing:border-box}body{font-family:system-ui,sans-serif;background:#070c16;color:#e7eef3;max-width:1080px;margin:5vh auto;padding:24px;line-height:1.9}h1{font-size:clamp(26px,5vw,36px)}a{color:#94efdf}video{display:block;width:100%;aspect-ratio:16/9;background:#000;border-radius:10px}button{background:#94efdf;color:#071524;padding:12px 24px;border:0;border-radius:8px;font:700 16px system-ui;cursor:pointer;margin-top:18px}#status{min-height:2em;color:#b9cbd7}small{color:#a6b6c7}
+*{box-sizing:border-box}body{font-family:system-ui,sans-serif;background:#070c16;color:#e7eef3;max-width:1080px;margin:5vh auto;padding:24px;line-height:1.9}h1{font-size:clamp(26px,5vw,36px)}a{color:#94efdf}.film-frame{display:block;width:100%;aspect-ratio:16/9;background:#000;border-radius:10px;overflow:hidden}.film-frame iframe{display:block;width:100%;height:100%;border:0}button{background:#94efdf;color:#071524;padding:12px 24px;border:0;border-radius:8px;font:700 16px system-ui;cursor:pointer;margin-top:18px}#status{min-height:2em;color:#b9cbd7}small{color:#a6b6c7}
 </style>
 </head>
 <body>
 <h1>積分を微分する</h1>
 <p>90秒 · 1080p · 日本語字幕付き・音声なし</p>
-<video id="film" controls playsinline preload="metadata" poster="../../media/sekibun-wo-bibun-suru/poster.jpg" aria-label="積分を微分する 90秒の映像">
-<source src="../../media/sekibun-wo-bibun-suru/playback.mp4" type="video/mp4">
-お使いのブラウザでは動画を再生できません。
-</video>
+<div class="film-frame"><div id="film" aria-label="積分を微分する 90秒の映像"></div></div>
 <button id="play" type="button">▶ 動画を再生</button>
 <p id="status" role="status" aria-live="polite">再生ボタンを押すと、このページで動画が始まります。</p>
 <small>再生バーで見たい場面へ移動できます。画面右下のボタンで全画面表示にできます。</small>
 <p><a href="../../">教材ライブラリへ</a></p>
 <script>
-const video=document.querySelector('#film'),button=document.querySelector('#play'),status=document.querySelector('#status');
-button.addEventListener('click',async()=>{if(video.paused){try{if(video.ended)video.currentTime=0;await video.play();}catch{status.textContent='再生できませんでした。動画の再生ボタンを押すか、ページを再読み込みしてください。';}}else video.pause();});
-video.addEventListener('play',()=>{button.textContent='Ⅱ 一時停止';status.textContent='再生中';});
-video.addEventListener('pause',()=>{button.textContent=video.ended?'↻ もう一度再生':'▶ 続きから再生';status.textContent=video.ended?'再生が終わりました。':'一時停止中';});
-video.addEventListener('ended',()=>{button.textContent='↻ もう一度再生';status.textContent='再生が終わりました。';});
-video.addEventListener('error',()=>{status.textContent='動画を読み込めませんでした。通信状態を確認し、ページを再読み込みしてください。';});
+const button=document.querySelector('#play'),status=document.querySelector('#status');
+let player=null,ready=false,ended=false;
+const tag=document.createElement('script');tag.src='https://www.youtube.com/iframe_api';document.head.appendChild(tag);
+window.onYouTubeIframeAPIReady=()=>{
+  player=new YT.Player('film',{videoId:'eMNNV2MLWds',playerVars:{rel:0,playsinline:1},
+    events:{onReady:()=>{ready=true;},onStateChange:(e)=>{
+      if(e.data===YT.PlayerState.PLAYING){ended=false;button.textContent='Ⅱ 一時停止';status.textContent='再生中';}
+      else if(e.data===YT.PlayerState.PAUSED){button.textContent=ended?'↻ もう一度再生':'▶ 続きから再生';status.textContent=ended?'再生が終わりました。':'一時停止中';}
+      else if(e.data===YT.PlayerState.ENDED){ended=true;button.textContent='↻ もう一度再生';status.textContent='再生が終わりました。';}
+    },onError:()=>{status.textContent='動画を読み込めませんでした。通信状態を確認し、ページを再読み込みしてください。';}}});
+};
+button.addEventListener('click',()=>{
+  if(!ready||!player){status.textContent='動画を準備しています。少し待ってからもう一度押してください。';return;}
+  const state=player.getPlayerState();
+  if(state===YT.PlayerState.PLAYING){player.pauseVideo();}
+  else{if(ended){player.seekTo(0,true);ended=false;}player.playVideo();}
+});
 </script>
 </body></html>
