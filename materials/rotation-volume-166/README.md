@@ -49,3 +49,5 @@ npm run build
 React、Three.js、KaTeX、ViteはMITライセンス。幾何メッシュ、背景粒子、格子、動き、説明パネルは本教材のコードで生成します。AI生成画像・写真・市販音源は使っていません。既存の教材ファイルは変更しません。
 
 公開後は GitHub Pages の専用ジョブ `verify-rotation-volume-166` が実URLで3D、6場面、MP4の再生・シーク・終了までを確認します。操作やタッチは `tests/browser.mjs`、`tests/touch.mjs` に再検証手順を含めています（PlaywrightとChromiumが必要）。
+
+全6場面と円環枚数が変わる時刻で、KaTeXの数式表示エラーが0であることも検証しています（`katex-verification.json`）。

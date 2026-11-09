@@ -19,13 +19,13 @@
   ],
   "format": {
     "duration": "90.000000",
-    "size": "21877664"
+    "size": "21701692"
   },
-  "sha256": "198528d785d7a253af9374fcffb7f6644c134c37c75a916ab1ad30554d6d7e0a",
+  "sha256": "de4e136fc1f2cf9281edb54869908eb7c22882e1b37f248c07338029c4a7a704",
   "fullDecode": "passed",
   "faststart": true,
-  "narration": false,
   "audio": false,
+  "narration": false,
   "mathematics": {
     "volume": "108π/5",
     "outerVolume": "153π/5",
@@ -35,5 +35,6 @@
       0
     ]
   },
+  "katexDisplayErrors": 0,
   "physicalDevicesTested": false
 }

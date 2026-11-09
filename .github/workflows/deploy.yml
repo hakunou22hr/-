@@ -150,6 +150,8 @@ jobs:
     timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
+        with:
+          sparse-checkout: materials/rotation-volume-166/tests
       - uses: actions/setup-node@v4
         with: {node-version: 22}
       - name: Install browser for the rotation-volume lesson

@@ -6,7 +6,7 @@ try{const p=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[]
 if(await p.evaluate(()=>window.rotation166.getState().mode)!=='explore')throw Error('Explorer must open first');
 for(const [a,x] of [[0,0],[90,1.6],[360,3]]){await p.evaluate(([a,x])=>window.rotation166.setExplore(a,x),[a,x]);await p.waitForFunction(([a,x])=>window.rotation166.getState().angle===a&&window.rotation166.getState().x===x,[a,x]);const state=await p.evaluate(()=>window.rotation166.getState());if(Math.abs(state.area-Math.PI*((-x*x+4*x)**2-x*x))>1e-8)throw Error('Section mismatch')}
 await p.getByRole('button',{name:'映画型90秒動画',exact:true}).click();await p.locator('#film-play').click();await p.waitForFunction(()=>window.rotation166.getState().time>1);await p.locator('#film-play').click();
-for(const t of [8,21,37,53,70,87]){await p.evaluate(t=>window.rotation166.setTime(t),t);await p.waitForFunction(t=>window.rotation166.getState().time===t,t)}
+for(const t of [8,21,37,53,70,87]){await p.evaluate(t=>window.rotation166.setTime(t),t);await p.waitForFunction(t=>window.rotation166.getState().time===t,t);if(await p.locator('.katex-error').count())throw Error('Math rendering error at '+t)}
 await p.setViewportSize({width:390,height:844});await p.waitForTimeout(200);if(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw Error('Mobile overflow');
 await fs.mkdir('work/rotation-volume-166',{recursive:true});await p.screenshot({path:'work/rotation-volume-166/live-mobile.png',fullPage:true});
 const videoURL=await p.locator('.mp4').getAttribute('href');const source=new URL(videoURL,p.url()).href;if(new URL(source).origin!==new URL(p.url()).origin)throw Error('Video must be same origin');
