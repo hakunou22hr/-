@@ -1,21 +1,21 @@
 {
-  "url": "http://127.0.0.1:8794/materials/arc-length-cinema/?edition=preview",
+  "url": "http://127.0.0.1:8801/materials/arc-length-cinema/?edition=preview",
   "preview": {
     "duration": 30,
     "width": 1280,
     "height": 720,
-    "source": "http://127.0.0.1:8794/media/arc-length-cinema/arc-length-preview-30s.mp4?v=1"
+    "source": "http://127.0.0.1:8801/media/arc-length-cinema/arc-length-preview-30s.mp4?v=2"
   },
   "normalPreviewPlayback": {
     "ended": true,
     "frames": 720,
-    "dropped": 7
+    "dropped": 8
   },
   "seek": true,
   "replay": true,
   "rangeStatus": 206,
-  "full": null,
   "mobileOverflow": false,
   "katexErrors": 0,
-  "errors": []
+  "errors": [],
+  "scope": "Updated 30-second preview playback; main movie checked separately"
 }

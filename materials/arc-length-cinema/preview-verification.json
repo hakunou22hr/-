@@ -16,11 +16,12 @@
   ],
   "format": {
     "duration": "30.000000",
-    "size": "5521950"
+    "size": "4842315"
   },
-  "sha256": "ad5c311254c0cd744efb6410419d9624cf71e22b78598eae584b982f982074d0",
+  "sha256": "2f0cd38d1d31b4fbcd93a3f4a0d51785591564e36e8d8c4a1fbd2d2099e47dec",
   "fullDecode": "passed",
   "faststart": true,
   "audio": false,
-  "edition": "motion preview"
+  "katexErrors": 0,
+  "classroom": "approved photorealistic generated still on a 2.5D mesh; no independent student animation"
 }
