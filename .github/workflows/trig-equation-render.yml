@@ -1,8 +1,5 @@
 name: Render trigonometric equation cinema
 on:
-  push:
-    branches: [feat/trig-equation-unit-circle]
-    paths: [.github/workflows/trig-equation-render.yml]
   workflow_dispatch:
 permissions:
   contents: read
@@ -60,6 +57,8 @@ jobs:
           pattern: trig-equation-part-*
           merge-multiple: true
           path: parts
+      - name: Install movie assembler
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
       - name: Assemble and verify 90-second movie
         run: |
           cat > join.txt <<'LIST'

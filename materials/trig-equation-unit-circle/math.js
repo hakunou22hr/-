@@ -5,11 +5,11 @@ export const mix=(a,b,p)=>a+(b-a)*p;
 export const SOLUTIONS=[30,150,270];
 const snap=x=>Math.abs(x)<EPS?0:Math.abs(x-1)<EPS?1:Math.abs(x+1)<EPS?-1:x;
 export function pointAt(degrees){const a=degrees*Math.PI/180;return {x:snap(Math.cos(a)),y:snap(Math.sin(a))};}
-export function inDomain(deg,domain='extended'){return domain==='math1'?deg>=-EPS&&deg<=180+EPS:deg>=-EPS&&deg<360-EPS;}
+export function inDomain(deg,domain='extended'){return domain==='math1'?deg>=0&&deg<=180:deg>=0&&deg<360;}
 export function intersections(k,domain='extended'){
  if(!Number.isFinite(k)||Math.abs(k)>1)return [];
- const y=snap(k),a=Math.sqrt(Math.max(0,1-y*y)),xs=a<EPS?[0]:[a,-a];
- return xs.map(x=>{let rad=Math.atan2(y,x);if(rad<0)rad+=TAU;const deg=rad*180/Math.PI;return {x:snap(x),y,rad,deg,allowed:inDomain(deg,domain)}});
+ const y=k===0?0:k,a=Math.sqrt(Math.max(0,1-y*y)),xs=a<EPS?[0]:[a,-a];
+ return xs.map(x=>{let rad=Math.atan2(y,x);if(rad<0)rad+=TAU;const deg=rad*180/Math.PI;return {x:snap(x),y,rad,deg,allowed:domain==='math1'?y>=0:true}});
 }
 export function solutions(domain='extended'){return SOLUTIONS.filter(d=>inDomain(d,domain));}
 export function piLatex(deg){let n=Math.round(deg),d=180;const gcd=(a,b)=>b?gcd(b,a%b):a;const g=gcd(Math.abs(n),d);n/=g;d/=g;if(!n)return '0';const top=n===1?'\\pi':n===-1?'-\\pi':`${n}\\pi`;return d===1?top:`\\frac{${top}}{${d}}`;}
