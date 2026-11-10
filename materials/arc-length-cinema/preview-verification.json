@@ -16,12 +16,13 @@
   ],
   "format": {
     "duration": "30.000000",
-    "size": "4842315"
+    "size": "10580278"
   },
-  "sha256": "2f0cd38d1d31b4fbcd93a3f4a0d51785591564e36e8d8c4a1fbd2d2099e47dec",
+  "sha256": "013f6802f68d65c37cdd191ed37a05fa5fca163095d834b7d8bd01a07560b3d9",
   "fullDecode": "passed",
   "faststart": true,
   "audio": false,
   "katexErrors": 0,
-  "classroom": "approved photorealistic generated still on a 2.5D mesh; no independent student animation"
+  "classroom": "approved photorealistic generated still on a 2.5D mesh; no independent student animation",
+  "background": "1800 animated depth particles and two wave layers; exact KaTeX on a textured chalkboard"
 }

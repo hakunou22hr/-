@@ -4,12 +4,12 @@
     "duration": 30,
     "width": 1280,
     "height": 720,
-    "source": "http://127.0.0.1:8801/media/arc-length-cinema/arc-length-preview-30s.mp4?v=2"
+    "source": "http://127.0.0.1:8801/media/arc-length-cinema/arc-length-preview-30s.mp4?v=3"
   },
   "normalPreviewPlayback": {
     "ended": true,
     "frames": 720,
-    "dropped": 8
+    "dropped": 10
   },
   "seek": true,
   "replay": true,
@@ -17,5 +17,5 @@
   "mobileOverflow": false,
   "katexErrors": 0,
   "errors": [],
-  "scope": "Updated 30-second preview playback; main movie checked separately"
+  "scope": "Updated particle/wave/chalkboard preview playback; full film is verified separately"
 }
