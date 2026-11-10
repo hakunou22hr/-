@@ -1,6 +1,37 @@
 {
-  "edition": "1.2.0",
-  "samples": [
+  "edition": "1.3.0",
+  "capturedClassroomTimes": [
+    1,
+    4,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    174,
+    175,
+    176,
+    177,
+    178,
+    179,
+    179.9
+  ],
+  "headOverlapVisualReviewTimes": [
+    7,
+    10,
+    178
+  ],
+  "headOverlapInReviewedFrames": false,
+  "classroomAxisNormalized": {
+    "y": 0.34,
+    "xMin": 0.36875,
+    "xMax": 0.73
+  },
+  "formulaLayoutSamples": [
     16,
     24,
     28,
@@ -10,7 +41,6 @@
     58,
     66,
     79,
-    85,
     91,
     94,
     98,
@@ -23,12 +53,11 @@
     147,
     155,
     158,
-    166,
-    170
+    166
   ],
   "formulaOverflow": false,
   "katexErrors": 0,
   "webglShaderErrors": 0,
-  "background": "two moving spatial wave layers and 1800 particles; subdued for close explanations",
-  "formulaPanel": "textured dark green chalkboard with wooden frame and separately typeset formulas"
+  "background": "depth stars, straight light trails and distant stellar light clusters; no waveforms",
+  "formulaPanel": "two-layer star field with subtle blue/violet glow; no chalkboard"
 }
