@@ -1,0 +1,81 @@
+name: Render trigonometric equation cinema
+on:
+  push:
+    branches: [feat/trig-equation-unit-circle]
+    paths: [.github/workflows/trig-equation-render.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        part: [0, 1, 2]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            /package.json
+            /package-lock.json
+            /materials/trig-equation-unit-circle/
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Install rendering tools and Japanese fonts
+        run: |
+          npm ci
+          npm install --prefix /tmp/trig-render-tools playwright@1.62.1 --no-audit --no-fund
+          node /tmp/trig-render-tools/node_modules/playwright/cli.js install --with-deps chromium
+          sudo apt-get install -y fonts-noto-cjk ffmpeg
+      - name: Start renderer
+        run: |
+          node node_modules/vite/bin/vite.js --config materials/trig-equation-unit-circle/render/vite.config.mjs > /tmp/trig-vite.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://localhost:5173/materials/trig-equation-unit-circle/ >/dev/null && break; sleep 1; done
+      - name: Render deterministic 30-second segment
+        env:
+          PLAYWRIGHT_MODULE: /tmp/trig-render-tools/node_modules/playwright
+        run: node materials/trig-equation-unit-circle/render/segment.cjs ${{ matrix.part }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: trig-equation-part-${{ matrix.part }}
+          path: work/part-${{ matrix.part }}.mp4
+  assemble:
+    needs: render
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/trig-equation-unit-circle
+          sparse-checkout: |
+            /public/media/trig-equation-unit-circle-90s.mp4
+          sparse-checkout-cone-mode: false
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: trig-equation-part-*
+          merge-multiple: true
+          path: parts
+      - name: Assemble and verify 90-second movie
+        run: |
+          cat > join.txt <<'LIST'
+          file 'parts/part-0.mp4'
+          file 'parts/part-1.mp4'
+          file 'parts/part-2.mp4'
+          LIST
+          mkdir -p public/media
+          ffmpeg -v error -y -f concat -safe 0 -i join.txt -c copy -movflags +faststart public/media/trig-equation-unit-circle-90s.mp4
+          ffmpeg -v error -i public/media/trig-equation-unit-circle-90s.mp4 -f null -
+          ffprobe -v error -show_streams -show_format -of json public/media/trig-equation-unit-circle-90s.mp4 > info.json
+          node -e "const i=require('./info.json'),a=require('assert/strict');a.equal(+i.format.duration,90);a.equal(+i.streams[0].nb_frames,2160);a.equal(i.streams[0].width,1920);a.equal(i.streams[0].height,1080);a(+i.format.size<100*1024*1024)"
+      - name: Save generated movie to its dedicated branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse public/media/trig-equation-unit-circle-90s.mp4
+          git commit -m 'Render verified 90-second trigonometric equation movie'
+          git push origin HEAD:feat/trig-equation-unit-circle
