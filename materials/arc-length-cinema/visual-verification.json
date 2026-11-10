@@ -1,23 +1,34 @@
 {
-  "viewport": [
-    1280,
-    720
+  "edition": "1.2.0",
+  "samples": [
+    16,
+    24,
+    28,
+    41,
+    51,
+    54,
+    58,
+    66,
+    79,
+    85,
+    91,
+    94,
+    98,
+    104,
+    114,
+    119,
+    126,
+    138,
+    145,
+    147,
+    155,
+    158,
+    166,
+    170
   ],
-  "records": [
-    {
-      "time": 8,
-      "stage": 0
-    },
-    {
-      "time": 54,
-      "stage": 4
-    },
-    {
-      "time": 85,
-      "stage": 7
-    }
-  ],
+  "formulaOverflow": false,
   "katexErrors": 0,
-  "formulaOverflow": 0,
-  "errors": []
+  "webglShaderErrors": 0,
+  "background": "two moving spatial wave layers and 1800 particles; subdued for close explanations",
+  "formulaPanel": "textured dark green chalkboard with wooden frame and separately typeset formulas"
 }
