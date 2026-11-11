@@ -48,9 +48,9 @@
       "duration": 90,
       "world": {
         "camera": [
-          1.176388888888889,
-          1.9724537037037038,
-          19.86226851851852
+          0,
+          0.6,
+          15
         ],
         "point": {
           "x": 0,
@@ -79,14 +79,19 @@
           }
         ],
         "triangleVisible": false,
-        "ring": 0.006,
+        "ring": 0,
         "ringCenter": [
           0,
           0,
-          -9.1
+          -8
         ],
         "ringScale": 1,
         "backgroundTime": 1,
+        "lightning": {
+          "active": true,
+          "power": 0.1653126512076614,
+          "color": 5283583
+        },
         "quality": "full",
         "waveCount": 0,
         "plane": "z=0"
@@ -138,9 +143,9 @@
       "duration": 90,
       "world": {
         "camera": [
-          0.7486111111111111,
-          1.4733796296296298,
-          17.36689814814815
+          0,
+          0.6,
+          15
         ],
         "point": {
           "x": 0,
@@ -169,14 +174,19 @@
           }
         ],
         "triangleVisible": false,
-        "ring": 0.03,
+        "ring": 0,
         "ringCenter": [
           0,
           0,
-          -13.5
+          -8
         ],
         "ringScale": 1,
         "backgroundTime": 5,
+        "lightning": {
+          "active": true,
+          "power": 0.35756478893773413,
+          "color": 16761701
+        },
         "quality": "full",
         "waveCount": 0,
         "plane": "z=0"
@@ -228,9 +238,9 @@
       "duration": 90,
       "world": {
         "camera": [
-          0.3111111111111111,
-          0.962962962962963,
-          14.814814814814815
+          0,
+          0.6,
+          15
         ],
         "point": {
           "x": 0.7124193008362172,
@@ -259,14 +269,19 @@
           }
         ],
         "triangleVisible": false,
-        "ring": 0.048,
+        "ring": 0,
         "ringCenter": [
           0,
           0,
-          -16.8
+          -8
         ],
         "ringScale": 1,
         "backgroundTime": 8,
+        "lightning": {
+          "active": true,
+          "power": 0.001524052194639715,
+          "color": 5283583
+        },
         "quality": "full",
         "waveCount": 2,
         "plane": "z=0"
@@ -357,6 +372,11 @@
         ],
         "ringScale": 1,
         "backgroundTime": 13,
+        "lightning": {
+          "active": false,
+          "power": 0,
+          "color": null
+        },
         "quality": "full",
         "waveCount": 0,
         "plane": "z=0"
@@ -447,6 +467,11 @@
         ],
         "ringScale": 1,
         "backgroundTime": 16,
+        "lightning": {
+          "active": false,
+          "power": 0,
+          "color": null
+        },
         "quality": "full",
         "waveCount": 0,
         "plane": "z=0"
@@ -537,6 +562,11 @@
         ],
         "ringScale": 1,
         "backgroundTime": 20,
+        "lightning": {
+          "active": false,
+          "power": 0,
+          "color": null
+        },
         "quality": "full",
         "waveCount": 0,
         "plane": "z=0"
@@ -627,6 +657,11 @@
         ],
         "ringScale": 1,
         "backgroundTime": 24,
+        "lightning": {
+          "active": false,
+          "power": 0,
+          "color": null
+        },
         "quality": "full",
         "waveCount": 0,
         "plane": "z=0"
@@ -687,6 +722,11 @@
         ],
         "ringScale": 1,
         "backgroundTime": 26,
+        "lightning": {
+          "active": false,
+          "power": 0,
+          "color": null
+        },
         "quality": "full",
         "waveCount": 0,
         "plane": "z=0"
@@ -747,6 +787,11 @@
         ],
         "ringScale": 1,
         "backgroundTime": 29.5,
+        "lightning": {
+          "active": false,
+          "power": 0,
+          "color": null
+        },
         "quality": "full",
         "waveCount": 0,
         "plane": "z=0"
@@ -823,6 +868,11 @@
         ],
         "ringScale": 1,
         "backgroundTime": 30,
+        "lightning": {
+          "active": false,
+          "power": 0,
+          "color": null
+        },
         "quality": "full",
         "waveCount": 2,
         "plane": "z=0"
@@ -913,6 +963,11 @@
         ],
         "ringScale": 1,
         "backgroundTime": 32,
+        "lightning": {
+          "active": false,
+          "power": 0,
+          "color": null
+        },
         "quality": "full",
         "waveCount": 4,
         "plane": "z=0"
@@ -1003,6 +1058,11 @@
         ],
         "ringScale": 1,
         "backgroundTime": 35,
+        "lightning": {
+          "active": false,
+          "power": 0,
+          "color": null
+        },
         "quality": "full",
         "waveCount": 2,
         "plane": "z=0"
@@ -1093,6 +1153,11 @@
         ],
         "ringScale": 1,
         "backgroundTime": 36,
+        "lightning": {
+          "active": false,
+          "power": 0,
+          "color": null
+        },
         "quality": "full",
         "waveCount": 2,
         "plane": "z=0"
@@ -1183,6 +1248,11 @@
         ],
         "ringScale": 1,
         "backgroundTime": 38,
+        "lightning": {
+          "active": false,
+          "power": 0,
+          "color": null
+        },
         "quality": "full",
         "waveCount": 2,
         "plane": "z=0"
@@ -1273,6 +1343,11 @@
         ],
         "ringScale": 1,
         "backgroundTime": 40,
+        "lightning": {
+          "active": false,
+          "power": 0,
+          "color": null
+        },
         "quality": "full",
         "waveCount": 0,
         "plane": "z=0"
@@ -1363,6 +1438,11 @@
         ],
         "ringScale": 1,
         "backgroundTime": 42,
+        "lightning": {
+          "active": false,
+          "power": 0,
+          "color": null
+        },
         "quality": "full",
         "waveCount": 2,
         "plane": "z=0"
@@ -1453,6 +1533,11 @@
         ],
         "ringScale": 1,
         "backgroundTime": 43,
+        "lightning": {
+          "active": false,
+          "power": 0,
+          "color": null
+        },
         "quality": "full",
         "waveCount": 2,
         "plane": "z=0"
@@ -1543,6 +1628,11 @@
         ],
         "ringScale": 1,
         "backgroundTime": 49,
+        "lightning": {
+          "active": false,
+          "power": 0,
+          "color": null
+        },
         "quality": "full",
         "waveCount": 0,
         "plane": "z=0"
@@ -1633,6 +1723,11 @@
         ],
         "ringScale": 1,
         "backgroundTime": 51,
+        "lightning": {
+          "active": false,
+          "power": 0,
+          "color": null
+        },
         "quality": "full",
         "waveCount": 0,
         "plane": "z=0"
@@ -1723,6 +1818,11 @@
         ],
         "ringScale": 1,
         "backgroundTime": 53,
+        "lightning": {
+          "active": false,
+          "power": 0,
+          "color": null
+        },
         "quality": "full",
         "waveCount": 0,
         "plane": "z=0"
@@ -1799,6 +1899,11 @@
         ],
         "ringScale": 1,
         "backgroundTime": 54,
+        "lightning": {
+          "active": false,
+          "power": 0,
+          "color": null
+        },
         "quality": "full",
         "waveCount": 2,
         "plane": "z=0"
@@ -1875,6 +1980,11 @@
         ],
         "ringScale": 1,
         "backgroundTime": 58,
+        "lightning": {
+          "active": false,
+          "power": 0,
+          "color": null
+        },
         "quality": "full",
         "waveCount": 2,
         "plane": "z=0"
@@ -1951,6 +2061,11 @@
         ],
         "ringScale": 1,
         "backgroundTime": 61,
+        "lightning": {
+          "active": false,
+          "power": 0,
+          "color": null
+        },
         "quality": "full",
         "waveCount": 2,
         "plane": "z=0"
@@ -2041,6 +2156,11 @@
         ],
         "ringScale": 1,
         "backgroundTime": 66,
+        "lightning": {
+          "active": false,
+          "power": 0,
+          "color": null
+        },
         "quality": "full",
         "waveCount": 0,
         "plane": "z=0"
@@ -2131,6 +2251,11 @@
         ],
         "ringScale": 1,
         "backgroundTime": 70,
+        "lightning": {
+          "active": false,
+          "power": 0,
+          "color": null
+        },
         "quality": "full",
         "waveCount": 0,
         "plane": "z=0"
@@ -2221,6 +2346,11 @@
         ],
         "ringScale": 1,
         "backgroundTime": 74,
+        "lightning": {
+          "active": false,
+          "power": 0,
+          "color": null
+        },
         "quality": "full",
         "waveCount": 2,
         "plane": "z=0"
@@ -2311,6 +2441,11 @@
         ],
         "ringScale": 1,
         "backgroundTime": 78,
+        "lightning": {
+          "active": false,
+          "power": 0,
+          "color": null
+        },
         "quality": "full",
         "waveCount": 2,
         "plane": "z=0"
@@ -2401,6 +2536,11 @@
         ],
         "ringScale": 1,
         "backgroundTime": 82,
+        "lightning": {
+          "active": false,
+          "power": 0,
+          "color": null
+        },
         "quality": "full",
         "waveCount": 2,
         "plane": "z=0"
@@ -2491,6 +2631,11 @@
         ],
         "ringScale": 1,
         "backgroundTime": 89,
+        "lightning": {
+          "active": false,
+          "power": 0,
+          "color": null
+        },
         "quality": "full",
         "waveCount": 0,
         "plane": "z=0"

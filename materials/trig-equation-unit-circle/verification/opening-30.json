@@ -1,0 +1,9 @@
+{
+  "result": "PASS",
+  "firstFrame": 0,
+  "endFrameExclusive": 72,
+  "renderedFrames": 72,
+  "duration": 30,
+  "frames": 720,
+  "reason": "Opening scene uses red, blue and gold 3D lightning with a stationary distant sky. Later scenes retain the previous edition."
+}
