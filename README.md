@@ -1,3 +1,15 @@
+# 教材ライブラリ
+
+## ▶ [教材ライブラリを開く](https://hakunou22hr.github.io/-/)
+
+## ⚡ [三角方程式と単位円を開く](https://hakunou22hr.github.io/-/materials/trig-equation-unit-circle/?v=unit-circle-cinema-v4)
+
+上のリンクを押すと、教材の再生画面が開きます。フォルダを開く必要はありません。
+
+[縦30秒版の動画を開く・保存する](https://hakunou22hr.github.io/-/media/trig-equation-unit-circle-30s.mp4?v=unit-circle-cinema-v4)
+
+---
+
 # COURTSIDE SCOREBOOK
 
 iPad 横向きでのタッチ入力を中心に設計した、バスケットボールのスコア・個人スタッツ・スコアシート・プレイバイプレイ統合 Web アプリです。得点、シュート試投、ファウル、タイムアウト等は単一のイベントログに保存し、全表示をそのログから再計算します。音声認識は補助機能で、利用できない環境でもすべて手入力できます。
