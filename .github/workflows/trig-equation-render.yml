@@ -1,6 +1,12 @@
 name: Render trigonometric equation cinema
 on:
   workflow_dispatch:
+  push:
+    branches: [fix/unit-circle-calm-background]
+    paths:
+      - materials/trig-equation-unit-circle/world.js
+      - materials/trig-equation-unit-circle/main.js
+      - .github/workflows/trig-equation-render.yml
 permissions:
   contents: read
 jobs:
