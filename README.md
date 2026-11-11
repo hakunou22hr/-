@@ -1,6 +1,6 @@
-# 教材ライブラリ
+# 数学教材ポータル
 
-## ▶ [教材ライブラリを開く](https://hakunou22hr.github.io/-/)
+## ▶ [数学教材ポータルを開く](https://hakunou22hr.github.io/-/)
 
 ## ⚡ [三角方程式と単位円を開く](https://hakunou22hr.github.io/-/materials/trig-equation-unit-circle/?v=unit-circle-cinema-v4)
 
