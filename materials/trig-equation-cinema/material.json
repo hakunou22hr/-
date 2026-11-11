@@ -1,0 +1,10 @@
+{
+  "id": "trig-equation-cinema",
+  "name": "三角方程式（cosθ）",
+  "subject": "数学Ⅰ",
+  "unit": "三角方程式（cosθ）／単位円／弧度法",
+  "description": "置き換え・因数分解から単位円へ。範囲外の解の崩壊と2つの交点を、90秒映画と操作できる3Dモデルでつなぐ。縦型30秒版付き。",
+  "thumbnail": "thumbnail.svg",
+  "durationSeconds": 90,
+  "version": "1.0.0"
+}

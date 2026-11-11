@@ -39,6 +39,9 @@ jobs:
       - name: Verify trig integral cinema
         run: npm run test:trig-cinema
 
+      - name: Verify trig equation mathematics
+        run: npx vitest run materials/trig-equation-cinema/tests/math.test.ts
+
       - name: Build
         run: npm run build
 
@@ -221,3 +224,28 @@ jobs:
         with:
           name: trig-equation-unit-circle-live-check
           path: work/trig-equation-live-check/
+
+  verify-trig-equation-cinema:
+    needs: deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: materials/trig-equation-cinema/tests
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Install playback browser
+        run: |
+          npm install --prefix /tmp/trig-equation-browser playwright@1.62.1
+          node /tmp/trig-equation-browser/node_modules/playwright/cli.js install --with-deps chromium
+      - name: Check films, controls and mobile layouts
+        env:
+          PLAYWRIGHT_MODULE_PATH: /tmp/trig-equation-browser/node_modules/playwright/index.mjs
+          APP_URL: https://hakunou22hr.github.io/-/materials/trig-equation-cinema/?v=1
+        run: node materials/trig-equation-cinema/tests/published.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: trig-equation-cinema-live-check
+          path: work/trig-equation-cinema/

@@ -1,0 +1,58 @@
+{
+  "trig-equation-90s.mp4": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1920,
+        "height": 1080,
+        "pix_fmt": "yuv420p",
+        "color_range": "tv",
+        "color_space": "bt709",
+        "r_frame_rate": "24/1",
+        "nb_read_frames": "2160",
+        "side_data_list": [
+          {}
+        ]
+      }
+    ],
+    "format": {
+      "duration": "90.000000",
+      "size": "82889675"
+    },
+    "sha256": "4c56fda26f442ab565be5f3df8184bb0985cfd9cce1f66e07686dbc1b0cc73fd",
+    "faststart": true,
+    "fullDecode": "passed",
+    "audio": false,
+    "nativeRenderingDPR": 1.5
+  },
+  "trig-equation-instagram-30s.mp4": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1080,
+        "height": 1920,
+        "pix_fmt": "yuv420p",
+        "color_range": "tv",
+        "color_space": "bt709",
+        "r_frame_rate": "24/1",
+        "nb_read_frames": "720",
+        "side_data_list": [
+          {}
+        ]
+      }
+    ],
+    "format": {
+      "duration": "30.000000",
+      "size": "26941630"
+    },
+    "sha256": "ab8fa438450d4b4e41287364bf316aa78e2692296f58ad5f045b7fedc16fbb46",
+    "faststart": true,
+    "fullDecode": "passed",
+    "audio": false,
+    "nativeRenderingDPR": 1.5
+  }
+}

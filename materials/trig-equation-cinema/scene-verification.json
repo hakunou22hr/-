@@ -1,0 +1,1520 @@
+[
+  {
+    "time": 3,
+    "ready": true,
+    "stage": 0,
+    "scene": 1,
+    "k": 2,
+    "theta": 60,
+    "point": [
+      0.5000000000000001,
+      0.8660254037844386
+    ],
+    "intersections": [],
+    "camera": [
+      0.17613711663754497,
+      0.25,
+      13.0625
+    ],
+    "projection": "perspective",
+    "rings": 48,
+    "ringStates": [
+      {
+        "position": [
+          0,
+          0,
+          -4
+        ],
+        "rotation": [
+          -0.09032699804231115,
+          0.3423108201534519,
+          0.33,
+          "XYZ"
+        ],
+        "scale": 3,
+        "opacity": 0.42
+      },
+      {
+        "position": [
+          0,
+          0,
+          -5.18
+        ],
+        "rotation": [
+          0.30461557753583535,
+          0.3054605776760129,
+          -0.1,
+          "XYZ"
+        ],
+        "scale": 3,
+        "opacity": 0.42
+      },
+      {
+        "position": [
+          0,
+          0,
+          -6.359999999999999
+        ],
+        "rotation": [
+          0.32380104834075796,
+          0.2413244515331114,
+          0.67,
+          "XYZ"
+        ],
+        "scale": 3,
+        "opacity": 0.42
+      },
+      {
+        "position": [
+          0,
+          0,
+          -7.54
+        ],
+        "rotation": [
+          0.30944953912180234,
+          0.1556315308595974,
+          0.24,
+          "XYZ"
+        ],
+        "scale": 3,
+        "opacity": 0.42
+      }
+    ],
+    "particleSplit": 0,
+    "shocks": 0,
+    "particleCount": 4200,
+    "rangeVisible": false,
+    "rangeDrawCount": 2,
+    "circleVisible": false,
+    "laserActualX": 2,
+    "laserOpacity": 1,
+    "shardsVisible": false,
+    "radiusVisible": false,
+    "actualRadiusPoint": [
+      0.5000000108372081,
+      0.8660254153338345
+    ],
+    "gridPulse": -1
+  },
+  {
+    "time": 6,
+    "ready": true,
+    "stage": 1,
+    "scene": 1,
+    "k": 2,
+    "theta": 60,
+    "point": [
+      0.5000000000000001,
+      0.8660254037844386
+    ],
+    "intersections": [],
+    "camera": [
+      0.32969233598573655,
+      0.25,
+      11
+    ],
+    "projection": "perspective",
+    "rings": 48,
+    "ringStates": [
+      {
+        "position": [
+          0,
+          0,
+          -4
+        ],
+        "rotation": [
+          -0.1754760867057635,
+          0.31958112910930786,
+          0.66,
+          "XYZ"
+        ],
+        "scale": 2.71875,
+        "opacity": 0.42
+      },
+      {
+        "position": [
+          0,
+          0,
+          -5.18
+        ],
+        "rotation": [
+          0.35814574473404504,
+          0.26313200519931323,
+          -0.37,
+          "XYZ"
+        ],
+        "scale": 2.71875,
+        "opacity": 0.42
+      },
+      {
+        "position": [
+          0,
+          0,
+          -6.359999999999999
+        ],
+        "rotation": [
+          0.26724617929615585,
+          0.18317808293807733,
+          1,
+          "XYZ"
+        ],
+        "scale": 2.71875,
+        "opacity": 0.42
+      },
+      {
+        "position": [
+          0,
+          0,
+          -7.54
+        ],
+        "rotation": [
+          0.2304523388837596,
+          0.0868614080783306,
+          -0.030000000000000027,
+          "XYZ"
+        ],
+        "scale": 2.71875,
+        "opacity": 0.42
+      }
+    ],
+    "particleSplit": 0,
+    "shocks": 0,
+    "particleCount": 4200,
+    "rangeVisible": false,
+    "rangeDrawCount": 2,
+    "circleVisible": false,
+    "laserActualX": 2,
+    "laserOpacity": 1,
+    "shardsVisible": false,
+    "radiusVisible": false,
+    "actualRadiusPoint": [
+      0.5000000108372081,
+      0.8660254153338345
+    ],
+    "gridPulse": -1
+  },
+  {
+    "time": 10,
+    "ready": true,
+    "stage": 2,
+    "scene": 1,
+    "k": 2,
+    "theta": 60,
+    "point": [
+      0.5000000000000001,
+      0.8660254037844386
+    ],
+    "intersections": [],
+    "camera": [
+      0.46601954298361314,
+      0.25,
+      8.444444444444443
+    ],
+    "projection": "perspective",
+    "rings": 48,
+    "ringStates": [
+      {
+        "position": [
+          0,
+          0,
+          -4
+        ],
+        "rotation": [
+          -0.2725953145418187,
+          0.2676947655495709,
+          1.1,
+          "XYZ"
+        ],
+        "scale": 1.48125,
+        "opacity": 0.42
+      },
+      {
+        "position": [
+          0,
+          0,
+          -5.18
+        ],
+        "rotation": [
+          0.3793342302635003,
+          0.1891058070538489,
+          -0.7299999999999999,
+          "XYZ"
+        ],
+        "scale": 1.48125,
+        "opacity": 0.42
+      },
+      {
+        "position": [
+          0,
+          0,
+          -6.359999999999999
+        ],
+        "rotation": [
+          0.1687002806468975,
+          0.09362459001860557,
+          1.4400000000000002,
+          "XYZ"
+        ],
+        "scale": 1.48125,
+        "opacity": 0.42
+      },
+      {
+        "position": [
+          0,
+          0,
+          -7.54
+        ],
+        "rotation": [
+          0.09459977893579798,
+          -0.010219832805451084,
+          -0.3899999999999999,
+          "XYZ"
+        ],
+        "scale": 1.48125,
+        "opacity": 0.42
+      }
+    ],
+    "particleSplit": 0,
+    "shocks": 0,
+    "particleCount": 4200,
+    "rangeVisible": true,
+    "rangeDrawCount": 256,
+    "circleVisible": false,
+    "laserActualX": 2,
+    "laserOpacity": 1,
+    "shardsVisible": false,
+    "radiusVisible": false,
+    "actualRadiusPoint": [
+      0.5000000108372081,
+      0.8660254153338345
+    ],
+    "gridPulse": -1
+  },
+  {
+    "time": 16,
+    "ready": true,
+    "stage": 3,
+    "scene": 2,
+    "k": 2,
+    "theta": 60,
+    "point": [
+      0.5000000000000001,
+      0.8660254037844386
+    ],
+    "intersections": [],
+    "camera": [
+      3.1790552251304103,
+      0.5,
+      8
+    ],
+    "projection": "perspective",
+    "rings": 48,
+    "ringStates": [
+      {
+        "position": [
+          -3.3,
+          0,
+          -4
+        ],
+        "rotation": [
+          -0.36404602690990545,
+          0.15248885619684924,
+          1.76,
+          "XYZ"
+        ],
+        "scale": 1.6,
+        "opacity": 0.38000000010093204
+      },
+      {
+        "position": [
+          3.3,
+          0,
+          -5.18
+        ],
+        "rotation": [
+          0.3003824844899618,
+          0.052578914469089966,
+          -1.27,
+          "XYZ"
+        ],
+        "scale": 1.6,
+        "opacity": 0.38000000010093204
+      },
+      {
+        "position": [
+          -3.3,
+          0,
+          -6.359999999999999
+        ],
+        "rotation": [
+          -0.007599493343466577,
+          -0.05202774509497735,
+          2.1,
+          "XYZ"
+        ],
+        "scale": 1.6,
+        "opacity": 0.38000000010093204
+      },
+      {
+        "position": [
+          3.3,
+          0,
+          -7.54
+        ],
+        "rotation": [
+          -0.12973248559319198,
+          -0.15198692114140516,
+          -0.9299999999999999,
+          "XYZ"
+        ],
+        "scale": 1.6,
+        "opacity": 0.38000000010093204
+      }
+    ],
+    "particleSplit": 1,
+    "shocks": 0,
+    "particleCount": 4200,
+    "rangeVisible": false,
+    "rangeDrawCount": 256,
+    "circleVisible": false,
+    "laserActualX": 2,
+    "laserOpacity": 1,
+    "shardsVisible": false,
+    "radiusVisible": false,
+    "actualRadiusPoint": [
+      0.5000000108372081,
+      0.8660254153338345
+    ],
+    "gridPulse": -1
+  },
+  {
+    "time": 23,
+    "ready": true,
+    "stage": 5,
+    "scene": 2,
+    "k": 2,
+    "theta": 60,
+    "point": [
+      0.5000000000000001,
+      0.8660254037844386
+    ],
+    "intersections": [],
+    "camera": [
+      -2.798145144038432,
+      0.5,
+      8
+    ],
+    "projection": "perspective",
+    "rings": 48,
+    "ringStates": [
+      {
+        "position": [
+          -3.3,
+          0,
+          -4
+        ],
+        "rotation": [
+          -0.3663135385379303,
+          -0.013717771120545697,
+          2.53,
+          "XYZ"
+        ],
+        "scale": 1.6,
+        "opacity": 0.39687938315525156
+      },
+      {
+        "position": [
+          3.3,
+          0,
+          -5.18
+        ],
+        "rotation": [
+          0.07980657371534168,
+          -0.11645768598829587,
+          -1.9,
+          "XYZ"
+        ],
+        "scale": 1.6,
+        "opacity": 0.39687938315525156
+      },
+      {
+        "position": [
+          -3.3,
+          0,
+          -6.359999999999999
+        ],
+        "rotation": [
+          -0.20824909598091199,
+          -0.20879478260695594,
+          2.8699999999999997,
+          "XYZ"
+        ],
+        "scale": 1.6,
+        "opacity": 0.39687938315525156
+      },
+      {
+        "position": [
+          3.3,
+          0,
+          -7.54
+        ],
+        "rotation": [
+          -0.3293192736440888,
+          -0.28248086313865106,
+          -1.5599999999999998,
+          "XYZ"
+        ],
+        "scale": 1.6,
+        "opacity": 0.39687938315525156
+      }
+    ],
+    "particleSplit": 1,
+    "shocks": 0,
+    "particleCount": 4200,
+    "rangeVisible": false,
+    "rangeDrawCount": 256,
+    "circleVisible": false,
+    "laserActualX": 2,
+    "laserOpacity": 1,
+    "shardsVisible": false,
+    "radiusVisible": false,
+    "actualRadiusPoint": [
+      0.5000000108372081,
+      0.8660254153338345
+    ],
+    "gridPulse": -1
+  },
+  {
+    "time": 29,
+    "ready": true,
+    "stage": 6,
+    "scene": 3,
+    "k": 2,
+    "theta": 60,
+    "point": [
+      0.5000000000000001,
+      0.8660254037844386
+    ],
+    "intersections": [],
+    "camera": [
+      1.5,
+      1,
+      11.5
+    ],
+    "projection": "perspective",
+    "rings": 8,
+    "ringStates": [
+      {
+        "position": [
+          0,
+          0,
+          -8
+        ],
+        "rotation": [
+          -0.27824794873149555,
+          -0.15513204548299825,
+          3.19,
+          "XYZ"
+        ],
+        "scale": 3,
+        "opacity": 0.085
+      },
+      {
+        "position": [
+          0,
+          0,
+          -10.5
+        ],
+        "rotation": [
+          -0.14391165205501927,
+          -0.24092040713973342,
+          -2.44,
+          "XYZ"
+        ],
+        "scale": 3.35,
+        "opacity": 0.1
+      },
+      {
+        "position": [
+          0,
+          0,
+          -13
+        ],
+        "rotation": [
+          -0.3314950832910947,
+          -0.30518806634817086,
+          3.53,
+          "XYZ"
+        ],
+        "scale": 3.7,
+        "opacity": 0.085
+      },
+      {
+        "position": [
+          0,
+          0,
+          -15.5
+        ],
+        "rotation": [
+          -0.3788561149832724,
+          -0.3421941845164546,
+          -2.0999999999999996,
+          "XYZ"
+        ],
+        "scale": 4.05,
+        "opacity": 0.1
+      }
+    ],
+    "particleSplit": 0,
+    "shocks": 0,
+    "particleCount": 4200,
+    "rangeVisible": false,
+    "rangeDrawCount": 256,
+    "circleVisible": true,
+    "laserActualX": 2,
+    "laserOpacity": 1,
+    "shardsVisible": false,
+    "radiusVisible": false,
+    "actualRadiusPoint": [
+      0.5000000108372081,
+      0.8660254153338345
+    ],
+    "gridPulse": -1
+  },
+  {
+    "time": 37,
+    "ready": true,
+    "stage": 7,
+    "scene": 3,
+    "k": 2,
+    "theta": 60,
+    "point": [
+      0.5000000000000001,
+      0.8660254037844386
+    ],
+    "intersections": [],
+    "camera": [
+      1.5,
+      1,
+      14
+    ],
+    "projection": "perspective",
+    "rings": 8,
+    "ringStates": [
+      {
+        "position": [
+          0,
+          0,
+          -8
+        ],
+        "rotation": [
+          -0.0686265817998085,
+          -0.29809184352029805,
+          4.07,
+          "XYZ"
+        ],
+        "scale": 3,
+        "opacity": 0.085
+      },
+      {
+        "position": [
+          0,
+          0,
+          -10.5
+        ],
+        "rotation": [
+          -0.3525548285650527,
+          -0.3389810074799563,
+          -3.16,
+          "XYZ"
+        ],
+        "scale": 0.5234375,
+        "opacity": 0.015625
+      },
+      {
+        "position": [
+          0,
+          0,
+          -13
+        ],
+        "rotation": [
+          -0.37683262797193806,
+          -0.3495900076120265,
+          4.41,
+          "XYZ"
+        ],
+        "scale": 3.7,
+        "opacity": 0.085
+      },
+      {
+        "position": [
+          0,
+          0,
+          -15.5
+        ],
+        "rotation": [
+          -0.24281642964472502,
+          -0.32897117353097827,
+          -2.8200000000000003,
+          "XYZ"
+        ],
+        "scale": 0.6328125,
+        "opacity": 0.015625
+      }
+    ],
+    "particleSplit": 0,
+    "shocks": 0,
+    "particleCount": 4200,
+    "rangeVisible": false,
+    "rangeDrawCount": 256,
+    "circleVisible": true,
+    "laserActualX": 2,
+    "laserOpacity": 0.5,
+    "shardsVisible": true,
+    "radiusVisible": false,
+    "actualRadiusPoint": [
+      0.5000000108372081,
+      0.8660254153338345
+    ],
+    "gridPulse": -1
+  },
+  {
+    "time": 45,
+    "ready": true,
+    "stage": 8,
+    "scene": 4,
+    "k": 1.25,
+    "theta": 60,
+    "point": [
+      0.5000000000000001,
+      0.8660254037844386
+    ],
+    "intersections": [],
+    "camera": [
+      0,
+      0,
+      10
+    ],
+    "projection": "perspective",
+    "rings": 4,
+    "ringStates": [
+      {
+        "position": [
+          0,
+          0,
+          -8
+        ],
+        "rotation": [
+          0.16815776845204394,
+          -0.34998763046496967,
+          4.95,
+          "XYZ"
+        ],
+        "scale": 3,
+        "opacity": 0.085
+      },
+      {
+        "position": [
+          0,
+          0,
+          -10.5
+        ],
+        "rotation": [
+          -0.34734297689300464,
+          -0.3334863751080066,
+          -3.88,
+          "XYZ"
+        ],
+        "scale": 0.00335,
+        "opacity": 0
+      },
+      {
+        "position": [
+          0,
+          0,
+          -13
+        ],
+        "rotation": [
+          -0.273016621366268,
+          -0.28719577506884614,
+          5.29,
+          "XYZ"
+        ],
+        "scale": 3.7,
+        "opacity": 0.085
+      },
+      {
+        "position": [
+          0,
+          0,
+          -15.5
+        ],
+        "rotation": [
+          0.04051244363686495,
+          -0.2152508317839508,
+          -3.54,
+          "XYZ"
+        ],
+        "scale": 0.00405,
+        "opacity": 0
+      }
+    ],
+    "particleSplit": 0,
+    "shocks": 0,
+    "particleCount": 4200,
+    "rangeVisible": false,
+    "rangeDrawCount": 256,
+    "circleVisible": true,
+    "laserActualX": 1.25,
+    "laserOpacity": 1,
+    "shardsVisible": false,
+    "radiusVisible": false,
+    "actualRadiusPoint": [
+      0.5000000108372081,
+      0.8660254153338345
+    ],
+    "gridPulse": -1
+  },
+  {
+    "time": 48.8,
+    "ready": true,
+    "stage": 8,
+    "scene": 4,
+    "k": 0.5,
+    "theta": 60,
+    "point": [
+      0.5000000000000001,
+      0.8660254037844386
+    ],
+    "intersections": [
+      [
+        0.5,
+        0.8660254037844386
+      ],
+      [
+        0.5,
+        -0.8660254037844386
+      ]
+    ],
+    "camera": [
+      0,
+      0,
+      10
+    ],
+    "projection": "perspective",
+    "rings": 4,
+    "ringStates": [
+      {
+        "position": [
+          0,
+          0,
+          -8
+        ],
+        "rotation": [
+          0.2624524638435148,
+          -0.3369050866529327,
+          5.367999999999999,
+          "XYZ"
+        ],
+        "scale": 3,
+        "opacity": 0.085
+      },
+      {
+        "position": [
+          0,
+          0,
+          -10.5
+        ],
+        "rotation": [
+          -0.26539901830216117,
+          -0.2938300612325801,
+          -4.2219999999999995,
+          "XYZ"
+        ],
+        "scale": 0.00335,
+        "opacity": 0
+      },
+      {
+        "position": [
+          0,
+          0,
+          -13
+        ],
+        "rotation": [
+          -0.18137837235751872,
+          -0.22450807154205704,
+          5.707999999999999,
+          "XYZ"
+        ],
+        "scale": 3.7,
+        "opacity": 0.085
+      },
+      {
+        "position": [
+          0,
+          0,
+          -15.5
+        ],
+        "rotation": [
+          0.17776894159926174,
+          -0.13513144446211833,
+          -3.8819999999999997,
+          "XYZ"
+        ],
+        "scale": 0.00405,
+        "opacity": 0
+      }
+    ],
+    "particleSplit": 0,
+    "shocks": 2,
+    "particleCount": 4200,
+    "rangeVisible": false,
+    "rangeDrawCount": 256,
+    "circleVisible": true,
+    "laserActualX": 0.5,
+    "laserOpacity": 1,
+    "shardsVisible": false,
+    "radiusVisible": false,
+    "actualRadiusPoint": [
+      0.5000000108372081,
+      0.8660254153338345
+    ],
+    "gridPulse": 0.7999999999999972
+  },
+  {
+    "time": 53,
+    "ready": true,
+    "stage": 9,
+    "scene": 4,
+    "k": 0.5,
+    "theta": 60,
+    "point": [
+      0.5000000000000001,
+      0.8660254037844386
+    ],
+    "intersections": [
+      [
+        0.5,
+        0.8660254037844386
+      ],
+      [
+        0.5,
+        -0.8660254037844386
+      ]
+    ],
+    "camera": [
+      2.5925925925925926,
+      1.3333333333333333,
+      10
+    ],
+    "projection": "perspective",
+    "rings": 4,
+    "ringStates": [
+      {
+        "position": [
+          0,
+          0,
+          -8
+        ],
+        "rotation": [
+          0.3383838472611556,
+          -0.2949657738855426,
+          5.83,
+          "XYZ"
+        ],
+        "scale": 3,
+        "opacity": 0.085
+      },
+      {
+        "position": [
+          0,
+          0,
+          -10.5
+        ],
+        "rotation": [
+          -0.13143753632689464,
+          -0.2261150640472353,
+          -4.6,
+          "XYZ"
+        ],
+        "scale": 0.00335,
+        "opacity": 0
+      },
+      {
+        "position": [
+          0,
+          0,
+          -13
+        ],
+        "rotation": [
+          -0.06113831968763302,
+          -0.13706616896505214,
+          6.17,
+          "XYZ"
+        ],
+        "scale": 3.7,
+        "opacity": 0.085
+      },
+      {
+        "position": [
+          0,
+          0,
+          -15.5
+        ],
+        "rotation": [
+          0.29926701223243035,
+          -0.03577356122670472,
+          -4.26,
+          "XYZ"
+        ],
+        "scale": 0.00405,
+        "opacity": 0
+      }
+    ],
+    "particleSplit": 0,
+    "shocks": 0,
+    "particleCount": 4200,
+    "rangeVisible": false,
+    "rangeDrawCount": 256,
+    "circleVisible": true,
+    "laserActualX": 0.5,
+    "laserOpacity": 1,
+    "shardsVisible": false,
+    "radiusVisible": true,
+    "actualRadiusPoint": [
+      0.5000000108372081,
+      0.8660254153338345
+    ],
+    "gridPulse": 5
+  },
+  {
+    "time": 60,
+    "ready": true,
+    "stage": 10,
+    "scene": 4,
+    "k": 0.5,
+    "theta": 180,
+    "point": [
+      -1,
+      0
+    ],
+    "intersections": [
+      [
+        0.5,
+        0.8660254037844386
+      ],
+      [
+        0.5,
+        -0.8660254037844386
+      ]
+    ],
+    "camera": [
+      3.5,
+      1.8,
+      10
+    ],
+    "projection": "perspective",
+    "rings": 4,
+    "ringStates": [
+      {
+        "position": [
+          0,
+          0,
+          -8
+        ],
+        "rotation": [
+          0.37854255135761944,
+          -0.1715912874692448,
+          6.6,
+          "XYZ"
+        ],
+        "scale": 3,
+        "opacity": 0.085
+      },
+      {
+        "position": [
+          0,
+          0,
+          -10.5
+        ],
+        "rotation": [
+          0.12916347528103483,
+          -0.07377852980077289,
+          -5.2299999999999995,
+          "XYZ"
+        ],
+        "scale": 0.00335,
+        "opacity": 0
+      },
+      {
+        "position": [
+          0,
+          0,
+          -13
+        ],
+        "rotation": [
+          0.1474213488178575,
+          0.03062464420380624,
+          6.9399999999999995,
+          "XYZ"
+        ],
+        "scale": 3.7,
+        "opacity": 0.085
+      },
+      {
+        "position": [
+          0,
+          0,
+          -15.5
+        ],
+        "rotation": [
+          0.37975353533576045,
+          0.13229220994954308,
+          -4.89,
+          "XYZ"
+        ],
+        "scale": 0.00405,
+        "opacity": 0
+      }
+    ],
+    "particleSplit": 0,
+    "shocks": 0,
+    "particleCount": 4200,
+    "rangeVisible": false,
+    "rangeDrawCount": 256,
+    "circleVisible": true,
+    "laserActualX": 0.5,
+    "laserOpacity": 1,
+    "shardsVisible": false,
+    "radiusVisible": true,
+    "actualRadiusPoint": [
+      -1.0000000216744163,
+      0
+    ],
+    "gridPulse": -1
+  },
+  {
+    "time": 65,
+    "ready": true,
+    "stage": 11,
+    "scene": 4,
+    "k": 0.5,
+    "theta": 300,
+    "point": [
+      0.5000000000000001,
+      -0.8660254037844386
+    ],
+    "intersections": [
+      [
+        0.5,
+        0.8660254037844386
+      ],
+      [
+        0.5,
+        -0.8660254037844386
+      ]
+    ],
+    "camera": [
+      1.75,
+      0.9,
+      10
+    ],
+    "projection": "perspective",
+    "rings": 4,
+    "ringStates": [
+      {
+        "position": [
+          0,
+          0,
+          -8
+        ],
+        "rotation": [
+          0.3357127691736582,
+          -0.05658667572378996,
+          7.15,
+          "XYZ"
+        ],
+        "scale": 3,
+        "opacity": 0.085
+      },
+      {
+        "position": [
+          0,
+          0,
+          -10.5
+        ],
+        "rotation": [
+          0.28468625236604195,
+          0.04801198923531785,
+          -5.68,
+          "XYZ"
+        ],
+        "scale": 0.00335,
+        "opacity": 0
+      },
+      {
+        "position": [
+          0,
+          0,
+          -13
+        ],
+        "rotation": [
+          0.27217331626710894,
+          0.14832188618779987,
+          7.49,
+          "XYZ"
+        ],
+        "scale": 3.7,
+        "opacity": 0.085
+      },
+      {
+        "position": [
+          0,
+          0,
+          -15.5
+        ],
+        "rotation": [
+          0.32670461182713034,
+          0.23538263078696328,
+          -5.34,
+          "XYZ"
+        ],
+        "scale": 0.00405,
+        "opacity": 0
+      }
+    ],
+    "particleSplit": 0,
+    "shocks": 0,
+    "particleCount": 4200,
+    "rangeVisible": false,
+    "rangeDrawCount": 256,
+    "circleVisible": true,
+    "laserActualX": 0.5,
+    "laserOpacity": 1,
+    "shardsVisible": false,
+    "radiusVisible": true,
+    "actualRadiusPoint": [
+      0.5000000108372081,
+      -0.8660254153338345
+    ],
+    "gridPulse": -1
+  },
+  {
+    "time": 73,
+    "ready": true,
+    "stage": 12,
+    "scene": 5,
+    "k": 0.5,
+    "theta": 128.57142857142858,
+    "point": [
+      -0.6234898018587338,
+      0.7818314824680296
+    ],
+    "intersections": [
+      [
+        0.5,
+        0.8660254037844386
+      ],
+      [
+        0.5,
+        -0.8660254037844386
+      ]
+    ],
+    "camera": [
+      0,
+      0,
+      10
+    ],
+    "projection": "perspective",
+    "rings": 4,
+    "ringStates": [
+      {
+        "position": [
+          0,
+          0,
+          -8
+        ],
+        "rotation": [
+          0.16295130030669044,
+          0.13552589277672802,
+          8.03,
+          "XYZ"
+        ],
+        "scale": 3,
+        "opacity": 0.085
+      },
+      {
+        "position": [
+          0,
+          0,
+          -10.5
+        ],
+        "rotation": [
+          0.3789025581685015,
+          0.22483603017589504,
+          -6.3999999999999995,
+          "XYZ"
+        ],
+        "scale": 0.00335,
+        "opacity": 0
+      },
+      {
+        "position": [
+          0,
+          0,
+          -13
+        ],
+        "rotation": [
+          0.37667476099986147,
+          0.29406223461762876,
+          8.37,
+          "XYZ"
+        ],
+        "scale": 3.7,
+        "opacity": 0.085
+      },
+      {
+        "position": [
+          0,
+          0,
+          -15.5
+        ],
+        "rotation": [
+          0.08839827650656476,
+          0.33702073543217637,
+          -6.06,
+          "XYZ"
+        ],
+        "scale": 0.00405,
+        "opacity": 0
+      }
+    ],
+    "particleSplit": 0,
+    "shocks": 0,
+    "particleCount": 4200,
+    "rangeVisible": false,
+    "rangeDrawCount": 256,
+    "circleVisible": true,
+    "laserActualX": 0.5,
+    "laserOpacity": 1,
+    "shardsVisible": false,
+    "radiusVisible": true,
+    "actualRadiusPoint": [
+      -0.6234897808595137,
+      0.7818314704028042
+    ],
+    "gridPulse": -1
+  },
+  {
+    "time": 80,
+    "ready": true,
+    "stage": 13,
+    "scene": 5,
+    "k": 0.5,
+    "theta": 308.57142857142856,
+    "point": [
+      0.6234898018587334,
+      -0.7818314824680299
+    ],
+    "intersections": [
+      [
+        0.5,
+        0.8660254037844386
+      ],
+      [
+        0.5,
+        -0.8660254037844386
+      ]
+    ],
+    "camera": [
+      0,
+      0,
+      10
+    ],
+    "projection": "perspective",
+    "rings": 4,
+    "ringStates": [
+      {
+        "position": [
+          0,
+          0,
+          -8
+        ],
+        "rotation": [
+          -0.044288697843187584,
+          0.2714480574785875,
+          8.8,
+          "XYZ"
+        ],
+        "scale": 3,
+        "opacity": 0.085
+      },
+      {
+        "position": [
+          0,
+          0,
+          -10.5
+        ],
+        "rotation": [
+          0.27120907672639294,
+          0.32461745076041254,
+          -7.029999999999999,
+          "XYZ"
+        ],
+        "scale": 0.00335,
+        "opacity": 0
+      },
+      {
+        "position": [
+          0,
+          0,
+          -13
+        ],
+        "rotation": [
+          0.3457844394034499,
+          0.3487897339581261,
+          9.14,
+          "XYZ"
+        ],
+        "scale": 3.7,
+        "opacity": 0.085
+      },
+      {
+        "position": [
+          0,
+          0,
+          -15.5
+        ],
+        "rotation": [
+          -0.1704760764602651,
+          0.3418056690048082,
+          -6.6899999999999995,
+          "XYZ"
+        ],
+        "scale": 0.00405,
+        "opacity": 0
+      }
+    ],
+    "particleSplit": 0,
+    "shocks": 0,
+    "particleCount": 4200,
+    "rangeVisible": false,
+    "rangeDrawCount": 256,
+    "circleVisible": true,
+    "laserActualX": 0.5,
+    "laserOpacity": 1,
+    "shardsVisible": false,
+    "radiusVisible": true,
+    "actualRadiusPoint": [
+      0.6234897808595137,
+      -0.7818314704028042
+    ],
+    "gridPulse": -1
+  },
+  {
+    "time": 87,
+    "ready": true,
+    "stage": 14,
+    "scene": 5,
+    "k": 0.5,
+    "theta": 360,
+    "point": [
+      1,
+      0
+    ],
+    "intersections": [
+      [
+        0.5,
+        0.8660254037844386
+      ],
+      [
+        0.5,
+        -0.8660254037844386
+      ]
+    ],
+    "camera": [
+      0,
+      0,
+      10.63
+    ],
+    "projection": "perspective",
+    "rings": 4,
+    "ringStates": [
+      {
+        "position": [
+          0,
+          0,
+          -8
+        ],
+        "rotation": [
+          -0.23799895152222922,
+          0.34348918826176533,
+          9.57,
+          "XYZ"
+        ],
+        "scale": 3,
+        "opacity": 0.085
+      },
+      {
+        "position": [
+          0,
+          0,
+          -10.5
+        ],
+        "rotation": [
+          0.03596172874114015,
+          0.34800525639243524,
+          -7.66,
+          "XYZ"
+        ],
+        "scale": 0.00335,
+        "opacity": 0
+      },
+      {
+        "position": [
+          0,
+          0,
+          -13
+        ],
+        "rotation": [
+          0.2092605061871023,
+          0.3214350514166455,
+          9.91,
+          "XYZ"
+        ],
+        "scale": 3.7,
+        "opacity": 0.085
+      },
+      {
+        "position": [
+          0,
+          0,
+          -15.5
+        ],
+        "rotation": [
+          -0.3491728669056589,
+          0.2661520106121384,
+          -7.32,
+          "XYZ"
+        ],
+        "scale": 0.00405,
+        "opacity": 0
+      }
+    ],
+    "particleSplit": 0,
+    "shocks": 0,
+    "particleCount": 4200,
+    "rangeVisible": false,
+    "rangeDrawCount": 256,
+    "circleVisible": true,
+    "laserActualX": 0.5,
+    "laserOpacity": 1,
+    "shardsVisible": false,
+    "radiusVisible": true,
+    "actualRadiusPoint": [
+      1.0000000216744163,
+      0
+    ],
+    "gridPulse": -1
+  }
+]
