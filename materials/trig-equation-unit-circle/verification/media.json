@@ -8,8 +8,8 @@
       "frames": 720,
       "fps": "24/1",
       "codec": "h264",
-      "bytes": 46169829,
-      "sha256": "1606ab65705fe16ffdf2ed130db7777dae915df6f00b7e41f02a6220c1410340",
+      "bytes": 28748539,
+      "sha256": "048016cd473fac26d6267c5b7713c4087e0d71bf68b71b1f509ffb07d6c3b498",
       "fullDecode": "PASS"
     },
     {
@@ -19,8 +19,8 @@
       "frames": 2160,
       "fps": "24/1",
       "codec": "h264",
-      "bytes": 85121949,
-      "sha256": "3a3485e1cde195d39b9e5d04b0919695fd09887668e65bfe67e69ebe39c0c85d",
+      "bytes": 86310907,
+      "sha256": "4799abf0c586baf239184fc4d279c44d1bfbe2fd432a8148f7ede5e48e55340e",
       "fullDecode": "PASS"
     }
   ]

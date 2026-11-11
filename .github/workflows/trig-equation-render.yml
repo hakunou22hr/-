@@ -1,12 +1,6 @@
 name: Render trigonometric equation cinema
 on:
   workflow_dispatch:
-  push:
-    branches: [fix/unit-circle-calm-background]
-    paths:
-      - materials/trig-equation-unit-circle/world.js
-      - materials/trig-equation-unit-circle/main.js
-      - .github/workflows/trig-equation-render.yml
 permissions:
   contents: read
 jobs:
@@ -60,7 +54,8 @@ jobs:
         with:
           ref: ${{ github.ref_name }}
           sparse-checkout: |
-            /public/media/
+            /public/media/trig-equation-unit-circle-90s.mp4
+            /public/media/trig-equation-unit-circle-30s.mp4
           sparse-checkout-cone-mode: false
       - uses: actions/download-artifact@v4
         with:
