@@ -30,6 +30,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: { portal: resolve(root, 'index.html'), ...materialPages, ...appPages,
+        'trig-equation-preview': resolve(root, 'materials/trig-equation-unit-circle/verification/index.html'),
         'radian-cinema-preview': resolve(root, 'materials/birth-of-radian/verification/cinema/index.html'),
         'radian-cinema-render': resolve(root, 'materials/birth-of-radian/cinema.html'),
         'radian-legacy': resolve(root, 'materials/birth-of-radian/legacy.html'),

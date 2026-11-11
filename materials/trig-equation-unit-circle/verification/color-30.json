@@ -1,0 +1,9 @@
+{
+  "result": "PASS",
+  "firstFrame": 408,
+  "endFrameExclusive": 459,
+  "renderedFrames": 51,
+  "duration": 30,
+  "frames": 720,
+  "reason": "Scene 4 uses red from its first frame and a caption that does not imply the two points always move closer; the rest is the same deterministic movie."
+}

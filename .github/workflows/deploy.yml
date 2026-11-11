@@ -196,3 +196,28 @@ jobs:
         with:
           name: arc-length-cinema-live-check
           path: work/arc-length-cinema/
+
+  verify-trig-equation-unit-circle:
+    needs: deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            /scripts/verify-trig-equation-playback.mjs
+            /materials/trig-equation-unit-circle/verification/media.json
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Install trigonometric equation browser
+        run: |
+          npm install --prefix /tmp/trig-equation-browser-tools playwright@1.62.1
+          node /tmp/trig-equation-browser-tools/node_modules/playwright/cli.js install --with-deps chromium
+      - name: Verify published movies and inquiry controls
+        run: node scripts/verify-trig-equation-playback.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: trig-equation-unit-circle-live-check
+          path: work/trig-equation-live-check/
