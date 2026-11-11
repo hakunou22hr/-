@@ -76,5 +76,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add --sparse public/media/trig-equation-unit-circle-90s.mp4
-          git commit -m 'Render verified 90-second trigonometric equation movie'
-          git push origin HEAD:feat/trig-equation-unit-circle
+          if ! git diff --cached --quiet; then
+            git commit -m 'Render verified 90-second trigonometric equation movie'
+            git push origin HEAD:feat/trig-equation-unit-circle
+          fi

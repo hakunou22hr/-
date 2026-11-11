@@ -1,0 +1,27 @@
+{
+  "result": "PASS",
+  "videos": [
+    {
+      "duration": 30,
+      "width": 1080,
+      "height": 1920,
+      "frames": 720,
+      "fps": "24/1",
+      "codec": "h264",
+      "bytes": 46169829,
+      "sha256": "1606ab65705fe16ffdf2ed130db7777dae915df6f00b7e41f02a6220c1410340",
+      "fullDecode": "PASS"
+    },
+    {
+      "duration": 90,
+      "width": 1920,
+      "height": 1080,
+      "frames": 2160,
+      "fps": "24/1",
+      "codec": "h264",
+      "bytes": 85121949,
+      "sha256": "3a3485e1cde195d39b9e5d04b0919695fd09887668e65bfe67e69ebe39c0c85d",
+      "fullDecode": "PASS"
+    }
+  ]
+}
