@@ -44,10 +44,14 @@ export class World{
   this.lightning=new T.Group();this.scene.add(this.lightning);this.bolts=[];
   const boltColors=[COLORS.blue,COLORS.red,COLORS.gold];
   for(let j=0;j<6;j++){const group=new T.Group(),side=j%2?1:-1,color=boltColors[j%3],points=[];const noise=i=>Math.sin(i*127.1+j*311.7)*Math.cos(i*53.3+j*17.1);
-   for(let i=0;i<=22;i++)points.push(new T.Vector3(side*(5.6+j%3*.9)+noise(i)*1.1,11-i*.77,-15-j%3*3+noise(i+40)*.5));
-   const material=basic(color);material.color.multiplyScalar(2.2);group.add(new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(points,false,'catmullrom',0),88,.032,5,false),material));
-   const branches=[];for(const k of[5,10,15]){let q=points[k].clone();for(let i=1;i<=5;i++){const next=q.clone().add(new T.Vector3(side*(.4+Math.abs(noise(k+i))*.6),-.5,noise(k+i+70)*.3));branches.push(q.toArray(),next.toArray());q=next;}}
-   const fork=segments(branches,color,1);fork.material.color.multiplyScalar(2.8);group.add(fork);const cloud=new T.Sprite(new T.SpriteMaterial({map:this.texture,color,transparent:true,depthWrite:false,blending:T.AdditiveBlending}));cloud.position.copy(points[9]);cloud.scale.set(11,15,1);group.add(cloud);this.lightning.add(group);this.bolts.push({group,material,fork,cloud,color});
+   for(let i=0;i<=60;i++){const u=i/60,coarse=Math.floor(i/3);points.push(new T.Vector3(side*(5.6+j%3*.9)+noise(coarse)*.78+noise(i+99)*.19,11-u*16.94+noise(i+71)*.09,-15-j%3*3+noise(coarse+40)*.45));}
+   const layers=[];
+   const channel=(path,radius,tint,opacity,glow=false)=>{const curve=new T.CatmullRomCurve3(path,false,'catmullrom',.08),g=new T.TubeGeometry(curve,path.length*2,radius,6,false),v=g.attributes.position;for(let n=0;n<v.count;n++){const u=Math.floor(n/7)/(path.length*2),c=curve.getPointAt(u),q=new T.Vector3().fromBufferAttribute(v,n).sub(c),taper=(1-u*.62)*(.87+.13*Math.sin(u*97+j));q.multiplyScalar(taper).add(c);v.setXYZ(n,q.x,q.y,q.z);}g.computeVertexNormals();const m=basic(tint,opacity);m.transparent=true;m.depthWrite=false;if(glow)m.blending=T.AdditiveBlending;m.color.multiplyScalar(glow?2.6:1.25);const mesh=new T.Mesh(g,m);group.add(mesh);layers.push({material:m,opacity});return m;};
+   // A thick, irregular hot white channel inside colored ionized air.
+   channel(points,.32,color,.10,true);channel(points,.16,color,.48,true);const material=channel(points,.088,0xfffbef,1);
+   const branches=[];for(let k=5;k<55;k+=5){const path=[points[k].clone()],direction=k%2?side:-side,steps=4+k%4;for(let i=1;i<=steps;i++){const next=path.at(-1).clone().add(new T.Vector3(direction*(.25+Math.abs(noise(k+i))*.65),-.22-Math.abs(noise(k+i+10))*.45,noise(k+i+70)*.25));branches.push(path.at(-1).toArray(),next.toArray());path.push(next);}channel(path,.048,color,.5,true);channel(path,.025,0xfff8e8,.9);}
+   const fork=segments(branches,color,.35);fork.material.color.multiplyScalar(2);group.add(fork);
+   const cloud=new T.Sprite(new T.SpriteMaterial({map:this.texture,color,transparent:true,depthWrite:false,blending:T.AdditiveBlending}));cloud.position.copy(points[25]);cloud.scale.set(15,19,1);group.add(cloud);this.lightning.add(group);this.bolts.push({group,material,fork,cloud,color,layers});
   }
   this.thunderLight=new T.PointLight(COLORS.blue,0,85,2);this.thunderLight.position.set(0,5,-12);this.scene.add(this.thunderLight);
   this.formation=new T.Group();this.scene.add(this.formation);const fp=[],target=[];for(let i=0;i<650;i++){const a=i/650*TAU;fp.push((random()-.5)*25,(random()-.5)*17,-random()*30);target.push(R*Math.cos(a),R*Math.sin(a),0);}
@@ -71,7 +75,7 @@ export class World{
   const opening=!lab&&s.t<12,backgroundClock=opening?0:clock;
   this.lightning.visible=opening;this.lightningPower=0;this.lightningColor=null;
   const strikes=[.65,2.65,4.8,6.7,8.6,10.25];
-  this.bolts.forEach((bolt,i)=>{const age=s.t-strikes[i],power=opening&&age>=0?Math.exp(-age*5)*(1+.25*Math.cos(age*23)):0;bolt.group.visible=power>.018;bolt.material.transparent=true;bolt.material.opacity=Math.min(1,power);bolt.fork.material.opacity=Math.min(1,power*.85);bolt.cloud.material.opacity=power*.11;if(power>this.lightningPower){this.lightningPower=power;this.lightningColor=bolt.color;}});
+  this.bolts.forEach((bolt,i)=>{const age=s.t-strikes[i],power=opening&&age>=0?Math.exp(-age*5)*(1+.25*Math.cos(age*23)):0;bolt.group.visible=power>.018;bolt.material.transparent=true;bolt.layers.forEach(layer=>layer.material.opacity=Math.min(1,power)*layer.opacity);bolt.fork.material.opacity=Math.min(1,power*.85);bolt.cloud.material.opacity=power*.15;if(power>this.lightningPower){this.lightningPower=power;this.lightningColor=bolt.color;}});
   this.thunderLight.intensity=opening?this.lightningPower*110:0;if(this.lightningColor)this.thunderLight.color.set(this.lightningColor);
   // Hold the distant sky still during the storm; return smoothly by scene 2.
   if(opening){const settle=smooth((s.t-11)/1);this.camera.position.set(mix(0,s.camera[0],settle),mix(.6,s.camera[1],settle),mix(15,s.camera[2],settle));if(this.portrait)this.camera.position.multiplyScalar(1.47);this.camera.lookAt(...s.look);}
