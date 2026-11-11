@@ -79,13 +79,13 @@
           }
         ],
         "triangleVisible": false,
-        "ring": -0.15849555921538758,
+        "ring": 0.006,
         "ringCenter": [
           0,
-          0.035462424799360744,
-          -4.166059600327628
+          0,
+          -9.1
         ],
-        "ringScale": 1.00652050456179,
+        "ringScale": 1,
         "backgroundTime": 1,
         "quality": "full",
         "waveCount": 0,
@@ -169,13 +169,13 @@
           }
         ],
         "triangleVisible": false,
-        "ring": -0.03849555921538758,
+        "ring": 0.03,
         "ringCenter": [
           0,
-          0.11969939839248653,
-          -5.919940037303274
+          0,
+          -13.5
         ],
-        "ringScale": 0.9877392628465018,
+        "ringScale": 1,
         "backgroundTime": 5,
         "quality": "full",
         "waveCount": 0,
@@ -259,13 +259,13 @@
           }
         ],
         "triangleVisible": false,
-        "ring": 0.14665720593037734,
+        "ring": 0.048,
         "ringCenter": [
           0,
-          0.08105558166613812,
-          -4.347595849486243
+          0,
+          -16.8
         ],
-        "ringScale": 1.0175620013990911,
+        "ringScale": 1,
         "backgroundTime": 8,
         "quality": "full",
         "waveCount": 2,
@@ -349,13 +349,13 @@
           }
         ],
         "triangleVisible": false,
-        "ring": 0.39,
+        "ring": 0.078,
         "ringCenter": [
           0,
-          -0.08253193910207685,
-          -5.020000000000003
+          0,
+          -22.3
         ],
-        "ringScale": 1.0042016703682664,
+        "ringScale": 1,
         "backgroundTime": 13,
         "quality": "full",
         "waveCount": 0,
@@ -439,13 +439,13 @@
           }
         ],
         "triangleVisible": false,
-        "ring": 0.48,
+        "ring": 0.096,
         "ringCenter": [
           0,
-          -0.11953975306030087,
-          -2.640000000000004
+          0,
+          -25.6
         ],
-        "ringScale": 0.9971209668333494,
+        "ringScale": 1,
         "backgroundTime": 16,
         "quality": "full",
         "waveCount": 0,
@@ -529,13 +529,13 @@
           }
         ],
         "triangleVisible": false,
-        "ring": 0.6,
+        "ring": 0.12,
         "ringCenter": [
-          -4.2,
-          -0.0335298597838711,
-          -5.300000000000011
+          -2.2,
+          0,
+          -30
         ],
-        "ringScale": 1.2519530837754669,
+        "ringScale": 1,
         "backgroundTime": 20,
         "quality": "full",
         "waveCount": 0,
@@ -619,13 +619,13 @@
           }
         ],
         "triangleVisible": false,
-        "ring": 0.72,
+        "ring": 0.14400000000000002,
         "ringCenter": [
-          -2.1,
-          0.09524014366189831,
-          -5.860000000000014
+          -1.1,
+          0,
+          -34.400000000000006
         ],
-        "ringScale": 1.0783047573297682,
+        "ringScale": 1,
         "backgroundTime": 24,
         "quality": "full",
         "waveCount": 0,
@@ -679,13 +679,13 @@
         "k": 0.5,
         "hits": [],
         "triangleVisible": false,
-        "ring": 0.78,
+        "ring": 0.156,
         "ringCenter": [
           0,
-          0.1198252014449526,
-          -4.040000000000006
+          0,
+          -36.6
         ],
-        "ringScale": 1.0076255845047961,
+        "ringScale": 1,
         "backgroundTime": 26,
         "quality": "full",
         "waveCount": 0,
@@ -739,13 +739,13 @@
         "k": 0.5,
         "hits": [],
         "triangleVisible": false,
-        "ring": 0.885,
+        "ring": 0.177,
         "ringCenter": [
           0,
-          0.06523781323993061,
-          -4.0364900395128345
+          0,
+          -40.45
         ],
-        "ringScale": 0.9905079381077154,
+        "ringScale": 1,
         "backgroundTime": 29.5,
         "quality": "full",
         "waveCount": 0,
@@ -815,13 +815,13 @@
           }
         ],
         "triangleVisible": false,
-        "ring": 0.8999999999999999,
+        "ring": 0.18,
         "ringCenter": [
           0,
-          0.04945421822901079,
-          -4.452471241206403
+          0,
+          -41
         ],
-        "ringScale": 0.9887978804913653,
+        "ringScale": 1,
         "backgroundTime": 30,
         "quality": "full",
         "waveCount": 2,
@@ -905,13 +905,13 @@
           }
         ],
         "triangleVisible": false,
-        "ring": 0.96,
+        "ring": 0.192,
         "ringCenter": [
           0,
-          -0.020919213746757558,
-          -4.216246645518169
+          0,
+          -43.2
         ],
-        "ringScale": 1.0223043948416313,
+        "ringScale": 1,
         "backgroundTime": 32,
         "quality": "full",
         "waveCount": 4,
@@ -995,13 +995,13 @@
           }
         ],
         "triangleVisible": true,
-        "ring": 1.112831853071796,
+        "ring": 0.21,
         "ringCenter": [
           0,
-          -0.1055634911966004,
-          -3.899999570660583
+          0,
+          -46.5
         ],
-        "ringScale": 0.9957181732112448,
+        "ringScale": 1,
         "backgroundTime": 35,
         "quality": "full",
         "waveCount": 2,
@@ -1085,13 +1085,13 @@
           }
         ],
         "triangleVisible": true,
-        "ring": 1.142831853071796,
+        "ring": 0.216,
         "ringCenter": [
           0,
-          -0.11771234760797894,
-          -5.439999999998349
+          0,
+          -47.6
         ],
-        "ringScale": 0.9900822114655681,
+        "ringScale": 1,
         "backgroundTime": 36,
         "quality": "full",
         "waveCount": 2,
@@ -1175,13 +1175,13 @@
           }
         ],
         "triangleVisible": true,
-        "ring": 1.2028318530717959,
+        "ring": 0.228,
         "ringCenter": [
           0,
-          -0.11031942307976109,
-          -5.019999999261174
+          0,
+          -49.800000000000004
         ],
-        "ringScale": 1.0029636857871969,
+        "ringScale": 1,
         "backgroundTime": 38,
         "quality": "full",
         "waveCount": 2,
@@ -1265,13 +1265,13 @@
           }
         ],
         "triangleVisible": false,
-        "ring": 1.3884955592153876,
+        "ring": 0.24,
         "ringCenter": [
           0,
-          -0.06438875016005219,
-          -4.491894568371251
+          0,
+          -52
         ],
-        "ringScale": 1.0074870917743586,
+        "ringScale": 1,
         "backgroundTime": 40,
         "quality": "full",
         "waveCount": 0,
@@ -1355,13 +1355,13 @@
           }
         ],
         "triangleVisible": true,
-        "ring": 1.5741592653589793,
+        "ring": 0.252,
         "ringCenter": [
           0,
-          0.004034765666536403,
-          -4.880000000000024
+          0,
+          -54.2
         ],
-        "ringScale": 0.9679217458229528,
+        "ringScale": 1,
         "backgroundTime": 42,
         "quality": "full",
         "waveCount": 2,
@@ -1445,13 +1445,13 @@
           }
         ],
         "triangleVisible": true,
-        "ring": 1.6041592653589793,
+        "ring": 0.258,
         "ringCenter": [
           0,
-          0.039296932696523165,
-          -3.6013944935039035
+          0,
+          -55.300000000000004
         ],
-        "ringScale": 0.9873235161337233,
+        "ringScale": 1,
         "backgroundTime": 43,
         "quality": "full",
         "waveCount": 2,
@@ -1535,13 +1535,13 @@
           }
         ],
         "triangleVisible": true,
-        "ring": 1.7841592653589793,
+        "ring": 0.294,
         "ringCenter": [
           0,
-          0.1014896197371521,
-          -4.6000000000000085
+          0,
+          -61.900000000000006
         ],
-        "ringScale": 0.9880780918405065,
+        "ringScale": 1,
         "backgroundTime": 49,
         "quality": "full",
         "waveCount": 0,
@@ -1625,13 +1625,13 @@
           }
         ],
         "triangleVisible": true,
-        "ring": 1.8549584901056941,
+        "ring": 0.306,
         "ringCenter": [
           0,
-          0.04760886877567364,
-          -3.8999984937717613
+          0,
+          -64.1
         ],
-        "ringScale": 1.008377865051515,
+        "ringScale": 1,
         "backgroundTime": 51,
         "quality": "full",
         "waveCount": 0,
@@ -1715,13 +1715,13 @@
           }
         ],
         "triangleVisible": true,
-        "ring": 1.9836808294029709,
+        "ring": 0.318,
         "ringCenter": [
           0,
-          -1.123641163287657,
-          -3.223026232371164
+          0,
+          -66.30000000000001
         ],
-        "ringScale": 0.6847919044009635,
+        "ringScale": 1,
         "backgroundTime": 53,
         "quality": "full",
         "waveCount": 0,
@@ -1791,13 +1791,13 @@
           }
         ],
         "triangleVisible": true,
-        "ring": 2.059822971502571,
+        "ring": 0.324,
         "ringCenter": [
           0,
-          -2.0611551047054713,
-          -1.4375970053039824
+          0,
+          -67.4
         ],
-        "ringScale": 0.39598985419714205,
+        "ringScale": 1,
         "backgroundTime": 54,
         "quality": "full",
         "waveCount": 2,
@@ -1867,13 +1867,13 @@
           }
         ],
         "triangleVisible": false,
-        "ring": 2.305486677646163,
+        "ring": 0.34800000000000003,
         "ringCenter": [
           0,
-          -3.15,
-          -0.09999999999999964
+          0,
+          -71.80000000000001
         ],
-        "ringScale": 0.09335094518728532,
+        "ringScale": 1,
         "backgroundTime": 58,
         "quality": "full",
         "waveCount": 2,
@@ -1943,13 +1943,13 @@
           }
         ],
         "triangleVisible": false,
-        "ring": 2.3954866776461627,
+        "ring": 0.366,
         "ringCenter": [
           0,
-          -3.15,
-          -0.10000000000000009
+          0,
+          -75.10000000000001
         ],
-        "ringScale": 0.08891284924482991,
+        "ringScale": 1,
         "backgroundTime": 61,
         "quality": "full",
         "waveCount": 2,
@@ -2033,13 +2033,13 @@
           }
         ],
         "triangleVisible": false,
-        "ring": 2.042831853071796,
+        "ring": 0.396,
         "ringCenter": [
           0,
-          0.09764084850085264,
-          -5.159999999999997
+          0,
+          -80.60000000000001
         ],
-        "ringScale": 0.9996017326896405,
+        "ringScale": 1,
         "backgroundTime": 66,
         "quality": "full",
         "waveCount": 0,
@@ -2123,13 +2123,13 @@
           }
         ],
         "triangleVisible": false,
-        "ring": 2.162831853071796,
+        "ring": 0.42,
         "ringCenter": [
           0,
-          0.10039867662432672,
-          -3.200000000000017
+          0,
+          -85
         ],
-        "ringScale": 1.0116083602233683,
+        "ringScale": 1,
         "backgroundTime": 70,
         "quality": "full",
         "waveCount": 0,
@@ -2213,13 +2213,13 @@
           }
         ],
         "triangleVisible": false,
-        "ring": 2.534159265358979,
+        "ring": 0.444,
         "ringCenter": [
           0,
-          -0.024880370472811053,
-          -4.740000000000009
+          0,
+          -89.4
         ],
-        "ringScale": 0.9852228060929763,
+        "ringScale": 1,
         "backgroundTime": 74,
         "quality": "full",
         "waveCount": 2,
@@ -2303,13 +2303,13 @@
           }
         ],
         "triangleVisible": false,
-        "ring": 2.9054866776461625,
+        "ring": 0.468,
         "ringCenter": [
           0,
-          -0.11842986697447784,
-          -2.780000000000001
+          0,
+          -93.80000000000001
         ],
-        "ringScale": 1.007709676839813,
+        "ringScale": 1,
         "backgroundTime": 78,
         "quality": "full",
         "waveCount": 2,
@@ -2393,13 +2393,13 @@
           }
         ],
         "triangleVisible": false,
-        "ring": 3.0254866776461626,
+        "ring": 0.492,
         "ringCenter": [
           0,
-          -0.06094759084687502,
-          -4.319999999999993
+          0,
+          -10.200000000000003
         ],
-        "ringScale": 1.0046984317364962,
+        "ringScale": 1,
         "backgroundTime": 82,
         "quality": "full",
         "waveCount": 2,
@@ -2483,13 +2483,13 @@
           }
         ],
         "triangleVisible": false,
-        "ring": 3.2354866776461626,
+        "ring": 0.534,
         "ringCenter": [
           0,
-          0.11999924914284248,
-          -2.640000000000015
+          0,
+          -17.900000000000006
         ],
-        "ringScale": 1.0129010410871868,
+        "ringScale": 1,
         "backgroundTime": 89,
         "quality": "full",
         "waveCount": 0,
