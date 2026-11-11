@@ -16,13 +16,13 @@
   ],
   "format": {
     "duration": "30.000000",
-    "size": "10580278"
+    "size": "7959018"
   },
-  "sha256": "013f6802f68d65c37cdd191ed37a05fa5fca163095d834b7d8bd01a07560b3d9",
+  "sha256": "a92a394c6646041c3010d2073b6179ffe8a0049c7e68ac219da8b0a06bbe50ea",
   "fullDecode": "passed",
   "faststart": true,
   "audio": false,
   "katexErrors": 0,
   "classroom": "approved photorealistic generated still on a 2.5D mesh; no independent student animation",
-  "background": "1800 animated depth particles and two wave layers; exact KaTeX on a textured chalkboard"
+  "background": "2100 depth stars, 100 straight light trails and 45 distant light clusters; no waveforms; exact KaTeX over a two-layer space background"
 }
