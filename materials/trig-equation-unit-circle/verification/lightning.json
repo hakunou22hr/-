@@ -1,0 +1,312 @@
+{
+  "result": "PASS",
+  "states": [
+    {
+      "t": 0.75,
+      "camera": [
+        0,
+        0.6,
+        15
+      ],
+      "point": {
+        "x": 0,
+        "y": -1
+      },
+      "renderedPoint": [
+        0,
+        -1
+      ],
+      "theta": -90,
+      "k": 0.5,
+      "hits": [
+        {
+          "x": 0.8660254037844386,
+          "y": 0.5,
+          "rad": 0.5235987755982989,
+          "deg": 30.000000000000004,
+          "allowed": true
+        },
+        {
+          "x": -0.8660254037844386,
+          "y": 0.5,
+          "rad": 2.6179938779914944,
+          "deg": 150.00000000000003,
+          "allowed": true
+        }
+      ],
+      "triangleVisible": false,
+      "ring": 0,
+      "ringCenter": [
+        0,
+        0,
+        -8
+      ],
+      "ringScale": 1,
+      "backgroundTime": 0.75,
+      "lightning": {
+        "active": true,
+        "power": 0.5055014510282435,
+        "color": 5283583
+      },
+      "quality": "full",
+      "waveCount": 0,
+      "plane": "z=0"
+    },
+    {
+      "t": 2.75,
+      "camera": [
+        0,
+        0.6,
+        15
+      ],
+      "point": {
+        "x": 0,
+        "y": -1
+      },
+      "renderedPoint": [
+        0,
+        -1
+      ],
+      "theta": -90,
+      "k": 0.5,
+      "hits": [
+        {
+          "x": 0.8660254037844386,
+          "y": 0.5,
+          "rad": 0.5235987755982989,
+          "deg": 30.000000000000004,
+          "allowed": true
+        },
+        {
+          "x": -0.8660254037844386,
+          "y": 0.5,
+          "rad": 2.6179938779914944,
+          "deg": 150.00000000000003,
+          "allowed": true
+        }
+      ],
+      "triangleVisible": false,
+      "ring": 0,
+      "ringCenter": [
+        0,
+        0,
+        -8
+      ],
+      "ringScale": 1,
+      "backgroundTime": 2.75,
+      "lightning": {
+        "active": true,
+        "power": 0.505501451028243,
+        "color": 16732780
+      },
+      "quality": "full",
+      "waveCount": 0,
+      "plane": "z=0"
+    },
+    {
+      "t": 4.9,
+      "camera": [
+        0,
+        0.6,
+        15
+      ],
+      "point": {
+        "x": 0,
+        "y": -1
+      },
+      "renderedPoint": [
+        0,
+        -1
+      ],
+      "theta": -90,
+      "k": 0.5,
+      "hits": [
+        {
+          "x": 0.8660254037844386,
+          "y": 0.5,
+          "rad": 0.5235987755982989,
+          "deg": 30.000000000000004,
+          "allowed": true
+        },
+        {
+          "x": -0.8660254037844386,
+          "y": 0.5,
+          "rad": 2.6179938779914944,
+          "deg": 150.00000000000003,
+          "allowed": true
+        }
+      ],
+      "triangleVisible": false,
+      "ring": 0,
+      "ringCenter": [
+        0,
+        0,
+        -8
+      ],
+      "ringScale": 1,
+      "backgroundTime": 4.9,
+      "lightning": {
+        "active": true,
+        "power": 0.5055014510282405,
+        "color": 16761701
+      },
+      "quality": "full",
+      "waveCount": 0,
+      "plane": "z=0"
+    },
+    {
+      "t": 8.7,
+      "camera": [
+        0,
+        0.6,
+        15
+      ],
+      "point": {
+        "x": 0.9039738613508587,
+        "y": 0.42758771964875064
+      },
+      "renderedPoint": [
+        0.9039738613508587,
+        0.42758771964875064
+      ],
+      "theta": 25.314567901234483,
+      "k": 0.5,
+      "hits": [
+        {
+          "x": 0.8660254037844386,
+          "y": 0.5,
+          "rad": 0.5235987755982989,
+          "deg": 30.000000000000004,
+          "allowed": true
+        },
+        {
+          "x": -0.8660254037844386,
+          "y": 0.5,
+          "rad": 2.6179938779914944,
+          "deg": 150.00000000000003,
+          "allowed": true
+        }
+      ],
+      "triangleVisible": false,
+      "ring": 0,
+      "ringCenter": [
+        0,
+        0,
+        -8
+      ],
+      "ringScale": 1,
+      "backgroundTime": 8.7,
+      "lightning": {
+        "active": true,
+        "power": 0.5055014510282452,
+        "color": 16732780
+      },
+      "quality": "full",
+      "waveCount": 2,
+      "plane": "z=0"
+    },
+    {
+      "t": 10.35,
+      "camera": [
+        0,
+        0.6,
+        15
+      ],
+      "point": {
+        "x": -0.8527909916404701,
+        "y": -0.5222523571769337
+      },
+      "renderedPoint": [
+        -0.8527909916404702,
+        -0.5222523571769337
+      ],
+      "theta": 211.4834567901234,
+      "k": 0.5,
+      "hits": [
+        {
+          "x": 0.8660254037844386,
+          "y": 0.5,
+          "rad": 0.5235987755982989,
+          "deg": 30.000000000000004,
+          "allowed": true
+        },
+        {
+          "x": -0.8660254037844386,
+          "y": 0.5,
+          "rad": 2.6179938779914944,
+          "deg": 150.00000000000003,
+          "allowed": true
+        }
+      ],
+      "triangleVisible": false,
+      "ring": 0,
+      "ringCenter": [
+        0,
+        0,
+        -8
+      ],
+      "ringScale": 1,
+      "backgroundTime": 10.35,
+      "lightning": {
+        "active": true,
+        "power": 0.5055014510282452,
+        "color": 16761701
+      },
+      "quality": "full",
+      "waveCount": 0,
+      "plane": "z=0"
+    },
+    {
+      "t": 12,
+      "camera": [
+        0,
+        0.6,
+        15
+      ],
+      "point": {
+        "x": 1,
+        "y": 0
+      },
+      "renderedPoint": [
+        1,
+        0
+      ],
+      "theta": 0,
+      "k": 0.5,
+      "hits": [
+        {
+          "x": 0.8660254037844386,
+          "y": 0.5,
+          "rad": 0.5235987755982989,
+          "deg": 30.000000000000004,
+          "allowed": true
+        },
+        {
+          "x": -0.8660254037844386,
+          "y": 0.5,
+          "rad": 2.6179938779914944,
+          "deg": 150.00000000000003,
+          "allowed": true
+        }
+      ],
+      "triangleVisible": false,
+      "ring": 0.07200000000000001,
+      "ringCenter": [
+        0,
+        0,
+        -21.200000000000003
+      ],
+      "ringScale": 1,
+      "backgroundTime": 12,
+      "lightning": {
+        "active": false,
+        "power": 0,
+        "color": null
+      },
+      "quality": "full",
+      "waveCount": 0,
+      "plane": "z=0"
+    }
+  ],
+  "errors": []
+}
