@@ -1,43 +1,10 @@
 {
-  "mathematics": "4 groups passed: factorization, bounds, 501 k values, full-circle triangle positions, scene timing and domain distinctions",
-  "scenes": "all five scenes checked through camera/ring changes, no false intersections, actual line/radius geometry, valid shocks and grid pulse",
-  "interaction": "angles and vertical-line sliders, no/tangent/two intersections, orthographic 2D, free 3D orbit and zoom, exact radians, half/full domains, six answer steps, reset, touch input and touch mode switch passed",
-  "movies": "main 90s 1920x1080; portrait 30s 1080x1920; 24fps H264 yuv420p; full decode and faststart passed",
-  "localPlayback": {
-    "base": "http://127.0.0.1:8812/materials/trig-equation-cinema/",
-    "main": {
-      "duration": 90,
-      "width": 1920,
-      "height": 1080,
-      "source": "http://127.0.0.1:8812/media/trig-equation-cinema/trig-equation-90s.mp4?v=1"
-    },
-    "mainPlayback": {
-      "ended": true,
-      "error": null,
-      "frames": 2160,
-      "dropped": 68
-    },
-    "short": {
-      "duration": 30,
-      "width": 1080,
-      "height": 1920,
-      "source": "http://127.0.0.1:8812/media/trig-equation-cinema/trig-equation-instagram-30s.mp4?v=1"
-    },
-    "shortPlayback": {
-      "ended": true,
-      "error": null,
-      "frames": 720,
-      "dropped": 24
-    },
-    "endToExplore": true,
-    "seek": true,
-    "replay": true,
-    "range206": true,
-    "errors": []
-  },
-  "limits": [
-    "iPhone/iPad viewport and touch emulation in Chromium; real iOS/Safari devices not tested",
-    "No narration, music or other audio",
-    "Finite geometry represents the extended grid and ring corridors"
-  ]
+  "revision": "classroom-degrees-v2",
+  "math": "4 groups passed; full inclusive degree domain; solutions 60 and 300 degrees",
+  "interaction": "passed",
+  "scenes": "five synchronized scenes and classroom camera movement passed",
+  "media": "H.264 yuv420p; 90s 1920x1080 and 30s 1080x1920; full decode passed",
+  "audio": "silent by request",
+  "classroom": "AI generated still with depth mesh and camera movement",
+  "deviceLimitation": "Chromium desktop and touch viewport emulation; no real Safari or iPhone test"
 }

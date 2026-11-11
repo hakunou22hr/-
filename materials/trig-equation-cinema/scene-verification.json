@@ -1,9 +1,21 @@
 [
   {
-    "time": 3,
+    "time": 1,
     "ready": true,
     "stage": 0,
     "scene": 1,
+    "classroom": true,
+    "roomState": {
+      "left": 56.26959247648903,
+      "top": 23.66771159874607,
+      "scale": 1,
+      "opacity": 0.37615740740740744,
+      "camera": [
+        0,
+        0,
+        13
+      ]
+    },
     "k": 2,
     "theta": 60,
     "point": [
@@ -12,9 +24,123 @@
     ],
     "intersections": [],
     "camera": [
-      0.17613711663754497,
+      0,
       0.25,
-      13.0625
+      14
+    ],
+    "projection": "perspective",
+    "rings": 48,
+    "ringStates": [
+      {
+        "position": [
+          0,
+          0,
+          -4
+        ],
+        "rotation": [
+          -0.030367583708285625,
+          0.3491428500886478,
+          0.11,
+          "XYZ"
+        ],
+        "scale": 3,
+        "opacity": 0.42
+      },
+      {
+        "position": [
+          0,
+          0,
+          -5.18
+        ],
+        "rotation": [
+          0.2534104613014052,
+          0.326314570962112,
+          0.08000000000000002,
+          "XYZ"
+        ],
+        "scale": 3,
+        "opacity": 0.42
+      },
+      {
+        "position": [
+          0,
+          0,
+          -6.359999999999999
+        ],
+        "rotation": [
+          0.3513502847150477,
+          0.27433758305829725,
+          0.45,
+          "XYZ"
+        ],
+        "scale": 3,
+        "opacity": 0.42
+      },
+      {
+        "position": [
+          0,
+          0,
+          -7.54
+        ],
+        "rotation": [
+          0.34709707730966555,
+          0.19785483590612402,
+          0.42000000000000004,
+          "XYZ"
+        ],
+        "scale": 3,
+        "opacity": 0.42
+      }
+    ],
+    "particleSplit": 0,
+    "shocks": 0,
+    "particleCount": 4200,
+    "rangeVisible": false,
+    "rangeDrawCount": 2,
+    "circleVisible": false,
+    "laserActualX": 2,
+    "laserOpacity": 1,
+    "laserColor": [
+      1.6,
+      0.9875304998593016,
+      0.3059226923685074
+    ],
+    "shardsVisible": false,
+    "radiusVisible": false,
+    "actualRadiusPoint": [
+      0.5000000108372081,
+      0.8660254153338345
+    ],
+    "gridPulse": -1
+  },
+  {
+    "time": 3,
+    "ready": true,
+    "stage": 0,
+    "scene": 1,
+    "classroom": true,
+    "roomState": {
+      "left": 56.014762836620605,
+      "top": 24.737996086193466,
+      "scale": 1.3759845074218633,
+      "opacity": 1,
+      "camera": [
+        0.303608479273371,
+        0.6375778064740791,
+        8.628037898463457
+      ]
+    },
+    "k": 2,
+    "theta": 60,
+    "point": [
+      0.5000000000000001,
+      0.8660254037844386
+    ],
+    "intersections": [],
+    "camera": [
+      0,
+      0.25,
+      14
     ],
     "projection": "perspective",
     "rings": 48,
@@ -88,6 +214,11 @@
     "circleVisible": false,
     "laserActualX": 2,
     "laserOpacity": 1,
+    "laserColor": [
+      1.6,
+      0.9875304998593016,
+      0.3059226923685074
+    ],
     "shardsVisible": false,
     "radiusVisible": false,
     "actualRadiusPoint": [
@@ -97,10 +228,22 @@
     "gridPulse": -1
   },
   {
-    "time": 6,
+    "time": 7,
     "ready": true,
     "stage": 1,
     "scene": 1,
+    "classroom": false,
+    "roomState": {
+      "left": 56.014762836620605,
+      "top": 32.237653498104784,
+      "scale": 1.3759845074218633,
+      "opacity": 1,
+      "camera": [
+        0.303608479273371,
+        0.6375778064740791,
+        8.628037898463457
+      ]
+    },
     "k": 2,
     "theta": 60,
     "point": [
@@ -109,9 +252,9 @@
     ],
     "intersections": [],
     "camera": [
-      0.32969233598573655,
+      0.14776010333066977,
       0.25,
-      11
+      13.327256944444445
     ],
     "projection": "perspective",
     "rings": 48,
@@ -123,12 +266,12 @@
           -4
         ],
         "rotation": [
-          -0.1754760867057635,
-          0.31958112910930786,
-          0.66,
+          -0.2018507552099357,
+          0.3088165005135425,
+          0.77,
           "XYZ"
         ],
-        "scale": 2.71875,
+        "scale": 3,
         "opacity": 0.42
       },
       {
@@ -138,12 +281,12 @@
           -5.18
         ],
         "rotation": [
-          0.35814574473404504,
-          0.26313200519931323,
-          -0.37,
+          0.36903638360999697,
+          0.2463458604782826,
+          -0.45999999999999996,
           "XYZ"
         ],
-        "scale": 2.71875,
+        "scale": 3,
         "opacity": 0.42
       },
       {
@@ -153,12 +296,12 @@
           -6.359999999999999
         ],
         "rotation": [
-          0.26724617929615585,
-          0.18317808293807733,
-          1,
+          0.2448027211503226,
+          0.16186987840635528,
+          1.11,
           "XYZ"
         ],
-        "scale": 2.71875,
+        "scale": 3,
         "opacity": 0.42
       },
       {
@@ -168,12 +311,12 @@
           -7.54
         ],
         "rotation": [
-          0.2304523388837596,
-          0.0868614080783306,
-          -0.030000000000000027,
+          0.19913684984116478,
+          0.06293454218554985,
+          -0.12,
           "XYZ"
         ],
-        "scale": 2.71875,
+        "scale": 3,
         "opacity": 0.42
       }
     ],
@@ -185,6 +328,11 @@
     "circleVisible": false,
     "laserActualX": 2,
     "laserOpacity": 1,
+    "laserColor": [
+      1.6,
+      0.9875304998593016,
+      0.3059226923685074
+    ],
     "shardsVisible": false,
     "radiusVisible": false,
     "actualRadiusPoint": [
@@ -194,10 +342,136 @@
     "gridPulse": -1
   },
   {
-    "time": 10,
+    "time": 9,
     "ready": true,
     "stage": 2,
     "scene": 1,
+    "classroom": false,
+    "roomState": {
+      "left": 56.014762836620605,
+      "top": 32.237653498104784,
+      "scale": 1.3759845074218633,
+      "opacity": 1,
+      "camera": [
+        0.303608479273371,
+        0.6375778064740791,
+        8.628037898463457
+      ]
+    },
+    "k": 2,
+    "theta": 60,
+    "point": [
+      0.5000000000000001,
+      0.8660254037844386
+    ],
+    "intersections": [],
+    "camera": [
+      0.35587977070219035,
+      0.25,
+      10.5515
+    ],
+    "projection": "perspective",
+    "rings": 48,
+    "ringStates": [
+      {
+        "position": [
+          0,
+          0,
+          -4
+        ],
+        "rotation": [
+          -0.25056617534915976,
+          0.28280962790925307,
+          0.99,
+          "XYZ"
+        ],
+        "scale": 2.55320625,
+        "opacity": 0.42
+      },
+      {
+        "position": [
+          0,
+          0,
+          -5.18
+        ],
+        "rotation": [
+          0.3796838192031609,
+          0.20924189380055433,
+          -0.6399999999999999,
+          "XYZ"
+        ],
+        "scale": 2.55320625,
+        "opacity": 0.42
+      },
+      {
+        "position": [
+          0,
+          0,
+          -6.359999999999999
+        ],
+        "rotation": [
+          0.19537167682818302,
+          0.11698320449357591,
+          1.33,
+          "XYZ"
+        ],
+        "scale": 2.55320625,
+        "opacity": 0.42
+      },
+      {
+        "position": [
+          0,
+          0,
+          -7.54
+        ],
+        "rotation": [
+          0.1308695175581882,
+          0.014274753934556862,
+          -0.29999999999999993,
+          "XYZ"
+        ],
+        "scale": 2.55320625,
+        "opacity": 0.42
+      }
+    ],
+    "particleSplit": 0,
+    "shocks": 0,
+    "particleCount": 4200,
+    "rangeVisible": false,
+    "rangeDrawCount": 2,
+    "circleVisible": false,
+    "laserActualX": 2,
+    "laserOpacity": 1,
+    "laserColor": [
+      1.6,
+      0.9875304998593016,
+      0.3059226923685074
+    ],
+    "shardsVisible": false,
+    "radiusVisible": false,
+    "actualRadiusPoint": [
+      0.5000000108372081,
+      0.8660254153338345
+    ],
+    "gridPulse": -1
+  },
+  {
+    "time": 11,
+    "ready": true,
+    "stage": 3,
+    "scene": 1,
+    "classroom": false,
+    "roomState": {
+      "left": 56.014762836620605,
+      "top": 32.237653498104784,
+      "scale": 1.3759845074218633,
+      "opacity": 1,
+      "camera": [
+        0.303608479273371,
+        0.6375778064740791,
+        8.628037898463457
+      ]
+    },
     "k": 2,
     "theta": 60,
     "point": [
@@ -220,9 +494,9 @@
           -4
         ],
         "rotation": [
-          -0.2725953145418187,
-          0.2676947655495709,
-          1.1,
+          -0.29288077398160833,
+          0.2512687343638301,
+          1.21,
           "XYZ"
         ],
         "scale": 1.48125,
@@ -235,9 +509,9 @@
           -5.18
         ],
         "rotation": [
-          0.3793342302635003,
-          0.1891058070538489,
-          -0.7299999999999999,
+          0.37519445908627225,
+          0.1680434801599869,
+          -0.82,
           "XYZ"
         ],
         "scale": 1.48125,
@@ -250,9 +524,9 @@
           -6.359999999999999
         ],
         "rotation": [
-          0.1687002806468975,
-          0.09362459001860557,
-          1.4400000000000002,
+          0.14094977837693343,
+          0.06980740234915049,
+          1.55,
           "XYZ"
         ],
         "scale": 1.48125,
@@ -265,9 +539,9 @@
           -7.54
         ],
         "rotation": [
-          0.09459977893579798,
-          -0.010219832805451084,
-          -0.3899999999999999,
+          0.05738483059281066,
+          -0.0346643628095548,
+          -0.48,
           "XYZ"
         ],
         "scale": 1.48125,
@@ -282,6 +556,11 @@
     "circleVisible": false,
     "laserActualX": 2,
     "laserOpacity": 1,
+    "laserColor": [
+      1.6,
+      0.9875304998593016,
+      0.3059226923685074
+    ],
     "shardsVisible": false,
     "radiusVisible": false,
     "actualRadiusPoint": [
@@ -293,8 +572,20 @@
   {
     "time": 16,
     "ready": true,
-    "stage": 3,
+    "stage": 4,
     "scene": 2,
+    "classroom": false,
+    "roomState": {
+      "left": 56.014762836620605,
+      "top": 32.237653498104784,
+      "scale": 1.3759845074218633,
+      "opacity": 1,
+      "camera": [
+        0.303608479273371,
+        0.6375778064740791,
+        8.628037898463457
+      ]
+    },
     "k": 2,
     "theta": 60,
     "point": [
@@ -379,6 +670,11 @@
     "circleVisible": false,
     "laserActualX": 2,
     "laserOpacity": 1,
+    "laserColor": [
+      1.6,
+      0.9875304998593016,
+      0.3059226923685074
+    ],
     "shardsVisible": false,
     "radiusVisible": false,
     "actualRadiusPoint": [
@@ -390,8 +686,20 @@
   {
     "time": 23,
     "ready": true,
-    "stage": 5,
+    "stage": 6,
     "scene": 2,
+    "classroom": false,
+    "roomState": {
+      "left": 56.014762836620605,
+      "top": 32.237653498104784,
+      "scale": 1.3759845074218633,
+      "opacity": 1,
+      "camera": [
+        0.303608479273371,
+        0.6375778064740791,
+        8.628037898463457
+      ]
+    },
     "k": 2,
     "theta": 60,
     "point": [
@@ -476,6 +784,11 @@
     "circleVisible": false,
     "laserActualX": 2,
     "laserOpacity": 1,
+    "laserColor": [
+      1.6,
+      0.9875304998593016,
+      0.3059226923685074
+    ],
     "shardsVisible": false,
     "radiusVisible": false,
     "actualRadiusPoint": [
@@ -487,8 +800,20 @@
   {
     "time": 29,
     "ready": true,
-    "stage": 6,
+    "stage": 7,
     "scene": 3,
+    "classroom": false,
+    "roomState": {
+      "left": 56.014762836620605,
+      "top": 32.237653498104784,
+      "scale": 1.3759845074218633,
+      "opacity": 1,
+      "camera": [
+        0.303608479273371,
+        0.6375778064740791,
+        8.628037898463457
+      ]
+    },
     "k": 2,
     "theta": 60,
     "point": [
@@ -573,6 +898,11 @@
     "circleVisible": true,
     "laserActualX": 2,
     "laserOpacity": 1,
+    "laserColor": [
+      1.6,
+      0.13500193845721223,
+      0.20390028868173596
+    ],
     "shardsVisible": false,
     "radiusVisible": false,
     "actualRadiusPoint": [
@@ -584,8 +914,20 @@
   {
     "time": 37,
     "ready": true,
-    "stage": 7,
+    "stage": 8,
     "scene": 3,
+    "classroom": false,
+    "roomState": {
+      "left": 56.014762836620605,
+      "top": 32.237653498104784,
+      "scale": 1.3759845074218633,
+      "opacity": 1,
+      "camera": [
+        0.303608479273371,
+        0.6375778064740791,
+        8.628037898463457
+      ]
+    },
     "k": 2,
     "theta": 60,
     "point": [
@@ -670,6 +1012,11 @@
     "circleVisible": true,
     "laserActualX": 2,
     "laserOpacity": 0.5,
+    "laserColor": [
+      1.6,
+      0.13500193845721223,
+      0.20390028868173596
+    ],
     "shardsVisible": true,
     "radiusVisible": false,
     "actualRadiusPoint": [
@@ -681,8 +1028,20 @@
   {
     "time": 45,
     "ready": true,
-    "stage": 8,
+    "stage": 9,
     "scene": 4,
+    "classroom": false,
+    "roomState": {
+      "left": 56.014762836620605,
+      "top": 32.237653498104784,
+      "scale": 1.3759845074218633,
+      "opacity": 1,
+      "camera": [
+        0.303608479273371,
+        0.6375778064740791,
+        8.628037898463457
+      ]
+    },
     "k": 1.25,
     "theta": 60,
     "point": [
@@ -767,6 +1126,11 @@
     "circleVisible": true,
     "laserActualX": 1.25,
     "laserOpacity": 1,
+    "laserColor": [
+      1.6,
+      0.9875304998593016,
+      0.3059226923685074
+    ],
     "shardsVisible": false,
     "radiusVisible": false,
     "actualRadiusPoint": [
@@ -778,8 +1142,20 @@
   {
     "time": 48.8,
     "ready": true,
-    "stage": 8,
+    "stage": 9,
     "scene": 4,
+    "classroom": false,
+    "roomState": {
+      "left": 56.014762836620605,
+      "top": 32.237653498104784,
+      "scale": 1.3759845074218633,
+      "opacity": 1,
+      "camera": [
+        0.303608479273371,
+        0.6375778064740791,
+        8.628037898463457
+      ]
+    },
     "k": 0.5,
     "theta": 60,
     "point": [
@@ -873,6 +1249,11 @@
     "circleVisible": true,
     "laserActualX": 0.5,
     "laserOpacity": 1,
+    "laserColor": [
+      1.6,
+      0.9875304998593016,
+      0.3059226923685074
+    ],
     "shardsVisible": false,
     "radiusVisible": false,
     "actualRadiusPoint": [
@@ -884,8 +1265,20 @@
   {
     "time": 53,
     "ready": true,
-    "stage": 9,
+    "stage": 10,
     "scene": 4,
+    "classroom": false,
+    "roomState": {
+      "left": 56.014762836620605,
+      "top": 32.237653498104784,
+      "scale": 1.3759845074218633,
+      "opacity": 1,
+      "camera": [
+        0.303608479273371,
+        0.6375778064740791,
+        8.628037898463457
+      ]
+    },
     "k": 0.5,
     "theta": 60,
     "point": [
@@ -979,6 +1372,11 @@
     "circleVisible": true,
     "laserActualX": 0.5,
     "laserOpacity": 1,
+    "laserColor": [
+      1.6,
+      0.9875304998593016,
+      0.3059226923685074
+    ],
     "shardsVisible": false,
     "radiusVisible": true,
     "actualRadiusPoint": [
@@ -990,8 +1388,20 @@
   {
     "time": 60,
     "ready": true,
-    "stage": 10,
+    "stage": 11,
     "scene": 4,
+    "classroom": false,
+    "roomState": {
+      "left": 56.014762836620605,
+      "top": 32.237653498104784,
+      "scale": 1.3759845074218633,
+      "opacity": 1,
+      "camera": [
+        0.303608479273371,
+        0.6375778064740791,
+        8.628037898463457
+      ]
+    },
     "k": 0.5,
     "theta": 180,
     "point": [
@@ -1085,6 +1495,11 @@
     "circleVisible": true,
     "laserActualX": 0.5,
     "laserOpacity": 1,
+    "laserColor": [
+      1.6,
+      0.9875304998593016,
+      0.3059226923685074
+    ],
     "shardsVisible": false,
     "radiusVisible": true,
     "actualRadiusPoint": [
@@ -1096,8 +1511,20 @@
   {
     "time": 65,
     "ready": true,
-    "stage": 11,
+    "stage": 12,
     "scene": 4,
+    "classroom": false,
+    "roomState": {
+      "left": 56.014762836620605,
+      "top": 32.237653498104784,
+      "scale": 1.3759845074218633,
+      "opacity": 1,
+      "camera": [
+        0.303608479273371,
+        0.6375778064740791,
+        8.628037898463457
+      ]
+    },
     "k": 0.5,
     "theta": 300,
     "point": [
@@ -1191,6 +1618,11 @@
     "circleVisible": true,
     "laserActualX": 0.5,
     "laserOpacity": 1,
+    "laserColor": [
+      1.6,
+      0.9875304998593016,
+      0.3059226923685074
+    ],
     "shardsVisible": false,
     "radiusVisible": true,
     "actualRadiusPoint": [
@@ -1202,8 +1634,20 @@
   {
     "time": 73,
     "ready": true,
-    "stage": 12,
+    "stage": 13,
     "scene": 5,
+    "classroom": false,
+    "roomState": {
+      "left": 56.014762836620605,
+      "top": 32.237653498104784,
+      "scale": 1.3759845074218633,
+      "opacity": 1,
+      "camera": [
+        0.303608479273371,
+        0.6375778064740791,
+        8.628037898463457
+      ]
+    },
     "k": 0.5,
     "theta": 128.57142857142858,
     "point": [
@@ -1297,6 +1741,11 @@
     "circleVisible": true,
     "laserActualX": 0.5,
     "laserOpacity": 1,
+    "laserColor": [
+      1.6,
+      0.9875304998593016,
+      0.3059226923685074
+    ],
     "shardsVisible": false,
     "radiusVisible": true,
     "actualRadiusPoint": [
@@ -1308,8 +1757,20 @@
   {
     "time": 80,
     "ready": true,
-    "stage": 13,
+    "stage": 14,
     "scene": 5,
+    "classroom": false,
+    "roomState": {
+      "left": 56.014762836620605,
+      "top": 32.237653498104784,
+      "scale": 1.3759845074218633,
+      "opacity": 1,
+      "camera": [
+        0.303608479273371,
+        0.6375778064740791,
+        8.628037898463457
+      ]
+    },
     "k": 0.5,
     "theta": 308.57142857142856,
     "point": [
@@ -1403,6 +1864,11 @@
     "circleVisible": true,
     "laserActualX": 0.5,
     "laserOpacity": 1,
+    "laserColor": [
+      1.6,
+      0.9875304998593016,
+      0.3059226923685074
+    ],
     "shardsVisible": false,
     "radiusVisible": true,
     "actualRadiusPoint": [
@@ -1414,8 +1880,20 @@
   {
     "time": 87,
     "ready": true,
-    "stage": 14,
+    "stage": 15,
     "scene": 5,
+    "classroom": false,
+    "roomState": {
+      "left": 56.014762836620605,
+      "top": 32.237653498104784,
+      "scale": 1.3759845074218633,
+      "opacity": 1,
+      "camera": [
+        0.303608479273371,
+        0.6375778064740791,
+        8.628037898463457
+      ]
+    },
     "k": 0.5,
     "theta": 360,
     "point": [
@@ -1509,6 +1987,11 @@
     "circleVisible": true,
     "laserActualX": 0.5,
     "laserOpacity": 1,
+    "laserColor": [
+      1.6,
+      0.9875304998593016,
+      0.3059226923685074
+    ],
     "shardsVisible": false,
     "radiusVisible": true,
     "actualRadiusPoint": [
