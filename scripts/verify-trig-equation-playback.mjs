@@ -6,7 +6,7 @@ const base=process.env.TRIG_EQUATION_BASE_URL||'https://hakunou22hr.github.io/-/
 await mkdir(out,{recursive:true});
 const browser=await chromium.launch({args:['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader'],...(process.env.CHROMIUM_PATH?{executablePath:process.env.CHROMIUM_PATH}:{})});
 try{
- const p=await browser.newPage({viewport:{width:1440,height:1000},acceptDownloads:true}),errors=[];p.on('pageerror',e=>errors.push(e.message));const url=new URL('materials/trig-equation-unit-circle/?v=unit-circle-cinema-v1&check='+Date.now(),base).href;
+ const p=await browser.newPage({viewport:{width:1440,height:1000},acceptDownloads:true}),errors=[];p.on('pageerror',e=>errors.push(e.message));const url=new URL('materials/trig-equation-unit-circle/?v=unit-circle-cinema-v2&check='+Date.now(),base).href;
  await p.goto(url,{waitUntil:'domcontentloaded',timeout:60000});await p.waitForFunction(()=>window.filmReady,null,{timeout:60000});await p.waitForFunction(()=>document.querySelector('#master').readyState>=1,null,{timeout:60000});const v=p.locator('#master');
  const videos=[];for(const duration of[90,30]){
   if(duration===30){await p.click('#movie-tab');await p.click('#short-film');await p.waitForFunction(()=>document.querySelector('#master').duration===30,null,{timeout:60000})}

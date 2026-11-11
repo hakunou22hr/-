@@ -10,7 +10,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        part: [0, 1, 2]
+        include:
+          - {part: 0, mode: wide, artifact: part-0}
+          - {part: 1, mode: wide, artifact: part-1}
+          - {part: 2, mode: wide, artifact: part-2}
+          - {part: 0, mode: portrait, artifact: portrait}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -34,11 +38,11 @@ jobs:
       - name: Render deterministic 30-second segment
         env:
           PLAYWRIGHT_MODULE: /tmp/trig-render-tools/node_modules/playwright
-        run: node materials/trig-equation-unit-circle/render/segment.cjs ${{ matrix.part }}
+        run: node materials/trig-equation-unit-circle/render/segment.cjs ${{ matrix.part }} ${{ matrix.mode }}
       - uses: actions/upload-artifact@v4
         with:
-          name: trig-equation-part-${{ matrix.part }}
-          path: work/part-${{ matrix.part }}.mp4
+          name: trig-equation-${{ matrix.artifact }}
+          path: work/${{ matrix.artifact }}.mp4
   assemble:
     needs: render
     runs-on: ubuntu-latest
@@ -48,13 +52,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: feat/trig-equation-unit-circle
+          ref: ${{ github.ref_name }}
           sparse-checkout: |
             /public/media/trig-equation-unit-circle-90s.mp4
+            /public/media/trig-equation-unit-circle-30s.mp4
           sparse-checkout-cone-mode: false
       - uses: actions/download-artifact@v4
         with:
-          pattern: trig-equation-part-*
+          pattern: trig-equation-*
           merge-multiple: true
           path: parts
       - name: Install movie assembler
@@ -68,6 +73,7 @@ jobs:
           LIST
           mkdir -p public/media
           ffmpeg -v error -y -f concat -safe 0 -i join.txt -c copy -movflags +faststart public/media/trig-equation-unit-circle-90s.mp4
+          cp parts/portrait.mp4 public/media/trig-equation-unit-circle-30s.mp4
           ffmpeg -v error -i public/media/trig-equation-unit-circle-90s.mp4 -f null -
           ffprobe -v error -show_streams -show_format -of json public/media/trig-equation-unit-circle-90s.mp4 > info.json
           node -e "const i=require('./info.json'),a=require('assert/strict');a.equal(+i.format.duration,90);a.equal(+i.streams[0].nb_frames,2160);a.equal(i.streams[0].width,1920);a.equal(i.streams[0].height,1080);a(+i.format.size<100*1024*1024)"
@@ -75,8 +81,8 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add --sparse public/media/trig-equation-unit-circle-90s.mp4
+          git add --sparse public/media/trig-equation-unit-circle-90s.mp4 public/media/trig-equation-unit-circle-30s.mp4
           if ! git diff --cached --quiet; then
             git commit -m 'Render verified 90-second trigonometric equation movie'
-            git push origin HEAD:feat/trig-equation-unit-circle
+            git push origin HEAD:${{ github.ref_name }}
           fi
