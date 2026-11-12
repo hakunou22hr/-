@@ -11,3 +11,11 @@
 .solved #status{color:#ff8a91;font-weight:600;}
 @keyframes impact-pulse{50%{transform:scale(1.25);opacity:.5;}}
 @media(prefers-reduced-motion:reduce){.impact-halo{animation:none;}}
+
+/* 分子・分母を上下に組み、問題切替と途中式でも十分な行高を確保する。 */
+#tabs{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+#tabs button{line-height:1.8;min-height:100px}
+.katex{font-size:1em;letter-spacing:normal}
+#steps b,.explanation p,.question p{line-height:2.5}
+dl>div{align-items:center;min-height:52px}
+@media(max-width:700px){#tabs{grid-template-columns:1fr 1fr}#tabs button{min-width:0}}
