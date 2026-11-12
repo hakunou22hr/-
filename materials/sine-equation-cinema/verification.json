@@ -1,15 +1,18 @@
 {
-  "revision": "sine-lab-v2",
+  "revision": "sine-energy-v3",
   "problem": "2sin²θ−3sinθ＋1＝0, 0≦θ＜2π",
   "solutions": [
     "π/6",
     "π/2",
     "5π/6"
   ],
-  "math": "4 tests passed: factorization/range, coordinates, tangent multiplicity/solutions and film geometry",
-  "browser": "Passed: desktop/phone/tablet controls, exact sheet height, secant/tangent, no old rings, classroom camera and portrait math",
-  "deviceLimitation": "Chromium emulation; no physical Safari/iPhone testing",
+  "math": "4 groups passed; exact horizontal intersections and tangent multiplicity retained",
+  "visual": "No side rails or background rings; 3600 particles, 850 moving trails, 160 instanced fragments; camera advances through fission paths; optical sheet tracks k exactly",
+  "browser": "Passed desktop, touch phone and tablet viewports; controls, endpoint exclusion, 3D, stepwise answers, particle burst, classroom camera and portrait math",
+  "deviceLimitation": "Chromium viewport/touch emulation; not physical Safari/iPhone tests",
   "audio": "silent by request",
   "classroom": "New AI-generated sunset aisle image on depth mesh; moving camera, static students",
-  "visual": "New sunset classroom, no background rings or waveforms; 18 light columns, two glass panels, moving horizontal sheet and mirrored unit-circle geometry"
+  "preview": "12-second H.264 preview published before film updates",
+  "media": "Final energy edition fully decoded; H.264, yuv420p, faststart; 90s 1920×1080/2160 frames and 30s 1080×1920/720 frames",
+  "fragments": "Independent depth seed removes circular alignment; visible fragment intervals refined frame-exactly"
 }

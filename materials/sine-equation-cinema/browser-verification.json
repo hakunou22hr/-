@@ -90,7 +90,9 @@
     "ringStates": [],
     "particleSplit": 0,
     "shocks": 0,
-    "particleCount": 1100,
+    "particleCount": 3600,
+    "energySplit": 0,
+    "energyFragments": false,
     "rangeVisible": false,
     "rangeDrawCount": 0,
     "circleVisible": false,
@@ -109,7 +111,7 @@
       0.5000000108372081
     ],
     "gridPulse": -1,
-    "labColumns": 18,
+    "labColumns": 0,
     "sheetY": 0.5,
     "sheetVisible": false,
     "reflections": true
@@ -157,7 +159,9 @@
     "ringStates": [],
     "particleSplit": 0,
     "shocks": 0,
-    "particleCount": 1100,
+    "particleCount": 3600,
+    "energySplit": 0,
+    "energyFragments": false,
     "rangeVisible": false,
     "rangeDrawCount": 0,
     "circleVisible": false,
@@ -176,7 +180,7 @@
       0.5000000108372081
     ],
     "gridPulse": -1,
-    "labColumns": 18,
+    "labColumns": 0,
     "sheetY": 0.5,
     "sheetVisible": false,
     "reflections": false
@@ -224,7 +228,9 @@
     "ringStates": [],
     "particleSplit": 0,
     "shocks": 0,
-    "particleCount": 1100,
+    "particleCount": 3600,
+    "energySplit": 0,
+    "energyFragments": false,
     "rangeVisible": true,
     "rangeDrawCount": 256,
     "circleVisible": false,
@@ -243,7 +249,7 @@
       0.5000000108372081
     ],
     "gridPulse": -1,
-    "labColumns": 18,
+    "labColumns": 0,
     "sheetY": 0.5,
     "sheetVisible": false,
     "reflections": false
@@ -282,16 +288,18 @@
       ]
     ],
     "camera": [
-      -1.788888888888889,
-      1.3,
-      9
+      -2.051851851851852,
+      0.4851851851851852,
+      12.444444444444445
     ],
     "projection": "perspective",
     "rings": 0,
     "ringStates": [],
     "particleSplit": 0.5185185185185185,
     "shocks": 0,
-    "particleCount": 1100,
+    "particleCount": 3600,
+    "energySplit": 0.5,
+    "energyFragments": true,
     "rangeVisible": false,
     "rangeDrawCount": 256,
     "circleVisible": false,
@@ -310,7 +318,7 @@
       0.5000000108372081
     ],
     "gridPulse": -1,
-    "labColumns": 18,
+    "labColumns": 0,
     "sheetY": 0.5,
     "sheetVisible": false,
     "reflections": false
@@ -349,16 +357,18 @@
       ]
     ],
     "camera": [
-      1.44375,
+      1.8000000000000003,
       1.3,
-      9
+      8
     ],
     "projection": "perspective",
     "rings": 0,
     "ringStates": [],
     "particleSplit": 2,
     "shocks": 0,
-    "particleCount": 1100,
+    "particleCount": 3600,
+    "energySplit": 1,
+    "energyFragments": false,
     "rangeVisible": false,
     "rangeDrawCount": 256,
     "circleVisible": false,
@@ -377,7 +387,7 @@
       0.5000000108372081
     ],
     "gridPulse": -1,
-    "labColumns": 18,
+    "labColumns": 0,
     "sheetY": 0.5,
     "sheetVisible": false,
     "reflections": false
@@ -425,7 +435,9 @@
     "ringStates": [],
     "particleSplit": 0,
     "shocks": 0,
-    "particleCount": 1100,
+    "particleCount": 3600,
+    "energySplit": 1,
+    "energyFragments": false,
     "rangeVisible": false,
     "rangeDrawCount": 256,
     "circleVisible": true,
@@ -444,7 +456,7 @@
       0.5000000108372081
     ],
     "gridPulse": -1,
-    "labColumns": 18,
+    "labColumns": 0,
     "sheetY": 0.5,
     "sheetVisible": true,
     "reflections": true
@@ -492,7 +504,9 @@
     "ringStates": [],
     "particleSplit": 0,
     "shocks": 0,
-    "particleCount": 1100,
+    "particleCount": 3600,
+    "energySplit": 1,
+    "energyFragments": false,
     "rangeVisible": false,
     "rangeDrawCount": 256,
     "circleVisible": true,
@@ -511,7 +525,7 @@
       0.5000000108372081
     ],
     "gridPulse": -1,
-    "labColumns": 18,
+    "labColumns": 0,
     "sheetY": 0.5,
     "sheetVisible": true,
     "reflections": true
@@ -559,7 +573,9 @@
     "ringStates": [],
     "particleSplit": 0,
     "shocks": 0,
-    "particleCount": 1100,
+    "particleCount": 3600,
+    "energySplit": 1,
+    "energyFragments": false,
     "rangeVisible": false,
     "rangeDrawCount": 256,
     "circleVisible": true,
@@ -578,7 +594,7 @@
       0.9752664782784201
     ],
     "gridPulse": -1,
-    "labColumns": 18,
+    "labColumns": 0,
     "sheetY": 0.5,
     "sheetVisible": true,
     "reflections": true
@@ -626,7 +642,9 @@
     "ringStates": [],
     "particleSplit": 0,
     "shocks": 0,
-    "particleCount": 1100,
+    "particleCount": 3600,
+    "energySplit": 1,
+    "energyFragments": false,
     "rangeVisible": false,
     "rangeDrawCount": 256,
     "circleVisible": true,
@@ -645,7 +663,7 @@
       0.8660254153338345
     ],
     "gridPulse": -1,
-    "labColumns": 18,
+    "labColumns": 0,
     "sheetY": 0.75,
     "sheetVisible": true,
     "reflections": true
@@ -689,7 +707,9 @@
     "ringStates": [],
     "particleSplit": 0,
     "shocks": 0,
-    "particleCount": 1100,
+    "particleCount": 3600,
+    "energySplit": 1,
+    "energyFragments": true,
     "rangeVisible": false,
     "rangeDrawCount": 256,
     "circleVisible": true,
@@ -708,7 +728,7 @@
       1.0000000216744163
     ],
     "gridPulse": -1,
-    "labColumns": 18,
+    "labColumns": 0,
     "sheetY": 1,
     "sheetVisible": true,
     "reflections": true
@@ -752,7 +772,9 @@
     "ringStates": [],
     "particleSplit": 0,
     "shocks": 0,
-    "particleCount": 1100,
+    "particleCount": 3600,
+    "energySplit": 1,
+    "energyFragments": false,
     "rangeVisible": false,
     "rangeDrawCount": 256,
     "circleVisible": true,
@@ -771,7 +793,7 @@
       1.0000000216744163
     ],
     "gridPulse": -1,
-    "labColumns": 18,
+    "labColumns": 0,
     "sheetY": 1,
     "sheetVisible": true,
     "reflections": true
@@ -815,7 +837,9 @@
     "ringStates": [],
     "particleSplit": 0,
     "shocks": 0,
-    "particleCount": 1100,
+    "particleCount": 3600,
+    "energySplit": 1,
+    "energyFragments": false,
     "rangeVisible": false,
     "rangeDrawCount": 256,
     "circleVisible": true,
@@ -834,7 +858,7 @@
       1.0000000216744163
     ],
     "gridPulse": -1,
-    "labColumns": 18,
+    "labColumns": 0,
     "sheetY": 1,
     "sheetVisible": true,
     "reflections": true
