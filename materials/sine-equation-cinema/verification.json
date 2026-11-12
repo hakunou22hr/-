@@ -1,0 +1,14 @@
+{
+  "revision": "sine-height-v1",
+  "problem": "2sin²θ−3sinθ＋1＝0, 0≦θ＜2π",
+  "solutions": [
+    "π/6",
+    "π/2",
+    "5π/6"
+  ],
+  "math": "4 tests passed: factorization/range, coordinates, tangent multiplicity/solutions and film geometry",
+  "browser": "desktop, touch phone and tablet viewports passed; interactions, domain endpoint, 3D, reveal steps, classroom camera and portrait layout",
+  "deviceLimitation": "Chromium emulation; no physical Safari/iPhone testing",
+  "audio": "silent by request",
+  "classroom": "AI-generated static image on depth mesh; independently moving camera, static students"
+}
