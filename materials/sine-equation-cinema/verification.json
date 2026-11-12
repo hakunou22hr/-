@@ -1,5 +1,5 @@
 {
-  "revision": "sine-height-v1",
+  "revision": "sine-lab-v2",
   "problem": "2sin²θ−3sinθ＋1＝0, 0≦θ＜2π",
   "solutions": [
     "π/6",
@@ -7,10 +7,9 @@
     "5π/6"
   ],
   "math": "4 tests passed: factorization/range, coordinates, tangent multiplicity/solutions and film geometry",
-  "browser": "desktop, touch phone and tablet viewports passed; interactions, domain endpoint, 3D, reveal steps, classroom camera and portrait layout",
+  "browser": "Passed: desktop/phone/tablet controls, exact sheet height, secant/tangent, no old rings, classroom camera and portrait math",
   "deviceLimitation": "Chromium emulation; no physical Safari/iPhone testing",
   "audio": "silent by request",
-  "classroom": "AI-generated static image on depth mesh; independently moving camera, static students",
-  "media": "Both complete H.264 files fully decoded; exact 90/30 seconds, 1920×1080/1080×1920, 24fps, faststart",
-  "nativePlayback": "Both reached end in local Chromium, replay and seek passed, byte ranges returned 206; runtime frame drops recorded separately"
+  "classroom": "New AI-generated sunset aisle image on depth mesh; moving camera, static students",
+  "visual": "New sunset classroom, no background rings or waveforms; 18 light columns, two glass panels, moving horizontal sheet and mirrored unit-circle geometry"
 }

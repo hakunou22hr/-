@@ -19,3 +19,9 @@
 .classroom .film-heading{left:14px;top:12px;padding:10px 14px;background:linear-gradient(90deg,#030916cc,transparent);border-radius:6px}.portrait.classroom .film-heading{left:24px;right:24px;top:90px}
 
 .branches>span:last-child{color:#88e2ff}.portrait .film-math .tex{font-size:21px}.film-math .tex{font-size:17px}
+
+/* Stationary architectural light, no ring corridor or waveform. */
+.film-math{isolation:isolate;overflow:hidden;background:linear-gradient(110deg,#071d2aee,#102d40e8 60%,#0b1829f5);border-left-color:#699da866}
+.film-math::before{content:"";position:absolute;inset:-30px -20px;z-index:-1;opacity:.28;background:repeating-linear-gradient(90deg,transparent 0 54px,#79d8ed36 55px,#b7efff0d 57px,transparent 59px 96px),linear-gradient(180deg,transparent 40%,#79c4df13 61%,transparent 62%);transform:perspective(600px) rotateY(-16deg) translateY(var(--lab-drift,0px))}
+.film-math::after{content:"";position:absolute;left:-40px;right:-40px;bottom:-5px;height:150px;z-index:-1;background:repeating-linear-gradient(0deg,transparent 0 19px,#75c7d524 20px,transparent 21px 35px);transform:perspective(180px) rotateX(55deg);opacity:.3}
+.portrait .film-math{background:linear-gradient(110deg,#071d2af5,#102d40f5 60%,#0b1829fa)}

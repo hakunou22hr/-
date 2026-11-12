@@ -54,8 +54,8 @@
     "scene": 1,
     "classroom": true,
     "roomState": {
-      "left": 56.26959247648903,
-      "top": 23.66771159874607,
+      "left": 55.64263322884013,
+      "top": 29.3103448275862,
       "scale": 1,
       "opacity": 0.37615740740740744,
       "camera": [
@@ -81,77 +81,16 @@
       ]
     ],
     "camera": [
-      0,
-      0,
-      14
+      -1.6,
+      -1.4,
+      14.851851851851851
     ],
     "projection": "perspective",
-    "rings": 48,
-    "ringStates": [
-      {
-        "position": [
-          0,
-          0,
-          -4
-        ],
-        "rotation": [
-          -0.030367583708285625,
-          0.3491428500886478,
-          0.11,
-          "XYZ"
-        ],
-        "scale": 3,
-        "opacity": 0.42
-      },
-      {
-        "position": [
-          0,
-          0,
-          -5.18
-        ],
-        "rotation": [
-          0.2534104613014052,
-          0.326314570962112,
-          0.08000000000000002,
-          "XYZ"
-        ],
-        "scale": 3,
-        "opacity": 0.42
-      },
-      {
-        "position": [
-          0,
-          0,
-          -6.359999999999999
-        ],
-        "rotation": [
-          0.3513502847150477,
-          0.27433758305829725,
-          0.45,
-          "XYZ"
-        ],
-        "scale": 3,
-        "opacity": 0.42
-      },
-      {
-        "position": [
-          0,
-          0,
-          -7.54
-        ],
-        "rotation": [
-          0.34709707730966555,
-          0.19785483590612402,
-          0.42000000000000004,
-          "XYZ"
-        ],
-        "scale": 3,
-        "opacity": 0.42
-      }
-    ],
+    "rings": 0,
+    "ringStates": [],
     "particleSplit": 0,
     "shocks": 0,
-    "particleCount": 1800,
+    "particleCount": 1100,
     "rangeVisible": false,
     "rangeDrawCount": 0,
     "circleVisible": false,
@@ -169,7 +108,11 @@
       0.8660254153338345,
       0.5000000108372081
     ],
-    "gridPulse": -1
+    "gridPulse": -1,
+    "labColumns": 18,
+    "sheetY": 0.5,
+    "sheetVisible": false,
+    "reflections": true
   },
   {
     "time": 4,
@@ -178,13 +121,13 @@
     "scene": 1,
     "classroom": true,
     "roomState": {
-      "left": 55.267133019866264,
-      "top": 27.878041316561674,
+      "left": 54.74041971787964,
+      "top": 32.61846103444132,
       "scale": 2.4739666529066544,
       "opacity": 0.972,
       "camera": [
-        0.6619898144252117,
-        1.3901786102929445,
+        0.5957908329826905,
+        1.092283193801599,
         3.4673466722769515
       ]
     },
@@ -205,77 +148,16 @@
       ]
     ],
     "camera": [
-      0,
-      0,
-      14
+      -1.6,
+      -1.4,
+      13.518518518518519
     ],
     "projection": "perspective",
-    "rings": 48,
-    "ringStates": [
-      {
-        "position": [
-          0,
-          0,
-          -4
-        ],
-        "rotation": [
-          -0.11953529303412475,
-          0.3363694034087698,
-          0.44,
-          "XYZ"
-        ],
-        "scale": 3,
-        "opacity": 0.42
-      },
-      {
-        "position": [
-          0,
-          0,
-          -5.18
-        ],
-        "rotation": [
-          0.3257736158916693,
-          0.29276192747031543,
-          -0.18999999999999997,
-          "XYZ"
-        ],
-        "scale": 3,
-        "opacity": 0.42
-      },
-      {
-        "position": [
-          0,
-          0,
-          -6.359999999999999
-        ],
-        "rotation": [
-          0.3068720781539434,
-          0.22300290046950305,
-          0.78,
-          "XYZ"
-        ],
-        "scale": 3,
-        "opacity": 0.42
-      },
-      {
-        "position": [
-          0,
-          0,
-          -7.54
-        ],
-        "rotation": [
-          0.2858856190297849,
-          0.13332368852840865,
-          0.15000000000000002,
-          "XYZ"
-        ],
-        "scale": 3,
-        "opacity": 0.42
-      }
-    ],
+    "rings": 0,
+    "ringStates": [],
     "particleSplit": 0,
     "shocks": 0,
-    "particleCount": 1800,
+    "particleCount": 1100,
     "rangeVisible": false,
     "rangeDrawCount": 0,
     "circleVisible": false,
@@ -293,7 +175,11 @@
       0.8660254153338345,
       0.5000000108372081
     ],
-    "gridPulse": -1
+    "gridPulse": -1,
+    "labColumns": 18,
+    "sheetY": 0.5,
+    "sheetVisible": false,
+    "reflections": false
   },
   {
     "time": 8,
@@ -302,13 +188,13 @@
     "scene": 1,
     "classroom": false,
     "roomState": {
-      "left": 55.267133019866264,
-      "top": 34.44549780070743,
+      "left": 54.74041971787964,
+      "top": 37.77860541484156,
       "scale": 2.4739666529066544,
       "opacity": 0.972,
       "camera": [
-        0.6619898144252117,
-        1.3901786102929445,
+        0.5957908329826905,
+        1.092283193801599,
         3.4673466722769515
       ]
     },
@@ -329,77 +215,16 @@
       ]
     ],
     "camera": [
-      0.40959578415049913,
-      0.25,
-      13.376
+      -1.4336000000000002,
+      -1.192,
+      12.48
     ],
     "projection": "perspective",
-    "rings": 48,
-    "ringStates": [
-      {
-        "position": [
-          0,
-          0,
-          -4
-        ],
-        "rotation": [
-          -0.226934267717709,
-          0.2965392888546956,
-          0.88,
-          "XYZ"
-        ],
-        "scale": 2.1,
-        "opacity": 0.42
-      },
-      {
-        "position": [
-          0,
-          0,
-          -5.18
-        ],
-        "rotation": [
-          0.37623973292812757,
-          0.2283531138574181,
-          -0.5499999999999999,
-          "XYZ"
-        ],
-        "scale": 2.1,
-        "opacity": 0.42
-      },
-      {
-        "position": [
-          0,
-          0,
-          -6.359999999999999
-        ],
-        "rotation": [
-          0.22079336100417593,
-          0.13976883529219555,
-          1.22,
-          "XYZ"
-        ],
-        "scale": 2.1,
-        "opacity": 0.42
-      },
-      {
-        "position": [
-          0,
-          0,
-          -7.54
-        ],
-        "rotation": [
-          0.16583165122084784,
-          0.03869942293702435,
-          -0.20999999999999996,
-          "XYZ"
-        ],
-        "scale": 2.1,
-        "opacity": 0.42
-      }
-    ],
+    "rings": 0,
+    "ringStates": [],
     "particleSplit": 0,
     "shocks": 0,
-    "particleCount": 1800,
+    "particleCount": 1100,
     "rangeVisible": true,
     "rangeDrawCount": 256,
     "circleVisible": false,
@@ -417,7 +242,11 @@
       0.8660254153338345,
       0.5000000108372081
     ],
-    "gridPulse": -1
+    "gridPulse": -1,
+    "labColumns": 18,
+    "sheetY": 0.5,
+    "sheetVisible": false,
+    "reflections": false
   },
   {
     "time": 18,
@@ -426,13 +255,13 @@
     "scene": 2,
     "classroom": false,
     "roomState": {
-      "left": 55.267133019866264,
-      "top": 34.44549780070743,
+      "left": 54.74041971787964,
+      "top": 37.77860541484156,
       "scale": 2.4739666529066544,
       "opacity": 0.972,
       "camera": [
-        0.6619898144252117,
-        1.3901786102929445,
+        0.5957908329826905,
+        1.092283193801599,
         3.4673466722769515
       ]
     },
@@ -453,77 +282,16 @@
       ]
     ],
     "camera": [
-      2.424871130596428,
-      0.5,
-      8
+      -1.788888888888889,
+      1.3,
+      9
     ],
     "projection": "perspective",
-    "rings": 48,
-    "ringStates": [
-      {
-        "position": [
-          -3.3,
-          0,
-          -4
-        ],
-        "rotation": [
-          -0.37675417231284086,
-          0.10703591793240119,
-          1.98,
-          "XYZ"
-        ],
-        "scale": 1.6,
-        "opacity": 0.39687938315525156
-      },
-      {
-        "position": [
-          3.3,
-          0,
-          -5.18
-        ],
-        "rotation": [
-          0.24815548559746065,
-          0.0037786409703935092,
-          -1.45,
-          "XYZ"
-        ],
-        "scale": 1.6,
-        "opacity": 0.39687938315525156
-      },
-      {
-        "position": [
-          -3.3,
-          0,
-          -6.359999999999999
-        ],
-        "rotation": [
-          -0.06803123790181317,
-          -0.09981617073575737,
-          2.32,
-          "XYZ"
-        ],
-        "scale": 1.6,
-        "opacity": 0.39687938315525156
-      },
-      {
-        "position": [
-          3.3,
-          0,
-          -7.54
-        ],
-        "rotation": [
-          -0.19810494033467463,
-          -0.19449470118771442,
-          -1.1099999999999999,
-          "XYZ"
-        ],
-        "scale": 1.6,
-        "opacity": 0.39687938315525156
-      }
-    ],
-    "particleSplit": 1,
+    "rings": 0,
+    "ringStates": [],
+    "particleSplit": 0.5185185185185185,
     "shocks": 0,
-    "particleCount": 1800,
+    "particleCount": 1100,
     "rangeVisible": false,
     "rangeDrawCount": 256,
     "circleVisible": false,
@@ -541,7 +309,11 @@
       0.8660254153338345,
       0.5000000108372081
     ],
-    "gridPulse": -1
+    "gridPulse": -1,
+    "labColumns": 18,
+    "sheetY": 0.5,
+    "sheetVisible": false,
+    "reflections": false
   },
   {
     "time": 25,
@@ -550,13 +322,13 @@
     "scene": 2,
     "classroom": false,
     "roomState": {
-      "left": 55.267133019866264,
-      "top": 34.44549780070743,
+      "left": 54.74041971787964,
+      "top": 37.77860541484156,
       "scale": 2.4739666529066544,
       "opacity": 0.972,
       "camera": [
-        0.6619898144252117,
-        1.3901786102929445,
+        0.5957908329826905,
+        1.092283193801599,
         3.4673466722769515
       ]
     },
@@ -577,77 +349,16 @@
       ]
     ],
     "camera": [
-      -2.8,
-      0.5,
-      8
+      1.44375,
+      1.3,
+      9
     ],
     "projection": "perspective",
-    "rings": 48,
-    "ringStates": [
-      {
-        "position": [
-          -3.3,
-          0,
-          -4
-        ],
-        "rotation": [
-          -0.34553302219375903,
-          -0.062386119477322304,
-          2.75,
-          "XYZ"
-        ],
-        "scale": 1.6,
-        "opacity": 0.38000000010093204
-      },
-      {
-        "position": [
-          3.3,
-          0,
-          -5.18
-        ],
-        "rotation": [
-          0.004405109695740144,
-          -0.16137544198184958,
-          -2.08,
-          "XYZ"
-        ],
-        "scale": 1.6,
-        "opacity": 0.38000000010093204
-      },
-      {
-        "position": [
-          -3.3,
-          0,
-          -6.359999999999999
-        ],
-        "rotation": [
-          -0.2562294064186951,
-          -0.24594957687074387,
-          3.09,
-          "XYZ"
-        ],
-        "scale": 1.6,
-        "opacity": 0.38000000010093204
-      },
-      {
-        "position": [
-          3.3,
-          0,
-          -7.54
-        ],
-        "rotation": [
-          -0.36042286234768184,
-          -0.30855376855740013,
-          -1.74,
-          "XYZ"
-        ],
-        "scale": 1.6,
-        "opacity": 0.38000000010093204
-      }
-    ],
-    "particleSplit": 1,
+    "rings": 0,
+    "ringStates": [],
+    "particleSplit": 2,
     "shocks": 0,
-    "particleCount": 1800,
+    "particleCount": 1100,
     "rangeVisible": false,
     "rangeDrawCount": 256,
     "circleVisible": false,
@@ -665,7 +376,11 @@
       0.8660254153338345,
       0.5000000108372081
     ],
-    "gridPulse": -1
+    "gridPulse": -1,
+    "labColumns": 18,
+    "sheetY": 0.5,
+    "sheetVisible": false,
+    "reflections": false
   },
   {
     "time": 38,
@@ -674,13 +389,13 @@
     "scene": 3,
     "classroom": false,
     "roomState": {
-      "left": 55.267133019866264,
-      "top": 34.44549780070743,
+      "left": 54.74041971787964,
+      "top": 37.77860541484156,
       "scale": 2.4739666529066544,
       "opacity": 0.972,
       "camera": [
-        0.6619898144252117,
-        1.3901786102929445,
+        0.5957908329826905,
+        1.092283193801599,
         3.4673466722769515
       ]
     },
@@ -701,77 +416,16 @@
       ]
     ],
     "camera": [
-      1.2,
-      0.8,
+      0,
+      0.5,
       10
     ],
     "projection": "perspective",
-    "rings": 8,
-    "ringStates": [
-      {
-        "position": [
-          0,
-          0,
-          -8
-        ],
-        "rotation": [
-          -0.03853883480030871,
-          -0.31019042035707317,
-          4.18,
-          "XYZ"
-        ],
-        "scale": 3,
-        "opacity": 0.085
-      },
-      {
-        "position": [
-          0,
-          0,
-          -10.5
-        ],
-        "rotation": [
-          -0.3649491455295066,
-          -0.3442450595619022,
-          -3.25,
-          "XYZ"
-        ],
-        "scale": 3.35,
-        "opacity": 0.1
-      },
-      {
-        "position": [
-          0,
-          0,
-          -13
-        ],
-        "rotation": [
-          -0.37171471058705696,
-          -0.3475493128443324,
-          4.52,
-          "XYZ"
-        ],
-        "scale": 3.7,
-        "opacity": 0.085
-      },
-      {
-        "position": [
-          0,
-          0,
-          -15.5
-        ],
-        "rotation": [
-          -0.21242189896649455,
-          -0.31980802109954065,
-          -2.91,
-          "XYZ"
-        ],
-        "scale": 4.05,
-        "opacity": 0.1
-      }
-    ],
+    "rings": 0,
+    "ringStates": [],
     "particleSplit": 0,
-    "shocks": 2,
-    "particleCount": 1800,
+    "shocks": 0,
+    "particleCount": 1100,
     "rangeVisible": false,
     "rangeDrawCount": 256,
     "circleVisible": true,
@@ -789,7 +443,11 @@
       0.8660254153338345,
       0.5000000108372081
     ],
-    "gridPulse": 2
+    "gridPulse": -1,
+    "labColumns": 18,
+    "sheetY": 0.5,
+    "sheetVisible": true,
+    "reflections": true
   },
   {
     "time": 46,
@@ -798,13 +456,13 @@
     "scene": 4,
     "classroom": false,
     "roomState": {
-      "left": 55.267133019866264,
-      "top": 34.44549780070743,
+      "left": 54.74041971787964,
+      "top": 37.77860541484156,
       "scale": 2.4739666529066544,
       "opacity": 0.972,
       "camera": [
-        0.6619898144252117,
-        1.3901786102929445,
+        0.5957908329826905,
+        1.092283193801599,
         3.4673466722769515
       ]
     },
@@ -830,72 +488,11 @@
       10
     ],
     "projection": "perspective",
-    "rings": 8,
-    "ringStates": [
-      {
-        "position": [
-          0,
-          0,
-          -8
-        ],
-        "rotation": [
-          0.19485233679517505,
-          -0.3489247014599104,
-          5.06,
-          "XYZ"
-        ],
-        "scale": 3,
-        "opacity": 0.085
-      },
-      {
-        "position": [
-          0,
-          0,
-          -10.5
-        ],
-        "rotation": [
-          -0.33022142083212813,
-          -0.32523897187044315,
-          -3.9699999999999998,
-          "XYZ"
-        ],
-        "scale": 3.35,
-        "opacity": 0.1
-      },
-      {
-        "position": [
-          0,
-          0,
-          -13
-        ],
-        "rotation": [
-          -0.2510208564860963,
-          -0.2725006135671513,
-          5.3999999999999995,
-          "XYZ"
-        ],
-        "scale": 3.7,
-        "opacity": 0.085
-      },
-      {
-        "position": [
-          0,
-          0,
-          -15.5
-        ],
-        "rotation": [
-          0.07803053710013075,
-          -0.1954205870291885,
-          -3.63,
-          "XYZ"
-        ],
-        "scale": 4.05,
-        "opacity": 0.1
-      }
-    ],
+    "rings": 0,
+    "ringStates": [],
     "particleSplit": 0,
     "shocks": 0,
-    "particleCount": 1800,
+    "particleCount": 1100,
     "rangeVisible": false,
     "rangeDrawCount": 256,
     "circleVisible": true,
@@ -913,7 +510,11 @@
       0.8660254153338345,
       0.5000000108372081
     ],
-    "gridPulse": -1
+    "gridPulse": -1,
+    "labColumns": 18,
+    "sheetY": 0.5,
+    "sheetVisible": true,
+    "reflections": true
   },
   {
     "time": 53,
@@ -922,13 +523,13 @@
     "scene": 4,
     "classroom": false,
     "roomState": {
-      "left": 55.267133019866264,
-      "top": 34.44549780070743,
+      "left": 54.74041971787964,
+      "top": 37.77860541484156,
       "scale": 2.4739666529066544,
       "opacity": 0.972,
       "camera": [
-        0.6619898144252117,
-        1.3901786102929445,
+        0.5957908329826905,
+        1.092283193801599,
         3.4673466722769515
       ]
     },
@@ -954,72 +555,11 @@
       10
     ],
     "projection": "perspective",
-    "rings": 8,
-    "ringStates": [
-      {
-        "position": [
-          0,
-          0,
-          -8
-        ],
-        "rotation": [
-          0.3383838472611556,
-          -0.2949657738855426,
-          5.83,
-          "XYZ"
-        ],
-        "scale": 3,
-        "opacity": 0.085
-      },
-      {
-        "position": [
-          0,
-          0,
-          -10.5
-        ],
-        "rotation": [
-          -0.13143753632689464,
-          -0.2261150640472353,
-          -4.6,
-          "XYZ"
-        ],
-        "scale": 3.35,
-        "opacity": 0.1
-      },
-      {
-        "position": [
-          0,
-          0,
-          -13
-        ],
-        "rotation": [
-          -0.06113831968763302,
-          -0.13706616896505214,
-          6.17,
-          "XYZ"
-        ],
-        "scale": 3.7,
-        "opacity": 0.085
-      },
-      {
-        "position": [
-          0,
-          0,
-          -15.5
-        ],
-        "rotation": [
-          0.29926701223243035,
-          -0.03577356122670472,
-          -4.26,
-          "XYZ"
-        ],
-        "scale": 4.05,
-        "opacity": 0.1
-      }
-    ],
+    "rings": 0,
+    "ringStates": [],
     "particleSplit": 0,
     "shocks": 0,
-    "particleCount": 1800,
+    "particleCount": 1100,
     "rangeVisible": false,
     "rangeDrawCount": 256,
     "circleVisible": true,
@@ -1037,7 +577,11 @@
       -0.22103241898796774,
       0.9752664782784201
     ],
-    "gridPulse": -1
+    "gridPulse": -1,
+    "labColumns": 18,
+    "sheetY": 0.5,
+    "sheetVisible": true,
+    "reflections": true
   },
   {
     "time": 59,
@@ -1046,13 +590,13 @@
     "scene": 4,
     "classroom": false,
     "roomState": {
-      "left": 55.267133019866264,
-      "top": 34.44549780070743,
+      "left": 54.74041971787964,
+      "top": 37.77860541484156,
       "scale": 2.4739666529066544,
       "opacity": 0.972,
       "camera": [
-        0.6619898144252117,
-        1.3901786102929445,
+        0.5957908329826905,
+        1.092283193801599,
         3.4673466722769515
       ]
     },
@@ -1078,72 +622,11 @@
       10
     ],
     "projection": "perspective",
-    "rings": 8,
-    "ringStates": [
-      {
-        "position": [
-          0,
-          0,
-          -8
-        ],
-        "rotation": [
-          0.3799889938054093,
-          -0.1925072323672485,
-          6.49,
-          "XYZ"
-        ],
-        "scale": 3,
-        "opacity": 0.085
-      },
-      {
-        "position": [
-          0,
-          0,
-          -10.5
-        ],
-        "rotation": [
-          0.09284024175784433,
-          -0.09752778012566882,
-          -5.14,
-          "XYZ"
-        ],
-        "scale": 3.35,
-        "opacity": 0.1
-      },
-      {
-        "position": [
-          0,
-          0,
-          -13
-        ],
-        "rotation": [
-          0.11896065645912868,
-          0.006163538252307537,
-          6.83,
-          "XYZ"
-        ],
-        "scale": 3.7,
-        "opacity": 0.085
-      },
-      {
-        "position": [
-          0,
-          0,
-          -15.5
-        ],
-        "rotation": [
-          0.37922247189591146,
-          0.10930428611477082,
-          -4.8,
-          "XYZ"
-        ],
-        "scale": 4.05,
-        "opacity": 0.1
-      }
-    ],
+    "rings": 0,
+    "ringStates": [],
     "particleSplit": 0,
     "shocks": 0,
-    "particleCount": 1800,
+    "particleCount": 1100,
     "rangeVisible": false,
     "rangeDrawCount": 256,
     "circleVisible": true,
@@ -1161,7 +644,11 @@
       -0.5000000108372081,
       0.8660254153338345
     ],
-    "gridPulse": -1
+    "gridPulse": -1,
+    "labColumns": 18,
+    "sheetY": 0.75,
+    "sheetVisible": true,
+    "reflections": true
   },
   {
     "time": 65,
@@ -1170,13 +657,13 @@
     "scene": 4,
     "classroom": false,
     "roomState": {
-      "left": 55.267133019866264,
-      "top": 34.44549780070743,
+      "left": 54.74041971787964,
+      "top": 37.77860541484156,
       "scale": 2.4739666529066544,
       "opacity": 0.972,
       "camera": [
-        0.6619898144252117,
-        1.3901786102929445,
+        0.5957908329826905,
+        1.092283193801599,
         3.4673466722769515
       ]
     },
@@ -1198,72 +685,11 @@
       10
     ],
     "projection": "perspective",
-    "rings": 8,
-    "ringStates": [
-      {
-        "position": [
-          0,
-          0,
-          -8
-        ],
-        "rotation": [
-          0.3357127691736582,
-          -0.05658667572378996,
-          7.15,
-          "XYZ"
-        ],
-        "scale": 3,
-        "opacity": 0.085
-      },
-      {
-        "position": [
-          0,
-          0,
-          -10.5
-        ],
-        "rotation": [
-          0.28468625236604195,
-          0.04801198923531785,
-          -5.68,
-          "XYZ"
-        ],
-        "scale": 3.35,
-        "opacity": 0.1
-      },
-      {
-        "position": [
-          0,
-          0,
-          -13
-        ],
-        "rotation": [
-          0.27217331626710894,
-          0.14832188618779987,
-          7.49,
-          "XYZ"
-        ],
-        "scale": 3.7,
-        "opacity": 0.085
-      },
-      {
-        "position": [
-          0,
-          0,
-          -15.5
-        ],
-        "rotation": [
-          0.32670461182713034,
-          0.23538263078696328,
-          -5.34,
-          "XYZ"
-        ],
-        "scale": 4.05,
-        "opacity": 0.1
-      }
-    ],
+    "rings": 0,
+    "ringStates": [],
     "particleSplit": 0,
-    "shocks": 1,
-    "particleCount": 1800,
+    "shocks": 0,
+    "particleCount": 1100,
     "rangeVisible": false,
     "rangeDrawCount": 256,
     "circleVisible": true,
@@ -1281,7 +707,11 @@
       0,
       1.0000000216744163
     ],
-    "gridPulse": 3
+    "gridPulse": -1,
+    "labColumns": 18,
+    "sheetY": 1,
+    "sheetVisible": true,
+    "reflections": true
   },
   {
     "time": 74,
@@ -1290,13 +720,13 @@
     "scene": 5,
     "classroom": false,
     "roomState": {
-      "left": 55.267133019866264,
-      "top": 34.44549780070743,
+      "left": 54.74041971787964,
+      "top": 37.77860541484156,
       "scale": 2.4739666529066544,
       "opacity": 0.972,
       "camera": [
-        0.6619898144252117,
-        1.3901786102929445,
+        0.5957908329826905,
+        1.092283193801599,
         3.4673466722769515
       ]
     },
@@ -1318,72 +748,11 @@
       10
     ],
     "projection": "perspective",
-    "rings": 8,
-    "ringStates": [
-      {
-        "position": [
-          0,
-          0,
-          -8
-        ],
-        "rotation": [
-          0.13499635279545621,
-          0.15776426956188486,
-          8.14,
-          "XYZ"
-        ],
-        "scale": 3,
-        "opacity": 0.085
-      },
-      {
-        "position": [
-          0,
-          0,
-          -10.5
-        ],
-        "rotation": [
-          0.3741285145532949,
-          0.24304636273785565,
-          -6.49,
-          "XYZ"
-        ],
-        "scale": 3.35,
-        "opacity": 0.1
-      },
-      {
-        "position": [
-          0,
-          0,
-          -13
-        ],
-        "rotation": [
-          0.3794786442588496,
-          0.3066178481835783,
-          8.48,
-          "XYZ"
-        ],
-        "scale": 3.7,
-        "opacity": 0.085
-      },
-      {
-        "position": [
-          0,
-          0,
-          -15.5
-        ],
-        "rotation": [
-          0.051060709714438775,
-          0.3428000744360399,
-          -6.15,
-          "XYZ"
-        ],
-        "scale": 4.05,
-        "opacity": 0.1
-      }
-    ],
+    "rings": 0,
+    "ringStates": [],
     "particleSplit": 0,
     "shocks": 0,
-    "particleCount": 1800,
+    "particleCount": 1100,
     "rangeVisible": false,
     "rangeDrawCount": 256,
     "circleVisible": true,
@@ -1401,7 +770,11 @@
       0,
       1.0000000216744163
     ],
-    "gridPulse": -1
+    "gridPulse": -1,
+    "labColumns": 18,
+    "sheetY": 1,
+    "sheetVisible": true,
+    "reflections": true
   },
   {
     "time": 87,
@@ -1410,13 +783,13 @@
     "scene": 5,
     "classroom": false,
     "roomState": {
-      "left": 55.267133019866264,
-      "top": 34.44549780070743,
+      "left": 54.74041971787964,
+      "top": 37.77860541484156,
       "scale": 2.4739666529066544,
       "opacity": 0.972,
       "camera": [
-        0.6619898144252117,
-        1.3901786102929445,
+        0.5957908329826905,
+        1.092283193801599,
         3.4673466722769515
       ]
     },
@@ -1438,72 +811,11 @@
       10
     ],
     "projection": "perspective",
-    "rings": 8,
-    "ringStates": [
-      {
-        "position": [
-          0,
-          0,
-          -8
-        ],
-        "rotation": [
-          -0.23799895152222922,
-          0.34348918826176533,
-          9.57,
-          "XYZ"
-        ],
-        "scale": 3,
-        "opacity": 0.085
-      },
-      {
-        "position": [
-          0,
-          0,
-          -10.5
-        ],
-        "rotation": [
-          0.03596172874114015,
-          0.34800525639243524,
-          -7.66,
-          "XYZ"
-        ],
-        "scale": 3.35,
-        "opacity": 0.1
-      },
-      {
-        "position": [
-          0,
-          0,
-          -13
-        ],
-        "rotation": [
-          0.2092605061871023,
-          0.3214350514166455,
-          9.91,
-          "XYZ"
-        ],
-        "scale": 3.7,
-        "opacity": 0.085
-      },
-      {
-        "position": [
-          0,
-          0,
-          -15.5
-        ],
-        "rotation": [
-          -0.3491728669056589,
-          0.2661520106121384,
-          -7.32,
-          "XYZ"
-        ],
-        "scale": 4.05,
-        "opacity": 0.1
-      }
-    ],
+    "rings": 0,
+    "ringStates": [],
     "particleSplit": 0,
     "shocks": 0,
-    "particleCount": 1800,
+    "particleCount": 1100,
     "rangeVisible": false,
     "rangeDrawCount": 256,
     "circleVisible": true,
@@ -1521,6 +833,10 @@
       0,
       1.0000000216744163
     ],
-    "gridPulse": -1
+    "gridPulse": -1,
+    "labColumns": 18,
+    "sheetY": 1,
+    "sheetVisible": true,
+    "reflections": true
   }
 ]
