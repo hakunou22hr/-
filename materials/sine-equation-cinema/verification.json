@@ -10,5 +10,7 @@
   "browser": "desktop, touch phone and tablet viewports passed; interactions, domain endpoint, 3D, reveal steps, classroom camera and portrait layout",
   "deviceLimitation": "Chromium emulation; no physical Safari/iPhone testing",
   "audio": "silent by request",
-  "classroom": "AI-generated static image on depth mesh; independently moving camera, static students"
+  "classroom": "AI-generated static image on depth mesh; independently moving camera, static students",
+  "media": "Both complete H.264 files fully decoded; exact 90/30 seconds, 1920×1080/1080×1920, 24fps, faststart",
+  "nativePlayback": "Both reached end in local Chromium, replay and seek passed, byte ranges returned 206; runtime frame drops recorded separately"
 }
