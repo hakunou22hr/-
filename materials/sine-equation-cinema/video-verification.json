@@ -17,9 +17,9 @@
     ],
     "format": {
       "duration": "90.000000",
-      "size": "40336157"
+      "size": "39921775"
     },
-    "sha256": "328b80758b2c34f8a2c7f96211f5f74d3accc4f7e724c0cbde8aa798ced12299",
+    "sha256": "e197d5b750a2ec784100162120b17af20e965cce86dfd9eab3fed31ddf7753ee",
     "faststart": true,
     "fullDecode": "passed",
     "audio": false
@@ -42,9 +42,9 @@
     ],
     "format": {
       "duration": "30.000000",
-      "size": "14150033"
+      "size": "14102530"
     },
-    "sha256": "5f27216f806d330d626df987723c6a4e674a214700886b8c9bf7e0a3233892b1",
+    "sha256": "195f3e2641030cee6918177c91836044695657fd34ddbc0a0cabd2c47e6f9f89",
     "faststart": true,
     "fullDecode": "passed",
     "audio": false

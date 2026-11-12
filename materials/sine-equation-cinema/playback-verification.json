@@ -1,18 +1,18 @@
 {
-  "base": "http://127.0.0.1:8820/materials/sine-equation-cinema/?v=sine-energy-v3",
+  "base": "http://127.0.0.1:8820/materials/sine-equation-cinema/?v=sine-triangle-v4",
   "records": [
     {
       "metadata": {
         "duration": 90,
         "width": 1920,
         "height": 1080,
-        "source": "http://127.0.0.1:8820/media/sine-equation-cinema/sine-equation-90s.mp4?v=3"
+        "source": "http://127.0.0.1:8820/media/sine-equation-cinema/sine-equation-90s.mp4?v=4"
       },
       "playback": {
         "ended": true,
         "error": null,
         "frames": 2160,
-        "dropped": 67
+        "dropped": 35
       },
       "seek": true,
       "replay": true,
@@ -23,13 +23,13 @@
         "duration": 30,
         "width": 1080,
         "height": 1920,
-        "source": "http://127.0.0.1:8820/media/sine-equation-cinema/sine-equation-instagram-30s.mp4?v=3"
+        "source": "http://127.0.0.1:8820/media/sine-equation-cinema/sine-equation-instagram-30s.mp4?v=4"
       },
       "playback": {
         "ended": true,
         "error": null,
         "frames": 720,
-        "dropped": 27
+        "dropped": 1
       },
       "seek": true,
       "replay": true,

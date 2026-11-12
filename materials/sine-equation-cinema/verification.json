@@ -1,5 +1,5 @@
 {
-  "revision": "sine-energy-v3",
+  "revision": "sine-triangle-v4",
   "problem": "2sin²θ−3sinθ＋1＝0, 0≦θ＜2π",
   "solutions": [
     "π/6",
@@ -13,7 +13,9 @@
   "audio": "silent by request",
   "classroom": "New AI-generated sunset aisle image on depth mesh; moving camera, static students",
   "preview": "12-second H.264 preview published before film updates",
-  "media": "Final energy edition fully decoded; H.264, yuv420p, faststart; 90s 1920×1080/2160 frames and 30s 1080×1920/720 frames",
   "fragments": "Independent depth seed removes circular alignment; visible fragment intervals refined frame-exactly",
-  "nativePlayback": "Both final films played to end; seek, replay and byte-range 206 passed in local Chromium; dropped frames recorded separately"
+  "triangle": "O=(0,0), H=(cosθ,0), P=(cosθ,sinθ); base OH lies on x axis; right angle at H; GPU geometry vertices checked",
+  "heading": "Stacked display fraction in both height-1/2 headings; chapter CSS scoped to avoid shrinking KaTeX descendants",
+  "media": "Triangle v4 edition fully decoded; H.264/yuv420p/faststart; 90s 1920×1080 with 2160 frames; 30s 1080×1920 with 720 frames; 12s preview 288 frames",
+  "nativePlayback": "Both v4 films reached end in Chromium; seeking, replay and Range 206 passed; x-axis triangle geometry and stacked headings passed on desktop and touch viewports"
 }
