@@ -267,7 +267,7 @@ jobs:
       - name: Check films, controls and mobile layouts
         env:
           PLAYWRIGHT_MODULE_PATH: /tmp/trig-equation-browser/node_modules/playwright/index.mjs
-          APP_URL: https://hakunou22hr.github.io/-/materials/sine-equation-cinema/?v=sine-lab-v2
+          APP_URL: https://hakunou22hr.github.io/-/materials/sine-equation-cinema/?v=sine-energy-v3
         run: node materials/sine-equation-cinema/tests/published.mjs
       - uses: actions/upload-artifact@v4
         if: always()

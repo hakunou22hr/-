@@ -25,3 +25,7 @@
 .film-math::before{content:"";position:absolute;inset:-30px -20px;z-index:-1;opacity:.28;background:repeating-linear-gradient(90deg,transparent 0 54px,#79d8ed36 55px,#b7efff0d 57px,transparent 59px 96px),linear-gradient(180deg,transparent 40%,#79c4df13 61%,transparent 62%);transform:perspective(600px) rotateY(-16deg) translateY(var(--lab-drift,0px))}
 .film-math::after{content:"";position:absolute;left:-40px;right:-40px;bottom:-5px;height:150px;z-index:-1;background:repeating-linear-gradient(0deg,transparent 0 19px,#75c7d524 20px,transparent 21px 35px);transform:perspective(180px) rotateX(55deg);opacity:.3}
 .portrait .film-math{background:linear-gradient(110deg,#071d2af5,#102d40f5 60%,#0b1829fa)}
+
+/* Broad diffuse energy, no vertical side rails. */
+.film-math::before{background:radial-gradient(ellipse at 15% 25%,#efb36640,transparent 45%),radial-gradient(ellipse at 95% 70%,#31d8ff38,transparent 52%);transform:translateY(var(--lab-drift,0px));opacity:.38}
+.film-math::after{background:linear-gradient(145deg,transparent 35%,#68d9f018 48%,transparent 62%);transform:none;bottom:0;height:100%;opacity:.35}
