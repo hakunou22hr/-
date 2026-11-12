@@ -1,0 +1,7 @@
+import {describe,it,expect} from 'vitest';import {angles,intersections,residual,atAngle,film,radian,stages} from '../src/model';
+describe('sine equation geometry',()=>{
+it('factorization and range retain both candidates',()=>{for(let t=-2;t<=2;t+=.05)expect(residual(t)).toBeCloseTo((2*t-1)*(t-1),11);for(const t of [.5,1]){expect(residual(t)).toBe(0);expect(Math.abs(t)).toBeLessThanOrEqual(1)}});
+it('every point is on circle and horizontal line',()=>{for(let k=-1.5;k<=1.5;k+=.01){const pts=intersections(k);expect(pts.length).toBe(Math.abs(k)>1?0:Math.abs(k)===1?1:2);for(const [x,y] of pts){expect(x*x+y*y).toBeCloseTo(1,11);expect(y).toBe(k)}}});
+it('counts tangent once and finds three solutions',()=>{expect(intersections(1)).toEqual([[0,1]]);expect(angles(.5)[0]).toBeCloseTo(30);expect(angles(.5)[1]).toBeCloseTo(150);expect(angles(1)).toEqual([90]);expect(angles(0)).toEqual([0,180]);for(const a of [30,90,150])expect(residual(atAngle(a)[1])).toBeCloseTo(0,12);expect([30,90,150].map(radian)).toEqual(['\\frac{\\pi}{6}','\\frac{\\pi}{2}','\\frac{5\\pi}{6}'])});
+it('film progresses through secant to tangent without false points',()=>{for(let t=28;t<90;t+=.125){const f=film(t);for(const [x,y] of intersections(f.k)){expect(x*x+y*y).toBeCloseTo(1,12);expect(y).toBe(f.k)}}expect(film(56).k).toBe(.5);expect(film(62).k).toBe(1);expect(stages[0].start).toBe(0);expect(stages.at(-1)?.end).toBe(90)});
+});
