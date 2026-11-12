@@ -1,0 +1,4 @@
+// Append the degree/radian correspondence, preserving the classroom and explanation.
+import {spawn} from 'node:child_process';import {once} from 'node:events';
+const dir=process.env.REVIEW_DIR;if(!dir)throw Error('Set REVIEW_DIR');
+for(const [base,end,frames,name] of [['base-main.mp4','main-end.mp4',2016,'trig-equation-90s.mp4'],['base-short.mp4','short-end.mp4',552,'trig-equation-instagram-30s.mp4']]){const p=spawn('ffmpeg',['-y','-v','error','-i',dir+'/'+base,'-i',dir+'/'+end,'-filter_complex',`[0:v]trim=end_frame=${frames},setpts=PTS-STARTPTS[a];[1:v]setpts=PTS-STARTPTS[b];[a][b]concat=n=2:v=1:a=0[v]`,'-map','[v]','-an','-c:v','libx264','-preset','fast','-crf','18','-pix_fmt','yuv420p','-r','24','-color_range','tv','-colorspace','bt709','-color_primaries','bt709','-color_trc','bt709','-movflags','+faststart',dir+'/'+name],{stdio:'inherit'});const[code]=await once(p,'exit');if(code!==0)throw Error('ffmpeg '+code)}

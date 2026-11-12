@@ -1,10 +1,12 @@
 {
-  "revision": "classroom-degrees-v2",
+  "revision": "classroom-radians-v3",
   "math": "4 groups passed; full inclusive degree domain; solutions 60 and 300 degrees",
   "interaction": "passed",
   "scenes": "five synchronized scenes and classroom camera movement passed",
   "media": "H.264 yuv420p; 90s 1920x1080 and 30s 1080x1920; full decode passed",
   "audio": "silent by request",
   "classroom": "AI generated still with depth mesh and camera movement",
-  "deviceLimitation": "Chromium desktop and touch viewport emulation; no real Safari or iPhone test"
+  "deviceLimitation": "Chromium desktop and touch viewport emulation; no real Safari or iPhone test",
+  "ending": "84–90s: 60°=π/3 and 300°=5π/3; boxed radians within 0≦θ≦2π; portrait ending synchronized",
+  "visual": "both layouts checked for exact fraction text, circle labels and no clipping"
 }

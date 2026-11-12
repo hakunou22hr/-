@@ -3,9 +3,9 @@
   "name": "三角方程式（cosθ）",
   "subject": "数学Ⅰ",
   "unit": "三角方程式（cosθ）／単位円／弧度法",
-  "description": "生徒のいる授業風景から黒板の中へ。因数分解と単位円を結び、0°≦θ≦360°で60°・300°を求める90秒映画と3D探究教材。縦型30秒版付き。",
+  "description": "生徒のいる授業風景から黒板の中へ。因数分解と単位円を結び、0°≦θ≦360°で60°・300°を求め、最後にπ/3・5π/3へ変換する90秒映画と3D探究教材。縦型30秒版付き。",
   "thumbnail": "thumbnail.svg",
   "durationSeconds": 90,
-  "version": "1.1.0",
-  "revision": "classroom-degrees-v2"
+  "version": "1.2.0",
+  "revision": "classroom-radians-v3"
 }

@@ -24,11 +24,11 @@ export const stages=[
  {start:64,end:68,title:'同じx座標に、二つの角度',tex:[String.raw`\theta=60^\circ,\ 300^\circ`,String.raw`0^\circ\leqq\theta\leqq360^\circ`],caption:'上側は60°、下側は300°。どちらもx座標は1/2。'},
  {start:68,end:77,title:'円周をたどり、二つの角度へ',tex:[String.raw`0^\circ\leqq\theta\leqq360^\circ`,String.raw`\cos60^\circ=\cos300^\circ=\frac12`],caption:'反時計回りに角度を測る。交点の角度は60°と300°。'},
  {start:77,end:84,title:'全周で、二つの解が確定する',tex:[String.raw`0^\circ\leqq\theta\leqq360^\circ`,String.raw`\boxed{\theta=60^\circ,\ 300^\circ}`],caption:'二つの光る交点が、60°と300°を表している。'},
- {start:84,end:90,title:'答えは、60°と300°',tex:[String.raw`0^\circ\leqq\theta\leqq360^\circ`,String.raw`\boxed{\theta=60^\circ,\ 300^\circ}`],caption:'指定範囲を確認して、解は60°と300°。次は自分で動かしてみよう。'}
+ {start:84,end:90,title:'弧度法でも、同じ二つの角度',tex:[String.raw`60^\circ=\frac{\pi}{3},\quad300^\circ=\frac{5\pi}{3}`,String.raw`\boxed{\theta=\frac{\pi}{3},\ \frac{5\pi}{3}}\quad(0\leqq\theta\leqq2\pi)`],caption:'180°＝π rad。60°はπ/3、300°は5π/3。同じ二つの角度を弧度法で表す。'}
 ];
 export const stageAt=(t:number)=>stages.findIndex(s=>t>=s.start&&t<s.end)===-1?stages.length-1:stages.findIndex(s=>t>=s.start&&t<s.end);
 export function explanationTime(t:number){return t<6?0:t<8?(t-6)/2*5:t<10.5?5+(t-8)/2.5*4:t<12?9+(t-10.5)/1.5*3:t}
 export function film(clock:number){const t=explanationTime(clock);const scene=t<12?1:t<25?2:t<42?3:t<68?4:5;const k=t<42?2:t<48?2-1.5*ease((t-42)/6):.5;const theta=t<50?60:t<56?60:t<64?60+240*ease((t-56)/8):t<68?300:Math.min(360,(t-68)/14*360);return {scene,k,theta,mathTime:t,classroom:clock<6,showCircle:t>=25,showRadius:t>=49,red:t>=25&&t<42,redOpacity:1-ease((t-34)/6),shock:t>=48&&t<53?(t-48)/5:-1}}
 export function shortTime(t:number){return t<2?t*3:t<2.6?6+(t-2)/.6*2:t<3.2?8+(t-2.6)/.6*2.5:t<3.5?10.5+(t-3.2)/.3*1.5:t<5?12+(t-3.5)/1.5*13:t<12?25+(t-5)/7*17:t<23?42+(t-12)/11*26:68+(t-23)/7*22}
-export const shortCaptions=['教室の黒板から、因数分解と単位円の世界へ。','cosθは−1から1。\nx=2は円と交わらない。','x=1/2の交点は二つ。\n60°と300°。','0°≦θ≦360°の解は、\n60°と300°。'];
+export const shortCaptions=['教室の黒板から、因数分解と単位円の世界へ。','cosθは−1から1。\nx=2は円と交わらない。','x=1/2の交点は二つ。\n60°と300°。','60°＝π/3、300°＝5π/3。\n弧度法でも、同じ二つの解。'];
 export const shortCaption=(sourceTime:number)=>shortCaptions[sourceTime<25?0:sourceTime<42?1:sourceTime<68?2:3];
