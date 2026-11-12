@@ -14,5 +14,6 @@
   "classroom": "New AI-generated sunset aisle image on depth mesh; moving camera, static students",
   "preview": "12-second H.264 preview published before film updates",
   "media": "Final energy edition fully decoded; H.264, yuv420p, faststart; 90s 1920×1080/2160 frames and 30s 1080×1920/720 frames",
-  "fragments": "Independent depth seed removes circular alignment; visible fragment intervals refined frame-exactly"
+  "fragments": "Independent depth seed removes circular alignment; visible fragment intervals refined frame-exactly",
+  "nativePlayback": "Both final films played to end; seek, replay and byte-range 206 passed in local Chromium; dropped frames recorded separately"
 }
