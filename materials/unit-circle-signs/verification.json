@@ -1,0 +1,9 @@
+{
+  "revision": "sign-space-v1",
+  "mathematics": "4 groups passed: unit radius, nonnegative lengths, quadrant signs, exact axis zeros, tangent definition and monotonic film angle",
+  "interaction": "Four quadrant quizzes and five axis quizzes passed; 2D/3D, rotation, sign table and component geometry passed",
+  "viewports": "Chromium desktop, phone touch and tablet touch emulation; no physical Safari device test",
+  "pedagogy": "Signed coordinates x=cosθ,y=sinθ are distinguished from nonnegative side lengths; axes belong to no quadrant",
+  "classroom": "Approved AI-generated sunset image on depth mesh, camera moves, students not independently animated",
+  "audio": "Silent by established request; exact subtitles and formulas"
+}
