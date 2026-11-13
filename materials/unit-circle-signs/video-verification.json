@@ -1,0 +1,52 @@
+{
+  "unit-circle-signs-90s.mp4": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1920,
+        "height": 1080,
+        "pix_fmt": "yuv420p",
+        "r_frame_rate": "24/1",
+        "nb_read_frames": "2160",
+        "side_data_list": [
+          {}
+        ]
+      }
+    ],
+    "format": {
+      "duration": "90.000000",
+      "size": "18135800"
+    },
+    "sha256": "14499cd56bd944502f8ef5b3fb5bfd0fa2eae6afa2c65802777ba12bc940a637",
+    "faststart": true,
+    "fullDecode": "passed",
+    "audio": false
+  },
+  "unit-circle-signs-instagram-30s.mp4": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1080,
+        "height": 1920,
+        "pix_fmt": "yuv420p",
+        "r_frame_rate": "24/1",
+        "nb_read_frames": "720",
+        "side_data_list": [
+          {}
+        ]
+      }
+    ],
+    "format": {
+      "duration": "30.000000",
+      "size": "6410162"
+    },
+    "sha256": "d03f7705143bb7ab9700c7b45220fecddf81c1975e5fdb3ccd28616c00c95f37",
+    "faststart": true,
+    "fullDecode": "passed",
+    "audio": false
+  }
+}

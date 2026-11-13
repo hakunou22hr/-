@@ -5,5 +5,7 @@
   "viewports": "Chromium desktop, phone touch and tablet touch emulation; no physical Safari device test",
   "pedagogy": "Signed coordinates x=cosθ,y=sinθ are distinguished from nonnegative side lengths; axes belong to no quadrant",
   "classroom": "Approved AI-generated sunset image on depth mesh, camera moves, students not independently animated",
-  "audio": "Silent by established request; exact subtitles and formulas"
+  "audio": "Silent by established request; exact subtitles and formulas",
+  "media": "Exact 90s 1920×1080 /2160 frames and 30s 1080×1920 /720 frames, H.264/yuv420p at 24fps, faststart, full decode passed",
+  "playback": "Both final MP4s reached end in Chromium; seek/replay/Range 206 and catalog passed; headless dropped frames recorded separately"
 }

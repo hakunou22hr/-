@@ -1,0 +1,40 @@
+{
+  "base": "http://127.0.0.1:8820/materials/unit-circle-signs/?v=sign-space-v1",
+  "records": [
+    {
+      "metadata": {
+        "duration": 90,
+        "width": 1920,
+        "height": 1080,
+        "source": "http://127.0.0.1:8820/media/unit-circle-signs/unit-circle-signs-90s.mp4"
+      },
+      "playback": {
+        "ended": true,
+        "error": null,
+        "frames": 2160,
+        "dropped": 80
+      },
+      "seek": true,
+      "replay": true,
+      "range206": true
+    },
+    {
+      "metadata": {
+        "duration": 30,
+        "width": 1080,
+        "height": 1920,
+        "source": "http://127.0.0.1:8820/media/unit-circle-signs/unit-circle-signs-instagram-30s.mp4"
+      },
+      "playback": {
+        "ended": true,
+        "error": null,
+        "frames": 720,
+        "dropped": 46
+      },
+      "seek": true,
+      "replay": true,
+      "range206": true
+    }
+  ],
+  "errors": []
+}
