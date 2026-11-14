@@ -1,0 +1,29 @@
+{
+  "revision": "download-v4",
+  "browserChecks": [
+    {
+      "mobile": false,
+      "bytes": 25108109,
+      "sha256": "ea241f638628f3bc6ea8aa6e0bfd8cf14eb34b673168948c9d4323e73d3af0c2",
+      "nativeDownload": true,
+      "fileShareMock": true,
+      "editionReset": true,
+      "zipDownload": true
+    },
+    {
+      "mobile": true,
+      "bytes": 25108109,
+      "sha256": "ea241f638628f3bc6ea8aa6e0bfd8cf14eb34b673168948c9d4323e73d3af0c2",
+      "nativeDownload": true,
+      "fileShareMock": true,
+      "editionReset": true,
+      "zipDownload": true
+    }
+  ],
+  "zip": {
+    "bytes": 25108283,
+    "sha256": "94e44834efc894db9093a3517ca3d6ce74a6a8ddce200c5b80ab1dd15ee8f7f5",
+    "originalMp4Unchanged": true
+  },
+  "scope": "Desktop and phone-sized Chromium actual MP4/ZIP downloads; Web Share mocked; no physical iPhone/Safari test"
+}
