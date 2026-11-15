@@ -3,23 +3,26 @@
 <style>
 :root{color-scheme:dark;font-family:"Segoe UI",system-ui,"Yu Gothic",sans-serif;background:#0e1420;color:#e6ecf5}*{box-sizing:border-box}body{margin:0;padding:14px}main{max-width:1600px;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;gap:10px}h1{font-size:21px;margin:0}h2{font-size:15px;margin:0 0 9px}.sub,.note{color:#aebfd3;font-size:12px;line-height:1.6}.badge{background:#174c45;color:#9ff3c7;border:1px solid #347569;padding:5px 9px;border-radius:20px;font-size:11px}.card{background:#1b2533;border:1px solid #334355;border-radius:12px;padding:12px;min-width:0}.toolbar,.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.toolbar{margin:12px 0}select,button,input{font:inherit}select,button{background:#26394c;color:#f0f5fc;border:1px solid #4c6880;padding:8px;border-radius:7px}button{cursor:pointer}button:hover{border-color:#ffc94b}button:focus-visible,select:focus-visible{outline:2px solid #ffcb51}select{min-width:0;max-width:100%}.largeSelect{flex:1;min-width:230px}button.primary{background:#245d85}button.good{background:#1c7557}.gridViews{display:grid;grid-template-columns:1fr 1fr;gap:10px}.screen{background:#102a48;border-radius:7px;aspect-ratio:16/9;overflow:hidden;position:relative}.screen svg{display:block;width:100%;height:100%}.screenTag{position:absolute;top:5px;left:7px;font-size:11px;background:#0b1627b9;padding:3px 6px;border-radius:4px}.workspace{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(300px,1fr);gap:12px;margin-top:12px}.board{width:100%;height:auto;display:block;border-radius:10px;background:#181c22;touch-action:manipulation}.key{cursor:pointer;outline:none}.key rect{fill:#363f4a;stroke:#8294a7;stroke-width:1}.key text{fill:#fff;font:700 9px Arial,sans-serif;text-anchor:middle;pointer-events:none}.key.big rect{fill:#dce1e8}.key.big text{fill:#101824;font-size:15px}.key:hover rect,.key:focus-visible rect{stroke:#ffcf56;stroke-width:3}.key.current rect{stroke:#fa6871;stroke-width:3}.key.next rect{stroke:#ffd35b;stroke-width:3;filter:drop-shadow(0 0 4px #f6cb49)}.caption{fill:#c3d0df;font:600 10px Arial;text-anchor:middle}.settings{display:grid;grid-template-columns:1fr 1fr;gap:9px}.field{min-width:0}.field label{font-size:12px;display:block;margin-bottom:4px;color:#d3dfeb}.field select,.field input{width:100%}.field input{accent-color:#4db4ec}.span2{grid-column:1/-1}.guide{margin-top:12px;line-height:1.6}.progress{height:8px;border-radius:5px;background:#344457;overflow:hidden}.progress div{height:100%;width:0;background:#36ad8b;transition:width .2s}#message{margin-top:6px;padding:9px;border-radius:8px;background:#29394b;font-size:13px}#currentStep{font-weight:700}#explain{color:#b7c9de;font-size:12px}#status{font-size:11px;color:#bbcede;line-height:1.6}small{font-size:11px;color:#aebfd3}@media(max-width:800px){.workspace{grid-template-columns:1fr}.gridViews{gap:5px}.card{padding:8px}.settings{grid-template-columns:1fr 1fr}}@media(max-width:480px){body{padding:7px}.settings{grid-template-columns:1fr}h1{font-size:17px}}
 
-/* Training layout: persistent guidance without changing lesson logic */
-#liveGuide{position:sticky;top:8px;z-index:20;background:#1e3145;border:2px solid #daaa45;box-shadow:0 5px 18px #050b1677;margin:0 0 12px;display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:12px;align-items:center;padding:10px 14px}
-#liveGuide .row{grid-column:1/-1}
-#liveGuide #currentStep{grid-column:1/-1;color:#fff;font-size:15px}
-#liveGuide #message{grid-column:1/-1;margin:3px 0;padding:6px 9px}
-#liveGuide #explain{grid-column:1/-1;margin:3px 0 0}
-.workspace{align-items:start}
+/* Training layout: side-by-side guidance; never overlays monitors or hardware */
+.trainingTop{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(320px,1fr);gap:12px;align-items:stretch;margin:0 0 12px}
+.trainingTop .gridViews{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;max-width:none;margin:0;min-width:0}
+.trainingTop .gridViews .card{padding:9px;min-width:0}
+#liveGuide{position:static;z-index:auto;min-width:0;margin:0;background:#1e3145;border:2px solid #daaa45;box-shadow:none;padding:11px;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:7px;line-height:1.5}
+#liveGuide .row{width:100%;flex-wrap:nowrap}
+#liveGuide #currentStep{font-size:15px;font-weight:700;color:#fff}
+#liveGuide #message{margin:0;padding:8px;background:#293e55;overflow-wrap:anywhere}
+#liveGuide #explain{margin:0;overflow-wrap:anywhere}
+.workspace{align-items:start;margin-top:8px}
 .field.next-control{outline:2px solid #f5c54b;outline-offset:3px;border-radius:5px;background:#5d4b2455}
 .field.next-control label{color:#ffe49c}
 #keyair.next-control{outline:3px solid #f5c54b;box-shadow:0 0 12px #f5c54b66}
-@media(min-width:1000px){.gridViews{max-width:950px;margin:0 auto 12px}.gridViews .card{padding:8px}.workspace{margin-top:8px}}
-@media(max-width:580px){#liveGuide{position:sticky;top:4px;padding:8px;box-shadow:0 3px 10px #0006}#liveGuide #currentStep{font-size:13px}#liveGuide #message{font-size:11px}}
+@media(max-width:950px){.trainingTop{grid-template-columns:1fr}.trainingTop #liveGuide{order:-1}.trainingTop .gridViews{width:100%}}
+@media(max-width:580px){#liveGuide{position:static;padding:9px;box-shadow:none}#liveGuide #currentStep{font-size:13px}#liveGuide #message{font-size:11px}.trainingTop{gap:8px}}
 </style></head><body><main>
 <header class="top"><div><h1>ATME操作方法</h1><div class="sub">ATEM Mini Pro 操作体験アクセラレーター｜30課題</div></div><span class="badge" id="tally">完了 0/30</span></header>
 <section class="card toolbar"><label for="lesson">課題を選択</label><select class="largeSelect" id="lesson"></select><button id="restart">やり直す</button><button id="next">次へ</button><button id="free">自由練習</button><span id="errors" class="note">誤操作 0</span></section>
 <section class="card" style="margin-bottom:12px"><div class="row" style="justify-content:space-between"><strong id="title">課題</strong><small id="stepnum">0/0</small></div><p class="note" id="goal"></p><div class="progress"><div id="progress"></div></div></section>
-<section class="card guide" id="liveGuide" aria-live="polite"><div class="row" style="justify-content:space-between"><h2 style="margin:0">操作ガイド・正誤判定</h2><button id="hint">ヒント</button></div><div id="currentStep"></div><div id="message"></div><p id="explain"></p></section>
+<div class="trainingTop">
 <div class="gridViews"><section class="card"><h2>PROGRAM（送出）</h2><div class="screen"><div class="screenTag" id="pl">HDMI 1</div><svg viewBox="0 0 320 180" id="program"></svg></div></section><section class="card"><h2>PREVIEW（確認）</h2><div class="screen"><div class="screenTag" id="vl">HDMI 2</div><svg viewBox="0 0 320 180" id="preview"></svg></div></section></div>
 <div class="workspace"><section class="card"><h2>ATEM Mini Pro 本体パネル</h2><svg class="board" viewBox="0 0 700 410" aria-label="ATEM Mini Pro学習用ボタン配置"><rect x="3" y="3" width="694" height="404" rx="18" fill="#222832" stroke="#667386" stroke-width="4"/><text x="22" y="29" fill="#fafcff" font-size="19" font-weight="bold">ATEM Mini Pro</text><g id="keys"></g></svg><p class="note">黄色の枠が次の操作です。キー位置は研修用の再構成であり、実物の寸法・配置と完全には一致しません。</p></section>
 <section class="card"><h2>ATEM Software Control（学習用）</h2><div class="settings">
@@ -31,6 +34,9 @@
 <div class="field"><label for="spill">Spill補正（模擬）</label><input id="spill" type="range" min="0" max="100" step="10" value="40"></div>
 <div class="field"><label for="position">PIP位置</label><select id="position"><option value="TL">左上</option><option value="TR">右上</option><option value="BL">左下</option><option value="BR">右下</option></select></div>
 <div class="field" style="display:flex;align-items:end"><button class="good" id="keyair" style="width:100%">KEY ON AIR</button></div></div>
+<section class="card guide" id="liveGuide" aria-live="polite"><div class="row" style="justify-content:space-between"><h2 style="margin:0">操作ガイド・正誤判定</h2><button id="hint">ヒント</button></div><div id="currentStep"></div><div id="message"></div><p id="explain"></p></section>
+</div>
+
 <p class="note">ソフトのセレクトを変更すると適用されます。変更だけでキーがONになるわけではありません。</p><div id="status"></div></section></div>
 
 <p class="note">実機には接続しません。クロマキー、音声、マルチビュー、録画・配信は学習用の模擬表示です。操作ガイドは実際のATEM Software Controlのバージョンによって異なる場合があります。</p>
