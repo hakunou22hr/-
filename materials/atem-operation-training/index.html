@@ -24,6 +24,8 @@
 <section class="card" style="margin-bottom:12px"><div class="row" style="justify-content:space-between"><strong id="title">課題</strong><small id="stepnum">0/0</small></div><p class="note" id="goal"></p><div class="progress"><div id="progress"></div></div></section>
 <div class="trainingTop">
 <div class="gridViews"><section class="card"><h2>PROGRAM（送出）</h2><div class="screen"><div class="screenTag" id="pl">HDMI 1</div><svg viewBox="0 0 320 180" id="program"></svg></div></section><section class="card"><h2>PREVIEW（確認）</h2><div class="screen"><div class="screenTag" id="vl">HDMI 2</div><svg viewBox="0 0 320 180" id="preview"></svg></div></section></div>
+<section class="card guide" id="liveGuide" aria-live="polite"><div class="row" style="justify-content:space-between"><h2 style="margin:0">操作ガイド・正誤判定</h2><button id="hint">ヒント</button></div><div id="currentStep"></div><div id="message"></div><p id="explain"></p></section>
+</div>
 <div class="workspace"><section class="card"><h2>ATEM Mini Pro 本体パネル</h2><svg class="board" viewBox="0 0 700 410" aria-label="ATEM Mini Pro学習用ボタン配置"><rect x="3" y="3" width="694" height="404" rx="18" fill="#222832" stroke="#667386" stroke-width="4"/><text x="22" y="29" fill="#fafcff" font-size="19" font-weight="bold">ATEM Mini Pro</text><g id="keys"></g></svg><p class="note">黄色の枠が次の操作です。キー位置は研修用の再構成であり、実物の寸法・配置と完全には一致しません。</p></section>
 <section class="card"><h2>ATEM Software Control（学習用）</h2><div class="settings">
 <div class="field"><label for="mode">Switching Mode</label><select id="mode"><option value="cut">Cut Bus</option><option value="preview">Program/Preview</option></select></div>
@@ -34,8 +36,7 @@
 <div class="field"><label for="spill">Spill補正（模擬）</label><input id="spill" type="range" min="0" max="100" step="10" value="40"></div>
 <div class="field"><label for="position">PIP位置</label><select id="position"><option value="TL">左上</option><option value="TR">右上</option><option value="BL">左下</option><option value="BR">右下</option></select></div>
 <div class="field" style="display:flex;align-items:end"><button class="good" id="keyair" style="width:100%">KEY ON AIR</button></div></div>
-<section class="card guide" id="liveGuide" aria-live="polite"><div class="row" style="justify-content:space-between"><h2 style="margin:0">操作ガイド・正誤判定</h2><button id="hint">ヒント</button></div><div id="currentStep"></div><div id="message"></div><p id="explain"></p></section>
-</div>
+
 
 <p class="note">ソフトのセレクトを変更すると適用されます。変更だけでキーがONになるわけではありません。</p><div id="status"></div></section></div>
 
