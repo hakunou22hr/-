@@ -8,7 +8,6 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
-  actions: write
 concurrency:
   group: touch-unit-circle-film
   cancel-in-progress: false
@@ -46,12 +45,11 @@ jobs:
           assert abs(float(p['format']['duration'])-180)<.1
           PY
           ffmpeg -v error -i work/touch-unit-circle-180s.mp4 -f null -
-      - name: Publish verified MP4 and deploy the library
+      - name: Publish verified MP4
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release create touch-unit-circle-v1 work/touch-unit-circle-180s.mp4 --target "$GITHUB_SHA" --title '触れる、単位円。180秒の解説動画' --notes '1920×1080 / 24fps / H.264。教材と共通の数学モデル・描画・日本語字幕。既存教材・動画は保持。'
-          gh workflow run deploy.yml --ref main
       - uses: actions/upload-artifact@v4
         if: always()
         with:

@@ -13,7 +13,7 @@ lesson.js: 直接操作、解答表示、自動解説、一時停止と再開。
 
 `PLAYWRIGHT_MODULE=... node render/movie.mjs` は共通描画の1920×1080フレームを24fpsのH.264にエンコードします。既定の出力先は public/media/touch-unit-circle-180s.mp4。書き出しはffmpeg、ブラウザ検証はChromiumを使用。
 
-GitHub Actions touch-unit-circle.yml が動画を生成・全編デコードし、新規Release touch-unit-circle-v1 に登録後、既存のPages公開ワークフローを起動します。Pagesでは同一オリジンのmedia/touch-unit-circle-180s.mp4から配信します。
+GitHub Actions touch-unit-circle.yml が動画を生成・全編デコードし、新規Release touch-unit-circle-v1 に登録します。既存のPages公開ワークフローは、この動画の生成を待って配信します。Pagesでは同一オリジンのmedia/touch-unit-circle-180s.mp4から配信します。
 
 解答は初期非表示。円全体の交点数と有効範囲内の解の数は別々に表示。角度360°の点は0°と同じですが、解集合では重複せず、全周の範囲は360°を含みません。
 
