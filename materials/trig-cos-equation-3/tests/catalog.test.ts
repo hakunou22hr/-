@@ -1,0 +1,2 @@
+import {it,expect} from 'vitest';import {materials,filterMaterials} from '../../../src/materials';
+it('新規教材が数学Ⅰに一意登録され、サムネイル付きで検索できる',()=>{const matches=materials.filter(m=>m.id==='trig-cos-equation-3');expect(matches).toHaveLength(1);expect(matches[0].name).toBe('三角方程式（cosθ）③');expect(matches[0].subject).toBe('数学Ⅰ');expect(matches[0].thumbnail).toBeTruthy();expect(filterMaterials(materials,'数学Ⅰ','三角方程式（cosθ）③').map(m=>m.id)).toContain('trig-cos-equation-3')});

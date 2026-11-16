@@ -1,0 +1,9 @@
+import {describe,it,expect} from 'vitest';import {intersections,angles,atAngle,residual,radian,film,shortTime,solutionTex,stages} from '../src/model';
+describe('三角方程式（cosθ）③',()=>{
+it('因数分解が元の式と一致し、採用する根は1/2と−1',()=>{for(let t=-1.5;t<=1.5;t+=.1)expect((2*t-1)*(t+1)).toBeCloseTo(2*t*t+t-1,12);expect(residual(.5)).toBe(0);expect(residual(-1)).toBe(0)});
+it('内側は2点、端は1接点、外側は0点',()=>{for(const k of [-1.5,-1,-.5,0,.5,1,1.5]){const pts=intersections(k);expect(pts.length).toBe(Math.abs(k)>1?0:Math.abs(k)===1?1:2);for(const [x,y] of pts){expect(x).toBe(k);expect(x*x+y*y).toBeCloseTo(1,12)}}});
+it('数学Ⅰでは60°,180°、発展では300°も採用',()=>{expect(angles(.5,true)[0]).toBeCloseTo(60,10);expect(angles(.5,false)).toEqual(expect.arrayContaining([expect.closeTo(60,10),300]));expect(angles(-1,true)).toEqual([180]);for(const d of [60,180,300])expect(residual(atAngle(d)[0])).toBeCloseTo(0,12);expect(angles(1)).toEqual([0]);expect(solutionTex(true,false)).not.toContain('300');expect(solutionTex(false,false)).toContain('300')});
+it('縦型分数の弧度法が正しい',()=>{expect(radian(60)).toBe('\\frac{\\pi}{3}');expect(radian(180)).toBe('\\pi');expect(radian(300)).toBe('\\frac{5\\pi}{3}')});
+it('映像の実座標が2交点から1接点に変わる',()=>{expect(intersections(film(33).k)).toHaveLength(2);expect(intersections(film(56).k)).toHaveLength(1);expect(film(33).shock).toBeGreaterThan(0);expect(film(56).shock).toBeGreaterThan(0);expect(film(55).theta).toBe(180);expect(film(55).k).toBe(-1);expect(film(62).theta).toBe(180);expect(film(62).k).toBe(-1);expect(film(26).k).toBeGreaterThan(film(31).k);expect(film(49).k).toBeGreaterThan(film(54).k)});
+it('90秒と30秒が指定のシーン境界を共有する',()=>{expect(stages[0].start).toBe(0);expect(stages.at(-1)?.end).toBe(90);for(const [a,b] of [[0,0],[6,12],[12,25],[20,48],[25,68],[30,90]])expect(shortTime(a)).toBeCloseTo(b,12)});
+});
