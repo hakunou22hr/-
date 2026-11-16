@@ -18,8 +18,8 @@
         {}
       ],
       "duration": 90,
-      "bytes": 63970976,
-      "sha256": "fb33bd3e5e40bb198363ca5d4d4c6d86cc3fbf94fefc02ca68414faf453d48b7",
+      "bytes": 62817840,
+      "sha256": "2976184937d3be9233978383f75a9546cd04f5cdd1bab9e53534808cff8f7aff",
       "decodedWithoutErrors": true
     },
     {
@@ -34,8 +34,8 @@
         {}
       ],
       "duration": 30,
-      "bytes": 28281587,
-      "sha256": "353bb2c919eb2fd0e031998e43da59cc08b6581b64d54408778f47226d7ae591",
+      "bytes": 28164120,
+      "sha256": "2ce3e7310a0a0e0cb815e6bbdc7735f83cbaed3be97f26236f81ffb916fa3318",
       "decodedWithoutErrors": true
     }
   ],
@@ -46,6 +46,7 @@
     "cosAsXCoordinateInStep1": true,
     "dynamicRings": true,
     "gridWaves": true,
+    "gridVertices": 10080,
     "particles": 4200,
     "finalSolutionMarkers": 3
   },
@@ -148,6 +149,7 @@
       "shocks": 0,
       "particleCount": 4200,
       "solutionCount": 0,
+      "gridVertexCount": 10080,
       "gridShockSources": 2,
       "rangeVisible": true,
       "rangeDrawCount": 190,
@@ -265,6 +267,7 @@
       "shocks": 2,
       "particleCount": 4200,
       "solutionCount": 0,
+      "gridVertexCount": 10080,
       "gridShockSources": 2,
       "rangeVisible": false,
       "rangeDrawCount": 256,
@@ -382,6 +385,7 @@
       "shocks": 0,
       "particleCount": 4200,
       "solutionCount": 0,
+      "gridVertexCount": 10080,
       "gridShockSources": 2,
       "rangeVisible": false,
       "rangeDrawCount": 256,
@@ -495,6 +499,7 @@
       "shocks": 1,
       "particleCount": 4200,
       "solutionCount": 0,
+      "gridVertexCount": 10080,
       "gridShockSources": 1,
       "rangeVisible": false,
       "rangeDrawCount": 256,
@@ -608,6 +613,7 @@
       "shocks": 0,
       "particleCount": 4200,
       "solutionCount": 0,
+      "gridVertexCount": 10080,
       "gridShockSources": 1,
       "rangeVisible": false,
       "rangeDrawCount": 256,
@@ -721,6 +727,7 @@
       "shocks": 0,
       "particleCount": 4200,
       "solutionCount": 3,
+      "gridVertexCount": 10080,
       "gridShockSources": 2,
       "rangeVisible": false,
       "rangeDrawCount": 256,
