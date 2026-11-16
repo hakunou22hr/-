@@ -18,8 +18,8 @@
         {}
       ],
       "duration": 90,
-      "bytes": 65669408,
-      "sha256": "e0139b0d525cb3e29b64c3d41e1e3b0fe025ec9c4a7862fd1bb50f9394c3acae",
+      "bytes": 63970976,
+      "sha256": "fb33bd3e5e40bb198363ca5d4d4c6d86cc3fbf94fefc02ca68414faf453d48b7",
       "decodedWithoutErrors": true
     },
     {
@@ -34,8 +34,8 @@
         {}
       ],
       "duration": 30,
-      "bytes": 29003801,
-      "sha256": "09532afdfaec19695808654eb53cdff334afe6237f95c5d158aca86acb1ec48f",
+      "bytes": 28281587,
+      "sha256": "353bb2c919eb2fd0e031998e43da59cc08b6581b64d54408778f47226d7ae591",
       "decodedWithoutErrors": true
     }
   ],
