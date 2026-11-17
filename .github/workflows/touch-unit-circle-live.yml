@@ -1,0 +1,31 @@
+name: Verify published touch unit circle
+on:
+  push:
+    branches: [review/touch-unit-circle]
+    paths:
+      - '.github/workflows/touch-unit-circle-live.yml'
+      - 'materials/touch-unit-circle/tests/published.mjs'
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: materials/touch-unit-circle/tests
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Install browser
+        run: npm install --prefix /tmp/touch-live playwright --no-audit --no-fund
+      - name: Verify published library, lesson and real MP4 playback
+        env:
+          PLAYWRIGHT_MODULE: /tmp/touch-live/node_modules/playwright/index.mjs
+          CHROMIUM: /usr/bin/google-chrome
+        run: node materials/touch-unit-circle/tests/published.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: touch-unit-circle-live-verification
+          path: work/touch-live/
