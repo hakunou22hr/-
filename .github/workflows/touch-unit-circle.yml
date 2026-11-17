@@ -33,25 +33,50 @@ jobs:
         env:
           PLAYWRIGHT_MODULE: /tmp/touch-browser/node_modules/playwright/index.mjs
           CHROMIUM: /usr/bin/google-chrome
-          OUTPUT: work/touch-unit-circle-180s.mp4
+          OUTPUT: work/touch-unit-circle-180s-v2.mp4
         run: node materials/touch-unit-circle/render/movie.mjs
       - name: Verify complete movie
         run: |
-          ffprobe -v error -show_entries stream=codec_name,width,height,r_frame_rate -show_entries format=duration -of json work/touch-unit-circle-180s.mp4 > work/video-probe.json
+          ffprobe -v error -show_entries stream=codec_name,width,height,r_frame_rate -show_entries format=duration -of json work/touch-unit-circle-180s-v2.mp4 > work/video-probe.json
           python - <<'PY'
           import json
           p=json.load(open('work/video-probe.json'));s=p['streams'][0]
           assert s['codec_name']=='h264' and s['width']==1920 and s['height']==1080 and s['r_frame_rate']=='24/1'
           assert abs(float(p['format']['duration'])-180)<.1
           PY
-          ffmpeg -v error -i work/touch-unit-circle-180s.mp4 -f null -
+          ffmpeg -v error -i work/touch-unit-circle-180s-v2.mp4 -f null -
       - name: Publish verified MP4
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create touch-unit-circle-v1 work/touch-unit-circle-180s.mp4 --target "$GITHUB_SHA" --title '触れる、単位円。180秒の解説動画' --notes '1920×1080 / 24fps / H.264。教材と共通の数学モデル・描画・日本語字幕。既存教材・動画は保持。'
+          gh release create touch-unit-circle-v2 work/touch-unit-circle-180s-v2.mp4 --target "$GITHUB_SHA" --title '触れる、単位円。180秒の解説動画' --notes '1920×1080 / 24fps / H.264。教材と共通の数学モデル・描画・日本語字幕。既存教材・動画は保持。'
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: touch-unit-circle-video-verification
           path: work/
+
+  verify-published:
+    needs: render
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: materials/touch-unit-circle/tests
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Install browser
+        run: npm install --prefix /tmp/touch-live playwright --no-audit --no-fund
+      - name: Verify published fractions, similarity, library and actual MP4 playback
+        env:
+          PLAYWRIGHT_MODULE: /tmp/touch-live/node_modules/playwright/index.mjs
+          CHROMIUM: /usr/bin/google-chrome
+        run: node materials/touch-unit-circle/tests/published.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: touch-unit-circle-v2-live-verification
+          path: work/touch-live/
