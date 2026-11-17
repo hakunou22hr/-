@@ -3,3 +3,9 @@
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 
 [hidden]{display:none!important}.similarity{margin:15px 0;padding:13px 12px;border:1px solid #385467;border-radius:8px;background:#061622;font-size:12px;line-height:2.8}.similarity>div{white-space:nowrap}.control output .frac{font-size:.75em}.subtitle .frac,.lesson-note p .frac{margin:0 5px}.scene-help{gap:16px}.equation .frac{font-size:.77em}.presets button .frac{font-size:.8em}.reading strong .frac{font-size:.7em}.scene-top>span{max-width:55%}@media(max-width:700px){.similarity{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;font-size:11px;margin:0}.similarity>div:first-child{grid-column:1/-1}.similarity .frac{font-size:.85em}.scene-help{font-size:7px;gap:8px}.similarity>div{white-space:normal}}
+
+.scene-top>div{display:flex;align-items:center;gap:5px}.scene-top select{color:#bcecf4;background:#102536e8;border:1px solid #448795;border-radius:6px;font:10px 'Noto Sans CJK JP',sans-serif;min-height:30px;padding:4px 7px;width:112px}.scene-top select:focus-visible{outline:3px solid white;outline-offset:3px}@media(max-width:700px){.scene-top>span{max-width:28%;font-size:7px}.scene-top select{width:85px;font-size:9px;padding:3px}.scene-top>div{gap:3px}.scene-top button{padding:5px 6px;font-size:9px}}
+
+@media(max-width:700px){.scene-top{position:relative;top:auto;left:auto;right:auto;padding:10px 12px;min-height:50px;background:#091b28;border-bottom:1px solid #203c4e}.scene-top>span{max-width:28%}.viewport canvas{margin:0}}
+
+.scene-top select:disabled{opacity:.45}

@@ -11,7 +11,7 @@ lesson.js: 直接操作、解答表示、自動解説、一時停止と再開。
 
 `node tests/check.mjs` で数値検証。`APP_URL=... PLAYWRIGHT_MODULE=/absolute/path/to/playwright/index.mjs node tests/check.mjs` で操作と画面幅の検証。
 
-`PLAYWRIGHT_MODULE=... node render/movie.mjs` は共通描画の1920×1080フレームを24fpsのH.264にエンコードします。既定の出力先は public/media/touch-unit-circle-180s-v4.mp4。書き出しはffmpeg、ブラウザ検証はChromiumを使用。
+`PLAYWRIGHT_MODULE=... node render/movie.mjs` は共通描画の1920×1080フレームを24fpsのH.264にエンコードします。既定の出力先は public/media/touch-unit-circle-180s-v5.mp4。書き出しはffmpeg、ブラウザ検証はChromiumを使用。
 
 GitHub Actions touch-unit-circle.yml が動画を生成・全編デコードし、新規Release touch-unit-circle-v2 に登録します。既存のPages公開ワークフローは、この動画の生成を待って配信します。Pagesでは同一オリジンのmedia/touch-unit-circle-180s-v2.mp4から配信します。
 
@@ -27,3 +27,8 @@ GitHub Actions touch-unit-circle.yml が動画を生成・全編デコードし�
 
 ## 第4版：参考画像の構図に合わせた空間
 画面の下半分を占める青い遠近格子、画面幅を横切る粒子の帯を伴う立体リング、交点の真下へ降りる垂直光柱、金／青の光だまりと床面の波紋を再構成しました。格子は見えている範囲を細分化して波を描きます。数式は暗いプレートで保護し、単位円に多層の光を重ねます。`?view=equation` は参考画像と同じsin θ=−1/2・θ=330°の実験場面を直接開きます。通常の教材は引き続き斜辺2の導入から始まり、解答は初期非表示です。第1〜3版の動画も保持します。
+
+## 第5版：5種類の映画的背景
+粒子の渦、青と金の曲がる時空格子、赤い光の地平線、金色の赤道光を持つ天球、多重アーチの5場面を動的に描画します。動画は学習段階に連動し、場面の冒頭2.8秒でスムーズステップによるディゾルブを行います。操作画面では「背景演出」から選択できます。解説の再生・再開では自動演出に戻り、MP4と時間軸を一致させます。数学の色対応（sinは金、cosは青）、正面の単位円、分数表示、初期非表示の解答は維持します。
+
+`?view=equation&background=vortex#experiment` は粒子の渦を選んだ方程式場面を直接開きます。スマートフォンでは背景メニューをキャンバスの上に分け、数式と重ならないようにします。

@@ -1,5 +1,5 @@
 {
-  "revision": "touch-v4-reference",
+  "revision": "touch-v5-cinema",
   "mathematics": "passed: hypotenuse 2, height 1, base sqrt(3); similarity preserves sine 1/2; normalization produces hypotenuse 1, height 1/2, base sqrt(3)/2; unit circle, equations, ranges and radians",
   "canvasFractions": "passed: canvas fillText recording for times 0,28,34,43,63,92,136,179 confirms all mathematical quotients are drawn as stacked numerator and denominator",
   "browserControls": "passed: initial triangle, size slider, normalization, point dragging, presets, keyboard, pause/resume, ranges and answers",
@@ -32,7 +32,7 @@
   },
   "releaseVerification": "touch-unit-circle.yml renders the shared model, checks ffprobe metadata and decodes every frame; verify-published checks actual hosted MP4 playback and the published lesson",
   "preservedRelease": "touch-unit-circle-v1",
-  "newRelease": "touch-unit-circle-v4",
+  "newRelease": "touch-unit-circle-v5",
   "mathematicalCorrection": "For theta=30 degrees, the normalized base is sqrt(3)/2. 1/sqrt(2) is the 45-degree value.",
   "reviewPreviews": [
     "verification/v2-start.jpg",
@@ -41,7 +41,8 @@
   "preservedReleases": [
     "touch-unit-circle-v1",
     "touch-unit-circle-v2",
-    "touch-unit-circle-v3"
+    "touch-unit-circle-v3",
+    "touch-unit-circle-v4"
   ],
   "visualChecks": {
     "composition": "wide horizontal luminous belts; full foreground perspective floor; vertical intersection columns; bright gold/blue ground pools and concentric waves",
@@ -65,5 +66,20 @@
     "diagramClippedToViewport": true,
     "directEquationView": "?view=equation",
     "normalEntry": "hypotenuse-2 introduction; answers remain hidden"
+  },
+  "cinematicChecks": {
+    "modes": [
+      "vortex",
+      "warp",
+      "horizon",
+      "sphere",
+      "arches"
+    ],
+    "selectionPreservesAngleAndRoots": true,
+    "filmTransition": "2.8s smoothstep dissolve with continuous exposure",
+    "filmModeIgnoresManualSelection": true,
+    "mathematics": "frontal, sin gold, cos blue; fraction typography preserved",
+    "mobile": "menu above canvas, no horizontal overflow",
+    "physicalDevices": "not tested"
   }
 }
