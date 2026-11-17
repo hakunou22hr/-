@@ -21,7 +21,18 @@ jobs:
           sparse-checkout: materials/touch-unit-circle
       - uses: actions/setup-node@v4
         with: {node-version: 22}
+      - name: Check whether this edition is already published
+        id: film
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view touch-unit-circle-v2 --json assets --jq '.assets[].name' | grep -qx 'touch-unit-circle-180s-v2.mp4'; then
+            echo 'exists=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'exists=false' >> "$GITHUB_OUTPUT"
+          fi
       - name: Install render tools
+        if: steps.film.outputs.exists != 'true'
         run: |
           npm install --prefix /tmp/touch-browser playwright --no-audit --no-fund
           node /tmp/touch-browser/node_modules/playwright/cli.js install --with-deps chromium
@@ -30,12 +41,14 @@ jobs:
       - name: Mathematical verification
         run: node materials/touch-unit-circle/tests/check.mjs
       - name: Render the shared 180-second timeline
+        if: steps.film.outputs.exists != 'true'
         env:
           PLAYWRIGHT_MODULE: /tmp/touch-browser/node_modules/playwright/index.mjs
           CHROMIUM: /usr/bin/google-chrome
           OUTPUT: work/touch-unit-circle-180s-v2.mp4
         run: node materials/touch-unit-circle/render/movie.mjs
       - name: Verify complete movie
+        if: steps.film.outputs.exists != 'true'
         run: |
           ffprobe -v error -show_entries stream=codec_name,width,height,r_frame_rate -show_entries format=duration -of json work/touch-unit-circle-180s-v2.mp4 > work/video-probe.json
           python - <<'PY'
@@ -46,6 +59,7 @@ jobs:
           PY
           ffmpeg -v error -i work/touch-unit-circle-180s-v2.mp4 -f null -
       - name: Publish verified MP4
+        if: steps.film.outputs.exists != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
