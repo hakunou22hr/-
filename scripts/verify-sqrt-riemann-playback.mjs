@@ -1,6 +1,12 @@
 import {chromium} from '/tmp/integral-browser-tools/node_modules/playwright/index.mjs';
 import {mkdir,writeFile} from 'node:fs/promises';
 const base=process.env.SQRT_BASE_URL||'https://hakunou22hr.github.io/-/';const url=new URL('materials/sqrt-riemann/',base).href;
+const EDITIONS=[{seconds:90,id:'i3yUSK_x3zQ',aspect:16/9},{seconds:30,id:'fjvd68SIHnI',aspect:9/16}];
+async function embedFrame(page,id){
+ await page.waitForFunction(id=>[...document.querySelectorAll('iframe')].some(f=>f.src.includes('youtube.com/embed/'+id)),id,{timeout:90000});
+ for(let n=0;n<60;n++){const f=page.frames().find(f=>f.url().includes('youtube.com/embed/'+id));if(f)return f;await page.waitForTimeout(500)}
+ throw Error('YouTube embed frame not found: '+id);
+}
 const browser=await chromium.launch({args:['--no-sandbox']});
 try{
  const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];page.on('pageerror',e=>errors.push(e.message));
@@ -9,17 +15,22 @@ try{
  if(await page.locator('#approx').textContent()!=='0.669094')throw Error('Right-endpoint sum mismatch');
  await page.locator('#formulaToggle').uncheck();if(await page.locator('#formulas').isVisible())throw Error('Formula toggle');await page.locator('#formulaToggle').check();
  await page.locator('#view').click();await page.locator('#view').click();await page.locator('#reset').click();await page.locator('#play').click();await page.waitForTimeout(750);if(Number(await page.locator('#nv').textContent())<=4)throw Error('Autoplay');await page.locator('#play').click();
- await page.locator('[data-tab="movies"]').click();const videos=[];
+ await page.locator('[data-tab="movies"]').click();
+ if(await page.locator('iframe.yt').count()!==2)throw Error('YouTube embeds missing');
+ const videos=[];
  for(let i=0;i<2;i++){
-  const video=page.locator('video').nth(i);await video.evaluate(v=>v.load());await video.evaluate(v=>new Promise((resolve,reject)=>{if(v.readyState>=1)return resolve();v.addEventListener('loadedmetadata',resolve,{once:true});v.addEventListener('error',()=>reject(Error(v.error?.message)),{once:true})}));
-  const info=await video.evaluate(v=>({duration:v.duration,width:v.videoWidth,height:v.videoHeight,src:v.currentSrc}));
-  const expected=i?[30,1080,1920]:[90,1920,1080];if(Math.abs(info.duration-expected[0])>.05||info.width!==expected[1]||info.height!==expected[2])throw Error(JSON.stringify(info));
-  await video.evaluate(v=>v.play());await page.waitForFunction(i=>document.querySelectorAll('video')[i].currentTime>.6,i,{timeout:45000});
-  await video.evaluate(v=>new Promise(resolve=>{v.pause();v.addEventListener('seeked',resolve,{once:true});v.currentTime=v.duration-2;}));
-  await video.evaluate(v=>{v.playbackRate=2;return v.play()});await page.waitForFunction(i=>document.querySelectorAll('video')[i].ended,i,{timeout:30000});
-  const href=await page.locator('a.download').nth(i).evaluate(a=>a.href);if(!new URL(href).pathname.startsWith(new URL(base).pathname))throw Error('Download escapes deployment base: '+href);
-  const response=await page.request.get(href,{headers:{Range:'bytes=0-1023'}});if(response.status()!==206&&response.status()!==200)throw Error('Download '+response.status());
-  videos.push({...info,played:true,seeked:true,ended:true,downloadStatus:response.status()});
+  const ed=EDITIONS[i];
+  await page.locator('iframe.yt').nth(i).scrollIntoViewIfNeeded();
+  const frame=await embedFrame(page,ed.id);
+  await frame.waitForFunction(()=>{const v=document.querySelector('video');return v&&v.readyState>=1&&v.duration>0},null,{timeout:90000});
+  const info=await frame.evaluate(()=>{const v=document.querySelector('video');return{duration:v.duration,width:v.videoWidth,height:v.videoHeight}});
+  if(Math.abs(info.duration-ed.seconds)>1.5||Math.abs(info.width/info.height-ed.aspect)>.05)throw Error(JSON.stringify(info));
+  await frame.evaluate(()=>{const v=document.querySelector('video');v.muted=true;return v.play()});await frame.waitForFunction(()=>document.querySelector('video').currentTime>.6,null,{timeout:60000});
+  await frame.evaluate(()=>new Promise(resolve=>{const v=document.querySelector('video');v.pause();v.addEventListener('seeked',resolve,{once:true});v.currentTime=v.duration-2;}));
+  await frame.evaluate(()=>{const v=document.querySelector('video');v.playbackRate=2;return v.play()});await frame.waitForFunction(()=>document.querySelector('video').ended,null,{timeout:60000});
+  const href=await page.locator('a.download').nth(i).evaluate(a=>a.href);if(href!=='https://youtu.be/'+ed.id)throw Error('YouTube link mismatch: '+href);
+  const response=await page.request.get(href);if(!response.ok())throw Error('YouTube watch page '+response.status());
+  videos.push({id:ed.id,...info,played:true,seeked:true,ended:true,linkStatus:response.status()});
  }
  await page.locator('[data-tab="lab"]').click();await page.setViewportSize({width:390,height:844});if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw Error('Mobile overflow');
  await page.goto(base,{waitUntil:'domcontentloaded'});if(await page.locator('a[href*="sqrt-riemann"]').count()<1)throw Error('Library registration');
