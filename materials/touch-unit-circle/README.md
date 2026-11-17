@@ -11,7 +11,7 @@ lesson.js: 直接操作、解答表示、自動解説、一時停止と再開。
 
 `node tests/check.mjs` で数値検証。`APP_URL=... PLAYWRIGHT_MODULE=/absolute/path/to/playwright/index.mjs node tests/check.mjs` で操作と画面幅の検証。
 
-`PLAYWRIGHT_MODULE=... node render/movie.mjs` は共通描画の1920×1080フレームを24fpsのH.264にエンコードします。既定の出力先は public/media/touch-unit-circle-180s-v2.mp4。書き出しはffmpeg、ブラウザ検証はChromiumを使用。
+`PLAYWRIGHT_MODULE=... node render/movie.mjs` は共通描画の1920×1080フレームを24fpsのH.264にエンコードします。既定の出力先は public/media/touch-unit-circle-180s-v3.mp4。書き出しはffmpeg、ブラウザ検証はChromiumを使用。
 
 GitHub Actions touch-unit-circle.yml が動画を生成・全編デコードし、新規Release touch-unit-circle-v2 に登録します。既存のPages公開ワークフローは、この動画の生成を待って配信します。Pagesでは同一オリジンのmedia/touch-unit-circle-180s-v2.mp4から配信します。
 
@@ -21,3 +21,6 @@ GitHub Actions touch-unit-circle.yml が動画を生成・全編デコードし�
 
 ## 第2版
 斜辺2・高さ1・底辺√3の30°の三角形から始め、拡大縮小でsin θ = 高さ/斜辺 = 1/2が一定であることを示します。斜辺を1にすると高さ1/2・底辺√3/2となり、それを半径として単位円を描きます。45°の場合の1/√2とは区別します。図中ラベル・字幕・弧度・解答も縦型分数で統一します。第1版ReleaseとMP4は保持します。
+
+## 第3版：空間と交点の光
+背景は頂点ごとに変位する格子、5本の3D投影リングと光の軌跡、78個の流動粒子、交点の床面への光柱と波紋で描画します。交点は白い中心、金／青の発色、拡がる同心円、収束する粒子を重ねます。数学的な円・座標は正面のまま、説明前半は背景を抑え、範囲外の点は薄く残します。動きを抑える設定では演出を静止します。第1・2版の動画と配信URLは保持します。新版はtouch-unit-circle-v3、動画名はtouch-unit-circle-180s-v3.mp4です。
