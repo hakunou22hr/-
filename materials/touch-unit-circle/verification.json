@@ -1,7 +1,9 @@
 {
-  "mathematics": "passed: similarity, quadrants, P=(cos,sin) for radius 1, all/tangent/no intersections, ranges, radians, endpoint deduplication",
+  "revision": "touch-v2-fractions",
+  "mathematics": "passed: hypotenuse 2, height 1, base sqrt(3); similarity preserves sine 1/2; normalization produces hypotenuse 1, height 1/2, base sqrt(3)/2; unit circle, equations, ranges and radians",
+  "canvasFractions": "passed: canvas fillText recording for times 0,28,34,43,63,92,136,179 confirms all mathematical quotients are drawn as stacked numerator and denominator",
+  "browserControls": "passed: initial triangle, size slider, normalization, point dragging, presets, keyboard, pause/resume, ranges and answers",
   "standaloneProductionBuild": "passed with Vite",
-  "browserControls": "passed: point dragging, line dragging, radius normalization, keyboard, presets, answer reveal/hide, ranges, radians, 2D/3D, reduced motion, pause/resume",
   "viewports": [
     [
       1440,
@@ -20,41 +22,20 @@
       390
     ]
   ],
-  "simulatedTouch": "passed: intersection taps rotate to 210 and 330 degrees",
   "physicalDevices": "not tested",
-  "video": {
+  "videoSpecification": {
     "duration": 180,
     "width": 1920,
     "height": 1080,
     "fps": 24,
-    "codec": "h264",
-    "sharedRenderer": true,
-    "fullDecode": "passed: ffmpeg decoded every frame without errors",
-    "sizeBytes": 16331514,
-    "sha256": "98fe9b88df3b4532059f4447dee6b34c3c6f70d187462a78079ab8b020b2b022",
-    "decodedFrameInspection": [
-      136,
-      179.95
-    ]
+    "codec": "h264"
   },
-  "publication": {
-    "state": "awaiting explicit approval after automatic review rejected main update",
-    "plannedLessonUrl": "https://hakunou22hr.github.io/-/materials/touch-unit-circle/",
-    "plannedVideoUrl": "https://hakunou22hr.github.io/-/media/touch-unit-circle-180s.mp4",
-    "existingMaterials": "no existing material or media entries modified or deleted"
-  },
-  "catalog": {
-    "subject": "数学Ⅰ",
-    "keywords": [
-      "単位円",
-      "三角比",
-      "sin",
-      "cos"
-    ],
-    "precedes": "三角方程式（cosθ）③"
-  },
-  "verificationLimits": [
-    "Full-library Pages build and live URLs are unverified; standalone lesson build passed.",
-    "Viewport and touch checks are browser emulation, not physical devices."
+  "releaseVerification": "touch-unit-circle.yml renders the shared model, checks ffprobe metadata and decodes every frame; verify-published checks actual hosted MP4 playback and the published lesson",
+  "preservedRelease": "touch-unit-circle-v1",
+  "newRelease": "touch-unit-circle-v2",
+  "mathematicalCorrection": "For theta=30 degrees, the normalized base is sqrt(3)/2. 1/sqrt(2) is the 45-degree value.",
+  "reviewPreviews": [
+    "verification/v2-start.jpg",
+    "verification/v2-normalized.jpg"
   ]
 }
