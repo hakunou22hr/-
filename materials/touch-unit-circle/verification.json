@@ -33,5 +33,9 @@
   "releaseVerification": "touch-unit-circle.yml renders the shared model, checks ffprobe metadata and decodes every frame; verify-published checks actual hosted MP4 playback and the published lesson",
   "preservedRelease": "touch-unit-circle-v1",
   "newRelease": "touch-unit-circle-v2",
-  "mathematicalCorrection": "For theta=30 degrees, the normalized base is sqrt(3)/2. 1/sqrt(2) is the 45-degree value."
+  "mathematicalCorrection": "For theta=30 degrees, the normalized base is sqrt(3)/2. 1/sqrt(2) is the 45-degree value.",
+  "reviewPreviews": [
+    "verification/v2-start.jpg",
+    "verification/v2-normalized.jpg"
+  ]
 }
