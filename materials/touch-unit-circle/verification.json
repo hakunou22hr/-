@@ -1,0 +1,60 @@
+{
+  "mathematics": "passed: similarity, quadrants, P=(cos,sin) for radius 1, all/tangent/no intersections, ranges, radians, endpoint deduplication",
+  "standaloneProductionBuild": "passed with Vite",
+  "browserControls": "passed: point dragging, line dragging, radius normalization, keyboard, presets, answer reveal/hide, ranges, radians, 2D/3D, reduced motion, pause/resume",
+  "viewports": [
+    [
+      1440,
+      1100
+    ],
+    [
+      1024,
+      768
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      844,
+      390
+    ]
+  ],
+  "simulatedTouch": "passed: intersection taps rotate to 210 and 330 degrees",
+  "physicalDevices": "not tested",
+  "video": {
+    "duration": 180,
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "codec": "h264",
+    "sharedRenderer": true,
+    "fullDecode": "passed: ffmpeg decoded every frame without errors",
+    "sizeBytes": 16331514,
+    "sha256": "98fe9b88df3b4532059f4447dee6b34c3c6f70d187462a78079ab8b020b2b022",
+    "decodedFrameInspection": [
+      136,
+      179.95
+    ]
+  },
+  "publication": {
+    "state": "awaiting explicit approval after automatic review rejected main update",
+    "plannedLessonUrl": "https://hakunou22hr.github.io/-/materials/touch-unit-circle/",
+    "plannedVideoUrl": "https://hakunou22hr.github.io/-/media/touch-unit-circle-180s.mp4",
+    "existingMaterials": "no existing material or media entries modified or deleted"
+  },
+  "catalog": {
+    "subject": "数学Ⅰ",
+    "keywords": [
+      "単位円",
+      "三角比",
+      "sin",
+      "cos"
+    ],
+    "precedes": "三角方程式（cosθ）③"
+  },
+  "verificationLimits": [
+    "Full-library Pages build and live URLs are unverified; standalone lesson build passed.",
+    "Viewport and touch checks are browser emulation, not physical devices."
+  ]
+}
