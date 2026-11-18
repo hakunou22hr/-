@@ -26,7 +26,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if gh release view touch-unit-circle-v6 --json assets --jq '.assets[].name' | grep -qx 'touch-unit-circle-180s-v6.mp4'; then
+          if gh release view touch-unit-circle-v7 --json assets --jq '.assets[].name' | grep -qx 'touch-unit-circle-180s-v7.mp4'; then
             echo 'exists=true' >> "$GITHUB_OUTPUT"
           else
             echo 'exists=false' >> "$GITHUB_OUTPUT"
@@ -51,25 +51,25 @@ jobs:
         env:
           PLAYWRIGHT_MODULE: /tmp/touch-browser/node_modules/playwright/index.mjs
           CHROMIUM: /usr/bin/google-chrome
-          OUTPUT: work/touch-unit-circle-180s-v6.mp4
+          OUTPUT: work/touch-unit-circle-180s-v7.mp4
         run: node materials/touch-unit-circle/render/movie.mjs
       - name: Verify complete movie
         if: steps.film.outputs.exists != 'true'
         run: |
-          ffprobe -v error -show_entries stream=codec_name,width,height,r_frame_rate -show_entries format=duration -of json work/touch-unit-circle-180s-v6.mp4 > work/video-probe.json
+          ffprobe -v error -show_entries stream=codec_name,width,height,r_frame_rate -show_entries format=duration -of json work/touch-unit-circle-180s-v7.mp4 > work/video-probe.json
           python - <<'PY'
           import json
           p=json.load(open('work/video-probe.json'));s=p['streams'][0]
           assert s['codec_name']=='h264' and s['width']==1920 and s['height']==1080 and s['r_frame_rate']=='24/1'
           assert abs(float(p['format']['duration'])-180)<.1
           PY
-          ffmpeg -v error -i work/touch-unit-circle-180s-v6.mp4 -f null -
+          ffmpeg -v error -i work/touch-unit-circle-180s-v7.mp4 -f null -
       - name: Publish verified MP4
         if: steps.film.outputs.exists != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create touch-unit-circle-v6 work/touch-unit-circle-180s-v6.mp4 --target "$GITHUB_SHA" --title '触れる、単位円。180秒の解説動画' --notes '1920×1080 / 24fps / H.264。教材と共通の数学モデル・描画・日本語字幕。既存教材・動画は保持。'
+          gh release create touch-unit-circle-v7 work/touch-unit-circle-180s-v7.mp4 --target "$GITHUB_SHA" --title '触れる、単位円。180秒の解説動画' --notes '1920×1080 / 24fps / H.264。教材と共通の数学モデル・描画・日本語字幕。既存教材・動画は保持。'
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -98,5 +98,5 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: touch-unit-circle-v6-live-verification
+          name: touch-unit-circle-v7-live-verification
           path: work/touch-live/

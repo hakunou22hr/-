@@ -49,20 +49,28 @@ function cinematicLayer(c,w,h,s,t,mode,weight){
  c.save();c.globalAlpha*=weight*quiet;c.globalCompositeOperation='lighter';
  const camera=s.reduced?0:Math.sin(t*.13)*.075;
  if(mode==='meteors'){
-  // A broad star canopy, not an annulus: the perspective field has several vanishing origins.
-  aura(c,cx-R*.7,cy-R*.5,R*2.2,'#25367d',.27);aura(c,cx+R*.9,cy-R*.15,R*1.6,'#562b79',.13);
-  const roll=.035*Math.sin(t*.09),cr=Math.cos(roll),sr=Math.sin(roll),ox=cx+R*.1*Math.sin(t*.07),oy=cy-R*.12;
-  for(let j=0;j<1700;j++){const x=noise(j+3100)*w,y=noise(j+4800)*h*.98,drift=Math.sin(t*.06+j)*R*.016,twinkle=.52+.38*Math.sin(t*(.24+noise(j)*.3)+j*.9)**2,size=.45+noise(j+5100)*.82;c.fillStyle=j%17===0?'#cfbded99':`rgba(201,224,255,${twinkle*.7})`;c.fillRect(x+drift,y+drift*.3,size,size);}
-  const position=(j,z)=>{const wx=(noise(j+11)-.5)*8+.16*Math.sin(t*.14+j),wy=(noise(j+913)-.5)*5+.12*Math.cos(t*.11+j*.7),cluster=(j%3-1)*R*.38;let xx=wx/z*w*.66,yy=wy/z*h*.82;return [ox+cluster+xx*cr-yy*sr,oy+(j%5-2)*R*.06+xx*sr+yy*cr];};
-  for(let j=0;j<2300;j++){
-   const speed=.025+noise(j+23)*.032,age=(noise(j+101)+t*speed)%1,z=6.5-age*5.95,[x,y]=position(j,z);if(x<-120||x>w+120||y<-120||y>h+120)continue;
-   const fade=Math.min(1,age/.05,(1-age)/.045),near=(6.5-z)/5.95,size=Math.min(2.5,(.5+noise(j+7)*.7)*(1+near*1.1));
-   const bright=j%19===0,tailTime=bright?.12+noise(j+31)*.12:.035+noise(j+31)*.045,[tx,ty]=position(j,z+speed*5.95*tailTime),col=j%23===0?'#ffdcad':j%7===0?'#b8cfff':'#e4f2ff';
-   if(bright){const g=c.createLinearGradient(tx,ty,x,y);g.addColorStop(0,col+'00');g.addColorStop(.65,col+'66');g.addColorStop(1,col+'f0');c.save();c.globalAlpha*=fade;c.strokeStyle=g;c.lineWidth=size*.72;c.lineCap='round';c.beginPath();c.moveTo(tx,ty);c.lineTo(x,y);c.stroke();dot(c,x,y,col,size*.85);if(j%57===0){line(c,[[x-4,y],[x+4,y]],col,.7,fade*.65);line(c,[[x,y-4],[x,y+4]],col,.7,fade*.65);}c.restore();}
-   else{line(c,[[tx,ty],[x,y]],col,.55,fade*(.17+near*.2));c.save();c.globalAlpha*=fade*(.42+near*.45);c.fillStyle=col;c.fillRect(x-size/2,y-size/2,size,size);c.restore();}
+  // Fine luminous particles fill the complete projected dome, including its centre.
+  aura(c,w*.22,h*.2,w*.65,'#263583',.38);aura(c,w*.85,h*.65,w*.55,'#452b79',.25);
+  const scale=Math.sqrt(w*h/(1100*760));
+  for(let layer=0;layer<3;layer++){
+   const count=[9000,4200,1400][layer],speed=[.012,.025,.046][layer];
+   for(let j=0;j<count;j++){
+    const seed=j+layer*13001,u=noise(seed+12),v=noise(seed+83),depth=noise(seed+911);
+    // Continuous wrapped flow bends across the dome; separate depth planes create parallax.
+    const yy=((v+t*speed*.22)%1+1)%1,xx=((u+t*speed+.026*Math.sin(yy*5+t*.12+layer))%1+1)%1;
+    const x=xx*w,y=yy*h+Math.sin(xx*Math.PI)*h*.045*Math.sin(t*.09+layer);
+    const shimmer=.58+.42*Math.sin(t*(.65+depth)+seed*1.7)**2;
+    const size=(.45+depth*.65+layer*.25)*scale,alpha=(.28+depth*.43)*shimmer;
+    c.fillStyle=`rgba(${layer===2?226:193},${layer===2?237:211},255,${alpha})`;
+    c.fillRect(x,y,size,size);
+    if(layer>0&&j%9===0){
+     const length=(1.4+depth*4+layer)*scale;
+     line(c,[[x-length,y-length*.13],[x,y]],'#e3ecff',Math.max(.45,size*.55),alpha*.75);
+    }
+    if(layer===2&&j%23===0){dot(c,x,y,'#e7efff',size*.85);line(c,[[x-3*scale,y],[x+3*scale,y]],'#e3eeff',.6,shimmer*.55);}
+   }
   }
-  // A few long, gently curved meteors cross the canopy independently of the star flight.
-  for(let j=0;j<24;j++){const life=(t*(.065+noise(j+2)*.025)+noise(j+71))%1,fade=Math.sin(life*Math.PI)**2,angle=(noise(j+87)*.75+.08)*Math.PI*2,startX=(noise(j+17)-.5)*w*.65+cx,startY=noise(j+79)*h*.7,distance=life*w*.7,x=startX+Math.cos(angle)*distance,y=startY+Math.sin(angle)*distance*.55,len=28+noise(j+97)*90,tx=x-Math.cos(angle)*len,ty=y-Math.sin(angle)*len*.55;if(x<-90||x>w+90||y<-90||y>h+90)continue;const col=j%5===0?'#f2d7ff':'#d7eeff',g=c.createLinearGradient(tx,ty,x,y);g.addColorStop(0,col+'00');g.addColorStop(.75,col+'55');g.addColorStop(1,col+'ee');c.save();c.globalAlpha*=fade*.95;c.strokeStyle=g;c.lineWidth=1.65;c.lineCap='round';c.beginPath();c.moveTo(tx,ty);c.quadraticCurveTo((tx+x)/2,(ty+y)/2-4,x,y);c.stroke();dot(c,x,y,'#f5fbff',1.9);c.restore();}
+
  }
  if(mode==='vortex'){
   const ox=cx-R*.18,oy=cy-R*.12,zoom=1+.035*Math.sin(t*.19);
@@ -109,10 +117,10 @@ function cinematicLayer(c,w,h,s,t,mode,weight){
 }
 export function drawAtmosphere(c,w,h,s,t,points){
  const cue=cinematicCue(s);if(cue.blend<1)cinematicLayer(c,w,h,s,t,cue.previous,1-cue.blend);cinematicLayer(c,w,h,s,t,cue.current,cue.blend);
- const strengths={meteors:.1,vortex:.28,warp:.42,horizon:.22,sphere:.54,arches:.75};
+ const strengths={meteors:0,vortex:.28,warp:.42,horizon:.22,sphere:.54,arches:.75};
  const floorStrength=strengths[cue.previous]*(1-cue.blend)+strengths[cue.current]*cue.blend;
  const red=(cue.previous==='horizon'?1-cue.blend:0)+(cue.current==='horizon'?cue.blend:0);
- drawReferenceFloor(c,w,h,s,t,points,floorStrength,red);
+ if(cue.current!=='meteors')drawReferenceFloor(c,w,h,s,t,points,floorStrength,red);
 }
 
 export function intersectionGlow(c,x,y,col,t,{reduced=false,valid=true}={}){
@@ -130,7 +138,7 @@ export function intersectionGlow(c,x,y,col,t,{reduced=false,valid=true}={}){
 
 export function drawScene(c,w,h,s,clock=0){c.clearRect(0,0,w,h);c.save();c.beginPath();c.rect(0,0,w,h);c.clip();const {cx,cy,R}=geom(w,h,s);const t=s.reduced?0:clock;let glow=c.createRadialGradient(cx,cy,0,cx,cy,w*.7);glow.addColorStop(0,'#0b2a3d');glow.addColorStop(.6,'#061722');glow.addColorStop(1,'#040e18');c.fillStyle=glow;c.fillRect(0,0,w,h);
  const mathActive=s.stage>=5, triangle=s.stage<3, showCircle=s.stage>=3;const results=solve(s.mode,s.k,s.range);let roots=mathActive?results.all:[];const points=roots.map(a=>({a,x:Math.cos(a*Math.PI/180),y:Math.sin(a*Math.PI/180)}));const dim=s.dim!==false;
- if(dim){drawAtmosphere(c,w,h,s,t,points);const veil=c.createRadialGradient(cx,cy,R*.15,cx,cy,R*1.1);veil.addColorStop(0,'#04131da8');veil.addColorStop(.7,'#04131d55');veil.addColorStop(1,'#04131d00');c.fillStyle=veil;c.beginPath();c.arc(cx,cy,R*1.1,0,TAU);c.fill();}
+ if(dim){drawAtmosphere(c,w,h,s,t,points);}
  // Coordinate grid remains in the mathematical plane.
  for(let n=-6;n<=6;n++){let x=cx+n*R/4,y=cy+n*R/4;line(c,[[x,cy-R*1.5],[x,cy+R*1.5]],'#44859b',.7,.12);line(c,[[cx-R*1.5,y],[cx+R*1.5,y]],'#44859b',.7,.12);}
  const axes=s.stage>=2;if(axes){line(c,[[cx-R*1.58,cy],[cx+R*1.6,cy]],C.white,1.1,.65);line(c,[[cx,cy+R*1.48],[cx,cy-R*1.36]],C.white,1.1,.65);line(c,[[cx+R*1.56,cy-4],[cx+R*1.6,cy],[cx+R*1.56,cy+4]],C.white,1);line(c,[[cx-4,cy-R*1.32],[cx,cy-R*1.36],[cx+4,cy-R*1.32]],C.white,1);txt(c,'x',cx+R*1.66,cy+5,17);txt(c,'y',cx+9,cy-R*1.36,17);txt(c,'O',cx-20,cy+23,16,C.muted);for(let n of [-1,1]){txt(c,String(n),cx+n*R,cy+24,14,C.muted,'center');txt(c,String(n),cx-15,cy-n*R+5,14,C.muted,'right');}}
@@ -138,8 +146,10 @@ export function drawScene(c,w,h,s,clock=0){c.clearRect(0,0,w,h);c.save();c.begin
  const rr=triangle?s.r:1,a=s.a*Math.PI/180,x=Math.cos(a)*rr,y=Math.sin(a)*rr,px=cx+x*R,py=cy-y*R;
  if(mathActive){const col=s.mode==='sin'?C.gold:C.blue, k=s.k;const lp=s.mode==='sin'?[[cx-R*1.55,cy-k*R],[cx+R*1.55,cy-k*R]]:[[cx+k*R,cy-R*1.4],[cx+k*R,cy+R*1.4]];line(c,lp,col,2.2,.85);const hx=s.mode==='sin'?cx+R*1.32:cx+k*R,hy=s.mode==='sin'?cy-k*R:cy-R*1.2;dot(c,hx,hy,col,5);c.strokeStyle=col;c.beginPath();c.arc(hx,hy,10,0,TAU);c.stroke();const labelX=s.mode==='sin'?cx-R*1.48:hx+16,labelY=s.mode==='sin'?cy-k*R-15:cy-R*1.18;const condition=`${s.mode==='sin'?'y':'x'} = ${exact(k)}`;c.font=`16px ${font}`;const labelWidth=mathTokens(condition).reduce((sum,v)=>sum+(v.text!==undefined?c.measureText(v.text).width:Math.max(c.measureText(v.n).width,c.measureText(v.d).width)*.8+6),0);c.fillStyle='#06131fee';c.strokeStyle=col+'66';c.lineWidth=.7;c.beginPath();c.roundRect(labelX-7,labelY-24,labelWidth+14,44,6);c.fill();c.stroke();txt(c,condition,labelX,labelY,16,col);for(const p of points){let valid=s.range==='full'||p.a<=180+1e-7;let qx=cx+p.x*R,qy=cy-p.y*R;c.save();c.globalAlpha=valid?1:.23;intersectionGlow(c,qx,qy,col,t,{reduced:s.reduced,valid});if(s.reveal>=2||s.film){c.globalAlpha=valid?1:.35;const label=angleText(p.a,s.rad),lx=qx+(p.x<0?-25:25),ly=qy+38;c.font=`16px ${font}`;const tw=c.measureText(label).width;c.fillStyle='#06131fe8';c.fillRect(p.x<0?lx-tw-5:lx-5,ly-21,tw+10,34);txt(c,label,lx,ly,16,col,p.x<0?'right':'left');}c.restore();}}
  // Signed projections are separate from positive side lengths.
+ c.save();c.shadowColor='#020a12';c.shadowBlur=6;
  c.fillStyle='#72d8e90c';c.beginPath();c.moveTo(cx,cy);c.lineTo(px,cy);c.lineTo(px,py);c.closePath();c.fill();line(c,[[cx,cy],[px,cy]],C.blue,3);line(c,[[px,cy],[px,py]],C.gold,3);line(c,[[cx,cy],[px,py]],C.white,2.4);if(axes){c.setLineDash([4,6]);line(c,[[px,py],[cx,py]],C.gold,1,.5);line(c,[[px,py],[px,cy]],C.blue,1,.5);c.setLineDash([]);dot(c,px,cy,C.blue,3);dot(c,cx,py,C.gold,3);}
  if(!s.reduced){for(let n=0;n<12;n++){let u=(t*.24+n/12)%1;dot(c,cx+(px-cx)*u,cy+(py-cy)*u,C.cyan,1.2);dot(c,px,cy+(py-cy)*u,C.gold,.9);}}
+ c.restore();
  if(triangle&&s.film&&s.t<25){let phase=Math.floor(s.t/6);if(phase===1)line(c,[[px,cy],[px,py]],C.gold,5);if(phase===2)line(c,[[cx,cy],[px,cy]],C.blue,5);if(phase>=3)line(c,[[cx,cy],[px,py]],C.white,4);}
  // The complete angle is drawn counterclockwise, including all 330 degrees.
  if(s.a>0){let ar=R*.24;c.strokeStyle=C.gold;c.lineWidth=2;c.beginPath();c.arc(cx,cy,ar,0,-a,true);c.stroke();let ex=cx+ar*Math.cos(a),ey=cy-ar*Math.sin(a);let tx=-Math.sin(a),ty=-Math.cos(a);line(c,[[ex-tx*8-ty*4,ey-ty*8+tx*4],[ex,ey],[ex-tx*8+ty*4,ey-ty*8-tx*4]],C.gold,1.5);if(s.a>180){c.strokeStyle='#f0c36b99';c.lineWidth=3;c.beginPath();c.arc(cx,cy,R*1.075,0,-a,true);c.stroke();}}

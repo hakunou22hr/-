@@ -11,7 +11,7 @@ lesson.js: 直接操作、解答表示、自動解説、一時停止と再開。
 
 `node tests/check.mjs` で数値検証。`APP_URL=... PLAYWRIGHT_MODULE=/absolute/path/to/playwright/index.mjs node tests/check.mjs` で操作と画面幅の検証。
 
-`PLAYWRIGHT_MODULE=... node render/movie.mjs` は共通描画の1920×1080フレームを24fpsのH.264にエンコードします。既定の出力先は public/media/touch-unit-circle-180s-v6.mp4。書き出しはffmpeg、ブラウザ検証はChromiumを使用。
+`PLAYWRIGHT_MODULE=... node render/movie.mjs` は共通描画の1920×1080フレームを24fpsのH.264にエンコードします。既定の出力先は public/media/touch-unit-circle-180s-v7.mp4。書き出しはffmpeg、ブラウザ検証はChromiumを使用。
 
 GitHub Actions touch-unit-circle.yml が動画を生成・全編デコードし、新規Release touch-unit-circle-v2 に登録します。既存のPages公開ワークフローは、この動画の生成を待って配信します。Pagesでは同一オリジンのmedia/touch-unit-circle-180s-v2.mp4から配信します。
 
