@@ -3,7 +3,7 @@ import {drawScene,drawFilm,geom,mathTokens} from './renderer.mjs';
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const initial={a:30,r:2,mode:'sin',k:.5,range:'full',rad:false,dim:true,atmosphere:'auto',reveal:0,stage:0,reduced:matchMedia('(prefers-reduced-motion: reduce)').matches,t:0};
 if(new URLSearchParams(location.search).get('view')==='equation')Object.assign(initial,{a:330,r:1,k:-.5,stage:5});
-const requestedBackground=new URLSearchParams(location.search).get('background');if(['vortex','warp','horizon','sphere','arches'].includes(requestedBackground))initial.atmosphere=requestedBackground;
+const requestedBackground=new URLSearchParams(location.search).get('background');if(['meteors','vortex','warp','horizon','sphere','arches'].includes(requestedBackground))initial.atmosphere=requestedBackground;
 let s={...initial},playing=false,drag=null,rotate=null,scaleAnim=null,clock=0,last=0;
 const canvas=$('#scene'),ctx=canvas.getContext('2d');
 const frac=v=>v.includes('/')?`<span class="frac"><span>${v.split('/')[0]}</span><span>${v.split('/')[1]}</span></span>`:v;

@@ -34,24 +34,36 @@ function drawReferenceFloor(c,w,h,s,t,points,floorStrength=1,red=0){
  dot(c,fx,fy,col,4.5*energy);dot(c,fx,fy,'#fff5ce',2.1*energy);}
  c.restore();
 }
-export const cinematicModes=['vortex','warp','horizon','sphere','arches'];
-const stageModes=['vortex','warp','warp','sphere','horizon','sphere','arches','arches'];
+export const cinematicModes=['meteors','vortex','warp','horizon','sphere','arches'];
 const sceneStarts=[0,25,45,70,95,110,140,160];
 export function cinematicCue(s){
- const current=stageModes[s.stage]||'sphere';
- if(!s.film&&cinematicModes.includes(s.atmosphere))return {current:s.atmosphere,previous:s.atmosphere,blend:1};
- const previous=stageModes[Math.max(0,s.stage-1)]||current;
- const u=Math.max(0,Math.min(1,((s.t||0)-sceneStarts[s.stage])/2.8));
- return {current,previous,blend:s.film&&previous!==current?u*u*(3-2*u):1};
+ const current=!s.film&&cinematicModes.includes(s.atmosphere)?s.atmosphere:'meteors';
+ return {current,previous:current,blend:1};
 }
 function mixColor(a,b,u){const n=parseInt(a.slice(1),16),m=parseInt(b.slice(1),16);return '#'+[16,8,0].map(k=>Math.round(((n>>k)&255)*(1-u)+((m>>k)&255)*u).toString(16).padStart(2,'0')).join('');}
-function cinematicReadability(s){const q=k=>k<3?.68:k===4?.8:1;const cue=cinematicCue(s);return s.film?q(Math.max(0,s.stage-1))*(1-cue.blend)+q(s.stage)*cue.blend:q(s.stage);}
+export function cinematicReadability(s){const q=k=>k<3?.68:k===4?.8:1;if(!s.film)return q(s.stage);const u=Math.max(0,Math.min(1,((s.t||0)-sceneStarts[s.stage])/2.8)),blend=u*u*(3-2*u);return q(Math.max(0,s.stage-1))*(1-blend)+q(s.stage)*blend;}
 const noise=i=>{const a=Math.sin(i*127.1+311.7)*43758.5453;return a-Math.floor(a)};
 function aura(c,x,y,r,col,alpha=.5){c.save();c.globalAlpha*=alpha;const g=c.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,col+'cc');g.addColorStop(.24,col+'55');g.addColorStop(.65,col+'15');g.addColorStop(1,col+'00');c.fillStyle=g;c.beginPath();c.arc(x,y,r,0,TAU);c.fill();c.restore();}
 function cinematicLayer(c,w,h,s,t,mode,weight){
  if(weight<.002)return;const {cx,cy,R}=geom(w,h,s),quiet=cinematicReadability(s);
  c.save();c.globalAlpha*=weight*quiet;c.globalCompositeOperation='lighter';
  const camera=s.reduced?0:Math.sin(t*.13)*.075;
+ if(mode==='meteors'){
+  // A broad star canopy, not an annulus: the perspective field has several vanishing origins.
+  aura(c,cx-R*.7,cy-R*.5,R*2.2,'#25367d',.27);aura(c,cx+R*.9,cy-R*.15,R*1.6,'#562b79',.13);
+  const roll=.035*Math.sin(t*.09),cr=Math.cos(roll),sr=Math.sin(roll),ox=cx+R*.1*Math.sin(t*.07),oy=cy-R*.12;
+  for(let j=0;j<1700;j++){const x=noise(j+3100)*w,y=noise(j+4800)*h*.98,drift=Math.sin(t*.06+j)*R*.016,twinkle=.52+.38*Math.sin(t*(.24+noise(j)*.3)+j*.9)**2,size=.45+noise(j+5100)*.82;c.fillStyle=j%17===0?'#cfbded99':`rgba(201,224,255,${twinkle*.7})`;c.fillRect(x+drift,y+drift*.3,size,size);}
+  const position=(j,z)=>{const wx=(noise(j+11)-.5)*8+.16*Math.sin(t*.14+j),wy=(noise(j+913)-.5)*5+.12*Math.cos(t*.11+j*.7),cluster=(j%3-1)*R*.38;let xx=wx/z*w*.66,yy=wy/z*h*.82;return [ox+cluster+xx*cr-yy*sr,oy+(j%5-2)*R*.06+xx*sr+yy*cr];};
+  for(let j=0;j<2300;j++){
+   const speed=.025+noise(j+23)*.032,age=(noise(j+101)+t*speed)%1,z=6.5-age*5.95,[x,y]=position(j,z);if(x<-120||x>w+120||y<-120||y>h+120)continue;
+   const fade=Math.min(1,age/.05,(1-age)/.045),near=(6.5-z)/5.95,size=Math.min(2.5,(.5+noise(j+7)*.7)*(1+near*1.1));
+   const bright=j%19===0,tailTime=bright?.12+noise(j+31)*.12:.035+noise(j+31)*.045,[tx,ty]=position(j,z+speed*5.95*tailTime),col=j%23===0?'#ffdcad':j%7===0?'#b8cfff':'#e4f2ff';
+   if(bright){const g=c.createLinearGradient(tx,ty,x,y);g.addColorStop(0,col+'00');g.addColorStop(.65,col+'66');g.addColorStop(1,col+'f0');c.save();c.globalAlpha*=fade;c.strokeStyle=g;c.lineWidth=size*.72;c.lineCap='round';c.beginPath();c.moveTo(tx,ty);c.lineTo(x,y);c.stroke();dot(c,x,y,col,size*.85);if(j%57===0){line(c,[[x-4,y],[x+4,y]],col,.7,fade*.65);line(c,[[x,y-4],[x,y+4]],col,.7,fade*.65);}c.restore();}
+   else{line(c,[[tx,ty],[x,y]],col,.55,fade*(.17+near*.2));c.save();c.globalAlpha*=fade*(.42+near*.45);c.fillStyle=col;c.fillRect(x-size/2,y-size/2,size,size);c.restore();}
+  }
+  // A few long, gently curved meteors cross the canopy independently of the star flight.
+  for(let j=0;j<24;j++){const life=(t*(.065+noise(j+2)*.025)+noise(j+71))%1,fade=Math.sin(life*Math.PI)**2,angle=(noise(j+87)*.75+.08)*Math.PI*2,startX=(noise(j+17)-.5)*w*.65+cx,startY=noise(j+79)*h*.7,distance=life*w*.7,x=startX+Math.cos(angle)*distance,y=startY+Math.sin(angle)*distance*.55,len=28+noise(j+97)*90,tx=x-Math.cos(angle)*len,ty=y-Math.sin(angle)*len*.55;if(x<-90||x>w+90||y<-90||y>h+90)continue;const col=j%5===0?'#f2d7ff':'#d7eeff',g=c.createLinearGradient(tx,ty,x,y);g.addColorStop(0,col+'00');g.addColorStop(.75,col+'55');g.addColorStop(1,col+'ee');c.save();c.globalAlpha*=fade*.95;c.strokeStyle=g;c.lineWidth=1.65;c.lineCap='round';c.beginPath();c.moveTo(tx,ty);c.quadraticCurveTo((tx+x)/2,(ty+y)/2-4,x,y);c.stroke();dot(c,x,y,'#f5fbff',1.9);c.restore();}
+ }
  if(mode==='vortex'){
   const ox=cx-R*.18,oy=cy-R*.12,zoom=1+.035*Math.sin(t*.19);
   aura(c,ox,oy,R*1.7,'#087caf',.85);const cloud=c.createRadialGradient(ox,oy,R*.65,ox,oy,R*1.6);cloud.addColorStop(0,'#30caff00');cloud.addColorStop(.5,'#168ed755');cloud.addColorStop(.65,'#68e6ff44');cloud.addColorStop(1,'#1480ba00');c.fillStyle=cloud;c.beginPath();c.arc(ox,oy,R*1.6,0,TAU);c.fill();aura(c,ox,oy,R*.38,'#c8f7ff',.6);
@@ -97,7 +109,7 @@ function cinematicLayer(c,w,h,s,t,mode,weight){
 }
 export function drawAtmosphere(c,w,h,s,t,points){
  const cue=cinematicCue(s);if(cue.blend<1)cinematicLayer(c,w,h,s,t,cue.previous,1-cue.blend);cinematicLayer(c,w,h,s,t,cue.current,cue.blend);
- const strengths={vortex:.28,warp:.42,horizon:.22,sphere:.54,arches:.75};
+ const strengths={meteors:.1,vortex:.28,warp:.42,horizon:.22,sphere:.54,arches:.75};
  const floorStrength=strengths[cue.previous]*(1-cue.blend)+strengths[cue.current]*cue.blend;
  const red=(cue.previous==='horizon'?1-cue.blend:0)+(cue.current==='horizon'?cue.blend:0);
  drawReferenceFloor(c,w,h,s,t,points,floorStrength,red);
