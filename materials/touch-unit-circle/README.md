@@ -11,7 +11,7 @@ lesson.js: 直接操作、解答表示、自動解説、一時停止と再開。
 
 `node tests/check.mjs` で数値検証。`APP_URL=... PLAYWRIGHT_MODULE=/absolute/path/to/playwright/index.mjs node tests/check.mjs` で操作と画面幅の検証。
 
-`PLAYWRIGHT_MODULE=... node render/movie.mjs` は共通描画の1920×1080フレームを24fpsのH.264にエンコードします。既定の出力先は public/media/touch-unit-circle-180s-v5.mp4。書き出しはffmpeg、ブラウザ検証はChromiumを使用。
+`PLAYWRIGHT_MODULE=... node render/movie.mjs` は共通描画の1920×1080フレームを24fpsのH.264にエンコードします。既定の出力先は public/media/touch-unit-circle-180s-v6.mp4。書き出しはffmpeg、ブラウザ検証はChromiumを使用。
 
 GitHub Actions touch-unit-circle.yml が動画を生成・全編デコードし、新規Release touch-unit-circle-v2 に登録します。既存のPages公開ワークフローは、この動画の生成を待って配信します。Pagesでは同一オリジンのmedia/touch-unit-circle-180s-v2.mp4から配信します。
 
@@ -32,3 +32,7 @@ GitHub Actions touch-unit-circle.yml が動画を生成・全編デコードし�
 粒子の渦、青と金の曲がる時空格子、赤い光の地平線、金色の赤道光を持つ天球、多重アーチの5場面を動的に描画します。動画は学習段階に連動し、場面の冒頭2.8秒でスムーズステップによるディゾルブを行います。操作画面では「背景演出」から選択できます。解説の再生・再開では自動演出に戻り、MP4と時間軸を一致させます。数学の色対応（sinは金、cosは青）、正面の単位円、分数表示、初期非表示の解答は維持します。
 
 `?view=equation&background=vortex#experiment` は粒子の渦を選んだ方程式場面を直接開きます。スマートフォンでは背景メニューをキャンバスの上に分け、数式と重ならないようにします。
+
+## 第6版：散らばる流星の海
+参照動画の星空の密度・奥行き・短い光跡をもとに、広い星の天蓋と透視投影された流星群を描画します。約1700個の遠景星、2300個の奥行きのある粒子、24本の長い流星を決定的な時刻モデルで動かします。近い粒ほど大きく速くなり、尾が伸びて画面外へ流れます。自動解説・MP4は連続する流星背景を使い、学習段階ごとの露出を2.8秒で滑らかに調整します。従来5種類はメニューに残します。
+`?view=equation&background=meteors#experiment` で流星の海を直接開けます。
