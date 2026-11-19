@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "file": "public/media/pi-to-radian-journey-90s.mp4",
+  "sha256": "e4da8307f1cb5cc857751fea0b11d167e0e43b0505f15078abaaf7f79d6f4b22",
+  "duration": 90,
+  "width": 1920,
+  "height": 1080,
+  "fps": "24/1",
+  "frames": 2160,
+  "codec": "h264",
+  "pixelFormat": "yuv420p",
+  "colorSpace": "bt709",
+  "bytes": 13872192,
+  "fullDecode": true
+}

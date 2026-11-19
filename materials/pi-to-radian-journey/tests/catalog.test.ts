@@ -1,0 +1,2 @@
+import {it,expect} from 'vitest';import {materials,filterMaterials} from '../../../src/materials';
+it('円周率からラジアンへの教材を登録し、既存教材を保持する',()=>{const m=materials.find(x=>x.id==='pi-to-radian-journey');expect(m?.name).toBe('円周をほどく旅 ― πからラジアンへ');expect(m?.subject).toBe('数学Ⅰ');expect(m?.thumbnail).toBeTruthy();for(const q of ['円周率','π','弧度法','ラジアン','単位円'])expect(filterMaterials(materials,'数学Ⅰ',q).some(x=>x.id===m?.id)).toBe(true);for(const id of ['beyond-90-unit-circle','touch-unit-circle','trig-cos-equation-3'])expect(materials.some(x=>x.id===id)).toBe(true)});
