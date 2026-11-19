@@ -1,0 +1,40 @@
+{
+  "title": "90°の向こうへ ― なぜ単位円を使うの？",
+  "video": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1920,
+        "height": 1080,
+        "pix_fmt": "yuv420p",
+        "r_frame_rate": "24/1",
+        "nb_frames": "2160",
+        "side_data_list": [
+          {}
+        ]
+      }
+    ],
+    "format": {
+      "duration": "90.000000",
+      "size": "28518107"
+    }
+  },
+  "sha256": "86988f899c87d193316b97fb8d998e438776fc85416148bab966ecfc4b224473",
+  "decodedWithoutErrors": true,
+  "math": "similarity, signed coordinates, quadrants, 2/1/0 intersections, domains, radians and synchronized timeline: passed",
+  "catalog": "new Math I card plus retained touch-unit-circle and trig-cos-equation-3: passed",
+  "build": "passed",
+  "framesInspected": [
+    0,
+    31,
+    50,
+    70,
+    78,
+    88
+  ],
+  "interactionChecks": "GitHub Actions: Verify Beyond 90 introduction lesson",
+  "physicalDevices": "iPhone/iPad Safari not tested; automated Chromium viewport emulation is separate",
+  "existingLessons": "touch-unit-circle and trig-cos-equation-3 sources and videos are preserved"
+}

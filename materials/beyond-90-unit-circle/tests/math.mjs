@@ -1,0 +1,8 @@
+import assert from 'node:assert/strict';import {solve,timeline,angleText,stages} from '../model.mjs';const close=(a,b)=>assert.ok(Math.abs(a-b)<1e-7,`${a} != ${b}`);const near=(arr,expected)=>{assert.equal(arr.length,expected.length);arr.forEach((a,i)=>close(a,expected[i]))};
+for(const r of [.5,1,2,3]){close(r*.5/r,.5);close(r*Math.sqrt(3)/2/r,Math.sqrt(3)/2)}
+for(const a of [30,120,210,330]){const x=Math.cos(a*Math.PI/180),y=Math.sin(a*Math.PI/180);close(x*x+y*y,1);assert.equal(Math.sign(x),[30,330].includes(a)?1:-1);assert.equal(Math.sign(y),a<180?1:-1)}
+near(solve('sin',-.5).all,[210,330]);near(solve('sin',-.5,'school').valid,[]);near(solve('cos',-1).all,[180]);near(solve('cos',-1,'school').valid,[180]);near(solve('sin',0).all,[0,180]);near(solve('cos',1).all,[0]);
+for(const mode of ['sin','cos'])for(const k of [-1.5,-1,-.5,0,.5,1,1.5]){const res=solve(mode,k);assert.equal(res.all.length,Math.abs(k)>1?0:Math.abs(k)===1?1:2);for(const a of res.all){assert.ok(a>=0&&a<360);close(Math[mode](a*Math.PI/180),k)}}
+assert.equal(angleText(210,true),'7π/6');assert.equal(angleText(330,true),'11π/6');assert.equal(angleText(180,true),'π');assert.equal(stages.at(-1),90);close(timeline(0).r,2);close(timeline(24).r,1);close(timeline(27).r,1);close(timeline(42).a,90);close(timeline(50).a,120);close(timeline(60).a,210);close(timeline(60).k,-.5);close(timeline(68).a,330);close(timeline(78).a,180);close(timeline(78).k,-1);assert.equal(timeline(84).range,'school');assert.equal(timeline(88).range,'full');assert.equal(timeline(88).rad,true);
+for(const t of [33.999,34,38.999,39,41.999,42]){const s=timeline(t);assert.ok(s.a>=0&&s.a<=360)}
+console.log('PASS: similarity, quadrants, intersections, ranges, radians, 90s timeline and synchronized contacts');

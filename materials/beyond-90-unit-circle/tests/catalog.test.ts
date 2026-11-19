@@ -1,0 +1,2 @@
+import {it,expect} from 'vitest';import {materials,filterMaterials} from '../../../src/materials';
+it('90秒の導入教材を新規登録し、既存の180秒版とcos③を保持する',()=>{const m=materials.find(x=>x.id==='beyond-90-unit-circle');expect(m?.name).toBe('90°の向こうへ ― なぜ単位円を使うの？');expect(m?.subject).toBe('数学Ⅰ');expect(m?.thumbnail).toBeTruthy();for(const q of ['90°の向こうへ','単位円','三角比','sin','cos'])expect(filterMaterials(materials,'数学Ⅰ',q).some(x=>x.id===m?.id)).toBe(true);expect(materials.some(x=>x.id==='touch-unit-circle')).toBe(true);expect(materials.some(x=>x.id==='trig-cos-equation-3')).toBe(true)});
