@@ -376,3 +376,24 @@ jobs:
         with:
           name: unit-circle-signs-live-check
           path: work/unit-circle-signs/
+
+  verify-mean-value-theorem:
+    needs: deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: materials/mean-value-theorem
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Install playback browser
+        run: |
+          npm install --prefix /tmp/mvt-browser playwright@1.62.1
+          node /tmp/mvt-browser/node_modules/playwright/cli.js install --with-deps chromium
+      - name: Verify library search, playback, download and exploration
+        env:
+          PLAYWRIGHT_MODULE_PATH: /tmp/mvt-browser/node_modules/playwright
+          LIBRARY_URL: https://hakunou22hr.github.io/-/
+          LESSON_URL: https://hakunou22hr.github.io/-/materials/mean-value-theorem/
+        run: node materials/mean-value-theorem/verify.cjs

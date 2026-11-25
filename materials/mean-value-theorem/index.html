@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="高校数学Ⅱの平均値の定理を、90秒映画と動く接線で探究する教材。微分係数・平均変化率・接線・割線。">
+<title>傾きが出会う瞬間 ― 平均値の定理</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<main>
+<header>
+<a class="back" href="../../">← 教材ライブラリ</a>
+<p class="eyebrow">数学Ⅱ / 微分法</p>
+<h1>傾きが出会う瞬間</h1>
+<p class="subtitle">平均値の定理</p>
+</header>
+<section aria-label="90秒映画">
+<video id="movie" controls playsinline preload="metadata" poster="./frame-03.png" aria-label="平均値の定理 90秒映画"><source src="./mean-value-theorem.mp4" type="video/mp4"></video>
+<div class="actions"><button class="primary" id="enter">この時刻から操作する ↓</button><a class="button" href="./mean-value-theorem.mp4" download>MP4を保存 <span>90秒</span></a></div>
+</section>
+<section id="explore" aria-labelledby="explore-title">
+<div class="section-head"><div><p class="eyebrow">探究</p><h2 id="explore-title" tabindex="-1">点 P を動かす</h2></div><button id="resume" disabled>映像に戻る</button></div>
+<div class="workspace">
+<div>
+<div class="graph-tools" aria-label="表示設定"><button id="front" aria-pressed="true">正面</button><button id="space" aria-pressed="false">立体空間</button><label class="check"><input type="checkbox" id="calm"> 背景の動きを抑える</label></div>
+<canvas width="960" height="540" id="plot" role="img" aria-label="関数のグラフ。点 P の位置は、下のスライダーでも変更できます。"></canvas>
+<div class="legend"><span class="curve">曲線</span><span class="secant">割線</span><span class="tangent">接線</span></div>
+</div>
+<div class="panel">
+<label for="example">関数と区間</label>
+<select id="example"><option value="square">f(x) = x²　 [0, 2]</option><option value="abs">f(x) = |x|　 [−1, 1]</option></select>
+<div class="range-title"><label for="point">点 P の x 座標</label><output id="position" for="point"></output></div>
+<input id="point" type="range" min="0.01" max="1.99" step="0.01" value="0.25">
+<div class="readouts"><div><span>割線の傾き</span><strong id="sec"></strong></div><div><span>接線の傾き</span><strong id="tan"></strong></div></div>
+<p id="match" role="status"></p>
+<div class="actions controls"><button id="answer" class="primary" aria-expanded="false" aria-controls="solution">答えを見る</button><button id="reset">リセット</button></div>
+<p id="solution" hidden></p>
+</div>
+</div>
+<p class="hint">点 P をドラッグするか、スライダーを選択して矢印キーで動かします。</p>
+</section>
+<section class="theorem" aria-labelledby="statement"><h2 id="statement">平均値の定理</h2>
+<p>関数 <i>f</i> が閉区間 [<i>a</i>, <i>b</i>] で連続で、開区間 (<i>a</i>, <i>b</i>) で微分可能なら、次を満たす点 <i>c</i> が少なくとも1つ存在します。</p>
+<div class="equation"><span class="fraction"><span>f(b) − f(a)</span><span>b − a</span></span><span>= f′(c)</span><small>a &lt; c &lt; b</small></div>
+</section>
+<details class="review"><summary>制作プレビューと代表フレーム</summary>
+<ul><li><a href="./preview-classroom.mp4">教室から黒板へ（12秒）</a></li><li><a href="./preview-discovery.mp4">傾きの一致と床の波紋（8秒）</a></li></ul>
+<div class="frames">
+<a href="./frame-03.png"><img src="./frame-03.png" loading="lazy" alt="3秒、夕方の教室"></a>
+<a href="./frame-10.png"><img src="./frame-10.png" loading="lazy" alt="10秒、黒板通過"></a>
+<a href="./frame-20.png"><img src="./frame-20.png" loading="lazy" alt="20秒、座標観測室"></a>
+<a href="./frame-48.png"><img src="./frame-48.png" loading="lazy" alt="48秒、傾きの一致"></a>
+<a href="./frame-88.png"><img src="./frame-88.png" loading="lazy" alt="88秒、教室への帰還"></a>
+</div></details>
+</main>
+<script type="module" src="./lesson.js"></script>
+</body>
+</html>
