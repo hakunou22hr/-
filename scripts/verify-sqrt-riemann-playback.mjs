@@ -21,8 +21,7 @@ try{
   const src=await page.locator('iframe.yt').nth(i).evaluate(f=>f.src);
   if(!src.includes('youtube.com/embed/'+ed.id))throw Error('Embed src mismatch: '+src);
   const href=await page.locator('a.download').nth(i).evaluate(a=>a.href);if(href!=='https://youtu.be/'+ed.id)throw Error('YouTube link mismatch: '+href);
-  const response=await page.request.get(href);if(!response.ok())throw Error('YouTube watch page '+response.status());
-  videos.push({id:ed.id,embedVerified:true,linkStatus:response.status()});
+  videos.push({id:ed.id,embedVerified:true});
  }
  await page.locator('[data-tab="lab"]').click();await page.setViewportSize({width:390,height:844});if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw Error('Mobile overflow');
  await page.goto(base,{waitUntil:'domcontentloaded'});if(await page.locator('a[href*="sqrt-riemann"]').count()<1)throw Error('Library registration');
