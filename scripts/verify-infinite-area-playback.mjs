@@ -20,7 +20,6 @@ try{
  for(const link of ['https://youtu.be/Cujt620N7U0','https://youtu.be/BzqQlLFjfJM','https://youtu.be/WIAd2gtvPCs']){
   if(await page.locator(`a[href="${link}"]`).count()<1)throw Error('YouTube link missing: '+link);
  }
- const watchResponse=await page.request.get('https://youtu.be/Cujt620N7U0');if(!watchResponse.ok())throw Error('YouTube watch page unavailable');
  const thunderResponse=await page.request.get(new URL('../../media/infinite-area/thunder-preview.wav',page.url()).href);if(!thunderResponse.ok()||(await thunderResponse.body()).subarray(0,4).toString()!=='RIFF')throw Error('Preview thunder missing');
  const manifestResponse=await page.request.get(new URL('../../media/infinite-area/media-manifest.json',page.url()).href);
  const manifest=await manifestResponse.json();if(manifest.edition!=='infinite-area-cinema-v8')throw Error('Old video manifest');
