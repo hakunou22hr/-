@@ -1,0 +1,2 @@
+import {it,expect} from 'vitest';import {materials,filterMaterials} from '../../../src/materials';
+it('改訂版を数学Ⅱに追加し初版と既存教材を保持',()=>{const id='mean-value-theorem-revised',m=materials.find(x=>x.id===id);expect(m?.subject).toBe('数学Ⅱ');for(const q of ['平均値の定理','微分係数','平均変化率','接線','割線'])expect(filterMaterials(materials,'数学Ⅱ',q).some(x=>x.id===id)).toBe(true);for(const old of ['mean-value-theorem','pi-to-radian-journey','beyond-90-unit-circle','trig-cos-equation-3'])expect(materials.some(x=>x.id===old)).toBe(true)});

@@ -1,0 +1,12 @@
+{
+  "referenceMatch": "partial; not equivalent to photorealistic concept art",
+  "reviewedActualPreviewFrames": [
+    {"preview":"preview-classroom-12s.mp4","time":6,"finding":"Desks, chairs, left windows, sunset shadows and the blackboard remain visible."},
+    {"preview":"preview-measurement-15s.mp4","time":12,"absoluteTime":24,"finding":"Horizontal change 2, vertical change 4, secant and stacked fraction 4/2=2 are readable together."},
+    {"preview":"preview-discovery-8s.mp4","time":3,"absoluteTime":48,"finding":"Two separate parallel gold lines and a floor wave are visible."}
+  ],
+  "matchedDirection": ["warm sunset classroom","wooden furniture with separate components","dark green chalkboard","navy coordinate space","cyan curve","gold secant","violet-to-gold tangent","vertex-displaced floor grid"],
+  "remainingDifferences": ["procedural architecture and furniture remain visibly computer-generated","indirect illumination, microscopic wear and cinematic depth of field do not match the reference image","blackboard passage uses opening panels and light rather than full particle dissolution of the edge"],
+  "productionNeededForPhotorealisticParity": "Detailed classroom assets and offline indirect-lighting/depth-of-field rendering, for example a dedicated path-traced classroom sequence.",
+  "physicalDevices": "Not tested; browser viewport/touch emulation must be reported separately."
+}

@@ -1,0 +1,52 @@
+name: Verify revised mean value classroom movie
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'materials/mean-value-theorem-revised/**'
+      - 'public/media/mean-value-theorem-revised/**'
+      - '.github/workflows/mvt-revised-check.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Wait for this revision to deploy to Pages
+        uses: actions/github-script@v7
+        with:
+          script: |
+            for (let i=0;i<60;i++) {
+              const {data}=await github.rest.actions.listWorkflowRuns({...context.repo,workflow_id:'deploy.yml',head_sha:context.sha,per_page:1});
+              const run=data.workflow_runs[0];
+              if (run) {
+                const jobs=(await github.rest.actions.listJobsForWorkflowRun({...context.repo,run_id:run.id})).data.jobs;
+                const deploy=jobs.find(j=>j.name==='deploy');
+                if (deploy?.conclusion==='success') return;
+                if (deploy?.conclusion==='failure'||jobs.some(j=>j.name==='build'&&j.conclusion==='failure')) throw Error('Pages build or deploy failed');
+              }
+              await new Promise(r=>setTimeout(r,10000));
+            }
+            throw Error('Timed out waiting for Pages deployment');
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: materials/mean-value-theorem-revised/tests
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Install browser test runner
+        run: |
+          npm install --prefix /tmp/mvt-revised-browser playwright --no-audit --no-fund
+          node /tmp/mvt-revised-browser/node_modules/playwright/cli.js install --with-deps chromium
+          sudo apt-get install -y fonts-noto-cjk
+      - name: Verify published lesson and mobile layouts
+        env:
+          PLAYWRIGHT_MODULE: /tmp/mvt-revised-browser/node_modules/playwright/index.mjs
+        run: node materials/mean-value-theorem-revised/tests/published.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mvt-revised-published-verification
+          path: work/mvt-revised-live/
