@@ -1,0 +1,7 @@
+全体の平均と、途中の瞬間がつながる。
+放物線 f(x)=x² で見つける「平均値の定理」。
+
+90秒版と、点を動かせる教材はこちら：
+https://hakunou22hr.github.io/-/materials/mean-value-theorem-revised/?v=10
+
+#高校数学 #数学Ⅱ #平均値の定理 #微分 #数学教材

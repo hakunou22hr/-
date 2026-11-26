@@ -126,8 +126,8 @@ export class Observatory extends PreviousWorld{
   }
   const tag=s.scene===1?'MEASURE / Δx → Δy':s.scene===2?'COMPARE / 1 → 2 → 3':s.scene===3?'DISCOVERY / PARALLEL':s.scene===4?'CONNECT / GRAPH → EQUATION':'RECAP / MEAN = INSTANT';text(tag,891,14,'#8fb9cf');c.restore();
  }
- drawNarrator(c,s,{calm=false,focus=true}={}){
-  const q=guideState(s.t,{calm});if(!q.visible)return;const cx=1752,cy=785,clock=calm?0:s.t,angle=q.angle;
+ drawNarrator(c,s,{calm=false,focus=true,state=null}={}){
+  const q=state||guideState(s.t,{calm});if(!q.visible)return;const cx=1752,cy=785,clock=calm?0:s.t,angle=q.angle;
   if(!this.goldCloud){const rr=random(81731);this.goldCloud={points:Array.from({length:2200},(_,i)=>({theta:Math.acos(2*rr()-1),phi:rr()*Math.PI*2,r:i%3?90+rr()*36:25+rr()*85,phase:rr()*6.283,speed:(.09+rr()*.24)*(i%4===0?-1:1),size:.55+rr()*1.35})),threads:Array.from({length:112},(_,i)=>({radius:60+rr()*68,start:rr()*6.283,arc:.35+rr()*2.5,pitch:rr()*6.283,yaw:rr()*6.283,roll:rr()*6.283,phase:rr()*6.283,speed:(.10+rr()*.28)*(i%2?-1:1)})),sparks:Array.from({length:80},()=>({phi:rr()*6.283,theta:Math.acos(2*rr()-1),r:128+rr()*14,phase:rr()*6.283}))}}
   const rotate=(x,y,z,pitch,yaw,roll)=>{const y1=y*Math.cos(pitch)-z*Math.sin(pitch),z1=y*Math.sin(pitch)+z*Math.cos(pitch),x2=x*Math.cos(yaw)+z1*Math.sin(yaw),z2=z1*Math.cos(yaw)-x*Math.sin(yaw);return [x2*Math.cos(roll)-y1*Math.sin(roll),x2*Math.sin(roll)+y1*Math.cos(roll),z2]};
   const project=(x,y,z)=>{const v=rotate(x,y,z,.12,angle*.19,.10*Math.sin(clock*.23)),k=1/(1-v[2]/760);return {x:cx+v[0]*k,y:cy+v[1]*k,z:v[2]}};

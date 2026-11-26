@@ -1,0 +1,37 @@
+{
+  "variant": "Instagram 30s portrait",
+  "layout": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "duration": 30,
+    "mainTextArea": "x80–600, y200–1580",
+    "guide": "constant 330px, right lane, upper/lower positions"
+  },
+  "reviewedFrames": [
+    3,
+    9.8,
+    13.8,
+    17.5,
+    19.5,
+    25.5,
+    28
+  ],
+  "mathReview": [
+    "measured horizontal 2 / vertical 4 before numerical mean",
+    "slopes 1→2→3 shown from same model",
+    "parallel statement and P(1,1) only after actual match",
+    "correct separated secant y=2x and tangent y=2x−1",
+    "unit slope triangle 1×2",
+    "2c=2 then c=1",
+    "closed-interval continuity and open-interval differentiability retained"
+  ],
+  "voice": "six short timed assistant responses; separate 30s waveform",
+  "source": "same supplied MUSE classroom and mathematical engine",
+  "limitations": [
+    "classroom source is 720p",
+    "Instagram UI safe regions vary by device; actual Instagram upload not performed",
+    "30s is a compressed explanation; full lesson is linked"
+  ],
+  "preserved": "v10 90s MP4 and previous previews unchanged"
+}
