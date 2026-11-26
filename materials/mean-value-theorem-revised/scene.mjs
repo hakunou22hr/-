@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import {guideState} from './guide.mjs';
 import {Observatory as PreviousWorld} from './scene-v1.mjs';
-import {clamp,ease,mix,phase,titles,captions} from './model.mjs';
+import {clamp,ease,mix,phase,titles,captions,timeline} from './model.mjs';
 const CYAN='#7bebff',GOLD='#ffd18a',BLUE='#79baff',PURPLE='#c8a4ff',WHITE='#eef6ff';
 const random=(seed=781)=>()=>((seed=(Math.imul(seed,1664525)+1013904223)>>>0)/4294967296);
 const cv=(w,h)=>{const c=document.createElement('canvas');c.width=w;c.height=h;return c};
@@ -26,7 +26,7 @@ export class Observatory extends PreviousWorld{
  if(this.room.visible){const u=t<12?t:Math.max(0,12-2*(t-84));this.roomPose(u);this.room.add(this.graph);this.graph.renderOrder=10;this.placePhotoGraph(u);this.photoUniforms.hole.value=phase(u,9,12);this.photoUniforms.time.value=t;this.graph.material.opacity=.85+.15*phase(u,3,7);const a=this.classDust.geometry.attributes.position,flow=phase(u,6,11);for(let i=0;i<a.count;i++){const b=this.classDustBase[i],v=calm?b[3]:(b[3]+t*.075)%1,x=mix(b[0],.6,flow*.7),y=mix(b[1],2.2,flow*.7),z=mix(b[2],-3,flow*v);a.setXYZ(i,x+Math.sin(t*.4+i)*.05,y,z)}a.needsUpdate=true;this.classDust.material.opacity=calm?.1:.18+.65*flow;this.activeCamera=this.roomCamera}else{this.scene.add(this.graph);this.graph.renderOrder=0;this.graph.position.set(-.25,3.7,-23);this.graph.scale.setScalar(1);this.graph.quaternion.identity();this.graph.material.opacity=1;this.graph.updateMatrixWorld(true)}
  const age=t-(t>=47?47:t>=22?22:17),energy=!lab&&!calm&&age>=0&&age<6?Math.exp(-age*.4):0,P=this.graphWorld(s.c,s.f(s.c));this.wavePoint=!lab&&t<27?this.graphWorld(s.b,s.f(s.b)):P;this.waveAge=age;this.waveEnergy=energy;const a=this.grid.geometry.attributes.position;for(let i=0;i<a.count;i++){const x=this.gridBase[i*2],z=this.gridBase[i*2+1],d=Math.hypot(x-this.wavePoint.x,z+23);a.setY(i,1.25+.2*Math.sin((d-age*2.7)*5.4)*Math.exp(-Math.pow(d-age*2.7,2)*1.6)*energy)}a.needsUpdate=true;this.drawGraph(s,{lab,reveal});this.graph.updateMatrixWorld(true);
  this.projected={};for(const [key,x,y] of [['A',s.a,s.f(s.a)],['B',s.b,s.f(s.b)],['P',s.c,s.f(s.c)]]){const v=this.graphWorld(x,y).project(this.activeCamera);this.projected[key]={x:(v.x+1)*this.w/2,y:(1-v.y)*this.h/2}}return this.projected;}
- render(s,options={}){this.setWorld(s,options);const c=this.ctx;c.clearRect(0,0,this.w,this.h);if(this.room.visible&&this.photoUniforms.hole.value<=0){c.fillStyle='#071224';c.fillRect(0,0,this.w,this.h)}else this.drawProjected(c,s,options);if(!this.room.visible)this.drawMeasurementAtmosphere(c,s,options);if(this.room.visible){this.renderer.render(this.classroomScene,this.roomCamera);c.drawImage(this.renderer.domElement,0,0,this.w,this.h)}else{const r=this.mainRect();c.drawImage(this.graphCanvas,r.x,r.y,r.w,r.h);this.pointHalo(c,s)}c.save();c.scale(this.w/1920,this.h/1080);if(!options.lab){this.overlay(c,s);if(options.narrator!==false)this.drawNarrator(c,s,options)}c.restore();return this.film;}
+ render(s,options={}){this.setWorld(s,options);const c=this.ctx;c.clearRect(0,0,this.w,this.h);if(this.room.visible&&this.photoUniforms.hole.value<=0){c.fillStyle='#071224';c.fillRect(0,0,this.w,this.h)}else this.drawProjected(c,s,options);if(!this.room.visible)this.drawMeasurementAtmosphere(c,s,options);if(this.room.visible){this.renderer.render(this.classroomScene,this.roomCamera);c.drawImage(this.renderer.domElement,0,0,this.w,this.h)}else{const r=this.mainRect();c.drawImage(this.graphCanvas,r.x,r.y,r.w,r.h);this.pointHalo(c,s)}c.save();c.scale(this.w/1920,this.h/1080);if(!options.lab){this.overlay(c,s);if(!this.room.visible)this.paintGuideTextReflow(c,s);if(options.narrator!==false)this.drawNarrator(c,s,options)}c.restore();return this.film;}
  drawProjected(c,s,{spatial=true,calm=false,lab=false}={}){const W=this.w,H=this.h,t=calm?0:s.t??0,palette=s.kind==='abs'?['#090e22','#181a32','#25152e']:['#050f20','#0c1e31','#201520'],gradient=c.createRadialGradient(W*.4,H*.36,0,W*.48,H*.43,W*.85);gradient.addColorStop(0,palette[1]);gradient.addColorStop(.55,palette[0]);gradient.addColorStop(1,'#020711');c.fillStyle=gradient;c.fillRect(0,0,W,H);if(!spatial)return;
  const f=H/(2*Math.tan(this.camera.fov*Math.PI/360)),yaw=lab?0:.055*Math.sin(t*.16)*(s.scene===1?.3:1),project=(x,y,z)=>{const xx=x-1.6,zz=z+14.8,d=-(zz*Math.cos(yaw)-xx*Math.sin(yaw));if(d<.2)return null;return [W/2+(xx*Math.cos(yaw)+zz*Math.sin(yaw))*f/d,H/2-(y-3.6)*f/d,d]};let travel=t*.42;for(const start of [9,27,43,57,72,84])travel+=5*phase(t,start,start+2.5);const reading=s.scene===1||s.scene===4||s.scene===5,strength=reading?.38:1;
  for(const n of this.nebula){const q=project(n.x+Math.sin(t*.07+n.color)*.6,n.y,n.z);if(!q)continue;const R=n.size*f/q[2],g=c.createRadialGradient(q[0],q[1],0,q[0],q[1],R);g.addColorStop(0,[`rgba(62,177,214,${.09*strength})`,`rgba(217,143,71,${.065*strength})`,`rgba(140,104,206,${.08*strength})`][n.color]);g.addColorStop(1,'rgba(0,0,0,0)');c.fillStyle=g;c.fillRect(q[0]-R,q[1]-R,R*2,R*2)}
@@ -83,19 +83,51 @@ export class Observatory extends PreviousWorld{
   const cap=captions(t);
   c.fillStyle='#04101e';c.fillRect(40,958,1840,87);this.text2(c,cap,960,1014,cap.length>46?25:28,WHITE,'center');
  }
- drawNarrator(c,s,{calm=false}={}){
-  const q=guideState(s.t,{calm});if(!q.visible)return;q.opacity*=.96;
-  const cx=1782,cy=847,r=54,angle=q.angle,gold=q.gold&&q.accent>.25;
-  c.save();c.globalAlpha=q.opacity;
-  const haze=c.createRadialGradient(cx,cy,0,cx,cy,88);haze.addColorStop(0,'#071d30ed');haze.addColorStop(.7,'#061725bd');haze.addColorStop(1,'#06172500');c.fillStyle=haze;c.fillRect(cx-90,cy-90,180,180);
-  const glow=c.createRadialGradient(cx,cy,0,cx,cy,r*.86);glow.addColorStop(0,gold?'#ffdc9555':'#7bebff55');glow.addColorStop(.45,'#37a9de22');glow.addColorStop(1,'#7bebff00');c.fillStyle=glow;c.fillRect(cx-r,cy-r,r*2,r*2);
-  const points=[];for(let i=0;i<620;i++){const y=1-2*(i+.5)/620,a=i*2.399963229728653,rr=Math.sqrt(1-y*y),x=Math.cos(a)*rr,z=Math.sin(a)*rr,rx=x*Math.cos(angle)+z*Math.sin(angle),rz=z*Math.cos(angle)-x*Math.sin(angle),tilt=.25+(calm?0:.12*Math.sin(s.t*.4)),ry=y*Math.cos(tilt)-rz*Math.sin(tilt),zz=y*Math.sin(tilt)+rz*Math.cos(tilt),k=1/(1-zz*.17),pulse=1+.025*q.activity*Math.sin(i*.07+(calm?0:s.t*3));points.push({x:cx+rx*r*k*pulse,y:cy+ry*r*k*pulse,z:zz,i})}points.sort((a,b)=>a.z-b.z);
-  for(const p of points){const front=(p.z+1)/2,size=.7+front*1.05,hot=p.i%31===0&&q.accent>.2;c.globalAlpha=q.opacity*(.18+.72*front);c.fillStyle=hot?'#ffe4a6':p.i%5===0?'#e6fbff':'#68d6f2';c.beginPath();c.arc(p.x,p.y,size,0,Math.PI*2);c.fill()}
-  c.globalAlpha=q.opacity;for(let j=0;j<3;j++){c.beginPath();c.ellipse(cx,cy,67+j*4,58+j*4,angle*.12+j*.4,angle+j*2.1,angle+j*2.1+.7);c.strokeStyle=j===1&&gold?'#ffd18aa0':'#73dfffaa';c.lineWidth=1;c.stroke()}
-  for(let i=0;i<24;i++){const a=i/24*Math.PI*2,level=calm?3:3+q.activity*(3+4*Math.sin(i*1.7+s.t*6)),ra=77,rb=ra+level;c.beginPath();c.moveTo(cx+ra*Math.cos(a),cy+ra*Math.sin(a));c.lineTo(cx+rb*Math.cos(a),cy+rb*Math.sin(a));c.strokeStyle=i%6===0?'#ffd18a99':'#6bd2ec66';c.lineWidth=1.3;c.stroke()}
-  this.text2(c,'AI GUIDE',cx,945,13,'#9fdaec','center');c.restore();
+ paintGuideTextReflow(c,s){
+  if(s.t<12||s.t>=84)return;const stage=Math.min(4,Math.floor((s.t-57)/3)),summary=s.t<76?0:s.t<80?1:2;
+  const top=s.scene===4?[590,570,575,592,580][stage]:s.scene===5?[545,555,600][summary]:592;
+  c.save();c.fillStyle='#071b2b';c.fillRect(1310,top,550,905-top);
+  const text=(v,y,size=24,col=WHITE)=>this.text2(c,v,1320,y,size,col),math=(v,y,size=30,col=GOLD)=>this.math(c,v,1320,y,size,col);
+  if(s.scene===2){math(`= ${Number(s.slope.toFixed(2))}`,635,31,s.exact?GOLD:PURPLE);text(s.slope<2?'平均の2より小さい':s.slope===2?'平均と一致':'平均の2より大きい',719,25)}
+  if(s.scene===3&&s.t>=50){text('横1・縦2の三角形',632,24);text('平行移動して比べる',686,24,BLUE)}
+  if(s.scene===4){
+   if(stage===0){text('途中の傾きは',631);text('一定ではない',674,24,'#aac0d3')}
+   if(stage===1){text('接線の傾きが',623,23);text('瞬間の変化率',661,24);math('全体 2',719,28,BLUE);math('↔ 瞬間 2c',765,28,PURPLE)}
+   if(stage===2){text('2本は、離れていても',630,23);text('平行になる',677,26)}
+   if(stage===3){text('この点で',635,25);text('平均と瞬間が一致',679,24);text('傾き2の、平行な2本',735,22,BLUE)}
+   if(stage===4){text('途中のある点での',619,22,PURPLE);text('瞬間の傾き',654,24,PURPLE);math('c ∈ (a,b) が',704,25,WHITE);text('少なくとも1つ',748,27,GOLD);text('必ず存在する。',791,27,GOLD);text('この図は具体例。',830,16,'#aac0d3');text('一般の証明とは区別する。',856,16,'#aac0d3')}
+  }
+  if(s.scene===5){
+   if(summary===0){math('f′(1) = 2',623,39);math('c = 1',701,31,WHITE);math('P = (1,1)',751,27,WHITE)}
+   if(summary===1){text('2本の傾きは',603,25);text('どちらも2',647,28,GOLD);text('同じ直線になる',708,24,BLUE);text('必要はない',749,24,BLUE)}
+   if(summary===2){math('c ∈ (a,b) が',651,26,WHITE);text('少なくとも1つ',704,28,GOLD);text('存在する。',751,28,GOLD)}
+  }
+  const tag=s.scene===1?'MEASURE / Δx → Δy':s.scene===2?'COMPARE / 1 → 2 → 3':s.scene===3?'DISCOVERY / PARALLEL':s.scene===4?'CONNECT / GRAPH → EQUATION':'RECAP / MEAN = INSTANT';text(tag,891,14,'#8fb9cf');c.restore();
  }
- renderNarratorLayer(t,{calm=false,patchV4=false}={}){if(!this.narratorCanvas){this.narratorCanvas=cv(this.w,this.h);this.narratorContext=this.narratorCanvas.getContext('2d',{willReadFrequently:true})}const c=this.narratorContext;c.clearRect(0,0,this.w,this.h);c.save();c.scale(this.w/1920,this.h/1080);if(patchV4&&t>=69&&t<72){c.fillStyle='#071b2b';c.fillRect(1310,785,550,60);this.text2(c,'この図は具体例。',1320,807,18,'#aac0d3');this.text2(c,'一般の証明とは区別する。',1320,836,18,'#aac0d3')}this.drawNarrator(c,{t},{calm});c.restore();return this.narratorCanvas;}
+ drawNarrator(c,s,{calm=false}={}){
+  const q=guideState(s.t,{calm});if(!q.visible)return;const cx=1752,cy=785,clock=calm?0:s.t,angle=q.angle,power=q.activity,flash=q.accent;
+  c.save();c.globalAlpha=q.opacity;const haze=c.createRadialGradient(cx,cy,20,cx,cy,160);haze.addColorStop(0,'#06162af5');haze.addColorStop(.70,'#06162aaa');haze.addColorStop(1,'#06162a00');c.fillStyle=haze;c.fillRect(cx-160,cy-160,320,320);
+  c.globalCompositeOperation='screen';
+  const project=(x,y,z)=>{const turn=angle*.36,rx=x*Math.cos(turn)+z*Math.sin(turn),rz=z*Math.cos(turn)-x*Math.sin(turn),tilt=.19+.06*Math.sin(clock*.38),xx=rx*Math.cos(tilt)-y*Math.sin(tilt),yy=rx*Math.sin(tilt)+y*Math.cos(tilt),k=1/(1-rz/680);return {x:cx+xx*k,y:cy+yy*k,z:rz}};
+  const strands=[],dust=[];const colors=[CYAN,'#b38bff',GOLD];
+  for(let arm=0;arm<3;arm++){
+   const pts=[];for(let i=0;i<=150;i++){const u=i/150,r=125-55*u+8*Math.sin(u*8+clock*.8),a=u*Math.PI*5.5-clock*1.75+arm*Math.PI*2/3;pts.push(project(r*Math.cos(a),(u-.5)*228,r*Math.sin(a)))}strands.push({pts,col:colors[arm]});
+   for(let i=0;i<180;i++){const u=(i/180+clock*.14+arm*.13)%1,r=125-55*u+8*Math.sin(u*8+clock*.8),a=u*Math.PI*5.5-clock*1.75+arm*Math.PI*2/3,jitter=3*Math.sin(i*8.71),p=project((r+jitter)*Math.cos(a),(u-.5)*228+jitter,(r+jitter)*Math.sin(a));dust.push({...p,col:colors[arm],i,arm})}
+  }
+  // Backward trails remain dim behind the nucleus; the front wrapping streams have white-hot heads.
+  const trace=(strand,front)=>{for(let i=0;i<strand.pts.length-1;i++){const a=strand.pts[i],b=strand.pts[i+1];if((a.z>=0)!==front)continue;c.beginPath();c.moveTo(a.x,a.y);c.lineTo(b.x,b.y);c.strokeStyle=strand.col;c.lineCap='round';c.globalAlpha=q.opacity*(front?.13:.035);c.lineWidth=front?7:4;c.stroke();c.globalAlpha=q.opacity*(front?.68:.18);c.lineWidth=front?1.7:.9;c.stroke()}};
+  strands.forEach(p=>trace(p,false));
+  const glow=c.createRadialGradient(cx,cy,0,cx,cy,105+flash*8);glow.addColorStop(0,flash>.35?'#ffdf9980':'#9bfbff85');glow.addColorStop(.22,'#48cfff50');glow.addColorStop(.65,'#5b7bff25');glow.addColorStop(1,'#4688ff00');c.globalAlpha=q.opacity;c.fillStyle=glow;c.fillRect(cx-116,cy-116,232,232);
+  const core=[];for(let i=0;i<440;i++){const y=1-2*(i+.5)/440,a=i*2.39996323,rr=Math.sqrt(1-y*y),r=82+2*Math.sin(i*.1+clock*2),p=project(Math.cos(a)*rr*r,y*r,Math.sin(a)*rr*r);core.push({...p,i})}core.sort((a,b)=>a.z-b.z);
+  for(const p of core){const front=(p.z/85+1)/2;c.globalAlpha=q.opacity*(.2+.6*front);c.fillStyle=p.i%19===0?'#ffc989':p.i%4===0?'#c9b2ff':'#affcff';c.beginPath();c.arc(p.x,p.y,.7+Math.max(0,front)*1.5,0,Math.PI*2);c.fill()}
+  const nucleus=c.createRadialGradient(cx,cy,0,cx,cy,21+power*6);nucleus.addColorStop(0,'#efffffdd');nucleus.addColorStop(.22,'#9bfaff99');nucleus.addColorStop(1,'#64dfff00');c.globalAlpha=q.opacity*(.7+power*.3);c.fillStyle=nucleus;c.fillRect(cx-30,cy-30,60,60);
+  strands.forEach(p=>trace(p,true));dust.sort((a,b)=>a.z-b.z);
+  for(const p of dust){const front=p.z>=0,hot=(p.i+Math.floor(clock*15))%29<2,size=front?2.1+power:1.0;c.globalAlpha=q.opacity*(front?.85:.25);c.fillStyle=hot?'#fff9df':p.col;c.beginPath();c.arc(p.x,p.y,size,0,Math.PI*2);c.fill();if(front&&(p.i%7===0||hot)){c.globalAlpha=q.opacity*(hot?.85:.36);const sp=this.sprites[p.arm===0?0:p.arm===1?2:1],sz=hot?18:12;c.drawImage(sp,p.x-sz/2,p.y-sz/2,sz,sz)}}
+  // Escaping sparks peel away from the front stream and curve back toward the core.
+  for(let i=0;i<36;i++){const u=(i/36+clock*.12)%1,a=i*2.39996+clock*.55,r=98+u*48,p=project(Math.cos(a)*r,Math.sin(a)*r*.76,30*Math.sin(a)),old=project(Math.cos(a-.11)*Math.max(80,r-8),Math.sin(a-.11)*r*.76,30*Math.sin(a));c.globalAlpha=q.opacity*(1-u)*.65;c.strokeStyle=i%3?CYAN:GOLD;c.lineWidth=1.3;c.beginPath();c.moveTo(old.x,old.y);c.lineTo(p.x,p.y);c.stroke()}
+  c.globalCompositeOperation='source-over';c.globalAlpha=q.opacity;this.text2(c,'AI GUIDE',cx,947,15,'#c1f2ff','center');c.restore();
+ }
+ renderNarratorLayer(t,{calm=false,patchV4=false}={}){if(!this.narratorCanvas){this.narratorCanvas=cv(this.w,this.h);this.narratorContext=this.narratorCanvas.getContext('2d',{willReadFrequently:true})}const c=this.narratorContext;c.clearRect(0,0,this.w,this.h);c.save();c.scale(this.w/1920,this.h/1080);if(patchV4)this.paintGuideTextReflow(c,timeline(t));this.drawNarrator(c,{t},{calm});c.restore();return this.narratorCanvas;}
  paintSummary(c,s){
   const stage=s.t<76?0:s.t<80?1:2;c.fillStyle='#071b2bf2';c.fillRect(1275,145,590,760);this.line2(c,[[1275,145],[1275,905]],CYAN,2,false);this.text2(c,'06 / 平均と瞬間を結ぶ',1320,194,23,CYAN);
   if(stage===0){this.text2(c,'区間全体も、途中の点も「2」',1320,265,28,WHITE);this.text2(c,'全体の平均変化率',1320,340,25,BLUE);this.math(c,'{4 − 0|2 − 0} = 2',1320,413,43,GOLD);this.text2(c,'点Pでの瞬間の変化率',1320,525,25,PURPLE);this.math(c,'f′(1) = 2',1320,602,46,GOLD);this.math(c,'c = 1,  P = (1,1)',1320,704,31,WHITE);}

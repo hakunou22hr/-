@@ -1,0 +1,12 @@
+{
+  "revision":"cinematic-v6",
+  "request":"larger, dynamic, brightly colored particle vortex wrapping around the AI core",
+  "geometry":{"coreParticles":440,"spiralStreams":3,"particlesPerStream":180,"escapingSparks":36,"projection":"perspective with depth-dependent brightness and back/front stream passes"},
+  "palette":["cyan","violet","gold","white-hot highlights"],
+  "guideBounds":{"x":1590,"y":620,"width":330,"height":330},
+  "measuredAlphaBounds":{"atSeconds":[48,70],"left":1594,"top":627,"rightInclusive":1909,"bottomInclusive":946,"width":316,"height":320,"alphaThreshold":8},
+  "reviewedFrames":[29,61,70,78],
+  "textLayout":"Lower mathematical panel is reflowed into shorter left-aligned lines. Equations, c existence guarantee and proof distinction remain.",
+  "preserved":["90 second duration","no absolute-value explanation","approved classroom and blackboard placement","single blonde student","v1–v5 media"],
+  "limitations":["silent captioned movie","particle activity follows mathematical timeline rather than recorded speech","physical iOS devices not tested"]
+}
