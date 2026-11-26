@@ -10,4 +10,6 @@ console.log('PASS: 30s timeline, measured ratio, slopes 1→2→3, parallel matc
 
 for(const t of [9.8,19.5,25.3]){const camera=reelCamera(t);assert.ok(camera.zoom>=1.7);assert.equal(camera.sx,camera.sy)}assert.equal(reelCamera(29).zoom,1.4);for(const t of [19.5,25.3]){const r=reelState(t),camera=reelCamera(t),x=camera.x+camera.sx*r.math.c,y=camera.y-camera.sy*r.math.f(r.math.c);assert.ok(x>40&&x<650&&y>435&&y<1450,'close-up must retain its mathematical focus')}console.log('PASS: upper-right guide, uniform close-ups and visible point of tangency');
 
-assert.equal(reelGuide(19.5).hideLabel,true);assert.equal(reelGuide(19.5).flareBoost,1);
+assert.equal(reelGuide(19.5).hideLabel,true);assert.equal(reelGuide(19.5).flareBoost,0);
+
+assert.equal(reelGuide(19.5).noFlare,true);for(const t of [0,1,3.8,4.9]){assert.equal(reelState(t).explanationVisible,false);assert.equal(reelSpeech(t),0);assert.equal(reelGuide(t).visible,false)}assert.equal(reelState(5).explanationVisible,true);

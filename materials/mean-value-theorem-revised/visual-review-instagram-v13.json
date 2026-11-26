@@ -1,0 +1,19 @@
+{
+  "variant": "Instagram30s v13",
+  "reviewedFrames": [
+    1,
+    3.8,
+    4.6,
+    5.6,
+    9.8,
+    19.5
+  ],
+  "intro": "classroom no explanation; camera pushes to board; board graph transfers before right explanation begins at5s",
+  "guide": "no flares/corona/ejecta, internal particles remain",
+  "background": "depth lanes, soft atmospheric folds, perspective-grid waves, focus attraction and local gold shockwaves; same model responds to sliders in 3D lab",
+  "math": "right-side explanation, uniform zooms and correct parallel lines retained",
+  "limitations": [
+    "classroom source720p",
+    "physical devices and actual Instagram upload untested"
+  ]
+}

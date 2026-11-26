@@ -61,3 +61,17 @@ OUTPUT=/workspace/work/mvt-reels-v11/delivery node materials/mean-value-theorem-
 REELS=1 RANGES='[[0,30,"instagram-30s-v12-silent"]]' OUTPUT=/workspace/work/mvt-reels-v12/delivery node materials/mean-value-theorem-revised/render/movie.mjs
 OUTPUT=/workspace/work/mvt-reels-v12/delivery node materials/mean-value-theorem-revised/render/package-reels-v12.mjs
 ```
+
+## Instagram v13：静かな導入と数学に反応する背景
+
+- 0〜4秒は授業映像だけ。説明・数式パネル・ガイド・ナレーションを出さない。2.5〜4秒に黒板へクローズアップ、4〜5秒に黒板の図を座標空間へ渡し、5秒から説明する。
+- v10の30秒音源から冒頭5秒の説明音声だけをミュートし、後半のアシスタント応答を継続。音声の冒頭無音をMP4から測定する。
+- 30秒ガイドは全ての外部フレア、コロナ、噴出を無効にし、内部の粒子と光の流れを保持。
+- reactive-space.mjsが奥行きの光流・光の幕・透視格子のレーン・接点への収束・金色の衝撃波を描画。測定量、実際の接点、傾きの一致に反応する。文字は前景の保護パネルへ表示。
+- 同じ背景を操作教材の3D表示へ適用。点Pを動かすと光の位置が追従し、傾きが近づくと金色へ反応する。2D表示と動きを抑える設定を尊重する。
+- 旧30秒v10〜v12、90秒MP4・プレビューを保持。
+
+```sh
+REELS=1 RANGES='[[0,30,"instagram-30s-v13-silent"]]' OUTPUT=/workspace/work/mvt-reels-v13/delivery node materials/mean-value-theorem-revised/render/movie.mjs
+OUTPUT=/workspace/work/mvt-reels-v13/delivery node materials/mean-value-theorem-revised/render/package-reels-v13.mjs
+```

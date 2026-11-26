@@ -1,3 +1,4 @@
+import {drawReactiveSpace} from './reactive-space.mjs';
 import {clamp,mix,phase,timeline} from './model.mjs';
 import {sampleRate,envelope} from './narration/reels-envelope.mjs';
 const CYAN='#7bebff',GOLD='#ffd18a',BLUE='#79baff',PURPLE='#c8a4ff',WHITE='#eef6ff';
@@ -11,14 +12,14 @@ export function reelState(value){
  else if(t<22){stage=3;source=mix(43,56.5,(t-17)/5)}
  else if(t<26){stage=4;source=mix(57,69,(t-22)/4)}
  else {stage=5;source=70+(t-26)*.7}
- return {t,stage,source,math:timeline(source)};
+ return {t,stage,source,explanationVisible:t>=5,math:timeline(source)};
 }
-export function reelSpeech(t){const at=Math.max(0,t*sampleRate),i=Math.floor(at);return mix(envelope[i]||0,envelope[i+1]||0,at-i)}
+export function reelSpeech(t){if(t<5)return 0;const at=Math.max(0,t*sampleRate),i=Math.floor(at);return mix(envelope[i]||0,envelope[i+1]||0,at-i)}
 export function reelGuide(t){
  let y=235;
  const speech=reelSpeech(t),accent=[5,8.5,13.7,18.5,25,26].reduce((v,c)=>Math.max(v,t>=c?Math.exp(-(t-c)*3):0),0);
  const x=800+3*Math.sin(t*.8);y+=4*Math.sin(t*.9);
- return {visible:t>0,opacity:phase(t,0,.5),x,y,scale:1,angle:t*.66,speech,accent,activity:clamp(.32+.42*speech+.2*accent),hideLabel:true,flareBoost:1,bounds:{x:x-190,y:y-190,width:380,height:380}};
+ return {visible:t>=5,opacity:phase(t,5,5.5),x,y,scale:1,angle:t*.66,speech,accent,activity:clamp(.32+.42*speech+.2*accent),hideLabel:true,flareBoost:0,noFlare:true,bounds:{x:x-190,y:y-190,width:380,height:380}};
 }
 // Uniform scaling preserves coordinate units, parallel lines and slope triangles.
 // Each push-in has a quiet hold at the mathematical event before pulling back.
@@ -37,12 +38,14 @@ export class ReelRenderer{
   const shade=c.createLinearGradient(0,0,0,1920);shade.addColorStop(0,'#03101ed9');shade.addColorStop(.45,'#03101e10');shade.addColorStop(1,'#03101eea');c.fillStyle=shade;c.fillRect(0,0,1080,1920);
   let plot={...camera,clip:{x:0,y:360,w:1080,h:1400},scale:camera.zoom};
   if(r.stage===0){
-   const imageY=425,k=1080/1920,p=phase(r.t,4,5),A=e.projected.A,B=e.projected.B;
-   e.graph.visible=false;try{e.renderer.render(e.classroomScene,e.roomCamera);c.drawImage(e.renderer.domElement,0,imageY,1080,607.5)}finally{e.graph.visible=true}
-   const sx=(B.x-A.x)/2*k,sy=(A.y-B.y)/4*k;
-   plot={x:mix(A.x*k,wide[0],p),y:mix(imageY+A.y*k,wide[1],p),sx:mix(sx,160*wide[2],p),sy:mix(sy,160*wide[2],p),scale:mix(sx/160,wide[2],p),clip:{x:0,y:mix(imageY,360,p),w:1080,h:mix(607.5,1400,p)}};
-   if(p<.05){c.strokeStyle='#7bebff88';c.lineWidth=2;c.strokeRect(1,imageY,1078,607.5)}
+   const p=phase(r.t,4,5),approach=phase(r.t,2.5,4),k=mix(1080/1920,.92,approach),imageX=540-960*k,imageY=mix(560,540,approach),A=e.projected.A,B=e.projected.B;
+   // Keep a moving photographic depth layer behind the complete classroom shot.
+   e.graph.visible=false;try{e.renderer.render(e.classroomScene,e.roomCamera);if(r.t<4){c.fillStyle='#07121e';c.fillRect(0,0,1080,1920)}c.save();c.filter='blur(28px)';c.globalAlpha=.75*(1-p);c.drawImage(e.renderer.domElement,-1166,0,3413,1920);c.restore();c.drawImage(e.renderer.domElement,imageX,imageY,1920*k,1080*k)}finally{e.graph.visible=true}
+   if(r.t>=4){const sx=(B.x-A.x)/2*k,sy=(A.y-B.y)/4*k;const transfer={x:mix(imageX+A.x*k,wide[0],p),y:mix(imageY+A.y*k,wide[1],p),sx:mix(sx,224,p),sy:mix(sy,224,p),scale:mix(sx/160,1.4,p),clip:{x:0,y:360,w:1080,h:1400}};c.save();c.globalAlpha=phase(r.t,4,4.25);this.graph(r,transfer);c.restore()}
+   if(!r.explanationVisible)return this.canvas;
   }
+  const flash=r.t>=25?Math.exp(-(r.t-25)*2):r.t>=18.5?Math.exp(-(r.t-18.5)*1.5):0;
+  drawReactiveSpace(c,{time:r.t,focus:target,measure:s.horizontal||0,match:s.matched?1:0,burst:flash});
   this.graph(r,plot);if(r.stage>0)this.text('f(x) = x²',220,460,38,CYAN);if(this.patchMode)return this.canvas;
   this.text('30秒でつかむ / 数学Ⅱ',80,145,28,CYAN);
   const title=r.stage===3&&!s.matched?['平均の2と','同じ傾きを探す。']:headings[r.stage];title.forEach((v,i)=>this.text(v,80,248+i*76,58,WHITE));
