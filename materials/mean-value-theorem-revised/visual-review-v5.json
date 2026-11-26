@@ -1,0 +1,10 @@
+{
+  "revision":"cinematic-v5",
+  "requestedChanges":["remove absolute-value explanation", "corner particle narrator reminiscent of a futuristic AI assistant"],
+  "currentTimeline":"x² throughout; 72–84s recaps average=instantaneous rate, parallel lines and theorem conditions",
+  "guide":{"particles":620,"position":"lower right","bounds":{"x":1688,"y":754,"width":190,"height":192},"visibleSeconds":[12,84],"motion":"3D rotation, scan arcs, activity ticks, deterministic subtitle/math event response", "audio":false},
+  "reviewedTimes":[20,70,74,78,82],
+  "readability":"Guide remains above subtitles and beside rather than over mathematical text; 69–72s note wrapped into two lines.",
+  "preserved":["90 second duration", "conditional existence of c", "concrete example versus proof distinction", "approved classroom with exactly one blonde student", "blackboard upper-frame clearance", "v1–v4 assets"],
+  "limitations":["silent captioned movie; activity is not speech recognition", "classroom remains 2.5D", "physical iOS devices not tested"]
+}

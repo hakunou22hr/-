@@ -1,36 +1,38 @@
-# 傾きが出会う瞬間 ― 平均値の定理【改訂版】 v4
+# 傾きが出会う瞬間 ― 平均値の定理【改訂版】 v5
 
-## 今回の修正
+## 修正内容
 
-- 背後の大きな傾斜軌道3層と、その上を周回する光点を削除。平均と瞬間を対比するv3の説明、測定に応じた波紋、光の帯・床の流れは維持。
-- 自然光の教室に女子生徒2人を追加。最新指定に従い、左手前の女子生徒1人だけ金髪、他の生徒は黒髪。`assets/v4/classroom.png` は既存生成素材の画像編集によるもので、実在生徒の撮影映像ではない。
-- 黒板内のグラフ中心をy=2.25から1.95へ下げ、幅を4.2から3.8へ調整。カメラと黒板通過の開口位置も連動。上枠からの余白を公開ブラウザテストで確認。
-- 動画は新規 `-v4` 名で追加し、v1〜v3の動画・プレビュー・代表フレームは保持。
+- 現行90秒映画の72〜84秒にあった絶対値の説明を削除。全編をf(x)=x²で統一し、平均2と瞬間2の一致、別々の平行線、成立条件を振り返る12秒に置換。操作教材の関数メニューからも絶対値を外した。
+- 解説中（12〜84秒）だけ右下にオリジナルの近未来AI風粒子ガイドを表示。620粒子の球体が3D回転し、短い走査弧とメーターが動く。字幕や式の区切りに反応し、一致の場面では金色のアクセントが入る。
+- ガイドは図と式の主領域から離し、字幕の上に収まる。69〜72秒の補足文を2行にして余白を確保。動きを抑える設定ではガイドも静止する。
+- 音声・音声解析・会話AIは追加していない。反応は同じ数学タイムラインから決定する字幕連動アニメーション。
+- 承認済みの教室（女子生徒2人追加、金髪は左手前の1人だけ）、黒板の座標位置、背景の大型回転軌道の削除は維持。
 
 ## 閲覧
 
-- 教材: https://hakunou22hr.github.io/-/materials/mean-value-theorem-revised/?v=4
-- 本編: https://hakunou22hr.github.io/-/media/mean-value-theorem-revised/mean-value-theorem-revised-90s-v4.mp4
-- 教室12秒: https://hakunou22hr.github.io/-/media/mean-value-theorem-revised/preview-classroom-12s-v4.mp4
-- 測定15秒と説明15秒も `-v4.mp4`。一致8秒は変化のないv2を継続使用。
+教材: https://hakunou22hr.github.io/-/materials/mean-value-theorem-revised/?v=5
 
-## 数学と描画
+本編: https://hakunou22hr.github.io/-/media/mean-value-theorem-revised/mean-value-theorem-revised-90s-v5.mp4
 
-割線 y=2x、接線 y=2x−1 は別々の平行線。区間全体の平均変化率4/2=2と、途中の瞬間の変化率f′(c)=2cを対比する。c=1と接点P=(1,1)を同時に強調。連続・微分可能の条件、少なくとも1つのcの存在、|x|での反例、具体例と一般の証明の区別を維持。
+同フォルダに教室12秒・測定15秒・一致8秒・説明15秒・まとめ12秒の `-v5.mp4` を追加。v1〜v4の既存動画・プレビューは削除せず、アーカイブから閲覧できる（旧版には削除前の絶対値説明が含まれる）。
 
-教室は奥行きメッシュへ画像投影する2.5D方式。人物個別の動作アニメーションはない。動画と操作教材は同じ数値モデルと描画コードを使用し、絶対時刻による再現性を持つ。音声なし、字幕付き、1920×1080、24fps、H.264/yuv420p、90秒。
+## 描画と再制作
 
-## 再制作と検証
+`model.mjs`の現行タイムラインは全時刻でx²。`guide.mjs`が画面位置・回転・反応・動きを抑える状態を決定し、`scene.mjs`が同じ関数でブラウザ教材とMP4用の粒子を描く。
+
+承認済みv4の0〜72秒・84〜90秒を再利用し、72〜84秒のみ数学場面を描き直す。ガイドは同じ描画コードによる透過レイヤーとして12〜84秒へ合成する。69〜72秒は旧v4の長い補足文を2行に修正する透過パスを含む。ffmpegは合成とエンコードに使用し、新たな背景画像を貼る方式ではない。
 
 ```sh
-RANGES='[[0,12,"preview-classroom-12s"],[12,27,"preview-measurement-15s"],[57,72,"preview-explanation-15s"],[84,90,"part-return-6s"]]' OUTPUT=/workspace/work/mvt-v4/final-delivery node materials/mean-value-theorem-revised/render/movie.mjs
-OUTPUT=/workspace/work/mvt-v4/final-delivery node materials/mean-value-theorem-revised/render/upgrade-v4.mjs
+BASE_PASS=1 RANGES='[[72,84,"part-summary-12s"]]' OUTPUT=/workspace/work/mvt-v5/delivery node materials/mean-value-theorem-revised/render/movie.mjs
+OVERLAY_ONLY=1 RANGES='[[12,84,"narrator-layer-72s"]]' OUTPUT=/workspace/work/mvt-v5/delivery node materials/mean-value-theorem-revised/render/movie.mjs
+OUTPUT=/workspace/work/mvt-v5/delivery node materials/mean-value-theorem-revised/render/upgrade-v5.mjs
 node materials/mean-value-theorem-revised/tests/math.mjs
+node materials/mean-value-theorem-revised/tests/guide.mjs
 npx vitest run materials/mean-value-theorem-revised/tests/catalog.test.ts
 node materials/mean-value-theorem-revised/tests/video.mjs
 npm run build
 ```
 
-27〜57秒と72〜84秒は変更のないv3ショットを切り出して結合する。画像素材・教室・数学説明の実際の確認は `visual-review-v4.json`、MP4の全編デコード・寸法・時間・フレーム数と過去動画のSHA256照合は `verification-v4.json` に記録。
+1920×1080、24fps、H.264/yuv420p、90秒、字幕付き・音声なし。`verification-v5.json` は全編デコード・時間・寸法・フレーム数と旧動画のSHA256照合。`visual-review-v5.json` は配置と数学説明の確認記録。
 
-GitHub Actionsで同じコミットのPages配信後に、数学・操作・時刻引継ぎ・MP4再生・4画面サイズ・タッチ模擬・黒板上枠の余白を検証する。iPhone/iPad/Safari実機は未確認。過去版の説明はREADME-v1/v2/v3.mdへ保持。
+GitHub Actionsで公開後の数学・操作・同一時刻再現性・粒子の回転と静止・右下の字幕余白・絶対値メニュー削除・78秒の新しい数学状態・MP4再生・4画面サイズ・タッチ模擬を確認する。実機iPhone/iPad/Safariは未確認。教室は2.5Dの生成素材で、人物個別の動作はない。

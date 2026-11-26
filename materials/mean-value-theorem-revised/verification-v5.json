@@ -1,0 +1,72 @@
+{
+  "passed": true,
+  "movies": [
+    {
+      "file": "public/media/mean-value-theorem-revised/mean-value-theorem-revised-90s-v5.mp4",
+      "duration": 90,
+      "width": 1920,
+      "height": 1080,
+      "fps": "24/1",
+      "frames": 2160,
+      "bytes": 33952072,
+      "sha256": "00e456f98aee12882f8c5b5ed428a641e895883715237b3b8099909d4bc0a852",
+      "decoded": true
+    },
+    {
+      "file": "public/media/mean-value-theorem-revised/preview-classroom-12s-v5.mp4",
+      "duration": 12,
+      "width": 1920,
+      "height": 1080,
+      "fps": "24/1",
+      "frames": 288,
+      "bytes": 4735773,
+      "sha256": "5bc531f892e1e4885c187d41fcfe40ff0607c8688ce6115ec0b0c598344ab11f",
+      "decoded": true
+    },
+    {
+      "file": "public/media/mean-value-theorem-revised/preview-measurement-15s-v5.mp4",
+      "duration": 15,
+      "width": 1920,
+      "height": 1080,
+      "fps": "24/1",
+      "frames": 360,
+      "bytes": 5707733,
+      "sha256": "536a0e3df13c79fbfb00fc35188a3ddd8943df01e3ba2ed18481678b1050a8f6",
+      "decoded": true
+    },
+    {
+      "file": "public/media/mean-value-theorem-revised/preview-discovery-8s-v5.mp4",
+      "duration": 8,
+      "width": 1920,
+      "height": 1080,
+      "fps": "24/1",
+      "frames": 192,
+      "bytes": 4251306,
+      "sha256": "81c91718c4fb8a5f3dc5f2f825565ac3c342fc3fd998345de1df3c35b3d783d0",
+      "decoded": true
+    },
+    {
+      "file": "public/media/mean-value-theorem-revised/preview-explanation-15s-v5.mp4",
+      "duration": 15,
+      "width": 1920,
+      "height": 1080,
+      "fps": "24/1",
+      "frames": 360,
+      "bytes": 4836739,
+      "sha256": "c25eea2711397172a6dfdd8bc978fbde32de7467f2ac4578f5d2c4eaaa4e48ea",
+      "decoded": true
+    },
+    {
+      "file": "public/media/mean-value-theorem-revised/preview-summary-12s-v5.mp4",
+      "duration": 12,
+      "width": 1920,
+      "height": 1080,
+      "fps": "24/1",
+      "frames": 288,
+      "bytes": 3070876,
+      "sha256": "1887a608a8bc7f4ddb2fdf320041b07bd213cc498d8c1496f0159c377ae54498",
+      "decoded": true
+    }
+  ],
+  "previousMoviesUnchanged": true
+}
