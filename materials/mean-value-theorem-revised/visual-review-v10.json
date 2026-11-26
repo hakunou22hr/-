@@ -1,0 +1,53 @@
+{
+  "revision": "cinematic-v10-moving-classroom",
+  "source": {
+    "provider": "user-provided MUSE video",
+    "width": 1280,
+    "height": 720,
+    "fps": "24/1",
+    "duration": 10.0,
+    "sha256": "2427d26f922a8a6007723781e645f74335c10db7e557877a7fd0c2d106aa1769",
+    "originalAudioUsed": false
+  },
+  "implemented": [
+    "genuine supplied student head/shoulder/conversation movements",
+    "source camera advances through classroom toward blackboard",
+    "same mathematical graph composed over classroom and into the space",
+    "opening border omitted by starting at source 0.25s",
+    "reverse camera path for classroom return",
+    "absolute-time frames shared by interactive automatic lesson and MP4",
+    "bounded 10-frame cache with stale-frame guard",
+    "v9 mathematical explanation, full-size golden assistant and assistant audio retained"
+  ],
+  "actualOutputReviewed": [
+    "intro-first.jpg",
+    "intro-chat.jpg",
+    "intro-portal.jpg"
+  ],
+  "reviewedRuntimeTimes": [
+    0,
+    3,
+    6,
+    8.8,
+    9,
+    9.5,
+    10,
+    11,
+    12,
+    88,
+    90
+  ],
+  "limitations": [
+    "source is 720p; export at 1080p does not recreate missing detail",
+    "source does not show all students turning forward before the camera approaches",
+    "generated cast, seating and room proportions differ from the original still reference",
+    "physical iPhone/iPad/Safari untested"
+  ],
+  "preserved": [
+    "all earlier videos v1-v9",
+    "other lessons",
+    "90-second duration",
+    "mathematics and formal conditions",
+    "16 short teaching-assistant responses and pauses"
+  ]
+}

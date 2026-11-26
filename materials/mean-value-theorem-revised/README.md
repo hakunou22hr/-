@@ -1,33 +1,36 @@
-# 傾きが出会う瞬間 ― 平均値の定理【改訂版】 v9
+# 傾きが出会う瞬間 ― 平均値の定理【改訂版】 v10
 
-## 今回の修正
+## 今回の変更
 
-- 金色の粒子ガイドは、右下・右上への移動中も常に同じ大きさ（330pxの描画領域）を保つ。以前の0.29倍への縮小を廃止。
-- 周期の異なる浮遊を重ね、滞在時も小さく上下・左右に漂う。渦、発光、フレアとナレーションの実音声への反応を維持。
-- 測定・接線比較・平行発見の説明パネルを折り返し、右側に大きなガイドが通れる連続した空間を確保。元の式の上に粒子を重ねない。
-- 声を授業者のアシスタントへ変更。16の短い相づち・確認・注目の促しを数学の変化へ同期。図より先に答えを言わず、先生が解説するための無音の間を残す。日本語の新しい音源と実音声の包絡を作り直した。数学モデル、90秒構成、教室、他の教材は維持。
+利用者がMUSEで制作・提供した10秒の教室映像を導入と帰還へ組み込んだ。生徒が隣人へ顔を向けて談笑する実際の動画フレームを使用し、画像全体を揺らす方法では代用していない。金髪は左手前の女子生徒1人で、ほかは黒髪。
+
+黒板の放物線・A(0,0)・B(2,4)は数学コードで合成する。図はカメラ接近に合わせて手前へ浮かび、9〜12秒で発光する開口から座標空間へ移る。同じグラフオブジェクトを使い、別の図へ切り替えない。帰還は同じショットを逆方向にたどる。
+
+12〜84秒はv9の数学説明・縮まない粒子アシスタント・発話を維持。音声は16の短い反応で、発話57.34秒、全体で約33秒の間。元のMUSE素材の音は混ぜず、この教材のアシスタント音声を使用する。v1〜v9のMP4は保持。
 
 ## 閲覧
 
-- 教材: https://hakunou22hr.github.io/-/materials/mean-value-theorem-revised/?v=9
-- 90秒: https://hakunou22hr.github.io/-/media/mean-value-theorem-revised/mean-value-theorem-revised-90s-v9.mp4
-- 10秒ガイド: https://hakunou22hr.github.io/-/media/mean-value-theorem-revised/preview-guide-10s-v9.mp4
+- 教材: https://hakunou22hr.github.io/-/materials/mean-value-theorem-revised/?v=10
+- 90秒: https://hakunou22hr.github.io/-/media/mean-value-theorem-revised/mean-value-theorem-revised-90s-v10.mp4
+- 導入12秒: https://hakunou22hr.github.io/-/media/mean-value-theorem-revised/preview-classroom-12s-v10.mp4
 
-v1〜v8のMP4を保持。現在の教室は生成静止画の奥行き投影であり、人物の談笑は未実装。
+教材ライブラリの数学Ⅱ「傾きが出会う瞬間 ― 平均値の定理【改訂版】」から開ける。
 
-## 教室の人物アニメーション（未実装・生成待ち）
+## 素材と限界
 
-`classroom-motion-brief-v9.md` に、元画像を保つ条件、金髪1人・他は黒髪、隣人との短い対話から授業に移る6秒の演技仕様、品質判定条件を記録。現在利用できる画像参照型の動画生成は最大720pで、元画像と同等の細部を保証できない。生成ツール指定の新規明示確認が必要なため、まだ生成・合成していない。今回のv9を人物アニメーション完成版として扱わない。
+提供素材は1280×720・24fps・10秒。教材とMP4は1920×1080で数式を再描画するが、映像の拡大によって元の細部が増えるわけではない。提供素材では全員が黒板へ向き直る場面は確認できず、談笑からカメラが黒板へ進む動きを採用している。元の参照静止画と比較すると人物数・座席・黒板の比率にも差があるため、忠実に同一の教室・人物を再現したとは評価しない。
+
+冒頭の約0.25秒にある黒い縁付きの表現を省く。最初の6秒で素材0.25〜4.5秒、その後は素材終端までカメラの接近を使い、開口中は終端フレームを保持する。人物の顔を加工・再生成していない。教室は提供動画、数学空間とグラフ・粒子・発光は動的な描画。
+
+## 同じ操作教材での再生
+
+`classroom.mjs` が絶対時刻から素材フレームと黒板上のグラフ配置を決める。`ClassroomFrames` は提供動画を24fpsで抽出したJPEGを最大10枚だけ保持し、スマホで全240枚を同時に展開しない。シーク時は必要なフレームを非同期で待ち、後から完了した古い要求が新しい時刻の表示を上書きしない。MP4も同じコードで正確なフレームを待ってから描画する。
 
 ## 再制作
 
 ```sh
-OVERLAY_ONLY=1 RANGES='[[12,84,"narrator-layer-72s"]]' OUTPUT=/workspace/work/mvt-v9/delivery node materials/mean-value-theorem-revised/render/movie.mjs
-OUTPUT=/workspace/work/mvt-v9/delivery node materials/mean-value-theorem-revised/render/upgrade-v9.mjs
+RANGES='[[0,12,"part-classroom-12s"],[84,90,"part-return-6s"]]' OUTPUT=/workspace/work/mvt-v10/delivery node materials/mean-value-theorem-revised/render/movie.mjs
+OUTPUT=/workspace/work/mvt-v10/delivery node materials/mean-value-theorem-revised/render/upgrade-v10.mjs
 ```
 
-組立にはv4の背景・教室・数学映像、同じコードから描くナレーターなし72〜84秒まとめパス、v9のアシスタントM4Aを使用する。`guide.mjs` が絶対時刻から大きさ・浮遊経路・反応対象・音声エネルギーを決定する。
-
-## 検証
-
-全浮遊区間を0.05秒刻みで走査して大きさが一定、画面内に収まる、反応対象の文字と重ならないことを検証。数学、教材登録、ビルド、MP4全編デコード・音声・旧版SHA256照合を実施する。公開後のブラウザ検証はGitHub Actionsで実行。物理iPhone・iPad・Safariは未確認。
+`tests/classroom.mjs` は240枚のフレーム、時刻・帰還・上縁の余白・小さいキャッシュを検証する。既存の数学・音声・ガイド検証を継続。MP4全編のデコード・音声・旧版照合を行い、公開後はGitHub Actionsで実際の素材フレームの進行、後方シーク、再生から操作への切替と4画面サイズを確認する。物理iPhone/iPad/Safariは未確認。
