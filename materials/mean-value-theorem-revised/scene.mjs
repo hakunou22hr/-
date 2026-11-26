@@ -85,6 +85,22 @@ export class Observatory extends PreviousWorld{
  }
  paintGuideTextReflow(c,s){
   if(s.t<12||s.t>=84)return;const stage=Math.min(4,Math.floor((s.t-57)/3)),summary=s.t<76?0:s.t<80?1:2;
+  // Reserve x>=1580 for the full-size guide, including every intermediate flight frame.
+  // Rebuild the panel rather than letting a moving cloud obscure its original long rows.
+  if(s.scene>=1&&s.scene<=3){
+   c.save();c.fillStyle='#071b2b';c.fillRect(1310,145,550,760);
+   const text=(v,y,size=24,col=WHITE)=>this.text2(c,v,1320,y,size,col),math=(v,y,size=30,col=GOLD)=>this.math(c,v,1320,y,size,col);
+   text(`0${s.scene+1} /`,164,18,CYAN);
+   const title=s.scene===1?['横2・縦4を','測る']:s.scene===2?['接線の傾きを','比べる']:['同じ傾きを','発見'];text(title[0],197,23,CYAN);text(title[1],231,23,CYAN);
+   if(s.scene===1){
+    if(s.t<15){text('横の変化量',285,27,BLUE);math('2 − 0 = 2',399,30,BLUE)}
+    else if(s.t<20){text('横の変化量 2',285,27,BLUE);text('縦の変化量 4',399,27,GOLD)}
+    else {text('平均変化率',285,27);math(s.t<23?'{縦の変化量|横の変化量}':'{4|2} = 2',399,30);if(s.t>=23){text('横に1進むと',513);text('縦に平均2増える',553)}}
+   }
+   if(s.scene===2){text('割線の傾き = 2',285,27,GOLD);math(`c = ${Number(s.c.toFixed(2))}`,399,30,WHITE);text('接線の傾き',486,24,PURPLE);math('f′(c) = 2c',536,30,PURPLE);math(`= ${Number(s.slope.toFixed(2))}`,635,31,s.exact?GOLD:PURPLE);text(s.slope<2?'平均の2より小さい':s.slope===2?'平均と一致':'平均の2より大きい',719,25)}
+   if(s.scene===3){text('割線',278,23,GOLD);math('y = 2x',325,30);text('接線',383,23,s.matched?GOLD:PURPLE);math('y = 2x − 1',430,30,s.matched?GOLD:PURPLE);text(s.matched?'平行：傾きが同じ':'c を1へ戻す',513,24);if(s.t>=50){text('横1・縦2の三角形',632,24);text('平行移動して比べる',686,24,BLUE)}}
+   text(s.scene===1?'MEASURE / Δx → Δy':s.scene===2?'COMPARE / 1 → 2 → 3':'DISCOVERY / PARALLEL',891,14,'#8fb9cf');c.restore();return;
+  }
   const q=guideState(s.t);if(q.upperTitle&&s.scene<=3){c.save();c.fillStyle='#071b2b';c.fillRect(1310,145,550,104);this.text2(c,`0${s.scene+1} /`,1320,164,18,CYAN);const words=s.scene===1?['横2・縦4を','測る']:s.scene===2?['接線の傾きを','比べる']:['同じ傾きを','発見'];this.text2(c,words[0],1320,197,23,CYAN);this.text2(c,words[1],1320,231,23,CYAN);c.restore()}
   const top=s.scene===4?[590,570,575,592,580][stage]:s.scene===5?[545,555,600][summary]:592;
   c.save();c.fillStyle='#071b2b';c.fillRect(1310,top,550,905-top);

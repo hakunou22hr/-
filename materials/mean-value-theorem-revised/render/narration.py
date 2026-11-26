@@ -3,7 +3,7 @@ import asyncio, json, os, pathlib, subprocess, ssl, urllib.request, wave, array,
 import edge_tts
 import edge_tts.communicate as edge_module
 root=pathlib.Path(__file__).resolve().parents[1]
-out=pathlib.Path(os.environ.get('OUTPUT','/workspace/work/mvt-v8/narration'));out.mkdir(parents=True,exist_ok=True)
+out=pathlib.Path(os.environ.get('OUTPUT','/workspace/work/mvt-v9/narration'));out.mkdir(parents=True,exist_ok=True)
 script=json.loads((root/'narration/script.json').read_text())
 if os.environ.get('SSL_CERT_FILE'):edge_module._SSL_CTX=ssl.create_default_context(cafile=os.environ['SSL_CERT_FILE'])
 def run(args):return subprocess.check_output(args,stderr=subprocess.STDOUT)

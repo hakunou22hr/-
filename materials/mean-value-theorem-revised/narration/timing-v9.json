@@ -1,0 +1,138 @@
+{
+  "voice": "ja-JP-KeitaNeural",
+  "duration": 90,
+  "rate": 48000,
+  "rmsPeak": 0.29210933865944383,
+  "peakSample": 26130,
+  "cues": [
+    {
+      "start": 3.0,
+      "end": 9.5,
+      "text": "さあ、先生と一緒に、傾きが出会う瞬間を探してみよう。",
+      "sourceDuration": 5.664,
+      "tempo": 1,
+      "speechEnd": 8.642666666666667
+    },
+    {
+      "start": 12.7,
+      "end": 16.0,
+      "text": "まず、横の変化を見てみよう。",
+      "sourceDuration": 3.216,
+      "tempo": 1,
+      "speechEnd": 15.894666666666666
+    },
+    {
+      "start": 20.1,
+      "end": 23.0,
+      "text": "おお、これが割線だね。",
+      "sourceDuration": 2.688,
+      "tempo": 1,
+      "speechEnd": 22.766666666666666
+    },
+    {
+      "start": 23.2,
+      "end": 26.5,
+      "text": "平均は、四割る二で、二なんだね。",
+      "sourceDuration": 3.648,
+      "tempo": 1.1329192546583848,
+      "speechEnd": 26.4013125
+    },
+    {
+      "start": 27.7,
+      "end": 31.0,
+      "text": "今の接線は、平均より緩やかだね。",
+      "sourceDuration": 3.696,
+      "tempo": 1.1478260869565216,
+      "speechEnd": 30.901625
+    },
+    {
+      "start": 34.0,
+      "end": 36.8,
+      "text": "おお、傾きが二になった。",
+      "sourceDuration": 2.856,
+      "tempo": 1.0500000000000012,
+      "speechEnd": 36.700270833333335
+    },
+    {
+      "start": 40.0,
+      "end": 42.9,
+      "text": "今度は三。変わるんだね。",
+      "sourceDuration": 3.216,
+      "tempo": 1.1404255319148944,
+      "speechEnd": 42.80222916666666
+    },
+    {
+      "start": 47.1,
+      "end": 50.4,
+      "text": "おお、傾きが同じだね。",
+      "sourceDuration": 2.856,
+      "tempo": 1,
+      "speechEnd": 49.934666666666665
+    },
+    {
+      "start": 50.8,
+      "end": 56.3,
+      "text": "三角形が重なった。なるほど、二本は平行なんだ。",
+      "sourceDuration": 5.472,
+      "tempo": 1.0095940959409595,
+      "speechEnd": 56.19889583333333
+    },
+    {
+      "start": 57.6,
+      "end": 62.5,
+      "text": "ここからが大事。図と計算がつながるね。",
+      "sourceDuration": 4.248,
+      "tempo": 1,
+      "speechEnd": 61.82666666666667
+    },
+    {
+      "start": 63.2,
+      "end": 65.9,
+      "text": "二シーが二、ということか。",
+      "sourceDuration": 2.784,
+      "tempo": 1.062595419847327,
+      "speechEnd": 65.80108333333334
+    },
+    {
+      "start": 66.2,
+      "end": 69.5,
+      "text": "シーは一。ここで一致するんだ。",
+      "sourceDuration": 3.648,
+      "tempo": 1.1329192546583862,
+      "speechEnd": 69.4013125
+    },
+    {
+      "start": 69.6,
+      "end": 75.1,
+      "text": "途中に、こんな点が必ずある。それを保証する定理なんだね。",
+      "sourceDuration": 5.832,
+      "tempo": 1.0760147601476016,
+      "speechEnd": 75.00039583333333
+    },
+    {
+      "start": 76.4,
+      "end": 79.7,
+      "text": "同じ傾きでも、別の直線なんだね。",
+      "sourceDuration": 3.744,
+      "tempo": 1.1627329192546596,
+      "speechEnd": 79.60191666666667
+    },
+    {
+      "start": 80.5,
+      "end": 83.8,
+      "text": "この条件、忘れずにね。",
+      "sourceDuration": 2.88,
+      "tempo": 1,
+      "speechEnd": 83.35866666666666
+    },
+    {
+      "start": 85.1,
+      "end": 89.5,
+      "text": "なるほど。平均と瞬間がつながったね。",
+      "sourceDuration": 4.224,
+      "tempo": 1,
+      "speechEnd": 89.30266666666667
+    }
+  ],
+  "sha256": "c22ef25e89c39bcf9db30ef72867047e67064c8d0ff2b9ebb6353e1759ad5c61"
+}

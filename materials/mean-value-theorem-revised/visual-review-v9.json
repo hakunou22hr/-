@@ -1,0 +1,55 @@
+{
+  "revision": "cinematic-v9-full-size-guide",
+  "implemented": [
+    "constant scale 1 throughout upper/lower flights",
+    "layered floating motion without reducing cloud size",
+    "wrapped mathematical explanation with reserved continuous flight lane",
+    "16 short assistant responses timed to the mathematical events; teacher explanation pauses; waveform resampled from new audio"
+  ],
+  "route": {
+    "lowerCenter": [
+      1748,
+      778
+    ],
+    "upperCenter": [
+      1748,
+      252
+    ],
+    "scale": 1,
+    "xDriftMaximum": 4.4,
+    "yDriftMaximum": 5.5
+  },
+  "reviewedRuntimeFrames": [
+    19,
+    22,
+    29,
+    33,
+    43,
+    48,
+    53,
+    70
+  ],
+  "pendingClassroomMotion": {
+    "status": "not generated; requires video-tool confirmation",
+    "specification": "classroom-motion-brief-v9.md",
+    "source": "assets/v4/classroom.png",
+    "availableGeneratorMaxResolution": "720p",
+    "acceptance": "verify identity, one blonde student, furniture, natural light and settled end pose against source; do not claim equal quality before inspecting output"
+  },
+  "preserved": [
+    "90-second structure",
+    "all previous movies",
+    "one blonde student and other dark-haired students",
+    "theorem and mathematics",
+    "existing classroom still-image depth projection"
+  ],
+  "physicalDevices": "not tested",
+  "assistantVoice": {
+    "role": "teaching assistant, not main lecturer",
+    "voice": "ja-JP-KeitaNeural",
+    "cues": 16,
+    "speechSeconds": 57.34,
+    "maxTempo": 1.1627329192546596,
+    "transcript": "narration-script-v9.txt"
+  }
+}
