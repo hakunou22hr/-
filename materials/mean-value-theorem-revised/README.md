@@ -1,62 +1,58 @@
-# 傾きが出会う瞬間 ― 平均値の定理【改訂版】
+# 傾きが出会う瞬間 ― 平均値の定理【改訂版】／空間演出版 v2
 
-初版 `materials/mean-value-theorem` とその動画を保持して追加する教室映画版。分類は数学Ⅱ。
+数学Ⅱの90秒映画＋操作教材。URLは維持し、動画とプレビューは `-v2` の別ファイルとして追加する。初版 `materials/mean-value-theorem/`、前の90秒版、プレビュー、代表フレームを削除・上書きしない。
 
-## 公開先
+## 閲覧・保存
 
-- 教材: https://hakunou22hr.github.io/-/materials/mean-value-theorem-revised/
-- 本編: https://hakunou22hr.github.io/-/media/mean-value-theorem-revised/mean-value-theorem-revised-90s.mp4
-- プレビュー: 同じmediaディレクトリの `preview-classroom-12s.mp4`、`preview-measurement-15s.mp4`、`preview-discovery-8s.mp4`
+- 教材: https://hakunou22hr.github.io/-/materials/mean-value-theorem-revised/?v=2
+- 本編: https://hakunou22hr.github.io/-/media/mean-value-theorem-revised/mean-value-theorem-revised-90s-v2.mp4
+- 導入: https://hakunou22hr.github.io/-/media/mean-value-theorem-revised/preview-classroom-12s-v2.mp4
+- 残りのプレビューは同じフォルダの `preview-measurement-15s-v2.mp4` と `preview-discovery-8s-v2.mp4`。
 
-## 初版からの変更
+## 今回の美術基準
 
-- Canvasによる簡略投影から、Three.jsの実際の3D教室へ変更。天板・脚・座面・背もたれ、窓枠、カーテン、棚、時計、照明器具を分離して配置する。
-- 木目・法線・粗さを持つマテリアル、夕日のDirectionalLightと家具・窓枠の影、光の筋と粉を実装する。背景画像のズームではない。
-- 0〜6秒は教室の全景を保ち、6〜9秒に接近、9〜12秒に通過する。黒板の2枚のパネルが左右へ退き、壁に設けた開口部へカメラが進入する。同じグラフメッシュが奥へ進み、帰還時には黒板前へ戻る。全区間で同じ数式モデルを使う。
-- 横2、縦4、割線、数式への数値移動を12〜27秒で段階生成する。
-- 29秒: c=.5、傾き1。35秒: c=1、傾き2。41秒: c=1.5、傾き3。
-- 47秒にc=1へ停止し金色へ変化。粒子の収束、床の波とリングを同期。48〜50秒に横1・縦2の三角形、51〜54秒に(1,1)の平行移動を示す。
-- 57〜69秒に計算を段階表示し、69〜72秒に一般の定理へつなぐ。
-- 72〜84秒に |x|。78秒では微分係数をnullにし、接線を描かない。
-- 84〜90秒に定理と成立条件を示して教室へ帰還する。
+ユーザーが指定した次の教材を確認し、線の発光、奥行きのある粒子、光の軌跡、説明の読みやすさを基準にした。
 
-## 数学と再現性
+- https://hakunou22hr.github.io/-/materials/sekibun-wo-bibun-suru/
+- https://hakunou22hr.github.io/-/materials/arc-length-cinema/
 
-`model.mjs`を操作・動画・自動解説で共有する。割線の傾きは2、接線は `y=2c(x−c)+c²`、c=1では `y=2x−1`。割線 `y=2x` と傾きが等しく、切片は異なる。近接の発光判定（傾き差≤.04）と厳密な解を区別する。原点の |x| の微分係数は未定義で、仮の値や接線を生成しない。
+教室はユーザーの回答「生徒がいる自然光の教室」に従い、後者の生成素材をそのまま再利用している。実在する生徒の撮影動画ではない。`assets/v2/classroom.png` は参照教材の素材の無変更コピー。
 
-Three.jsのカメラ・図・粒子・床の頂点変位・字幕を同じ絶対時刻で制御する。粒子は固定シード。教室と通過はWebGLで描画し、正面の説明では同じ3D頂点をカメラの透視変換でCanvasへ直接投影するハイブリッド方式。背景の静止画像は使用しない。床格子は実際のLineSegmentsの頂点を波で変位させる。Pのワールド座標を粒子と床の波の中心に使う。
+## v1からの具体的な変更
 
-## プレビューと再生成
+- 簡素な手続き的3D家具から、実写調の自然光・生徒のいる教室へ変更した。画像を3,726頂点の奥行きメッシュへ投影する2.5D方式で、前景と黒板に異なる視差が生じる。人物の手・身体・頭を独立に動かす方式ではない。
+- 黒板の上寄りに数式から生成した図を置き、人物の頭部との重なりを避けた。グラフは画像へ焼き込まず、独立した同一メッシュを使用する。
+- 6秒までは教室を保ち、9〜12秒で黒板が光の縁を持つ開口になる。カメラが接近する間に同じグラフが観測空間の正面図へ移る。最後は逆の経路で教室へ戻る。
+- 実験空間は2,400個の立体粒子、130本の直線的な光の軌跡、18個の遠い光の雲、7層の観測フレーム、32点の星座状格子を使う。背景画像のズームではない。
+- 場面転換で粒子の前進を加速する。47秒で接線と割線が平行になると観測フレームも整列し、金色・点の鼓動・粒子収束・床の衝撃波が同期する。
+- 数式欄の不透明な四角を撤去し、透ける星の空間と細い発光の区切りへ変更した。計算・測定中は背景の輝度を下げる。
+- 放物線の負のx側も薄く残し、対象区間 [0,2] の明るい曲線と区別する。
+
+背景の星・光の軌跡・観測フレームは装飾であり、関数の追加のグラフや観測データを示さない。測定図と数式は読める正面位置を保つ。
+
+## 数学・操作
+
+`model.mjs` はv1の検証済みモデルを維持する。割線の傾きは2、接線は `y=2c(x−c)+c²`。c=1では接線 `y=2x−1` と割線 `y=2x` が別々の平行線になる。29・35・41秒で傾き1・2・3、47秒で一致、57〜72秒で計算、78秒の |x| の原点では接線を描かない。
+
+近接の発光（傾きの差≤.04）と厳密な解は区別する。答えは最初は隠す。ドラッグ、スライダー、キーボード、関数切替、表示切替、動きを抑える設定、動画の時刻引継ぎ、再開を実装する。
+
+## 描画・再現
+
+`scene.mjs` がv2。`scene-v1.mjs` は前の描画を保持する共通基底で、数学の作図と縦型分数を再利用する。教室はThree.jsの奥行きメッシュと発光する開口シェーダー、正面の実験は同じ3D頂点を透視変換でCanvasへ描く方式。星の配置は固定シードで、全ての動作を絶対時刻から計算する。
 
 ```
 node materials/mean-value-theorem-revised/tests/math.mjs
 npx vitest run materials/mean-value-theorem-revised/tests/catalog.test.ts
-CHECK_ONLY=1 OUTPUT=/tmp/mvt-check node materials/mean-value-theorem-revised/render/movie.mjs
-PREVIEWS=1 OUTPUT=/tmp/mvt-movies node materials/mean-value-theorem-revised/render/movie.mjs
-OUTPUT=/tmp/mvt-movies node materials/mean-value-theorem-revised/render/assemble.mjs
-# またはプレビューを再利用せず全編を描画: OUTPUT=/tmp/mvt-movies node materials/mean-value-theorem-revised/render/movie.mjs
+CHECK_ONLY=1 OUTPUT=/tmp/mvt-v2-check node materials/mean-value-theorem-revised/render/movie.mjs
+PREVIEWS=1 OUTPUT=/tmp/mvt-v2 node materials/mean-value-theorem-revised/render/movie.mjs
+OUTPUT=/tmp/mvt-v2 node materials/mean-value-theorem-revised/render/assemble.mjs
+OUTPUT=/tmp/mvt-v2 node materials/mean-value-theorem-revised/render/publish-assets.mjs
 node materials/mean-value-theorem-revised/tests/video.mjs
 npm run build
 ```
 
-レンダラーはChromium/WebGL2 (SwiftShaderでも可) とFFmpegを使用する。Playwrightモジュールの場所は `PLAYWRIGHT_MODULE` で指定できる。`CHECK_ONLY`は17時刻のJPEG、`FRAMES`は時刻配列JSONを指定する。3本のプレビューは本編と同じコードから0〜12、12〜27、45〜53秒を出力する。MP4は1920×1080、24fps、H.264/yuv420p、BT.709、音声なし、字幕焼き込み。
+3本のプレビューと本編は同じ描画コードを使用する。確認したプレビューをそのまま本編の0〜12・12〜27・45〜53秒に組み込む。1080p、24fps、H.264/yuv420p、BT.709、字幕付き、音声なし。
 
-`.github/workflows/mvt-revised-check.yml`は同じコミットのPages deploy成功後に公開先の操作・シーク・再開・再生終了・時間再現性を検証する。1440×1100、1024×768、390×844、844×390のキャプチャとJSONをActions artifactへ保存する。タッチの模擬操作も別コンテキストで確認する。
+GitHub Actionsは同じコミットのPages公開成功後に、公開ページの操作・図と数値・頭部より上の黒板位置・動画シーク・再開・再生終了・時刻再現性を検証する。1440×1100、1024×768、390×844、844×390とタッチを模擬する。iPhone/iPad/Safari実機は未確認。
 
-## 視覚品質と確認範囲
-
-参考画像に合わせた点: 夕日の教室、左の窓、木製家具、深緑の黒板、濃紺の内部空間、シアンの曲線、金色の割線、紫から金へ変化する接線、床の波紋。
-
-残る差: 参考画像は生成された写実的コンセプトアートであり、本実装の家具・建築は手続き的な3Dモデル。間接照明・素材の微細な傷・映画的なレンズ効果は参考画像と同等ではない。黒板通過は光と左右のパネルの開口による表現で、参考画像の粒子状に崩壊する縁を完全には再現していない。「参考画像と同等の写実性を達成」とは評価しない。
-
-iPad/iPhone/Safari実機は未確認。Chromiumの画面サイズ・タッチ模擬と区別する。ナレーションとBGMは付けていない。
-
-## 外部素材
-
-木目のColor / NormalGL / Roughnessは ambientCG のCC0素材:
-
-- Wood051: https://ambientcg.com/view?id=Wood051
-- WoodFloor051: https://ambientcg.com/view?id=WoodFloor051
-- CC0案内: https://docs.ambientcg.com/license/
-
-写真を背景に貼る用途ではなく、3D家具と床の表面マテリアルとして同梱する。教室の形状・影・カメラ・床の格子は動的に描画する。
+前の90秒動画と図の制作記録は `README-v1.md`、`verification.json`、`visual-review.json` に保持している。v1の木目素材の出典も `README-v1.md` に記載している。

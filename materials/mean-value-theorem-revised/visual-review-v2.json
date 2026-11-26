@@ -1,0 +1,11 @@
+{
+  "referenceDirection": ["sekibun-wo-bibun-suru", "arc-length-cinema"],
+  "classroomChoice": "User confirmed the classroom with students and natural daylight",
+  "classroomSource": "Unmodified generated image from arc-length-cinema/assets/classroom.png",
+  "classroomMethod": "2.5D depth mesh; people are not individually animated",
+  "changes": ["natural photographic classroom texture", "glowing shader aperture through the board", "same independent mathematical graph above the heads", "2400 depth particles", "130 straight light trails", "18 distant light clusters", "7 observation frames aligning when slopes match", "transparent mathematical explanation panel", "synchronized pulse, convergence and floor waves"],
+  "reviewedFrames": [3, 6, 10, 12, 20, 35, 48, 53, 70, 78, 88],
+  "mathematicalModel": "unchanged from the verified v1",
+  "previousMovies": "retained without overwriting",
+  "physicalDevices": "not tested; viewport and touch emulation are separate checks"
+}

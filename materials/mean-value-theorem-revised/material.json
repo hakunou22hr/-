@@ -1,1 +1,9 @@
-{"id":"mean-value-theorem-revised","name":"傾きが出会う瞬間 ― 平均値の定理【改訂版】","subject":"数学Ⅱ","unit":"微分法・平均値の定理・平均変化率・微分係数・接線・割線","description":"夕日の教室から黒板の向こうへ。横2・縦4の測定、接線の傾き1→2→3、平行移動する三角形で理解する90秒映画と操作教材。初版を保持した教室映画・改訂版。","thumbnail":"thumbnail.svg"}
+{
+  "id": "mean-value-theorem-revised",
+  "name": "傾きが出会う瞬間 ― 平均値の定理【改訂版】",
+  "subject": "数学Ⅱ",
+  "unit": "微分法・平均値の定理・平均変化率・微分係数・接線・割線",
+  "description": "生徒がいる自然光の教室から光の観測空間へ。立体粒子・光の軌跡・測定フレームが反応する90秒映画。横2・縦4、接線の傾き1→2→3、図と式の一致を探究する操作教材。",
+  "thumbnail": "thumbnail.svg",
+  "revision": "cinematic-v2"
+}
