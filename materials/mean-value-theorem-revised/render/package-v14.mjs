@@ -1,0 +1,11 @@
+import {spawn} from 'node:child_process';import {once} from 'node:events';import {resolve,dirname} from 'node:path';import {fileURLToPath} from 'node:url';
+const repo=resolve(dirname(fileURLToPath(import.meta.url)),'../../..'),out=resolve(process.env.OUTPUT||'/workspace/work/mvt-v14/delivery'),media=repo+'/public/media/mean-value-theorem-revised';
+const run=async args=>{const p=spawn('ffmpeg',['-y','-v','error',...args],{stdio:'inherit'});if((await once(p,'exit'))[0])throw Error('ffmpeg failed')};
+const main=media+'/mean-value-theorem-revised-90s-v14.mp4',reel=media+'/instagram-30s-v14.mp4';
+await run(['-i',out+'/main-90s-v14-silent.mp4','-i',media+'/mean-value-theorem-revised-90s-v10.mp4','-map','0:v:0','-map','1:a:0','-c','copy','-t','90','-movflags','+faststart',main]);
+await run(['-i',out+'/instagram-30s-v14-silent.mp4','-i',media+'/narration-instagram-30s-v13.m4a','-map','0:v:0','-map','1:a:0','-c','copy','-t','30','-movflags','+faststart',reel]);
+for(const [t,d,n] of [[0,12,'preview-classroom-12s'],[12,15,'preview-measurement-15s'],[45,8,'preview-discovery-8s'],[57,15,'preview-explanation-15s'],[72,12,'preview-summary-12s'],[27,10,'preview-guide-10s']])await run(['-ss',String(t),'-i',main,'-t',String(d),'-c:a','aac','-b:a','160k','-af',`afade=t=in:st=0:d=0.04,afade=t=out:st=${d-.08}:d=0.08`,'-c:v','libx264','-threads','3','-preset','fast','-crf','20','-pix_fmt','yuv420p','-color_range','tv','-colorspace','bt709','-color_primaries','bt709','-color_trc','bt709','-movflags','+faststart',media+'/'+n+'-v14.mp4']);
+for(const t of [0,1,2,3,10,20,29,48,53,70,78,88])await run(['-ss',String(t),'-i',main,'-frames:v','1','-q:v','2',media+'/frame-'+String(t).padStart(2,'0')+'-v14.jpg']);
+for(const t of [1,9.8,19.5,25.3,28])await run(['-ss',String(t),'-i',reel,'-frames:v','1','-q:v','2',media+'/instagram-frame-'+String(t).replace('.','-')+'-v14.jpg']);
+await run(['-ss','19.5','-i',reel,'-frames:v','1','-q:v','2',media+'/instagram-poster-v14.jpg']);
+console.log('Packaged90s,30s and six previews with saturated luminous lines and forward-facing left boy');

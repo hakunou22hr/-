@@ -13,5 +13,7 @@ for(const t of [0,3,6,9])assert.notEqual(createHash('sha256').update(readFileSyn
 // accumulate all 240 decoded frames on phones/tablets.
 globalThis.document={baseURI:'https://hakunou22hr.github.io/-/materials/mean-value-theorem-revised/'};
 globalThis.Image=class{set src(value){this.value=value;queueMicrotask(()=>this.onload())}};
-const cache=new ClassroomFrames();for(let t=0;t<12;t+=.1)await cache.prepare(t);for(const t of [3,8,0,6])await cache.prepare(t);assert.ok(cache.cache.size<=10);assert.equal(cache.index,sourceFrame(6));assert.match(cache.url(6),/^https:\/\/hakunou22hr.github.io\/-\/media\/mean-value-theorem-revised\/classroom-v10\/frame-006.jpg$/);
+const cache=new ClassroomFrames();for(let t=0;t<12;t+=.1)await cache.prepare(t);for(const t of [3,8,0,6])await cache.prepare(t);assert.ok(cache.cache.size<=10);assert.equal(cache.index,sourceFrame(6));assert.match(cache.url(6),/^https:\/\/hakunou22hr.github.io\/-\/media\/mean-value-theorem-revised\/classroom-v14\/frame-006.jpg$/);
 console.log('PASS: 240 supplied motion frames, monotonic intro/reverse return, no opening border, graph/board clearance and bounded seek cache');
+
+const corrected=new URL('../../../public/media/mean-value-theorem-revised/classroom-v14/',import.meta.url);assert.equal(readdirSync(corrected).length,54);assert.match(cache.url(54),/classroom-v10/);for(let i=0;i<54;i++){const b=readFileSync(new URL(`frame-${String(i).padStart(3,'0')}.jpg`,corrected));assert.equal(b[0],255);assert.equal(b[1],216)}

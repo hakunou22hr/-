@@ -17,7 +17,7 @@ export function classroomLayout(u){
 }
 export class ClassroomFrames{
  constructor(){this.cache=new Map();this.index=-1;this.requested=-1}
- url(index){return new URL(`../../media/mean-value-theorem-revised/classroom-v10/frame-${String(index).padStart(3,'0')}.jpg`,document.baseURI).href}
+ url(index){return new URL(`../../media/mean-value-theorem-revised/${index<54?'classroom-v14':'classroom-v10'}/frame-${String(index).padStart(3,'0')}.jpg`,document.baseURI).href}
  async frame(index){
   let entry=this.cache.get(index);
   if(!entry){entry=new Promise((resolve,reject)=>{const image=new Image();image.onload=()=>resolve(image);image.onerror=()=>reject(new Error('Classroom frame unavailable: '+index));image.src=this.url(index)});this.cache.set(index,entry)}

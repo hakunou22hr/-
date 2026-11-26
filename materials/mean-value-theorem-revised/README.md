@@ -75,3 +75,21 @@ OUTPUT=/workspace/work/mvt-reels-v12/delivery node materials/mean-value-theorem-
 REELS=1 RANGES='[[0,30,"instagram-30s-v13-silent"]]' OUTPUT=/workspace/work/mvt-reels-v13/delivery node materials/mean-value-theorem-revised/render/movie.mjs
 OUTPUT=/workspace/work/mvt-reels-v13/delivery node materials/mean-value-theorem-revised/render/package-reels-v13.mjs
 ```
+
+## v14：現行全動画の直線発光と、左側男子の前向き合成
+
+- 対象はこの教材の現行90秒映画、30秒縦型、6本の短いプレビュー、操作教材。旧版のMP4は保持。
+- line2に共通の多層ブルーム、濃い色の帯、明るい細い芯、線上を移動する光を実装。割線・接線は平行関係と色の役割を保ち、測定・単位三角形・投影線にも適用。動きを抑える設定では移動光を停止。
+- 教室映像の左側男子の頭部を、元のMUSE映像frame000の黒板向きの実写で置換。窓・黒板の計測済みカメラ拡大に合わせたアフィン変換とフェザーマスクを使用。元の54コマを別ディレクトリへ保存し、男子が画面外へ出た後は元の素材を使う。ほかの生徒の談笑、カメラ前進は保持。
+- 顔を生成した動画ではない。元の前向きの頭部を登録しているため、頭部自体の新しい演技や振り向きは追加していない。元映像は720p。
+- 30秒版の冒頭説明なし・フレアなし、右側説明、反応する背景を継続。90秒版は従来の説明・音声タイミングを継続。
+
+```sh
+python -m pip install --target /workspace/work/mvt-v14-python -r materials/mean-value-theorem-revised/render/requirements-classroom-front.txt
+PYTHONPATH=/workspace/work/mvt-v14-python python materials/mean-value-theorem-revised/render/classroom-front-v14.py
+CPU_CANVAS=1 RANGES='[[0,90,"main-90s-v14-silent"]]' OUTPUT=/workspace/work/mvt-v14/delivery node materials/mean-value-theorem-revised/render/movie.mjs
+REELS=1 RANGES='[[0,30,"instagram-30s-v14-silent"]]' OUTPUT=/workspace/work/mvt-v14/delivery node materials/mean-value-theorem-revised/render/movie.mjs
+node materials/mean-value-theorem-revised/render/package-v14.mjs
+node materials/mean-value-theorem-revised/tests/video-v14.mjs
+node materials/mean-value-theorem-revised/tests/reels-video.mjs
+```

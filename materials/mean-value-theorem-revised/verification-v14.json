@@ -1,0 +1,132 @@
+{
+  "passed": true,
+  "movies": [
+    {
+      "file": "public/media/mean-value-theorem-revised/mean-value-theorem-revised-90s-v14.mp4",
+      "duration": 90,
+      "width": 1920,
+      "height": 1080,
+      "fps": "24/1",
+      "frames": 2160,
+      "bytes": 52591905,
+      "sha256": "1d063fd0e6c2282e8d8cef5b687bf34758e2d6aed913b943f1246d493b8c7885",
+      "decoded": true,
+      "audio": {
+        "codec": "aac",
+        "rate": 48000,
+        "duration": 90,
+        "meanDb": -19.5,
+        "peakDb": -1.5
+      }
+    },
+    {
+      "file": "public/media/mean-value-theorem-revised/preview-classroom-12s-v14.mp4",
+      "duration": 12,
+      "width": 1920,
+      "height": 1080,
+      "fps": "24/1",
+      "frames": 288,
+      "bytes": 6229187,
+      "sha256": "5c925a98185711be406da740408b73bf68112490d7fb213279b06f1952cbaf99",
+      "decoded": true,
+      "audio": {
+        "codec": "aac",
+        "rate": 48000,
+        "duration": 12,
+        "meanDb": -22.8,
+        "peakDb": -1.5
+      }
+    },
+    {
+      "file": "public/media/mean-value-theorem-revised/preview-measurement-15s-v14.mp4",
+      "duration": 15,
+      "width": 1920,
+      "height": 1080,
+      "fps": "24/1",
+      "frames": 360,
+      "bytes": 8135646,
+      "sha256": "73327c48a1eb8c37a5eb3ac479ee4edf085a5ed1f33a27992c8543023095715d",
+      "decoded": true,
+      "audio": {
+        "codec": "aac",
+        "rate": 48000,
+        "duration": 15,
+        "meanDb": -18.7,
+        "peakDb": -1.5
+      }
+    },
+    {
+      "file": "public/media/mean-value-theorem-revised/preview-discovery-8s-v14.mp4",
+      "duration": 8,
+      "width": 1920,
+      "height": 1080,
+      "fps": "24/1",
+      "frames": 192,
+      "bytes": 5657971,
+      "sha256": "d8f8866289c6df9a419ebcaae7a8416ca481590f21c5f33c739bce1ed69d1ccd",
+      "decoded": true,
+      "audio": {
+        "codec": "aac",
+        "rate": 48000,
+        "duration": 8,
+        "meanDb": -20.7,
+        "peakDb": -1.5
+      }
+    },
+    {
+      "file": "public/media/mean-value-theorem-revised/preview-explanation-15s-v14.mp4",
+      "duration": 15,
+      "width": 1920,
+      "height": 1080,
+      "fps": "24/1",
+      "frames": 360,
+      "bytes": 8088418,
+      "sha256": "b93c5c00d0a145df08705dbb0f6bc5a85cf17cdf3bcd7166df7094908a6c3530",
+      "decoded": true,
+      "audio": {
+        "codec": "aac",
+        "rate": 48000,
+        "duration": 15,
+        "meanDb": -18.2,
+        "peakDb": -1.5
+      }
+    },
+    {
+      "file": "public/media/mean-value-theorem-revised/preview-summary-12s-v14.mp4",
+      "duration": 12,
+      "width": 1920,
+      "height": 1080,
+      "fps": "24/1",
+      "frames": 288,
+      "bytes": 5786704,
+      "sha256": "4c7d4b3b23bb7bc86c8df97994042807e732a6d27f9a048ef075feaee0f88fe7",
+      "decoded": true,
+      "audio": {
+        "codec": "aac",
+        "rate": 48000,
+        "duration": 12,
+        "meanDb": -18.6,
+        "peakDb": -1.5
+      }
+    },
+    {
+      "file": "public/media/mean-value-theorem-revised/preview-guide-10s-v14.mp4",
+      "duration": 10,
+      "width": 1920,
+      "height": 1080,
+      "fps": "24/1",
+      "frames": 240,
+      "bytes": 5491778,
+      "sha256": "364b50adfab626302321b337b07ffa2ea433c6a908a1651ce75e2b880b5bd7f8",
+      "decoded": true,
+      "audio": {
+        "codec": "aac",
+        "rate": 48000,
+        "duration": 10,
+        "meanDb": -19.4,
+        "peakDb": -1.5
+      }
+    }
+  ],
+  "previousMoviesUnchanged": true
+}

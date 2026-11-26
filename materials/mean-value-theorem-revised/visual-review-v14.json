@@ -1,0 +1,34 @@
+{
+  "edition": "cinematic-v14",
+  "scope": [
+    "90s main",
+    "30s portrait",
+    "six previews",
+    "interactive mathematical lines"
+  ],
+  "reviewedFrames": {
+    "main": [
+      1,
+      20,
+      48,
+      70
+    ],
+    "portrait": [
+      1,
+      19.5
+    ],
+    "sourceComposite": [
+      23,
+      24,
+      46
+    ]
+  },
+  "lineTreatment": "saturated blue/gold/purple bands, multilayer glow and narrow luminous core; time-driven moving glints; geometry unchanged",
+  "classroom": "forward-facing head from original frame0, camera-registered on first54source frames; feathered head/neck mask; other students and camera remain original",
+  "limitations": [
+    "head pose is composited, not a newly generated performance",
+    "source is720p",
+    "physical devices and actual Instagram upload not tested"
+  ],
+  "preserved": "all prior MP4s and original classroom-v10 frames"
+}
