@@ -1,0 +1,67 @@
+{
+  "revision": "cinematic-v7",
+  "referenceDirection": "user-supplied golden hologram globe: irregular floating particles, fragmented lines and translucent depth",
+  "removed": "regular cyan/violet/gold coils and tidy wrapping bands",
+  "geometry": {
+    "volumeParticles": 2200,
+    "brokenFilaments": 112,
+    "dataFragments": 26,
+    "outerSparkTrails": 80,
+    "plasmaLoops": 16,
+    "coronaArcs": 18
+  },
+  "motion": [
+    "individual angular speeds and phases",
+    "radial breathing",
+    "event-driven gathering and dispersal",
+    "travelling bright packets",
+    "asynchronous flicker",
+    "prominence-like loops with independently changing height",
+    "hot packets along loops",
+    "ragged corona arcs"
+  ],
+  "palette": "amber, gold, warm white",
+  "reviewedFrames": [
+    29,
+    48,
+    70
+  ],
+  "preserved": [
+    "mathematical explanation and theorem conditions",
+    "no absolute-value scene",
+    "approved classroom with one blonde student",
+    "blackboard clearance",
+    "90 second duration",
+    "all previous media"
+  ],
+  "limitations": [
+    "silent caption-driven activity",
+    "physical iOS devices not tested",
+    "2.5D classroom"
+  ],
+  "requestExtension": "bright solar-flare elements matching the additional golden hologram references",
+  "solarAlphaAndPaletteChecks": [
+    {
+      "time": 48,
+      "bboxExclusive": [
+        1590,
+        629,
+        1908,
+        947
+      ],
+      "brightPixels": 32796,
+      "warmFraction": 0.9945115257958288
+    },
+    {
+      "time": 70,
+      "bboxExclusive": [
+        1596,
+        629,
+        1908,
+        947
+      ],
+      "brightPixels": 33142,
+      "warmFraction": 0.9954740208798504
+    }
+  ]
+}

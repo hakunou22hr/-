@@ -1,34 +1,34 @@
-# 傾きが出会う瞬間 ― 平均値の定理【改訂版】 v6
+# 傾きが出会う瞬間 ― 平均値の定理【改訂版】 v7
 
 ## 今回の修正
 
-- 右下の小さな粒子球を、大きな発光核へ3色の螺旋流が巻き付くAIガイドに変更。
-- 440個の核表面粒子、3本×180個の流れる螺旋粒子、36本のほどける火花。手前と奥を区別し、透視投影・前後描画・白熱点・ブルーム状の光で立体感を出す。
-- シアン・青紫・金を発色。字幕・数学イベントで中心の光、粒子の大きさ、強い光点が反応する。
-- 描画領域は330×330へ拡大。実際の透明度8/255超の画素範囲は48秒・70秒で316×320、右端1909px・下端946px（1920×1080）。字幕上端958pxにかからない。
-- 数式欄下段を左寄せの短い行に折り返し、大きな渦のための余白を確保。数学の式・保証・具体例と証明の区別は維持。
-- 絶対値の説明を削除した90秒構成、自然光の教室、金髪1人のみ、黒板上枠の余白、背景の大型回転リング削除は維持。
+ユーザー提供の参考画像を基準に、規則的な3色螺旋から、金色の粒子・細い光の断片が不規則に舞う球状ホログラムへ変更。
+
+- 2,200個の粒子を内部と不均一な表面へ分布し、個別の速度・位相・明滅で流す。数学イベントでは少し収束し、再びほどける。
+- 傾きと長さの違う112本の途切れた光の線。26個の小さなデータ片、周囲を漂う80本の短い火花を重ねる。
+- 16本のフレア風ループと18本の不均一なコロナ状の光を追加。ループ上の発光粒子、周囲の火花、白黄の中心光を重ねる。
+- アンバー・金・白熱点を主体に、背面を暗く前面を明るく描く。輪郭は完全な円や整ったコイルにしない。元映画の人物・文字・映像素材は使用していない。
+- 粒子の表示域、字幕余白、数式の折り返し、教室、90秒構成、絶対値説明の削除は維持。
 
 ## 閲覧
 
-教材: https://hakunou22hr.github.io/-/materials/mean-value-theorem-revised/?v=6
+- 教材: https://hakunou22hr.github.io/-/materials/mean-value-theorem-revised/?v=7
+- 本編: https://hakunou22hr.github.io/-/media/mean-value-theorem-revised/mean-value-theorem-revised-90s-v7.mp4
+- 金色ホログラム10秒: https://hakunou22hr.github.io/-/media/mean-value-theorem-revised/preview-guide-10s-v7.mp4
 
-本編: https://hakunou22hr.github.io/-/media/mean-value-theorem-revised/mean-value-theorem-revised-90s-v6.mp4
+本編と6プレビューを `-v7` として追加し、v1〜v6は保持。
 
-渦巻くガイド10秒: https://hakunou22hr.github.io/-/media/mean-value-theorem-revised/preview-guide-10s-v6.mp4
+## 描画と検証
 
-同フォルダに教室12秒・測定15秒・一致8秒・説明15秒・まとめ12秒の `-v6.mp4`。旧版v1〜v5の動画・フレームは保持する。
+同一の `scene.mjs` の粒子描画を、自動解説とMP4の透過パスに使用する。固定シードと絶対時刻により、同じ時刻は同じ像になる。動きを抑える設定では静止する。音声・音声認識は追加していない。
 
-## 再制作と検証
-
-`guide.mjs` が解説中12〜84秒の状態を決め、`scene.mjs` が螺旋と発光を描く。`paintGuideTextReflow` は同じ数式パネルの下段を折り返す。操作教材とMP4は同じ関数を使う。動きを抑える設定では粒子も静止する。音声・音声認識は付けていない。
-
-v4の承認済み背景・数学・教室映像を使い、72〜84秒のまとめを描き直す。透過パスで下段の改行と新しい大きなガイドを合成し、古い小さなガイドが重ならないようにする。
+v4の承認済み背景・数学・教室と、v6で確認済みの72〜84秒のナレーターなしまとめを使い、新しい金色粒子と同じ数式下段の改行を透過合成する。古い螺旋ガイドは重ならない。
 
 ```sh
-BASE_PASS=1 RANGES='[[72,84,"part-summary-12s"]]' OUTPUT=/workspace/work/mvt-v6/delivery node materials/mean-value-theorem-revised/render/movie.mjs
-OVERLAY_ONLY=1 RANGES='[[12,84,"narrator-layer-72s"]]' OUTPUT=/workspace/work/mvt-v6/delivery node materials/mean-value-theorem-revised/render/movie.mjs
-OUTPUT=/workspace/work/mvt-v6/delivery node materials/mean-value-theorem-revised/render/upgrade-v6.mjs
+mkdir -p /workspace/work/mvt-v7/solar-delivery
+cp /workspace/work/mvt-v6/delivery/part-summary-12s.mp4 /workspace/work/mvt-v7/solar-delivery/part-summary-12s.mp4
+OVERLAY_ONLY=1 RANGES='[[12,84,"narrator-layer-72s"]]' OUTPUT=/workspace/work/mvt-v7/solar-delivery node materials/mean-value-theorem-revised/render/movie.mjs
+OUTPUT=/workspace/work/mvt-v7/solar-delivery node materials/mean-value-theorem-revised/render/upgrade-v7.mjs
 node materials/mean-value-theorem-revised/tests/math.mjs
 node materials/mean-value-theorem-revised/tests/guide.mjs
 npx vitest run materials/mean-value-theorem-revised/tests/catalog.test.ts
@@ -36,8 +36,8 @@ node materials/mean-value-theorem-revised/tests/video.mjs
 npm run build
 ```
 
-`OVERLAY_ONLY=1 PARTICLE_ONLY=1 CHECK_ONLY=1` は文章の再配置を含めない粒子のみのPNGを確認するためのモード。
+元のまとめパスがない場合は `BASE_PASS=1 RANGES='[[72,84,"part-summary-12s"]]'` を指定して同じ `render/movie.mjs` から生成できる。
 
-H.264/yuv420p、1920×1080、24fps、90秒、字幕付き・音声なし。`verification-v6.json` は本編と6プレビューの全編デコード、時間・寸法・フレーム数、旧動画のSHA256照合。`visual-review-v6.json` は数学と演出の確認記録。
+1920×1080、24fps、H.264/yuv420p、90秒、字幕付き・音声なし。`verification-v7.json` は全編デコード・時間・寸法・フレーム数と旧動画のSHA256。`visual-review-v7.json` は見た目・金色の色域・アルファ画素範囲の確認記録。
 
-公開後のGitHub Actionsは操作・数学状態・MP4・4画面サイズ・タッチ模擬・粒子の回転と静止・実際のアルファ画素範囲・黒板余白を検証する。実機iPhone/iPad/Safariは未確認。教室は生成素材による2.5D描画で、人物は個別には動かない。
+公開後のGitHub Actionsで、粒子の動きと静止、金色の色域、画面端・字幕との余白、操作、数学、MP4再生、4画面サイズ、タッチ模擬を確認。実機iPhone/iPad/Safariは未確認。教室は生成画像を使う2.5Dで、人物個別の動作はない。
