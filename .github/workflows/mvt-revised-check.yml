@@ -13,7 +13,7 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - name: Wait for this revision to deploy to Pages
         uses: actions/github-script@v7
@@ -39,8 +39,11 @@ jobs:
       - name: Install browser test runner
         run: |
           npm install --prefix /tmp/mvt-revised-browser playwright --no-audit --no-fund
-          node /tmp/mvt-revised-browser/node_modules/playwright/cli.js install --with-deps chromium
-          sudo apt-get install -y fonts-noto-cjk
+          test -x /usr/bin/google-chrome
+      - name: Install Japanese fonts
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends fonts-noto-cjk
       - name: Verify published lesson and mobile layouts
         env:
           PLAYWRIGHT_MODULE: /tmp/mvt-revised-browser/node_modules/playwright/index.mjs
