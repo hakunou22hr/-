@@ -24,7 +24,7 @@ export class Observatory extends PreviousWorld{
  if(this.room.visible){const u=t<12?t:Math.max(0,12-2*(t-84));this.roomPose(u);this.room.add(this.graph);this.graph.renderOrder=10;this.placePhotoGraph(u);this.photoUniforms.hole.value=phase(u,9,12);this.photoUniforms.time.value=t;this.graph.material.opacity=.85+.15*phase(u,3,7);const a=this.classDust.geometry.attributes.position,flow=phase(u,6,11);for(let i=0;i<a.count;i++){const b=this.classDustBase[i],v=calm?b[3]:(b[3]+t*.075)%1,x=mix(b[0],.6,flow*.7),y=mix(b[1],2.5,flow*.7),z=mix(b[2],-3,flow*v);a.setXYZ(i,x+Math.sin(t*.4+i)*.05,y,z)}a.needsUpdate=true;this.classDust.material.opacity=calm?.1:.18+.65*flow;this.activeCamera=this.roomCamera}else{this.scene.add(this.graph);this.graph.renderOrder=0;this.graph.position.set(-.25,3.7,-23);this.graph.scale.setScalar(1);this.graph.quaternion.identity();this.graph.material.opacity=1;this.graph.updateMatrixWorld(true)}
  const age=t-(t>=47?47:t>=22?22:17),energy=!lab&&!calm&&age>=0&&age<6?Math.exp(-age*.4):0,P=this.graphWorld(s.c,s.f(s.c));this.wavePoint=!lab&&t<27?this.graphWorld(s.b,s.f(s.b)):P;this.waveAge=age;this.waveEnergy=energy;const a=this.grid.geometry.attributes.position;for(let i=0;i<a.count;i++){const x=this.gridBase[i*2],z=this.gridBase[i*2+1],d=Math.hypot(x-this.wavePoint.x,z+23);a.setY(i,1.25+.2*Math.sin((d-age*2.7)*5.4)*Math.exp(-Math.pow(d-age*2.7,2)*1.6)*energy)}a.needsUpdate=true;this.drawGraph(s,{lab,reveal});this.graph.updateMatrixWorld(true);
  this.projected={};for(const [key,x,y] of [['A',s.a,s.f(s.a)],['B',s.b,s.f(s.b)],['P',s.c,s.f(s.c)]]){const v=this.graphWorld(x,y).project(this.activeCamera);this.projected[key]={x:(v.x+1)*this.w/2,y:(1-v.y)*this.h/2}}return this.projected;}
- render(s,options={}){this.setWorld(s,options);const c=this.ctx;c.clearRect(0,0,this.w,this.h);if(this.room.visible&&this.photoUniforms.hole.value<=0){c.fillStyle='#071224';c.fillRect(0,0,this.w,this.h)}else this.drawProjected(c,s,options);if(this.room.visible){this.renderer.render(this.classroomScene,this.roomCamera);c.drawImage(this.renderer.domElement,0,0,this.w,this.h)}else{const r=this.mainRect();c.drawImage(this.graphCanvas,r.x,r.y,r.w,r.h);this.pointHalo(c,s)}c.save();c.scale(this.w/1920,this.h/1080);if(!options.lab)this.overlay(c,s);c.restore();return this.film;}
+ render(s,options={}){this.setWorld(s,options);const c=this.ctx;c.clearRect(0,0,this.w,this.h);if(this.room.visible&&this.photoUniforms.hole.value<=0){c.fillStyle='#071224';c.fillRect(0,0,this.w,this.h)}else this.drawProjected(c,s,options);if(!this.room.visible)this.drawMeasurementAtmosphere(c,s,options);if(this.room.visible){this.renderer.render(this.classroomScene,this.roomCamera);c.drawImage(this.renderer.domElement,0,0,this.w,this.h)}else{const r=this.mainRect();c.drawImage(this.graphCanvas,r.x,r.y,r.w,r.h);this.pointHalo(c,s)}c.save();c.scale(this.w/1920,this.h/1080);if(!options.lab)this.overlay(c,s);c.restore();return this.film;}
  drawProjected(c,s,{spatial=true,calm=false,lab=false}={}){const W=this.w,H=this.h,t=calm?0:s.t??0,palette=s.kind==='abs'?['#090e22','#181a32','#25152e']:['#050f20','#0c1e31','#201520'],gradient=c.createRadialGradient(W*.4,H*.36,0,W*.48,H*.43,W*.85);gradient.addColorStop(0,palette[1]);gradient.addColorStop(.55,palette[0]);gradient.addColorStop(1,'#020711');c.fillStyle=gradient;c.fillRect(0,0,W,H);if(!spatial)return;
  const f=H/(2*Math.tan(this.camera.fov*Math.PI/360)),yaw=lab?0:.055*Math.sin(t*.16)*(s.scene===1?.3:1),project=(x,y,z)=>{const xx=x-1.6,zz=z+14.8,d=-(zz*Math.cos(yaw)-xx*Math.sin(yaw));if(d<.2)return null;return [W/2+(xx*Math.cos(yaw)+zz*Math.sin(yaw))*f/d,H/2-(y-3.6)*f/d,d]};let travel=t*.42;for(const start of [9,27,43,57,72,84])travel+=5*phase(t,start,start+2.5);const reading=s.scene===1||s.scene===4||s.scene===5,strength=reading?.38:1;
  for(const n of this.nebula){const q=project(n.x+Math.sin(t*.07+n.color)*.6,n.y,n.z);if(!q)continue;const R=n.size*f/q[2],g=c.createRadialGradient(q[0],q[1],0,q[0],q[1],R);g.addColorStop(0,[`rgba(62,177,214,${.09*strength})`,`rgba(217,143,71,${.065*strength})`,`rgba(140,104,206,${.08*strength})`][n.color]);g.addColorStop(1,'rgba(0,0,0,0)');c.fillStyle=g;c.fillRect(q[0]-R,q[1]-R,R*2,R*2)}
@@ -35,10 +35,63 @@ export class Observatory extends PreviousWorld{
  const target=this.projected.P||{x:570,y:700},attract=!lab&&!calm?phase(s.t,44.5,47)*(1-phase(s.t,47,49.5)):0;for(let i=0;i<this.depthStars.length;i++){const n=this.depthStars[i],z=-18-(((-n.z-18-travel*.35)%55+55)%55),q=project(n.x+Math.sin(t*.23+n.phase)*.16,n.y,z);if(!q)continue;const a=attract*(.82+.18*(i%13)/12),x=mix(q[0],target.x,a),y=mix(q[1],target.y,a);if(x<-10||x>W+10||y<-10||y>H+10)continue;const size=clamp(n.size*21/q[2],.6,4.1)*(1+.15*Math.sin(t*.7+n.phase));c.globalAlpha=(.45+.2*Math.sin(t*.6+n.phase))*strength;const k=attract>.2?1:n.color;c.drawImage(this.sprites[k],x-size*2.5,y-size*2.5,size*5,size*5)}c.globalAlpha=1;
  const age=this.waveAge;if(this.waveEnergy>0)for(let j=0;j<3;j++){const a=age-j*.18;if(a<=0||a>=5)continue;const pts=[];for(let i=0;i<=128;i++){const th=i/128*Math.PI*2,q=project(this.wavePoint.x+a*2.7*Math.cos(th),1.28,-23+a*2.7*Math.sin(th));if(q)pts.push(q.slice(0,2))}c.save();c.globalAlpha=Math.exp(-a*.55)*.65;this.line2(c,pts,GOLD,1.9,true);c.restore()}
  }
+ drawMeasurementAtmosphere(c,s,{calm=false,lab=false}={}){
+  // Decorative observatory optics live behind the mathematical graph, never in its coordinate model.
+  const t=s.t??0,amount=lab?0:t>=12&&t<27?phase(t,12,13.2)*(1-phase(t,25.8,27)):t>=57&&t<72?.75*phase(t,57,58)*(1-phase(t,71,72)):0;
+  if(!amount)return;const time=calm?15:t,W=this.w,H=this.h,scale=W/1920;
+  c.save();c.scale(scale,H/1080);c.globalCompositeOperation='screen';
+  const stroke=(pts,col,width,alpha)=>{c.save();c.globalAlpha=amount*alpha;this.line2(c,pts,col,width,false);c.restore()};
+  // Broad, slow auroral folds provide a luminous canopy rather than an empty star field.
+  for(let band=0;band<3;band++){
+   const pts=[];for(let i=0;i<=90;i++){const u=i/90,x=-120+u*2160,y=100+band*85+105*Math.sin(u*4.7+time*.13+band*.8)+22*Math.sin(u*12-time*.16);pts.push([x,y])}
+   stroke(pts,band===1?PURPLE:CYAN,105,.025);stroke(pts,band===1?PURPLE:CYAN,43,.035);stroke(pts,band===1?PURPLE:CYAN,1.4,.18);
+  }
+  // An enormous tilted armillary lens, with finite dashes and orbiting light packets.
+  const orbit=(a,r)=>[620+r*Math.cos(a),450+r*.61*Math.sin(a)+r*.19*Math.cos(a)];
+  for(let ring=0;ring<3;ring++){
+   const r=440+ring*55,col=ring===1?PURPLE:CYAN,pts=[];for(let i=0;i<=180;i++)pts.push(orbit(i/180*Math.PI*2,r));
+   stroke(pts,col,12,.018);stroke(pts,col,1.1,.17);
+   for(let i=0;i<64;i++){const a=i/64*Math.PI*2+time*.014*(ring%2?-1:1),p=orbit(a,r),q=orbit(a,r+(i%8===0?13:5));stroke([p,q],col,i%8===0?1.6:.8,i%8===0?.35:.16)}
+   for(let i=0;i<3;i++){const a=time*(.09+ring*.012)+i*Math.PI*2/3,tail=[];for(let j=0;j<=20;j++)tail.push(orbit(a-.12+j*.006,r));stroke(tail,col,8,.06);stroke(tail,col,2,.65);const p=orbit(a,r);c.globalAlpha=amount*.8;c.drawImage(this.sprites[ring===1?2:0],p[0]-12,p[1]-12,24,24)}
+  }
+  // Blue measurement energy runs on the floor; a golden light curtain answers the rise.
+  const f=1080/(2*Math.tan(this.camera.fov*Math.PI/360)),project=(x,y,z)=>{const d=-z-14.8;return [960+(x-1.6)*f/d,540-(y-3.6)*f/d]};
+  for(let lane=0;lane<7;lane++){
+   const x=-13+lane*4.4,pts=[];for(let i=0;i<=48;i++){const z=-70+i*.94;pts.push(project(x+.25*Math.sin(z*.17+time*.4),1.29,z))}
+   stroke(pts,lane%3===0?GOLD:BLUE,8,.025);stroke(pts,lane%3===0?GOLD:BLUE,1.2,.26);
+   for(let j=0;j<3;j++){const z=-64+((time*3.5+j*13+lane*2)%39),a=project(x,1.3,z),b=project(x,1.3,z-1.6);stroke([a,b],lane%3===0?GOLD:BLUE,3,.75)}
+  }
+  const rise=s.vertical??0;for(let j=0;j<9;j++){const x=865+j*23,y=900-rise*(370+j*16),g=c.createLinearGradient(x,900,x,y-40);g.addColorStop(0,'#ffd18a00');g.addColorStop(.55,'#ffd18a0d');g.addColorStop(1,'#ffd18a00');c.globalAlpha=amount; c.fillStyle=g;c.fillRect(x-7,y-40,14,940-y);if(rise>0){const packetY=900-((time*63+j*47)%(900-y+1));c.globalAlpha=amount*.4*rise;c.drawImage(this.sprites[1],x-6,packetY-15,12,30)}}
+  // Arrival at the measured endpoint triggers concentric blue/gold pulses and a short particle fountain.
+  const B=this.projected.B;if(B&&!calm){const bx=B.x/W*1920,by=B.y/H*1080;for(const [at,col] of [[14,BLUE],[17,GOLD],[22,GOLD]]){const age=t-at;if(age>=0&&age<2.8){const anchor=at===14?this.graphWorld(s.b,0).project(this.camera):null,cx=anchor?(anchor.x+1)*960:bx,cy=anchor?(1-anchor.y)*540:by,r=18+age*80,pts=[];for(let i=0;i<=100;i++){const a=i/100*Math.PI*2;pts.push([cx+r*Math.cos(a),cy+r*Math.sin(a)])}stroke(pts,col,2,(1-age/2.8)*.45);for(let i=0;i<24;i++){const a=i*2.39996,x=cx+Math.cos(a)*age*54,y=cy+Math.sin(a)*age*54+age*age*8;c.globalAlpha=amount*(1-age/2.8)*.6;c.drawImage(this.sprites[col===BLUE?0:1],x-4,y-4,8,8)}}}}
+  c.restore();
+ }
  pointHalo(c,s){if(s.slope===null||!this.currentOptions.lab&&s.scene<2)return;const p=this.projected.P;if(!p)return;const event=s.matched||this.currentOptions.lab&&s.near,age=s.t-47,r=event?22+6*Math.cos((s.t-47)*4):13,g=c.createRadialGradient(p.x,p.y,0,p.x,p.y,r*3);g.addColorStop(0,event?'#fff3d199':'#bd9bff66');g.addColorStop(.3,event?'#ffd18a44':'#bd9bff22');g.addColorStop(1,'#ffd18a00');c.fillStyle=g;c.fillRect(p.x-r*3,p.y-r*3,r*6,r*6);if(event&&age>=0&&age<2){c.save();c.globalAlpha=1-age/2;c.strokeStyle=GOLD;c.lineWidth=2;c.beginPath();c.arc(p.x,p.y,12+age*60,0,Math.PI*2);c.stroke();c.restore()}}
+ paintExplanation(c,s){
+  const t=s.t,stage=Math.min(4,Math.floor((t-57)/3)),A=this.projected.A,B=this.projected.B,P=this.projected.P;
+  const card=(x,y,w,h,col)=>{c.save();c.fillStyle='#071b2be8';c.fillRect(x,y,w,h);this.line2(c,[[x,y],[x,y+h]],col,3,false);this.line2(c,[[x,y],[x+w,y]],col,1,false);c.restore()};
+  // Keep both meanings visible; never substitute a mean y-value for a mean rate.
+  card(65,245,305,194,BLUE);this.text2(c,'区間全体の平均',86,278,24,BLUE);this.text2(c,'横に2、縦に4',86,315,22,WHITE);this.math(c,'{4|2} = 2',86,375,38,GOLD);
+  if(stage>=1){card(850,400,335,190,PURPLE);this.text2(c,'点Pでの瞬間',871,435,24,PURPLE);this.text2(c,'c = 1 → P = (1,1)',871,478,21,WHITE);this.math(c,'f′(1) = 2',871,540,35,GOLD);this.line2(c,[[850,510],[P.x+20,P.y]],PURPLE,1.5,false)}
+
+  const halo=(p,col,energy=1)=>{const r=34+5*Math.sin(t*3),g=c.createRadialGradient(p.x,p.y,0,p.x,p.y,r*2);g.addColorStop(0,col+'88');g.addColorStop(1,col+'00');c.save();c.globalAlpha=energy;c.fillStyle=g;c.fillRect(p.x-r*2,p.y-r*2,r*4,r*4);c.restore()};halo(stage===0?B:P,stage===0?BLUE:GOLD);
+  card(1275,145,590,760,CYAN);this.text2(c,'05 / 平均と瞬間をつなぐ',1320,194,23,CYAN);
+  const headings=['両端から、平均を求める','途中の瞬間は、どうなる？','「同じ傾き」を式にする','一致する場所を発見！','平均値の定理が保証する'];this.text2(c,headings[stage],1320,257,27,WHITE);
+  if(stage===0){this.math(c,'{f(2) − f(0)|2 − 0}',1320,347,37,BLUE);this.math(c,'= {4 − 0|2 − 0} = 2',1320,455,40,GOLD);this.text2(c,'横1あたり、縦に平均2増える',1320,560,26,WHITE);this.text2(c,'途中の傾きは、一定ではない',1320,630,23,'#aac0d3');}
+  if(stage===1){this.math(c,'f(x) = x²',1320,340,35,CYAN);this.math(c,'f′(c) = 2c',1320,430,44,PURPLE);this.text2(c,'平均の「2」と等しくなるのは？',1320,535,25,WHITE);this.text2(c,'接線の傾きが、その瞬間の変化率',1320,600,23,'#aac0d3');this.math(c,'全体 2  ↔  瞬間 2c',1320,700,30,GOLD);}
+  if(stage===2){this.text2(c,'全体の平均',1320,328,23,BLUE);this.text2(c,'途中の瞬間',1600,328,23,PURPLE);this.math(c,'2   =   2c',1555,425,57,GOLD,'center');this.text2(c,'割線の傾き ＝ 接線の傾き',1320,535,27,WHITE);this.text2(c,'2本は、離れていても平行',1320,610,25,WHITE);}
+  if(stage===3){this.math(c,'2c = 2',1320,350,39,WHITE);this.math(c,'c = 1',1320,468,68,GOLD);this.math(c,'P = (1,1)',1320,580,37,GOLD);this.text2(c,'この点で、平均と瞬間が一致',1320,670,26,WHITE);this.text2(c,'傾き2の、平行な2本',1320,736,25,BLUE);}
+  if(stage===4){this.text2(c,'連続・微分可能という条件のもとで',1320,313,22,CYAN);this.text2(c,'区間全体の平均',1320,373,24,BLUE);this.math(c,'{f(b) − f(a)|b − a}',1320,442,39,BLUE);this.math(c,'= f′(c)',1560,550,48,GOLD,'center');this.text2(c,'途中のある点での瞬間の傾き',1320,614,24,PURPLE);this.text2(c,'一致する c ∈ (a,b) が',1320,699,27,WHITE);this.text2(c,'少なくとも1つ、必ずある。',1320,752,31,GOLD);this.text2(c,'この図は具体例。一般の証明とは区別する。',1320,823,18,'#aac0d3');}
+  if(stage>=1&&stage<4){const q=phase(t,60,62),v=this.graphWorld(2,1).project(this.camera),w=this.graphWorld(2,3).project(this.camera),Q={x:(v.x+1)*960,y:(1-v.y)*540},R={x:(w.x+1)*960,y:(1-w.y)*540};this.line2(c,[[P.x,P.y],[mix(P.x,Q.x,q),P.y]],BLUE,3,true);this.line2(c,[[Q.x,Q.y],[Q.x,mix(Q.y,R.y,q)]],GOLD,3,true);this.text2(c,'横1',(P.x+Q.x)/2,P.y-22,24,BLUE,'center');this.text2(c,'縦2',Q.x+55,(Q.y+R.y)/2,24,GOLD);}
+  if(stage===2&&t<64.2){const q=phase(t,63,64.2);this.text2(c,'2',mix(200,1460,q),mix(375,425,q),57,BLUE);this.text2(c,'2c',mix(965,1640,q),mix(540,425,q),57,PURPLE);}
+  if(stage===3){const age=t-66;c.save();c.globalAlpha=Math.max(0,1-age/2);c.strokeStyle=GOLD;c.lineWidth=3;c.beginPath();c.arc(P.x,P.y,15+age*65,0,Math.PI*2);c.stroke();c.restore();this.text2(c,'一致：傾き2',850,690,35,GOLD);}
+  if(stage===0&&t<59){const q=phase(t,57,59);this.text2(c,'4',mix(B.x+30,1360,q),mix((A.y+B.y)/2,420,q),43,GOLD);this.text2(c,'2',mix((A.x+B.x)/2,1360,q),mix(A.y+45,483,q),43,BLUE)}
+  const cap=captions(t);
+  c.fillStyle='#04101e';c.fillRect(40,958,1840,87);this.text2(c,cap,960,1014,cap.length>46?25:28,WHITE,'center');
+ }
  paintTheoremPanel(c){c.save();const g=c.createLinearGradient(1260,150,1860,455);g.addColorStop(0,'#061321c9');g.addColorStop(1,'#061321e6');c.fillStyle=g;c.fillRect(1260,150,600,305);this.line2(c,[[1260,170],[1260,430]],CYAN,1.4,false);this.text2(c,'平均値の定理',1300,190,22,CYAN);this.math(c,'{f(b) − f(a)|b − a} = f′(c)',1300,252,31,GOLD);this.text2(c,'となる c ∈ (a,b) が',1300,312,23,WHITE);this.text2(c,'少なくとも1つ存在する',1300,350,25,GOLD);this.text2(c,'閉区間で連続・開区間で微分可能',1300,407,20,CYAN);c.restore();}
  paintFormulaPanel(c){const g=c.createLinearGradient(1275,145,1865,905);g.addColorStop(0,'#07142533');g.addColorStop(1,'#07142588');c.fillStyle=g;c.fillRect(1275,145,590,760);}
- overlay(c,s){const classroom=this.room.visible;super.overlay(c,s);
+ overlay(c,s){const classroom=this.room.visible;super.overlay(c,s.scene===4?{...s,portal:0}:s);if(s.scene===4)this.paintExplanation(c,s);
  if(!classroom){c.save();c.strokeStyle='#80dcf466';c.lineWidth=1;c.beginPath();c.moveTo(1275,215);c.lineTo(1275,820);c.stroke();const tag=s.scene===1?'MEASURE / Δx → Δy':s.scene===2?'COMPARE / 1 → 2 → 3':s.scene===3?'DISCOVERY / PARALLEL':s.scene===4?'CONNECT / GRAPH → EQUATION':'CHECK / CONDITIONS';this.text2(c,tag,1320,866,17,'#8fb9cf');c.restore()}}
 }
 export {num} from './scene-v1.mjs';

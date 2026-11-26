@@ -1,0 +1,10 @@
+{
+  "revision": "cinematic-v3",
+  "requestedChanges": ["richer moving background around 15 seconds", "more substantial, impactful mean value explanation around 70 seconds"],
+  "reviewedTimes": [15,20,24,58,61,64,67,70],
+  "background": ["three tilted optical orbits with moving light packets", "layered auroral canopy", "perspective floor energy lanes", "golden vertical measurement curtain", "blue pulse at (2,0), golden pulse at (2,4)"],
+  "explanation": ["whole-interval average 4/2=2 remains visible", "instantaneous tangent slope shown separately", "unit run and rise triangle is traced", "numbers move into equality 2=2c", "c=1 and P=(1,1) pulse together", "conditional existence guarantee explicitly stated", "example distinguished from general proof"],
+  "readabilityCorrections": ["moved triangle labels away from P coordinates and existing height label", "removed an unnecessary connector across the plot", "opaque subtitle replacement prevents old caption ghosting"],
+  "scope": "Only 12–27s and 57–72s are newly rendered; other shots retain v2 visuals. Existing v1/v2 movies and lesson IDs are preserved.",
+  "limitations": ["silent captioned movie", "classroom remains depth-projected 2.5D with no individually animated students", "physical iOS devices not tested"]
+}

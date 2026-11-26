@@ -1,15 +1,35 @@
-# 傾きが出会う瞬間 ― 平均値の定理【改訂版】／空間演出版 v2
+# 傾きが出会う瞬間 ― 平均値の定理【改訂版】／演出・説明強化版 v3
 
-数学Ⅱの90秒映画＋操作教材。URLは維持し、動画とプレビューは `-v2` の別ファイルとして追加する。初版 `materials/mean-value-theorem/`、前の90秒版、プレビュー、代表フレームを削除・上書きしない。
+数学Ⅱの90秒映画＋操作教材。URLは維持し、更新動画とプレビューは `-v3` の別ファイルとして追加する。初版 `materials/mean-value-theorem/`、前の90秒版、プレビュー、代表フレームを削除・上書きしない。
 
 ## 閲覧・保存
 
-- 教材: https://hakunou22hr.github.io/-/materials/mean-value-theorem-revised/?v=2
-- 本編: https://hakunou22hr.github.io/-/media/mean-value-theorem-revised/mean-value-theorem-revised-90s-v2.mp4
+- 教材: https://hakunou22hr.github.io/-/materials/mean-value-theorem-revised/?v=3
+- 本編: https://hakunou22hr.github.io/-/media/mean-value-theorem-revised/mean-value-theorem-revised-90s-v3.mp4
 - 導入: https://hakunou22hr.github.io/-/media/mean-value-theorem-revised/preview-classroom-12s-v2.mp4
-- 残りのプレビューは同じフォルダの `preview-measurement-15s-v2.mp4` と `preview-discovery-8s-v2.mp4`。
+- 測定プレビューは `preview-measurement-15s-v3.mp4`、説明は `preview-explanation-15s-v3.mp4`、一致は `preview-discovery-8s-v2.mp4`。
 
-## 今回の美術基準
+## v3の修正対象と実際の動き
+
+- 12〜27秒：大きな傾いた光の軌道3層、青紫の光の帯、床を奥から手前へ流れる光、縦の測定に同期する金の粒子を追加。横の測定完了時は (2,0)、縦の測定完了時は B=(2,4) に波紋が出る。数学の図より細く弱い線で、背景の装飾と区別する。
+- 57〜60秒：図から4と2が式へ移動し、平均変化率が4/2=2であることと、途中の傾きが一定という意味ではないことを示す。
+- 60〜63秒：全体の平均カードを残したまま、点Pの瞬間のカードを追加。接線の横1・縦2の三角形を順番に光でなぞる。
+- 63〜66秒：両方のカードから数値が「2=2c」へ集まる。平行な2直線の意味を説明する。
+- 66〜69秒：c=1を大きく表示し、接点と同期する光の輪で一致を強調。
+- 69〜72秒：全体の平均と途中の瞬間を別々に名付けたまま一般式へ進み、条件付きで一致する点が「少なくとも1つ必ずある」という存在の保証を示す。x²の例で一般の定理を証明したとは説明しない。
+- 操作教材の自動解説も同じ描画コード・字幕を使う。数学モデル・解答非表示・条件の反例・教室は維持する。
+
+今回の書き出しは修正した2区間のみ再描画し、その他のv2ショットを精密に切り出して結合する。v1/v2の保存済み動画・プレビューは上書きしない。
+
+```sh
+RANGES='[[12,27,"preview-measurement-15s"],[57,72,"preview-explanation-15s"]]' OUTPUT=/workspace/work/mvt-v3/delivery node materials/mean-value-theorem-revised/render/movie.mjs
+OUTPUT=/workspace/work/mvt-v3/delivery node materials/mean-value-theorem-revised/render/upgrade-v3.mjs
+node materials/mean-value-theorem-revised/tests/video.mjs
+```
+
+検証記録は `verification-v3.json`。追加の説明プレビューは `preview-explanation-15s-v3.mp4`、測定は `preview-measurement-15s-v3.mp4`。教室・一致のプレビューは変更のないv2を継続使用する。
+
+## v2の美術基準・継承した実装
 
 ユーザーが指定した次の教材を確認し、線の発光、奥行きのある粒子、光の軌跡、説明の読みやすさを基準にした。
 
@@ -32,26 +52,15 @@
 
 ## 数学・操作
 
-`model.mjs` はv1の検証済みモデルを維持する。割線の傾きは2、接線は `y=2c(x−c)+c²`。c=1では接線 `y=2x−1` と割線 `y=2x` が別々の平行線になる。29・35・41秒で傾き1・2・3、47秒で一致、57〜72秒で計算、78秒の |x| の原点では接線を描かない。
+`model.mjs` はv1の検証済み数値モデルを維持し、v3では57〜72秒の字幕を具体化する。割線の傾きは2、接線は `y=2c(x−c)+c²`。c=1では接線 `y=2x−1` と割線 `y=2x` が別々の平行線になる。29・35・41秒で傾き1・2・3、47秒で一致、57〜72秒で計算、78秒の |x| の原点では接線を描かない。
 
 近接の発光（傾きの差≤.04）と厳密な解は区別する。答えは最初は隠す。ドラッグ、スライダー、キーボード、関数切替、表示切替、動きを抑える設定、動画の時刻引継ぎ、再開を実装する。
 
 ## 描画・再現
 
-`scene.mjs` がv2。`scene-v1.mjs` は前の描画を保持する共通基底で、数学の作図と縦型分数を再利用する。教室はThree.jsの奥行きメッシュと発光する開口シェーダー、正面の実験は同じ3D頂点を透視変換でCanvasへ描く方式。星の配置は固定シードで、全ての動作を絶対時刻から計算する。
+`scene.mjs` がv3。`scene-v1.mjs` は前の描画を保持する共通基底で、数学の作図と縦型分数を再利用する。教室はThree.jsの奥行きメッシュと発光する開口シェーダー、正面の実験は同じ3D頂点を透視変換でCanvasへ描く方式。星の配置は固定シードで、全ての動作を絶対時刻から計算する。
 
-```
-node materials/mean-value-theorem-revised/tests/math.mjs
-npx vitest run materials/mean-value-theorem-revised/tests/catalog.test.ts
-CHECK_ONLY=1 OUTPUT=/tmp/mvt-v2-check node materials/mean-value-theorem-revised/render/movie.mjs
-PREVIEWS=1 OUTPUT=/tmp/mvt-v2 node materials/mean-value-theorem-revised/render/movie.mjs
-OUTPUT=/tmp/mvt-v2 node materials/mean-value-theorem-revised/render/assemble.mjs
-OUTPUT=/tmp/mvt-v2 node materials/mean-value-theorem-revised/render/publish-assets.mjs
-node materials/mean-value-theorem-revised/tests/video.mjs
-npm run build
-```
-
-3本のプレビューと本編は同じ描画コードを使用する。確認したプレビューをそのまま本編の0〜12・12〜27・45〜53秒に組み込む。1080p、24fps、H.264/yuv420p、BT.709、字幕付き、音声なし。
+描画は同じ絶対時刻で再現できる。1080p、24fps、H.264/yuv420p、BT.709、字幕付き、音声なし。数学・カタログ・MP4の検証とビルドを行う。v1/v2動画のSHA256も照合する。
 
 GitHub Actionsは同じコミットのPages公開成功後に、公開ページの操作・図と数値・頭部より上の黒板位置・動画シーク・再開・再生終了・時刻再現性を検証する。1440×1100、1024×768、390×844、844×390とタッチを模擬する。iPhone/iPad/Safari実機は未確認。
 
