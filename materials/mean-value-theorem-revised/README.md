@@ -40,10 +40,12 @@ OUTPUT=/workspace/work/mvt-v10/delivery node materials/mean-value-theorem-revise
 - 縦型9:16、1080×1920、30fps、30秒。横長映像を切り抜かず、同じモデルから図と文字を縦画面用に再描画する。
 - 0〜5秒：提供MUSE映像と黒板からの移行。5〜11秒：横2・縦4から平均2。11〜17秒：接線の傾き1→2→3。17〜22秒：途中で一致して平行。22〜26秒：2c=2、c=1。26〜30秒：正式な条件と定理。
 - 同じアシスタントの6つの短い音声を30秒用に収録。粒子の明滅はこの音源の波形へ同期。図の状態に合わせて式を表示し、一致前にP(1,1)や接線y=2x−1を表示しない。
-- グラフ・文字を左、一定サイズのガイドの上下移動を右側へ配置。主要字幕を右端・最下部から離し、Instagramの表示との干渉を抑える。アプリ側の表示には端末差があるため、投稿前の最終確認は必要。
+- v11では一定サイズのガイドを右上へ固定し、微小な浮遊を残す。変化量の測定は2倍、平行の発見は1.75倍、c=1の確認は2.1倍へ連続ズーム。x/yを同率で拡大し、傾きを保つ。数式は画面下部に拡大表示。主要字幕を右端・最下部から離し、Instagramの表示との干渉を抑える。アプリ側の表示には端末差があるため、投稿前の最終確認は必要。
 - 教材ページの「Instagram用・30秒縦型版」から再生・保存できる。Instagramへの投稿自体は行わない。
 
 ```sh
-REELS=1 RANGES='[[0,30,"instagram-30s-v10-silent"]]' OUTPUT=/workspace/work/mvt-reels/delivery node materials/mean-value-theorem-revised/render/movie.mjs
-OUTPUT=/workspace/work/mvt-reels/delivery node materials/mean-value-theorem-revised/render/package-reels.mjs
+REELS=1 RANGES='[[0,30,"instagram-30s-v11-silent"]]' OUTPUT=/workspace/work/mvt-reels-v11/delivery node materials/mean-value-theorem-revised/render/movie.mjs
+OUTPUT=/workspace/work/mvt-reels-v11/delivery node materials/mean-value-theorem-revised/render/package-reels-v11.mjs
 ```
+
+旧30秒版v10と90秒版v10は保存し、上書きしない。v11では音声を再利用する。書き出し専用Chromeでは2D CanvasのCPU描画を使用し、動画本体のWebGL背景は継続する。

@@ -1,0 +1,39 @@
+{
+  "variant": "Instagram 30s portrait v11",
+  "reviewedFrames": [
+    5.6,
+    19.5,
+    25.3,
+    28
+  ],
+  "guide": "330px golden plasma assistant stays upper right, slight floating; separate from headline and formula",
+  "closeUps": [
+    {
+      "time": 5.6,
+      "zoom": 2,
+      "focus": "growing horizontal change"
+    },
+    {
+      "time": 19.5,
+      "zoom": 1.75,
+      "focus": "separate parallel secant/tangent and unit 1×2 triangle"
+    },
+    {
+      "time": 25.3,
+      "zoom": 2.1,
+      "focus": "P, dashed projections, c=1"
+    }
+  ],
+  "mathReview": [
+    "uniform x/y scaling preserves slopes",
+    "distinct parallel lines y=2x and y=2x−1",
+    "P and c=1 remain visible at calculation close-up",
+    "formal closed/open interval conditions retained at28s"
+  ],
+  "voice": "unchanged v10 30s assistant narration, six timed responses",
+  "preservation": "90s v10 and previous 30s v10 retained",
+  "limitations": [
+    "MUSE classroom source is720p",
+    "physical iPhone/iPad and actual Instagram upload untested"
+  ]
+}
