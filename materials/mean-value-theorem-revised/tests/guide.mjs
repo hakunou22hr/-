@@ -1,5 +1,8 @@
-import assert from 'node:assert/strict';import {guideState} from '../guide.mjs';import {timeline} from '../model.mjs';
+import assert from 'node:assert/strict';import {guideState,speechAt} from '../guide.mjs';import {timeline} from '../model.mjs';
+const overlaps=(a,b)=>a.x<b.x+b.width&&a.x+a.width>b.x&&a.y<b.y+b.height&&a.y+a.height>b.y;
 for(const t of [0,3,11.99,84,88,90])assert.equal(guideState(t).visible,false);
-for(const t of [13,20,48,70,78,83]){const s=guideState(t);assert.equal(s.visible,true);assert.ok(s.activity>=0&&s.activity<=1);assert.ok(s.bounds.x>1500);assert.ok(s.bounds.y+s.bounds.height<958);assert.equal(timeline(t).kind,'square')}
-assert.ok(guideState(48).bounds.width>=300);assert.ok(guideState(48).bounds.height>=300);
-assert.notEqual(guideState(48).angle,guideState(48.5).angle);assert.equal(guideState(48,{calm:true}).angle,guideState(49,{calm:true}).angle);assert.equal(guideState(48,{calm:true}).activity,guideState(49,{calm:true}).activity);assert.ok(guideState(47).accent>guideState(46.9).accent);console.log('PASS: narrator visibility, caption clearance, deterministic rotation, cue response and reduced-motion state');
+let voiceSamples=0;
+for(let t=12;t<84;t+=.05){const q=guideState(t),b=q.bounds;assert.equal(q.visible,true);assert.ok(b.x>1500&&b.y>80&&b.x+b.width<1918&&b.y+b.height<958);assert.equal(overlaps(b,q.focus),false,'guide overlaps its active text at '+t);assert.ok(q.activity>=0&&q.activity<=1);assert.equal(timeline(t).kind,'square');if(q.speech>.1)voiceSamples++}
+assert.ok(guideState(29).y<300);assert.ok(guideState(48).y<300);assert.ok(guideState(70).y>700);assert.ok(guideState(53).moving);assert.ok(guideState(53).scale<.4);assert.ok(guideState(13).bounds.width>=300);assert.ok(guideState(48).bounds.width>=270);assert.ok(voiceSamples>400,'guide must respond to actual narration energy');assert.ok(speechAt(3)>.0||speechAt(4)>.0);
+assert.notEqual(guideState(48).angle,guideState(48.5).angle);assert.equal(guideState(48,{calm:true}).angle,guideState(49,{calm:true}).angle);assert.equal(guideState(48,{calm:true}).x,guideState(49,{calm:true}).x);assert.equal(guideState(48,{calm:true}).activity,guideState(49,{calm:true}).activity);assert.ok(guideState(47).accent>guideState(46.9).accent);
+console.log('PASS: upper/lower floating, safe flight lane, active text clearance, measured speech response, captions and reduced motion');

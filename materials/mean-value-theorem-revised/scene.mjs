@@ -85,6 +85,7 @@ export class Observatory extends PreviousWorld{
  }
  paintGuideTextReflow(c,s){
   if(s.t<12||s.t>=84)return;const stage=Math.min(4,Math.floor((s.t-57)/3)),summary=s.t<76?0:s.t<80?1:2;
+  const q=guideState(s.t);if(q.upperTitle&&s.scene<=3){c.save();c.fillStyle='#071b2b';c.fillRect(1310,145,550,104);this.text2(c,`0${s.scene+1} /`,1320,164,18,CYAN);const words=s.scene===1?['横2・縦4を','測る']:s.scene===2?['接線の傾きを','比べる']:['同じ傾きを','発見'];this.text2(c,words[0],1320,197,23,CYAN);this.text2(c,words[1],1320,231,23,CYAN);c.restore()}
   const top=s.scene===4?[590,570,575,592,580][stage]:s.scene===5?[545,555,600][summary]:592;
   c.save();c.fillStyle='#071b2b';c.fillRect(1310,top,550,905-top);
   const text=(v,y,size=24,col=WHITE)=>this.text2(c,v,1320,y,size,col),math=(v,y,size=30,col=GOLD)=>this.math(c,v,1320,y,size,col);
@@ -104,12 +105,12 @@ export class Observatory extends PreviousWorld{
   }
   const tag=s.scene===1?'MEASURE / Δx → Δy':s.scene===2?'COMPARE / 1 → 2 → 3':s.scene===3?'DISCOVERY / PARALLEL':s.scene===4?'CONNECT / GRAPH → EQUATION':'RECAP / MEAN = INSTANT';text(tag,891,14,'#8fb9cf');c.restore();
  }
- drawNarrator(c,s,{calm=false}={}){
+ drawNarrator(c,s,{calm=false,focus=true}={}){
   const q=guideState(s.t,{calm});if(!q.visible)return;const cx=1752,cy=785,clock=calm?0:s.t,angle=q.angle;
   if(!this.goldCloud){const rr=random(81731);this.goldCloud={points:Array.from({length:2200},(_,i)=>({theta:Math.acos(2*rr()-1),phi:rr()*Math.PI*2,r:i%3?90+rr()*36:25+rr()*85,phase:rr()*6.283,speed:(.09+rr()*.24)*(i%4===0?-1:1),size:.55+rr()*1.35})),threads:Array.from({length:112},(_,i)=>({radius:60+rr()*68,start:rr()*6.283,arc:.35+rr()*2.5,pitch:rr()*6.283,yaw:rr()*6.283,roll:rr()*6.283,phase:rr()*6.283,speed:(.10+rr()*.28)*(i%2?-1:1)})),sparks:Array.from({length:80},()=>({phi:rr()*6.283,theta:Math.acos(2*rr()-1),r:128+rr()*14,phase:rr()*6.283}))}}
   const rotate=(x,y,z,pitch,yaw,roll)=>{const y1=y*Math.cos(pitch)-z*Math.sin(pitch),z1=y*Math.sin(pitch)+z*Math.cos(pitch),x2=x*Math.cos(yaw)+z1*Math.sin(yaw),z2=z1*Math.cos(yaw)-x*Math.sin(yaw);return [x2*Math.cos(roll)-y1*Math.sin(roll),x2*Math.sin(roll)+y1*Math.cos(roll),z2]};
   const project=(x,y,z)=>{const v=rotate(x,y,z,.12,angle*.19,.10*Math.sin(clock*.23)),k=1/(1-v[2]/760);return {x:cx+v[0]*k,y:cy+v[1]*k,z:v[2]}};
-  c.save();c.globalAlpha=q.opacity;const veil=c.createRadialGradient(cx,cy,20,cx,cy,158);veil.addColorStop(0,'#171306e6');veil.addColorStop(.75,'#0c1423a0');veil.addColorStop(1,'#0c142300');c.fillStyle=veil;c.fillRect(cx-158,cy-158,316,316);c.globalCompositeOperation='screen';
+  this.focusTime=calm?0:s.t;if(focus)this.drawNarratorFocus(c,q,{calm});c.save();c.translate(q.x,q.y);c.scale(q.scale,q.scale);c.translate(-cx,-cy);c.globalAlpha=q.opacity;const veil=c.createRadialGradient(cx,cy,20,cx,cy,158);veil.addColorStop(0,'#171306e6');veil.addColorStop(.75,'#0c1423a0');veil.addColorStop(1,'#0c142300');c.fillStyle=veil;c.fillRect(cx-158,cy-158,316,316);c.globalCompositeOperation='screen';
   const volume=c.createRadialGradient(cx-13,cy+8,0,cx,cy,142);volume.addColorStop(0,'#ffe24b66');volume.addColorStop(.5,'#ff9b2540');volume.addColorStop(.84,'#ed720f26');volume.addColorStop(1,'#dc9a1b00');c.fillStyle=volume;c.fillRect(cx-145,cy-145,290,290);
   // Broken, differently inclined filaments create an uneven, translucent spherical volume.
   const segments=[];this.goldCloud.threads.forEach((a,j)=>{const pts=[];for(let i=0;i<=32;i++){const u=i/32,th=a.start+clock*a.speed+u*a.arc,r=a.radius*(1+.045*Math.sin(th*9+a.phase+clock*.8)),v=rotate(r*Math.cos(th),r*Math.sin(th),6*Math.sin(th*5+a.phase+clock*.4),a.pitch,a.yaw,a.roll);pts.push(project(...v))}for(let i=0;i<32;i++){if((i+j*7)%13<3)continue;const p=pts[i],b=pts[i+1],packet=(i/32-clock*(.16+(j%5)*.021)-a.phase)%1,hot=Math.abs(packet-Math.round(packet))<.055;segments.push({p,b,j,i,hot,z:(p.z+b.z)/2,pulse:.55+.45*Math.sin(a.phase+clock*1.1+i*.21)})}});
@@ -134,7 +135,15 @@ export class Observatory extends PreviousWorld{
   if(q.accent>.05){const pulse=c.createRadialGradient(cx-15,cy+9,0,cx-15,cy+9,76);pulse.addColorStop(0,'#ffd87830');pulse.addColorStop(1,'#ffd87800');c.globalAlpha=q.opacity*q.accent;c.fillStyle=pulse;c.fillRect(cx-91,cy-67,152,152)}
   c.globalCompositeOperation='source-over';c.globalAlpha=q.opacity;this.text2(c,'AI GUIDE',cx,947,15,'#e7c77a','center');c.restore();
  }
- renderNarratorLayer(t,{calm=false,patchV4=false}={}){if(!this.narratorCanvas){this.narratorCanvas=cv(this.w,this.h);this.narratorContext=this.narratorCanvas.getContext('2d',{willReadFrequently:true})}const c=this.narratorContext;c.clearRect(0,0,this.w,this.h);c.save();c.scale(this.w/1920,this.h/1080);if(patchV4)this.paintGuideTextReflow(c,timeline(t));this.drawNarrator(c,{t},{calm});c.restore();return this.narratorCanvas;}
+ drawNarratorFocus(c,q,{calm=false}={}){
+  const f=q.focus,clock=calm?0:this.focusTime,yy=f.y+f.height+7,right=f.x+f.width+14,path=[[q.x+145*q.scale,q.y],[1904,q.y],[1904,yy],[right,yy]];
+  c.save();c.globalCompositeOperation='screen';c.strokeStyle='#f4cb73';c.lineCap='round';c.lineJoin='round';c.globalAlpha=q.opacity*(.11+q.accent*.15);c.lineWidth=1;c.beginPath();path.forEach(([x,y],i)=>i?c.lineTo(x,y):c.moveTo(x,y));c.stroke();
+  c.globalAlpha=q.opacity*(.48+q.activity*.3);c.lineWidth=1.8;c.shadowBlur=8;c.shadowColor='#ffc45a';c.beginPath();c.moveTo(f.x,yy);c.lineTo(f.x+f.width,yy);c.stroke();c.shadowBlur=0;
+  // Corner marks stay outside the characters; no filled highlight hides an equation.
+  c.globalAlpha=q.opacity*.6;c.lineWidth=1;c.beginPath();c.moveTo(f.x-9,f.y+5);c.lineTo(f.x-9,f.y-5);c.lineTo(f.x+1,f.y-5);c.moveTo(f.x+f.width-1,f.y+f.height+12);c.lineTo(f.x+f.width+9,f.y+f.height+12);c.lineTo(f.x+f.width+9,f.y+f.height+2);c.stroke();
+  if(!calm){const lens=path.slice(1).map((p,i)=>Math.hypot(p[0]-path[i][0],p[1]-path[i][1])),total=lens.reduce((a,b)=>a+b,0);for(let j=0;j<3;j++){let d=((clock*.27+j/3)%1)*total,k=0;while(k<lens.length-1&&d>lens[k])d-=lens[k++];const a=path[k],b=path[k+1],p=lens[k]?d/lens[k]:0,x=mix(a[0],b[0],p),y=mix(a[1],b[1],p);c.globalAlpha=q.opacity*.72;c.drawImage(this.sprites[1],x-5,y-5,10,10)}}c.restore();
+ }
+ renderNarratorLayer(t,{calm=false,patchV4=false}={}){if(!this.narratorCanvas){this.narratorCanvas=cv(this.w,this.h);this.narratorContext=this.narratorCanvas.getContext('2d',{willReadFrequently:true})}const c=this.narratorContext;c.clearRect(0,0,this.w,this.h);c.save();c.scale(this.w/1920,this.h/1080);if(patchV4)this.paintGuideTextReflow(c,timeline(t));this.drawNarrator(c,{t},{calm,focus:patchV4});c.restore();return this.narratorCanvas;}
  paintSummary(c,s){
   const stage=s.t<76?0:s.t<80?1:2;c.fillStyle='#071b2bf2';c.fillRect(1275,145,590,760);this.line2(c,[[1275,145],[1275,905]],CYAN,2,false);this.text2(c,'06 / 平均と瞬間を結ぶ',1320,194,23,CYAN);
   if(stage===0){this.text2(c,'区間全体も、途中の点も「2」',1320,265,28,WHITE);this.text2(c,'全体の平均変化率',1320,340,25,BLUE);this.math(c,'{4 − 0|2 − 0} = 2',1320,413,43,GOLD);this.text2(c,'点Pでの瞬間の変化率',1320,525,25,PURPLE);this.math(c,'f′(1) = 2',1320,602,46,GOLD);this.math(c,'c = 1,  P = (1,1)',1320,704,31,WHITE);}

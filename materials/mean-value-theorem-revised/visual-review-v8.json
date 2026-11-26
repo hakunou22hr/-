@@ -1,0 +1,12 @@
+{
+  "revision":"cinematic-v8-narrated",
+  "requestedChanges":["floating and moving between lower and upper right", "react to current explanatory text", "keep letters and equations unobstructed", "Japanese narration for this movie only"],
+  "route":{"lowerCenter":[1748,778],"upperCenter":[1760,240],"travelLaneX":1850,"travelScale":0.29,"upperScale":0.87,"fullSizeReturns":true},
+  "textReaction":"thin underline and outside corner marks; light packets follow the right-side gutter and stop outside text",
+  "voice":{"profile":"ja-JP-KeitaNeural","language":"ja-JP","timedCues":13,"maximumTempo":1.2,"audio":"AAC 48000Hz mono embedded in MP4","source":"narration/script.json"},
+  "pulseSource":"actual narration WAV RMS at 20Hz",
+  "reviewedFrames":[22,29,48,53,70],
+  "validation":"sampled route at 0.05-second intervals avoids its active text and stays within video/caption bounds",
+  "preserved":["90 seconds", "theorem explanation and conditions", "no absolute-value scene", "classroom with one blonde student", "all previous movies and other lessons"],
+  "limitations":["interactive exploration canvas has no narration", "physical iOS devices not tested", "2.5D classroom"]
+}
