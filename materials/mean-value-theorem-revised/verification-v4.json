@@ -1,0 +1,61 @@
+{
+  "passed": true,
+  "movies": [
+    {
+      "file": "public/media/mean-value-theorem-revised/mean-value-theorem-revised-90s-v4.mp4",
+      "duration": 90,
+      "width": 1920,
+      "height": 1080,
+      "fps": "24/1",
+      "frames": 2160,
+      "bytes": 31261803,
+      "sha256": "fc4a36190ecc99e5ce1e5cc8a689096846176686419124633349356a906f2849",
+      "decoded": true
+    },
+    {
+      "file": "public/media/mean-value-theorem-revised/preview-classroom-12s-v4.mp4",
+      "duration": 12,
+      "width": 1920,
+      "height": 1080,
+      "fps": "24/1",
+      "frames": 288,
+      "bytes": 4697588,
+      "sha256": "4c4b915a5fcaef2c5925fe1759a1781500e956f997bd0e20837b2f33aeae099d",
+      "decoded": true
+    },
+    {
+      "file": "public/media/mean-value-theorem-revised/preview-measurement-15s-v4.mp4",
+      "duration": 15,
+      "width": 1920,
+      "height": 1080,
+      "fps": "24/1",
+      "frames": 360,
+      "bytes": 5771168,
+      "sha256": "7541bde1c6356038b4c7b50b98984d27b610c9a26381427b7892d692e388bf79",
+      "decoded": true
+    },
+    {
+      "file": "public/media/mean-value-theorem-revised/preview-discovery-8s-v2.mp4",
+      "duration": 8,
+      "width": 1920,
+      "height": 1080,
+      "fps": "24/1",
+      "frames": 192,
+      "bytes": 4543864,
+      "sha256": "a88499b0c413ca15501254cada2225275d230223758c46b23556c08424f79da3",
+      "decoded": true
+    },
+    {
+      "file": "public/media/mean-value-theorem-revised/preview-explanation-15s-v4.mp4",
+      "duration": 15,
+      "width": 1920,
+      "height": 1080,
+      "fps": "24/1",
+      "frames": 360,
+      "bytes": 4616694,
+      "sha256": "06aa550ded2b8d8c65461755ad015aa776274217301b5adac34eff4bce38418d",
+      "decoded": true
+    }
+  ],
+  "previousMoviesUnchanged": true
+}

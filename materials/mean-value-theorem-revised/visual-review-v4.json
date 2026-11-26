@@ -1,0 +1,11 @@
+{
+  "revision": "cinematic-v4",
+  "requestedChanges": ["remove rotating background orbits", "add two female students", "exactly one blonde-haired student; all others black-haired", "move classroom coordinate plane below upper blackboard frame"],
+  "sourceImage": "assets/v4/classroom.png",
+  "imageReview": "Two additional female students seated at desks; only the left foreground ponytailed female is blonde; other visible students have black hair.",
+  "reviewedFrames": [0,3,6,10,15,61,88],
+  "boardPlacement": {"centerY": 1.95,"width":3.8,"previousCenterY":2.25,"previousWidth":4.2},
+  "removed": "three large tilted optical orbits, tick marks and orbiting light packets",
+  "preserved": ["mean versus instantaneous rate explanation", "distinct parallel secant and tangent", "conditions and absolute-value counterexample", "all previously published movie assets"],
+  "limitations": ["2.5D generated classroom image; people not individually animated", "physical iOS devices not tested"]
+}
