@@ -1,0 +1,23 @@
+{
+  "variant": "Instagram30s v12",
+  "reviewedFrames": [
+    9.8,
+    19.5,
+    25.3,
+    28
+  ],
+  "layout": "full-height graph y360–1760, right explanation x700–1050; no bottom explanation card",
+  "guide": "upper-right plasma assistant; AI GUIDE label removed; six irregular outward flare loops and ejecta",
+  "mathReview": [
+    "horizontal2 and vertical4 remain visible at average close-up",
+    "equal axis scale preserves slopes",
+    "separated parallel secant/tangent with unit1×2 triangle",
+    "P/c=1 and equation simultaneously visible",
+    "formal continuity/differentiability conditions retained"
+  ],
+  "sourceLimitations": [
+    "classroom source720p",
+    "physical devices and Instagram upload not tested"
+  ],
+  "preserved": "prior30s versions and90s"
+}

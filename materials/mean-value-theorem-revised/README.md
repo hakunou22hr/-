@@ -49,3 +49,15 @@ OUTPUT=/workspace/work/mvt-reels-v11/delivery node materials/mean-value-theorem-
 ```
 
 旧30秒版v10と90秒版v10は保存し、上書きしない。v11では音声を再利用する。書き出し専用Chromeでは2D CanvasのCPU描画を使用し、動画本体のWebGL背景は継続する。
+
+## Instagram v12：右側の説明と全高の座標空間
+
+- 下部カードを廃し、説明・計算・条件を右側x700〜1050、y475〜1635に配置。グラフはy360〜1760まで拡張。文字領域へ線が侵入しないマスクを置く。
+- 平均4/2の測定は1.8倍、平行の一致は2.15倍、c=1は2.7倍。x/yの倍率は等しく、Pと単位三角形を左の広い空間に保つ。
+- 30秒版だけAI GUIDEのラベルを非表示。外向きの不規則なプラズマの噴出・ループ・火花を追加。90秒側はこの追加オプションを使わない。
+- v10/v11と90秒映画は保存。音声は既存の6つの応答を継続使用。
+
+```sh
+REELS=1 RANGES='[[0,30,"instagram-30s-v12-silent"]]' OUTPUT=/workspace/work/mvt-reels-v12/delivery node materials/mean-value-theorem-revised/render/movie.mjs
+OUTPUT=/workspace/work/mvt-reels-v12/delivery node materials/mean-value-theorem-revised/render/package-reels-v12.mjs
+```

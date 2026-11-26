@@ -154,7 +154,16 @@ export class Observatory extends PreviousWorld{
   for(let j=0;j<18;j++){const a=j*2.39996323+clock*(.025+(j%3)*.007),length=.12+(j%5)*.045,pts=[];for(let i=0;i<=18;i++){const th=a+length*i/18,rad=130+5*Math.sin(th*7+clock*.8)+4*Math.sin(th*13-clock*.5+j);pts.push(project(rad*Math.cos(th),rad*Math.sin(th),18*Math.sin(th*3+j)))}c.beginPath();pts.forEach((p,i)=>i?c.lineTo(p.x,p.y):c.moveTo(p.x,p.y));c.strokeStyle=j%3?'#ffae1d':'#ff6c0a';c.globalAlpha=q.opacity*(.2+.25*Math.sin(clock*.9+j)**2);c.lineWidth=1.1;c.stroke()}
   const hotCenter=c.createRadialGradient(cx-15,cy+8,0,cx-15,cy+8,65);hotCenter.addColorStop(0,'#fff4b450');hotCenter.addColorStop(.3,'#ffd53230');hotCenter.addColorStop(1,'#ff780000');c.globalAlpha=q.opacity*(.75+.25*q.activity);c.fillStyle=hotCenter;c.fillRect(cx-80,cy-57,130,130);
   if(q.accent>.05){const pulse=c.createRadialGradient(cx-15,cy+9,0,cx-15,cy+9,76);pulse.addColorStop(0,'#ffd87830');pulse.addColorStop(1,'#ffd87800');c.globalAlpha=q.opacity*q.accent;c.fillStyle=pulse;c.fillRect(cx-91,cy-67,152,152)}
-  c.globalCompositeOperation='source-over';c.globalAlpha=q.opacity;this.text2(c,'AI GUIDE',cx,947,15,'#e7c77a','center');c.restore();
+  if(q.flareBoost){
+   // Branching prominences visibly leave the corona and return to its surface.
+   for(let j=0;j<6;j++){const th=j*2.39996+clock*.12,life=.5+.5*Math.sin(clock*1.8+j*1.7),reach=143+(13+j%3*12)*life+q.accent*12,tx=Math.cos(th),ty=Math.sin(th),px=-ty,py=tx;
+    const a={x:cx+tx*117+px*15,y:cy+ty*117+py*15},b={x:cx+tx*117-px*15,y:cy+ty*117-py*15};
+    c.beginPath();c.moveTo(a.x,a.y);for(let i=1;i<=35;i++){const u=i/35,lift=Math.sin(Math.PI*u)*(reach-117),spread=(1-u*2)*15+3*Math.sin(u*19+clock*2+j),rad=117+lift+2*Math.sin(u*25+j+clock);c.lineTo(cx+tx*rad+px*spread,cy+ty*rad+py*spread)}
+    for(const [w,col,alpha] of [[16,'#ff4500',.18],[4,'#ff8c08',.8],[1.2,'#fff2a8',.95]]){c.lineWidth=w;c.strokeStyle=col;c.globalAlpha=q.opacity*alpha*(.45+.55*life);c.stroke()}
+    for(let k=0;k<5;k++){const u=(clock*.7+k*.19+j*.1)%1,rad=127+u*(reach-127),bend=Math.sin(u*Math.PI)*18;c.fillStyle=k%2?'#fff1a0':'#ff9300';c.globalAlpha=q.opacity*(1-u)*.9;c.beginPath();c.arc(cx+tx*rad+px*bend,cy+ty*rad+py*bend,1.2+2*(1-u),0,Math.PI*2);c.fill()}
+   }
+  }
+  c.globalCompositeOperation='source-over';c.globalAlpha=q.opacity;if(!q.hideLabel)this.text2(c,'AI GUIDE',cx,947,15,'#e7c77a','center');c.restore();
  }
  drawNarratorFocus(c,q,{calm=false}={}){
   const f=q.focus,clock=calm?0:this.focusTime,yy=f.y+f.height+7,right=f.x+f.width+14,path=[[q.x+145*q.scale,q.y],[1904,q.y],[1904,yy],[right,yy]];
