@@ -1,6 +1,5 @@
 import {drawReactiveSpace} from './reactive-space.mjs';
 import {clamp,mix,phase,timeline} from './model.mjs';
-import {sampleRate,envelope} from './narration/reels-envelope.mjs';
 const CYAN='#7bebff',GOLD='#ffd18a',BLUE='#79baff',PURPLE='#c8a4ff',WHITE='#eef6ff';
 export const reelDuration=30;
 export const reelSafeArea={left:70,right:960,top:180,bottom:1650};
@@ -15,13 +14,9 @@ export function reelState(value){
  const returning=t>=27,classroomSource=stage===0?source:returning?84+2*(t-27):null;
  return {t,stage,source,returning,classroomSource,explanationVisible:t>=5,math:timeline(source)};
 }
-export function reelSpeech(t){if(t<5)return 0;const at=Math.max(0,t*sampleRate),i=Math.floor(at);return mix(envelope[i]||0,envelope[i+1]||0,at-i)}
-export function reelGuide(t){
- let y=235;
- const speech=reelSpeech(t),accent=[5,8.5,13.7,18.5,25,26].reduce((v,c)=>Math.max(v,t>=c?Math.exp(-(t-c)*3):0),0);
- const x=800+3*Math.sin(t*.8);y+=4*Math.sin(t*.9);
- return {visible:t>=5,opacity:phase(t,5,5.5),x,y,scale:1,angle:t*.66,speech,accent,activity:clamp(.32+.42*speech+.2*accent),hideLabel:true,flareBoost:0,noFlare:true,bounds:{x:x-190,y:y-190,width:380,height:380}};
-}
+// Compatibility inspection API: this version has no assistant or assistant audio.
+export function reelSpeech(){return 0}
+export function reelGuide(){return {visible:false,opacity:0,x:800,y:235,scale:1,speech:0,accent:0,activity:0,hideLabel:true,flareBoost:0,noFlare:true,bounds:{x:610,y:45,width:380,height:380}}}
 // Uniform scaling preserves coordinate units, parallel lines and slope triangles.
 // Each push-in has a quiet hold at the mathematical event before pulling back.
 const wide=[160,1580,1.4],measure=[60,1710,1.8],match=[-30,1500,2.15],solution=[-80,1500,2.7];
@@ -31,7 +26,7 @@ export class ReelRenderer{
  constructor(engine){this.engine=engine;this.canvas=document.createElement('canvas');this.canvas.width=1080;this.canvas.height=1920;this.c=this.canvas.getContext('2d',{willReadFrequently:true});}
  async prepare(t){const r=reelState(t);if(r.classroomSource!==null)await this.engine.prepareFrame(r.classroomSource)}
  render(value){
-  const r=reelState(value),e=this.engine,c=this.c,s=r.math,g=reelGuide(r.t),camera=reelCamera(r.t);const drawGraph=e.drawGraph;try{e.drawGraph=()=>{};e.setWorld(r.returning?timeline(r.classroomSource):s)}finally{e.drawGraph=drawGraph}c.clearRect(0,0,1080,1920);
+  const r=reelState(value),e=this.engine,c=this.c,s=r.math,camera=reelCamera(r.t);const drawGraph=e.drawGraph;try{e.drawGraph=()=>{};e.setWorld(r.returning?timeline(r.classroomSource):s)}finally{e.drawGraph=drawGraph}c.clearRect(0,0,1080,1920);
   const oldW=e.w,oldH=e.h,oldFov=e.camera.fov,oldProjected=e.projected;const target={x:camera.x+camera.sx*s.c,y:camera.y-camera.sy*s.f(s.c)};
   try{e.w=1080;e.h=1920;e.camera.fov=oldFov/camera.zoom;e.projected={...oldProjected,P:target};e.drawProjected(c,s)}finally{e.w=oldW;e.h=oldH;e.camera.fov=oldFov;e.projected=oldProjected}
   const shade=c.createLinearGradient(0,0,0,1920);shade.addColorStop(0,'#03101ed9');shade.addColorStop(.45,'#03101e10');shade.addColorStop(1,'#03101eea');c.fillStyle=shade;c.fillRect(0,0,1080,1920);
@@ -54,10 +49,10 @@ export class ReelRenderer{
   this.graph(r,plot);if(r.stage>0&&!r.returning)this.text('f(x) = x²',220,460,38,CYAN);if(this.patchMode)return this.canvas;
   // Explanation follows the graph in a right-hand lane, not a bottom card.
   if(r.stage===5){
-   c.fillStyle='#041423ee';c.fillRect(35,25,570,390);c.fillStyle=CYAN;c.fillRect(35,25,3,390);
-   this.text('平均値の定理',65,80,32,CYAN);e.math(c,'{f(b) − f(a)|b − a} = f′(c)',320,165,44,GOLD,'center');
-   this.text('閉区間 [a,b] で連続',65,245,26,CYAN);this.text('開区間 (a,b) で微分可能',65,290,26,CYAN);
-   this.text('c ∈ (a,b) が少なくとも1つ',65,345,25,WHITE);this.text('存在する。',65,385,25,WHITE);
+   c.fillStyle='#041423ee';c.fillRect(35,25,1010,390);c.fillStyle=CYAN;c.fillRect(35,25,3,390);
+   this.text('平均値の定理',65,80,38,CYAN);e.math(c,'{f(b) − f(a)|b − a} = f′(c)',540,170,56,GOLD,'center');
+   this.text('閉区間 [a,b] で連続',65,280,30,CYAN);this.text('開区間 (a,b) で微分可能',545,280,30,CYAN);
+   this.text('c ∈ (a,b) が少なくとも1つ存在する。',65,365,30,WHITE);
   }else{
   const panel=c.createLinearGradient(680,0,1060,0);panel.addColorStop(0,'#041423ed');panel.addColorStop(1,'#041423b8');c.fillStyle=panel;c.fillRect(700,475,350,1160);
   c.fillStyle=CYAN;c.fillRect(700,475,3,1160);
@@ -69,15 +64,14 @@ export class ReelRenderer{
   if(r.stage===3){words(s.matched?'平均と瞬間が一致':'平均の2と比べる',550,34,CYAN);math('割線 y = 2x',770,35);math(s.matched?'接線 y = 2x − 1':`接線の傾き ${Number(s.slope.toFixed(2))}`,900,33,s.matched?GOLD:PURPLE);if(s.matched){math('{2|1} = 2',1100,62);words('同じ横1・縦2。',1270,34);words('離れていても平行。',1410,36,GOLD)}else words('同じ傾きはどこ？',1120,36)}
   if(r.stage===4){words('図の発見を計算へ',550,34,CYAN);words('区間全体の平均2と途中の傾き2cを等しくする。',680,33);math('2c = 2',1050,60,WHITE);if(r.t>=25)math('c = 1',1215,74);words('接点Pは (1,1)。',1450,32,GOLD)}
   }
-  e.drawNarrator(c,{t:r.t+12},{focus:false,state:g});
   c.fillStyle='#7bebff33';c.fillRect(70,1840,820,4);c.fillStyle=CYAN;c.fillRect(70,1840,820*r.t/30,4);
   return this.canvas;
  }
  renderPatch(t){this.c.save();this.c.beginPath();this.c.rect(270,900,250,70);this.c.clip();this.patchMode=true;try{this.render(t)}finally{this.patchMode=false;this.c.restore()}if(!this.patchCanvas){this.patchCanvas=document.createElement('canvas');this.patchCanvas.width=250;this.patchCanvas.height=70;this.patchContext=this.patchCanvas.getContext('2d',{willReadFrequently:true})}this.patchContext.clearRect(0,0,250,70);this.patchContext.drawImage(this.canvas,270,900,250,70,0,0,250,70);return this.patchCanvas;}
  text(v,x,y,size=40,col=WHITE){const c=this.c;c.save();c.font=`${size}px "Noto Sans CJK JP","Noto Sans JP",sans-serif`;c.fillStyle=col;c.shadowColor='#03101e';c.shadowBlur=8;c.fillText(v,x,y);c.restore()}
  graph(r,p){
-  const c=this.c,s=r.math,e=this.engine,glyphScale=Math.min(1.2,p.scale),pt=(x,y)=>[p.x+x*p.sx,p.y-y*p.sy],line=(arr,col,w=3,glow=false)=>e.line2(c,arr.map(([x,y])=>pt(x,y)),col,w*Math.min(1.5,p.scale),!p.chalk&&(glow||([GOLD,BLUE,PURPLE].includes(col)&&w>=2.3)),1.6),label=(v,x,y,dx=0,dy=0,col=WHITE,size=34)=>{const q=pt(x,y);if(q[0]<p.clip.x||q[0]>p.clip.x+p.clip.w||q[1]<p.clip.y||q[1]>p.clip.y+p.clip.h||q[0]>=610&&q[0]<=1010&&q[1]>=30&&q[1]<=440)return;const font=size*glyphScale;c.save();c.font=`${font}px "Noto Sans CJK JP","Noto Sans JP",sans-serif`;const width=c.measureText(v).width;c.restore();this.text(v,clamp(q[0]+dx*glyphScale,p.clip.x+12,p.clip.x+p.clip.w-width-12),clamp(q[1]+dy*glyphScale,p.clip.y+font+8,p.clip.y+p.clip.h-8),font,col)},dot=(x,y,col)=>{const q=pt(x,y);c.save();c.fillStyle=col;c.shadowColor=col;c.shadowBlur=22*p.scale;c.beginPath();c.arc(...q,7*p.scale,0,Math.PI*2);c.fill();c.restore()};
-  c.save();c.beginPath();c.rect(p.clip.x,p.clip.y,p.clip.w,p.clip.h);c.clip();c.beginPath();c.rect(0,0,1080,1920);c.rect(610,30,400,410);if(r.stage!==5)c.rect(680,475,400,1160);c.clip('evenodd');
+  const c=this.c,s=r.math,e=this.engine,glyphScale=Math.min(1.2,p.scale),pt=(x,y)=>[p.x+x*p.sx,p.y-y*p.sy],line=(arr,col,w=3,glow=false)=>e.line2(c,arr.map(([x,y])=>pt(x,y)),col,w*Math.min(1.5,p.scale),!p.chalk&&(glow||([GOLD,BLUE,PURPLE].includes(col)&&w>=2.3)),1.6),label=(v,x,y,dx=0,dy=0,col=WHITE,size=34)=>{const q=pt(x,y);if(q[0]<p.clip.x||q[0]>p.clip.x+p.clip.w||q[1]<p.clip.y||q[1]>p.clip.y+p.clip.h)return;const font=size*glyphScale;c.save();c.font=`${font}px "Noto Sans CJK JP","Noto Sans JP",sans-serif`;const width=c.measureText(v).width;c.restore();this.text(v,clamp(q[0]+dx*glyphScale,p.clip.x+12,p.clip.x+p.clip.w-width-12),clamp(q[1]+dy*glyphScale,p.clip.y+font+8,p.clip.y+p.clip.h-8),font,col)},dot=(x,y,col)=>{const q=pt(x,y);c.save();c.fillStyle=col;c.shadowColor=col;c.shadowBlur=22*p.scale;c.beginPath();c.arc(...q,7*p.scale,0,Math.PI*2);c.fill();c.restore()};
+  c.save();c.beginPath();c.rect(p.clip.x,p.clip.y,p.clip.w,p.clip.h);c.clip();c.beginPath();c.rect(0,0,1080,1920);if(r.stage!==5)c.rect(680,475,400,1160);c.clip('evenodd');
   line([[-1.5,0],[2.4,0]],'#b1cbdf',2);line([[0,-.5],[0,4.5]],'#b1cbdf',2);
   for(const x of [-1,1,2]){line([[x,-.035],[x,.035]],'#a9c4d9',1.5);if(r.stage!==1&&!(r.stage===4&&x===1))label(String(x),x,0,-10,40,'#a9c4d9',32)}
   for(const y of [1,2,3,4]){line([[-.035,y],[.035,y]],'#a9c4d9',1.5);label(String(y),0,y,-42,12,r.stage===4&&y===1?GOLD:'#a9c4d9',32)}

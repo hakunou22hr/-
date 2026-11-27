@@ -131,3 +131,15 @@ node materials/mean-value-theorem-revised/tests/reels-video.mjs
 REELS=1 RANGES='[[0,30,"instagram-30s-v17-silent"]]' OUTPUT=/workspace/work/mvt-reels-v17/delivery node materials/mean-value-theorem-revised/render/movie.mjs
 node materials/mean-value-theorem-revised/render/package-reels-v17.mjs
 ```
+
+## 30秒 v18：ジャービス削除／ライブラリから平均値の定理カード削除
+
+- 30秒版から粒子アシスタントの描画と音声を全て外す。動画は音声トラックなし。旧版と90秒版は保持。
+- アシスタントの予約領域を解除してグラフを表示。最後の定理・成立条件は上部の横長パネルに拡張。27〜30秒の教室への帰還、元の談笑映像、発光と数学説明を継続。
+- 教材ライブラリでは旧版・改訂版の2カードをhidden=trueで一覧・検索から外す。教材本体と動画の直接URLは保持。他教材は表示を継続。
+- 公開テストの再開待ちは固定350msから実際の時刻進行を待つ形式へ変更し、遅い描画環境でも再開機能自体を確認する。
+
+```sh
+REELS=1 RANGES='[[0,30,"instagram-30s-v18-silent"]]' OUTPUT=/workspace/work/mvt-reels-v18/delivery node materials/mean-value-theorem-revised/render/movie.mjs
+node materials/mean-value-theorem-revised/render/package-reels-v18.mjs
+```

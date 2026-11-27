@@ -6,6 +6,7 @@ export type Material = {
   description: string
   revision?: string
   thumbnail?: string
+  hidden?: boolean
 }
 
 const modules = import.meta.glob('../materials/*/material.json', {
@@ -18,7 +19,7 @@ const thumbnails = import.meta.glob('../materials/*/*.svg', {
 }) as Record<string, string>
 
 // material.json is the single source of truth for both the card and its URL.
-export const materials = Object.values(modules).map(material => ({
+export const materials = Object.values(modules).filter(material => !material.hidden).map(material => ({
   ...material,
   thumbnail: material.thumbnail ? thumbnails[`../materials/${material.id}/${material.thumbnail}`] : undefined,
 })).sort((a, b) => a.id.localeCompare(b.id))

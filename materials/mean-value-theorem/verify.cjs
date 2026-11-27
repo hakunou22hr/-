@@ -8,15 +8,16 @@ const local=process.env.LESSON_URL||'http://127.0.0.1:4280/materials/mean-value-
   const errors=[];
   page.on('pageerror',e=>errors.push(String(e)));
   if(process.env.LIBRARY_URL){
-   await page.goto(process.env.LIBRARY_URL);
+   const library=new URL(process.env.LIBRARY_URL);library.searchParams.set('v','mvt-hidden18');await page.goto(library.href);
    await page.getByRole('button',{name:'数学Ⅱ',exact:true}).click();
    const search=page.getByRole('searchbox',{name:'教材を検索'});
    const card=page.getByRole('link',{name:'傾きが出会う瞬間 ― 平均値の定理を開く'});
    for(const term of ['平均値の定理','微分係数','平均変化率','接線','割線']){
     await search.fill(term);
-    await card.waitFor({state:'visible'});
+    await card.waitFor({state:'detached'});
    }
-   await card.click();
+   await search.fill('傾きが出会う瞬間');assert.equal(await page.locator('.card').count(),0);
+   await page.goto(local);
    assert.equal(new URL(page.url()).pathname,new URL(local).pathname);
   }else{
    await page.goto(local);

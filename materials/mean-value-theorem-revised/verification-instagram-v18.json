@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "file": "public/media/mean-value-theorem-revised/instagram-30s-v18.mp4",
+  "width": 1080,
+  "height": 1920,
+  "duration": 30,
+  "fps": "30/1",
+  "frames": 900,
+  "bytes": 14291814,
+  "audio": null,
+  "assistantRemoved": true,
+  "sha256": "4296765fcc99b92efba15d1f06261057dd84ec4a2055be85bed333ab14bd3450",
+  "decoded": true,
+  "previousMoviesUnchanged": true
+}
