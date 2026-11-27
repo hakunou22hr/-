@@ -1,0 +1,34 @@
+{
+  "edition": "v16 original classroom conversation restored",
+  "reviewedFrames": {
+    "main": [
+      1,
+      89
+    ],
+    "portrait": [
+      1
+    ]
+  },
+  "classroom": "all active source frames from unmodified classroom-v10; head/neck composite is not loaded",
+  "coverage": "90s opening0–3 and return88.5–90; portrait opening0–2 cover all former sourceFrame<54 composites",
+  "preserved": "90s v14 mathematics,30s v15 mathematics and glow, removed promotional captions, voice and timing",
+  "limitations": [
+    "mathematical sequences re-encoded atCRF18 during assembly",
+    "source classroom720p",
+    "physical devices and Instagram upload not tested"
+  ],
+  "mathematicalFrameSimilarity": [
+    {
+      "old": "mean-value-theorem-revised-90s-v14.mp4",
+      "new": "mean-value-theorem-revised-90s-v16.mp4",
+      "time": 48,
+      "ssim": 0.994826
+    },
+    {
+      "old": "instagram-30s-v15.mp4",
+      "new": "instagram-30s-v16.mp4",
+      "time": 28,
+      "ssim": 0.995696
+    }
+  ]
+}

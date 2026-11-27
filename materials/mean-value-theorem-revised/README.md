@@ -104,3 +104,18 @@ node materials/mean-value-theorem-revised/tests/reels-video.mjs
 REELS=1 RANGES='[[0,30,"instagram-30s-v15-silent"]]' OUTPUT=/workspace/work/mvt-reels-v15/delivery node materials/mean-value-theorem-revised/render/movie.mjs
 node materials/mean-value-theorem-revised/render/package-reels-v15.mjs
 ```
+
+## v16：首の合成を廃止し、元の談笑を復元
+
+- ClassroomFramesを全240コマともclassroom-v10へ戻す。左側男子の頭・首のマスクや合成は現行表示で使わない。男子が横を向いて会話する元の映像をそのまま使用。
+- 90秒版は0〜3秒と88.5〜90秒、30秒版は0〜2秒を同じコードから再描画。元の合成対象はsourceFrame<54で、これらの区間が全てを含む。数学部分は既存の90秒v14／30秒v15を接続し、CRF18で再符号化。元の音声をコピーし、時刻と尺を保持。
+- 教室12秒プレビューを更新。数学だけの5本のプレビューは既存v14を継続。90秒v14、30秒v15および旧素材を保持。
+- 30秒版の上下案内なし、強い直線発光、フレアなし、冒頭説明なしを継続。ブラウザーの古い合成ローダーが残らないよう、入口・描画・教室モジュールへv16のキャッシュ識別子を付与。
+
+```sh
+CPU_CANVAS=1 RANGES='[[0,3,"opening-3s"],[88.5,90,"return-1-5s"]]' OUTPUT=/workspace/work/mvt-v16/delivery node materials/mean-value-theorem-revised/render/movie.mjs
+REELS=1 RANGES='[[0,2,"reel-opening-2s"]]' OUTPUT=/workspace/work/mvt-v16/delivery node materials/mean-value-theorem-revised/render/movie.mjs
+node materials/mean-value-theorem-revised/render/package-v16.mjs
+node materials/mean-value-theorem-revised/tests/video-v16.mjs
+node materials/mean-value-theorem-revised/tests/reels-video.mjs
+```

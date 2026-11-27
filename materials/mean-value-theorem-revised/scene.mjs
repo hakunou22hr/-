@@ -1,7 +1,7 @@
 import {drawReactiveSpace} from './reactive-space.mjs';
 import * as THREE from 'three';
 import {guideState} from './guide.mjs';
-import {ClassroomFrames,classroomTime,classroomLayout,sourceFrame,sourceTime,referenceStillURL} from './classroom.mjs';
+import {ClassroomFrames,classroomTime,classroomLayout,sourceFrame,sourceTime,referenceStillURL} from './classroom.mjs?v=16';
 import {Observatory as PreviousWorld} from './scene-v1.mjs';
 import {clamp,ease,mix,phase,titles,captions,timeline} from './model.mjs';
 const CYAN='#7bebff',GOLD='#ffd18a',BLUE='#79baff',PURPLE='#c8a4ff',WHITE='#eef6ff';
