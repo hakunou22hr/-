@@ -19,15 +19,15 @@ export class Observatory extends PreviousWorld{
  async prepareFrame(t){if(t>=12&&t<84)return;const image=await this.classroomFrames.prepare(t);if(!image)return;this.classroomContext.drawImage(image,0,0,1280,720);this.photoUniforms.photo.value.needsUpdate=true;}
 
  makeSpace(){super.makeSpace();const rr=random(31415);this.depthStars=Array.from({length:2400},(_,i)=>({x:(rr()-.5)*39,y:(rr()-.5)*23+3,z:-17-rr()*53,phase:rr()*6.28,size:.45+rr()*1.3,color:i%7<4?0:i%7<6?1:2}));this.trails=Array.from({length:130},(_,i)=>({x:(rr()-.5)*40,y:(rr()-.5)*23+3,z:-19-rr()*45,length:.7+rr()*2.8,color:i%3}));this.nebula=Array.from({length:18},(_,i)=>({x:(rr()-.5)*48,y:rr()*19-6,z:-28-rr()*40,size:3+rr()*6,color:i%3}));this.gates=[];for(let i=0;i<7;i++){const z=-27-i*5,w=7+i*.3,h=6;const points=[[-w,-1,z],[-w,h,z],[w,h,z],[w,-1,z]];this.gates.push(points)}this.constellation=Array.from({length:32},(_,i)=>({x:(i%8-3.5)*3.5,y:Math.floor(i/8)*3.7-3,z:-37+(i%3)*2}));}
- line2(c,points,color,width=1,glow=false){
+ line2(c,points,color,width=1,glow=false,boost=1){
   if(!glow||points.length<2)return super.line2(c,points,color,width,glow);
   const first=points[0],last=points[points.length-1],dx=last[0]-first[0],dy=last[1]-first[1],length=Math.hypot(dx,dy);
   const straight=length>10&&points.every((p,i)=>i%Math.max(1,Math.floor(points.length/8))!==0||Math.abs((p[0]-first[0])*dy-(p[1]-first[1])*dx)/length<.4);
   const pigment=straight?({'#ffd17a':'#ffb21b','#ffd18a':'#ffb21b','#63b4ff':'#297fff','#79baff':'#297fff','#ce98ff':'#b55bff','#c8a4ff':'#b55bff','#7bebff':'#00d9ff'}[color]||color):color;
   c.save();c.beginPath();points.forEach(([x,y],i)=>i?c.lineTo(x,y):c.moveTo(x,y));c.lineCap='round';c.lineJoin='round';const alpha=c.globalAlpha,pulse=straight?1+.1*Math.sin((this.lineGlowTime||0)*2.2):1;c.strokeStyle=pigment;
-  for(const [extra,opacity] of (straight?[[36,.055],[23,.12],[12,.3]]:[[22,.045],[13,.09],[6,.22]])){c.globalAlpha=alpha*opacity*pulse;c.lineWidth=width+extra;c.stroke()}
-  c.globalAlpha=alpha;c.shadowColor=pigment;c.shadowBlur=straight?30:22;c.lineWidth=width*(straight?1.55:1.18);c.stroke();
-  c.shadowBlur=0;c.strokeStyle=straight?'#fff3be':'#effdff';c.globalAlpha=alpha*(straight?.9:.76);c.lineWidth=Math.max(1,width*(straight?.4:.30));c.stroke();
+  for(const [extra,opacity] of (straight?[[36,.055],[23,.12],[12,.3]]:[[22,.045],[13,.09],[6,.22]])){c.globalAlpha=alpha*opacity*pulse*(straight?Math.min(boost,1.35):1);c.lineWidth=width+extra*(straight?boost:1);c.stroke()}
+  c.globalAlpha=alpha;c.shadowColor=pigment;c.shadowBlur=straight?30*boost:22;c.lineWidth=width*(straight?1.55*boost:1.18);c.stroke();
+  c.shadowBlur=0;c.strokeStyle=straight?'#fff3be':'#effdff';c.globalAlpha=alpha*(straight?.9:.76);c.lineWidth=Math.max(1,width*(straight?.4*Math.sqrt(boost):.30));c.stroke();
   if(straight&&!this.currentOptions?.calm){const u=((this.lineGlowTime||0)*.22+length*.00013)%1,v=Math.max(0,u-.065);c.beginPath();c.moveTo(first[0]+dx*v,first[1]+dy*v);c.lineTo(first[0]+dx*u,first[1]+dy*u);c.globalAlpha=alpha*.95;c.shadowBlur=18;c.shadowColor=pigment;c.strokeStyle='#fffce6';c.lineWidth=width*.8;c.stroke()}
   c.restore();
  }

@@ -1,0 +1,18 @@
+{
+  "variant": "Instagram30s v15",
+  "reviewedFrames": [
+    19.5,
+    28
+  ],
+  "removedText": [
+    "30秒でつかむ / 数学Ⅱ",
+    "90秒版と操作教材は、教材ページへ。"
+  ],
+  "preservedText": "mathematical headings, equations and theorem conditions",
+  "glow": "portrait straight-line boost1.6; saturated halos and brighter core; separate parallel lines and unit triangle remain readable",
+  "preserved": "v14 classroom composite, no intro explanation, no flares; same narration; prior MP4s untouched",
+  "limitations": [
+    "source classroom720p",
+    "physical devices and Instagram upload untested"
+  ]
+}

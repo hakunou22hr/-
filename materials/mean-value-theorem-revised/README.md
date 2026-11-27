@@ -93,3 +93,14 @@ node materials/mean-value-theorem-revised/render/package-v14.mjs
 node materials/mean-value-theorem-revised/tests/video-v14.mjs
 node materials/mean-value-theorem-revised/tests/reels-video.mjs
 ```
+
+## 30秒 v15：宣伝的な文字の削除と直線の追加発光
+
+- 映像上部の「30秒でつかむ / 数学Ⅱ」と下部の「90秒版と操作教材は、教材ページへ。」を削除。数学の見出し・式・成立条件を保持。
+- 縦型だけ直線の発光幅と色の帯を追加強化（boost=1.6）。光の芯、色付きの外縁、移動光を保つ。平行な2本の区別と数値の可読性を代表フレームで確認。
+- 90秒・6本のプレビューv14、以前の30秒版は上書きしない。教室の左側男子の合成修正、冒頭説明なし、フレアなし、音声を継続。
+
+```sh
+REELS=1 RANGES='[[0,30,"instagram-30s-v15-silent"]]' OUTPUT=/workspace/work/mvt-reels-v15/delivery node materials/mean-value-theorem-revised/render/movie.mjs
+node materials/mean-value-theorem-revised/render/package-reels-v15.mjs
+```

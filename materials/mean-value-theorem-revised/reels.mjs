@@ -47,7 +47,6 @@ export class ReelRenderer{
   const flash=r.t>=25?Math.exp(-(r.t-25)*2):r.t>=18.5?Math.exp(-(r.t-18.5)*1.5):0;
   drawReactiveSpace(c,{time:r.t,focus:target,measure:s.horizontal||0,match:s.matched?1:0,burst:flash});
   this.graph(r,plot);if(r.stage>0)this.text('f(x) = x²',220,460,38,CYAN);if(this.patchMode)return this.canvas;
-  this.text('30秒でつかむ / 数学Ⅱ',80,145,28,CYAN);
   const title=r.stage===3&&!s.matched?['平均の2と','同じ傾きを探す。']:headings[r.stage];title.forEach((v,i)=>this.text(v,80,248+i*76,58,WHITE));
   // Explanation follows the graph in a right-hand lane, not a bottom card.
   const panel=c.createLinearGradient(680,0,1060,0);panel.addColorStop(0,'#041423ed');panel.addColorStop(1,'#041423b8');c.fillStyle=panel;c.fillRect(700,475,350,1160);
@@ -61,14 +60,13 @@ export class ReelRenderer{
   if(r.stage===4){words('図の発見を計算へ',550,34,CYAN);words('区間全体の平均2と途中の傾き2cを等しくする。',680,33);math('2c = 2',1050,60,WHITE);if(r.t>=25)math('c = 1',1215,74);words('接点Pは (1,1)。',1450,32,GOLD)}
   if(r.stage===5){words('平均値の定理',550,37,CYAN);words('平均と同じ傾きが途中に必ずある。',680,34);math('{f(b) − f(a)|b − a}',960,38);math('= f′(c)',1070,45);words('閉区間 [a,b] で連続',1210,28,CYAN);words('開区間 (a,b) で微分可能',1330,28,CYAN);words('c ∈ (a,b) が少なくとも1つ存在する。',1470,28)}
   e.drawNarrator(c,{t:r.t+12},{focus:false,state:g});
-  this.text('90秒版と操作教材は、教材ページへ。',70,1800,26,'#a9c8d8');
   c.fillStyle='#7bebff33';c.fillRect(70,1840,820,4);c.fillStyle=CYAN;c.fillRect(70,1840,820*r.t/30,4);
   return this.canvas;
  }
  renderPatch(t){this.c.save();this.c.beginPath();this.c.rect(270,900,250,70);this.c.clip();this.patchMode=true;try{this.render(t)}finally{this.patchMode=false;this.c.restore()}if(!this.patchCanvas){this.patchCanvas=document.createElement('canvas');this.patchCanvas.width=250;this.patchCanvas.height=70;this.patchContext=this.patchCanvas.getContext('2d',{willReadFrequently:true})}this.patchContext.clearRect(0,0,250,70);this.patchContext.drawImage(this.canvas,270,900,250,70,0,0,250,70);return this.patchCanvas;}
  text(v,x,y,size=40,col=WHITE){const c=this.c;c.save();c.font=`${size}px "Noto Sans CJK JP","Noto Sans JP",sans-serif`;c.fillStyle=col;c.shadowColor='#03101e';c.shadowBlur=8;c.fillText(v,x,y);c.restore()}
  graph(r,p){
-  const c=this.c,s=r.math,e=this.engine,glyphScale=Math.min(1.2,p.scale),pt=(x,y)=>[p.x+x*p.sx,p.y-y*p.sy],line=(arr,col,w=3,glow=false)=>e.line2(c,arr.map(([x,y])=>pt(x,y)),col,w*Math.min(1.5,p.scale),glow||([GOLD,BLUE,PURPLE].includes(col)&&w>=2.3)),label=(v,x,y,dx=0,dy=0,col=WHITE,size=34)=>{const q=pt(x,y);if(q[0]<p.clip.x||q[0]>p.clip.x+p.clip.w||q[1]<p.clip.y||q[1]>p.clip.y+p.clip.h)return;const font=size*glyphScale;c.save();c.font=`${font}px "Noto Sans CJK JP","Noto Sans JP",sans-serif`;const width=c.measureText(v).width;c.restore();this.text(v,clamp(q[0]+dx*glyphScale,p.clip.x+12,p.clip.x+p.clip.w-width-12),clamp(q[1]+dy*glyphScale,p.clip.y+font+8,p.clip.y+p.clip.h-8),font,col)},dot=(x,y,col)=>{const q=pt(x,y);c.save();c.fillStyle=col;c.shadowColor=col;c.shadowBlur=22*p.scale;c.beginPath();c.arc(...q,7*p.scale,0,Math.PI*2);c.fill();c.restore()};
+  const c=this.c,s=r.math,e=this.engine,glyphScale=Math.min(1.2,p.scale),pt=(x,y)=>[p.x+x*p.sx,p.y-y*p.sy],line=(arr,col,w=3,glow=false)=>e.line2(c,arr.map(([x,y])=>pt(x,y)),col,w*Math.min(1.5,p.scale),glow||([GOLD,BLUE,PURPLE].includes(col)&&w>=2.3),1.6),label=(v,x,y,dx=0,dy=0,col=WHITE,size=34)=>{const q=pt(x,y);if(q[0]<p.clip.x||q[0]>p.clip.x+p.clip.w||q[1]<p.clip.y||q[1]>p.clip.y+p.clip.h)return;const font=size*glyphScale;c.save();c.font=`${font}px "Noto Sans CJK JP","Noto Sans JP",sans-serif`;const width=c.measureText(v).width;c.restore();this.text(v,clamp(q[0]+dx*glyphScale,p.clip.x+12,p.clip.x+p.clip.w-width-12),clamp(q[1]+dy*glyphScale,p.clip.y+font+8,p.clip.y+p.clip.h-8),font,col)},dot=(x,y,col)=>{const q=pt(x,y);c.save();c.fillStyle=col;c.shadowColor=col;c.shadowBlur=22*p.scale;c.beginPath();c.arc(...q,7*p.scale,0,Math.PI*2);c.fill();c.restore()};
   c.save();c.beginPath();c.rect(p.clip.x,p.clip.y,p.clip.w,p.clip.h);c.clip();c.beginPath();c.rect(0,0,1080,1920);c.rect(625,360,455,70);c.rect(680,475,400,1160);c.clip('evenodd');
   line([[-1.5,0],[2.4,0]],'#b1cbdf',2);line([[0,-.5],[0,4.5]],'#b1cbdf',2);
   for(const x of [-1,1,2]){line([[x,-.035],[x,.035]],'#a9c4d9',1.5);if(r.stage!==1&&!(r.stage===4&&x===1))label(String(x),x,0,-10,40,'#a9c4d9',32)}
