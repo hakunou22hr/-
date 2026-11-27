@@ -12,7 +12,8 @@ export function reelState(value){
  else if(t<22){stage=3;source=mix(43,56.5,(t-17)/5)}
  else if(t<26){stage=4;source=mix(57,69,(t-22)/4)}
  else {stage=5;source=70+(t-26)*.7}
- return {t,stage,source,explanationVisible:t>=5,math:timeline(source)};
+ const returning=t>=27,classroomSource=stage===0?source:returning?84+2*(t-27):null;
+ return {t,stage,source,returning,classroomSource,explanationVisible:t>=5,math:timeline(source)};
 }
 export function reelSpeech(t){if(t<5)return 0;const at=Math.max(0,t*sampleRate),i=Math.floor(at);return mix(envelope[i]||0,envelope[i+1]||0,at-i)}
 export function reelGuide(t){
@@ -24,31 +25,40 @@ export function reelGuide(t){
 // Uniform scaling preserves coordinate units, parallel lines and slope triangles.
 // Each push-in has a quiet hold at the mathematical event before pulling back.
 const wide=[160,1580,1.4],measure=[60,1710,1.8],match=[-30,1500,2.15],solution=[-80,1500,2.7];
-const cameraKeys=[[0,wide],[5,wide],[8.1,wide],[8.9,measure],[10.4,measure],[11.3,wide],[17.8,wide],[18.7,match],[21.1,match],[22.3,wide],[23.7,wide],[24.95,solution],[26.1,solution],[27.3,wide],[30,wide]];
+const cameraKeys=[[0,wide],[5,wide],[8.1,wide],[8.9,measure],[10.4,measure],[11.3,wide],[17.8,wide],[18.7,match],[21.1,match],[22.3,wide],[23.7,wide],[24.95,solution],[26.1,solution],[27,wide],[30,wide]];
 export function reelCamera(t){let i=0;while(i<cameraKeys.length-2&&t>=cameraKeys[i+1][0])i++;const a=cameraKeys[i],b=cameraKeys[i+1],p=phase(t,a[0],b[0]),v=a[1].map((x,k)=>mix(x,b[1][k],p));return {x:v[0],y:v[1],zoom:v[2],sx:160*v[2],sy:160*v[2]};}
-const headings=[['全体の平均と','同じ瞬間がある？'],['横と縦を測る。','平均の傾きは？'],['途中の速さは、','場所で変わる。'],['おお、同じ傾き！','離れていても平行。'],['図の発見が、','計算につながる。'],['これが、','平均値の定理。']];
-const captions=[['黒板の向こうで、','傾きを探そう。'],['横2に対して縦4。','平均は 4 ÷ 2 = 2。'],['接線を動かすと、','傾きは 1 → 2 → 3。'],['区間全体の平均と、','途中の瞬間が一致。'],['同じ傾きを、','式でつなぐ。'],['平均と同じ傾きが、','途中に、必ずある。']];
 export class ReelRenderer{
  constructor(engine){this.engine=engine;this.canvas=document.createElement('canvas');this.canvas.width=1080;this.canvas.height=1920;this.c=this.canvas.getContext('2d',{willReadFrequently:true});}
- async prepare(t){const r=reelState(t);if(r.stage===0)await this.engine.prepareFrame(r.source)}
+ async prepare(t){const r=reelState(t);if(r.classroomSource!==null)await this.engine.prepareFrame(r.classroomSource)}
  render(value){
-  const r=reelState(value),e=this.engine,c=this.c,s=r.math,g=reelGuide(r.t),camera=reelCamera(r.t);const drawGraph=e.drawGraph;try{e.drawGraph=()=>{};e.setWorld(s)}finally{e.drawGraph=drawGraph}c.clearRect(0,0,1080,1920);
+  const r=reelState(value),e=this.engine,c=this.c,s=r.math,g=reelGuide(r.t),camera=reelCamera(r.t);const drawGraph=e.drawGraph;try{e.drawGraph=()=>{};e.setWorld(r.returning?timeline(r.classroomSource):s)}finally{e.drawGraph=drawGraph}c.clearRect(0,0,1080,1920);
   const oldW=e.w,oldH=e.h,oldFov=e.camera.fov,oldProjected=e.projected;const target={x:camera.x+camera.sx*s.c,y:camera.y-camera.sy*s.f(s.c)};
   try{e.w=1080;e.h=1920;e.camera.fov=oldFov/camera.zoom;e.projected={...oldProjected,P:target};e.drawProjected(c,s)}finally{e.w=oldW;e.h=oldH;e.camera.fov=oldFov;e.projected=oldProjected}
   const shade=c.createLinearGradient(0,0,0,1920);shade.addColorStop(0,'#03101ed9');shade.addColorStop(.45,'#03101e10');shade.addColorStop(1,'#03101eea');c.fillStyle=shade;c.fillRect(0,0,1080,1920);
-  let plot={...camera,clip:{x:0,y:360,w:1080,h:1400},scale:camera.zoom};
+  let plot={...camera,clip:{x:0,y:55,w:1080,h:1705},scale:camera.zoom};
   if(r.stage===0){
    const p=phase(r.t,4,5),approach=phase(r.t,2.5,4),k=mix(1080/1920,.92,approach),imageX=540-960*k,imageY=mix(560,540,approach),A=e.projected.A,B=e.projected.B;
    // Keep a moving photographic depth layer behind the complete classroom shot.
    e.graph.visible=false;try{e.renderer.render(e.classroomScene,e.roomCamera);if(r.t<4){c.fillStyle='#07121e';c.fillRect(0,0,1080,1920)}c.save();c.filter='blur(28px)';c.globalAlpha=.75*(1-p);c.drawImage(e.renderer.domElement,-1166,0,3413,1920);c.restore();c.drawImage(e.renderer.domElement,imageX,imageY,1920*k,1080*k)}finally{e.graph.visible=true}
-   if(r.t>=4){const sx=(B.x-A.x)/2*k,sy=(A.y-B.y)/4*k;const transfer={x:mix(imageX+A.x*k,wide[0],p),y:mix(imageY+A.y*k,wide[1],p),sx:mix(sx,224,p),sy:mix(sy,224,p),scale:mix(sx/160,1.4,p),clip:{x:0,y:360,w:1080,h:1400}};c.save();c.globalAlpha=phase(r.t,4,4.25);this.graph(r,transfer);c.restore()}
+   if(r.t>=4){const sx=(B.x-A.x)/2*k,sy=(A.y-B.y)/4*k;const transfer={x:mix(imageX+A.x*k,wide[0],p),y:mix(imageY+A.y*k,wide[1],p),sx:mix(sx,224,p),sy:mix(sy,224,p),scale:mix(sx/160,1.4,p),clip:{x:0,y:55,w:1080,h:1705}};c.save();c.globalAlpha=phase(r.t,4,4.25);this.graph(r,transfer);c.restore()}
    if(!r.explanationVisible)return this.canvas;
   }
+  if(r.returning){
+   const p=phase(r.t,27,28.4),retreat=phase(r.t,27,30),k=mix(.92,1080/1920,retreat),imageX=540-960*k,imageY=mix(540,560,retreat),A=e.projected.A,B=e.projected.B;
+   e.graph.visible=false;try{e.renderer.render(e.classroomScene,e.roomCamera);c.save();c.filter='blur(28px)';c.globalAlpha=.75*p;c.drawImage(e.renderer.domElement,-1166,0,3413,1920);c.restore();c.drawImage(e.renderer.domElement,imageX,imageY,1920*k,1080*k)}finally{e.graph.visible=true}
+   const sx=(B.x-A.x)/2*k,sy=(A.y-B.y)/4*k;
+   plot={x:mix(camera.x,imageX+A.x*k,p),y:mix(camera.y,imageY+A.y*k,p),sx:mix(camera.sx,sx,p),sy:mix(camera.sy,sy,p),scale:mix(camera.zoom,sx/160,p),chalk:r.t>=28.4,clip:{x:0,y:440,w:1080,h:1320}};
+  }
   const flash=r.t>=25?Math.exp(-(r.t-25)*2):r.t>=18.5?Math.exp(-(r.t-18.5)*1.5):0;
-  drawReactiveSpace(c,{time:r.t,focus:target,measure:s.horizontal||0,match:s.matched?1:0,burst:flash});
-  this.graph(r,plot);if(r.stage>0)this.text('f(x) = x²',220,460,38,CYAN);if(this.patchMode)return this.canvas;
-  const title=r.stage===3&&!s.matched?['平均の2と','同じ傾きを探す。']:headings[r.stage];title.forEach((v,i)=>this.text(v,80,248+i*76,58,WHITE));
+  if(!r.returning)drawReactiveSpace(c,{time:r.t,focus:target,measure:s.horizontal||0,match:s.matched?1:0,burst:flash});
+  this.graph(r,plot);if(r.stage>0&&!r.returning)this.text('f(x) = x²',220,460,38,CYAN);if(this.patchMode)return this.canvas;
   // Explanation follows the graph in a right-hand lane, not a bottom card.
+  if(r.stage===5){
+   c.fillStyle='#041423ee';c.fillRect(35,25,570,390);c.fillStyle=CYAN;c.fillRect(35,25,3,390);
+   this.text('平均値の定理',65,80,32,CYAN);e.math(c,'{f(b) − f(a)|b − a} = f′(c)',320,165,44,GOLD,'center');
+   this.text('閉区間 [a,b] で連続',65,245,26,CYAN);this.text('開区間 (a,b) で微分可能',65,290,26,CYAN);
+   this.text('c ∈ (a,b) が少なくとも1つ',65,345,25,WHITE);this.text('存在する。',65,385,25,WHITE);
+  }else{
   const panel=c.createLinearGradient(680,0,1060,0);panel.addColorStop(0,'#041423ed');panel.addColorStop(1,'#041423b8');c.fillStyle=panel;c.fillRect(700,475,350,1160);
   c.fillStyle=CYAN;c.fillRect(700,475,3,1160);
   const words=(v,y,size=34,col=WHITE)=>{let line='',at=y;c.save();c.font=`${size}px "Noto Sans CJK JP","Noto Sans JP",sans-serif`;for(const char of v){if(c.measureText(line+char).width>300&&!/[。、！？」]/.test(char)){this.text(line,725,at,size,col);at+=size*1.55;line=''}line+=char}if(line)this.text(line,725,at,size,col);c.restore();return at+size*1.55};
@@ -58,7 +68,7 @@ export class ReelRenderer{
   if(r.stage===2){words('その場所での速さ',550,34,CYAN);words('接線の傾きは場所で変わる。',675);math(`f′(c) = ${Number(s.slope.toFixed(2))}`,970,42,s.exact?GOLD:PURPLE);words('1 → 2 → 3',1130,38);words(s.exact?'平均の2と一致！':s.slope<2?'平均の2より小さい。':'平均の2より大きい。',1330,34,s.exact?GOLD:WHITE)}
   if(r.stage===3){words(s.matched?'平均と瞬間が一致':'平均の2と比べる',550,34,CYAN);math('割線 y = 2x',770,35);math(s.matched?'接線 y = 2x − 1':`接線の傾き ${Number(s.slope.toFixed(2))}`,900,33,s.matched?GOLD:PURPLE);if(s.matched){math('{2|1} = 2',1100,62);words('同じ横1・縦2。',1270,34);words('離れていても平行。',1410,36,GOLD)}else words('同じ傾きはどこ？',1120,36)}
   if(r.stage===4){words('図の発見を計算へ',550,34,CYAN);words('区間全体の平均2と途中の傾き2cを等しくする。',680,33);math('2c = 2',1050,60,WHITE);if(r.t>=25)math('c = 1',1215,74);words('接点Pは (1,1)。',1450,32,GOLD)}
-  if(r.stage===5){words('平均値の定理',550,37,CYAN);words('平均と同じ傾きが途中に必ずある。',680,34);math('{f(b) − f(a)|b − a}',960,38);math('= f′(c)',1070,45);words('閉区間 [a,b] で連続',1210,28,CYAN);words('開区間 (a,b) で微分可能',1330,28,CYAN);words('c ∈ (a,b) が少なくとも1つ存在する。',1470,28)}
+  }
   e.drawNarrator(c,{t:r.t+12},{focus:false,state:g});
   c.fillStyle='#7bebff33';c.fillRect(70,1840,820,4);c.fillStyle=CYAN;c.fillRect(70,1840,820*r.t/30,4);
   return this.canvas;
@@ -66,8 +76,8 @@ export class ReelRenderer{
  renderPatch(t){this.c.save();this.c.beginPath();this.c.rect(270,900,250,70);this.c.clip();this.patchMode=true;try{this.render(t)}finally{this.patchMode=false;this.c.restore()}if(!this.patchCanvas){this.patchCanvas=document.createElement('canvas');this.patchCanvas.width=250;this.patchCanvas.height=70;this.patchContext=this.patchCanvas.getContext('2d',{willReadFrequently:true})}this.patchContext.clearRect(0,0,250,70);this.patchContext.drawImage(this.canvas,270,900,250,70,0,0,250,70);return this.patchCanvas;}
  text(v,x,y,size=40,col=WHITE){const c=this.c;c.save();c.font=`${size}px "Noto Sans CJK JP","Noto Sans JP",sans-serif`;c.fillStyle=col;c.shadowColor='#03101e';c.shadowBlur=8;c.fillText(v,x,y);c.restore()}
  graph(r,p){
-  const c=this.c,s=r.math,e=this.engine,glyphScale=Math.min(1.2,p.scale),pt=(x,y)=>[p.x+x*p.sx,p.y-y*p.sy],line=(arr,col,w=3,glow=false)=>e.line2(c,arr.map(([x,y])=>pt(x,y)),col,w*Math.min(1.5,p.scale),glow||([GOLD,BLUE,PURPLE].includes(col)&&w>=2.3),1.6),label=(v,x,y,dx=0,dy=0,col=WHITE,size=34)=>{const q=pt(x,y);if(q[0]<p.clip.x||q[0]>p.clip.x+p.clip.w||q[1]<p.clip.y||q[1]>p.clip.y+p.clip.h)return;const font=size*glyphScale;c.save();c.font=`${font}px "Noto Sans CJK JP","Noto Sans JP",sans-serif`;const width=c.measureText(v).width;c.restore();this.text(v,clamp(q[0]+dx*glyphScale,p.clip.x+12,p.clip.x+p.clip.w-width-12),clamp(q[1]+dy*glyphScale,p.clip.y+font+8,p.clip.y+p.clip.h-8),font,col)},dot=(x,y,col)=>{const q=pt(x,y);c.save();c.fillStyle=col;c.shadowColor=col;c.shadowBlur=22*p.scale;c.beginPath();c.arc(...q,7*p.scale,0,Math.PI*2);c.fill();c.restore()};
-  c.save();c.beginPath();c.rect(p.clip.x,p.clip.y,p.clip.w,p.clip.h);c.clip();c.beginPath();c.rect(0,0,1080,1920);c.rect(625,360,455,70);c.rect(680,475,400,1160);c.clip('evenodd');
+  const c=this.c,s=r.math,e=this.engine,glyphScale=Math.min(1.2,p.scale),pt=(x,y)=>[p.x+x*p.sx,p.y-y*p.sy],line=(arr,col,w=3,glow=false)=>e.line2(c,arr.map(([x,y])=>pt(x,y)),col,w*Math.min(1.5,p.scale),!p.chalk&&(glow||([GOLD,BLUE,PURPLE].includes(col)&&w>=2.3)),1.6),label=(v,x,y,dx=0,dy=0,col=WHITE,size=34)=>{const q=pt(x,y);if(q[0]<p.clip.x||q[0]>p.clip.x+p.clip.w||q[1]<p.clip.y||q[1]>p.clip.y+p.clip.h||q[0]>=610&&q[0]<=1010&&q[1]>=30&&q[1]<=440)return;const font=size*glyphScale;c.save();c.font=`${font}px "Noto Sans CJK JP","Noto Sans JP",sans-serif`;const width=c.measureText(v).width;c.restore();this.text(v,clamp(q[0]+dx*glyphScale,p.clip.x+12,p.clip.x+p.clip.w-width-12),clamp(q[1]+dy*glyphScale,p.clip.y+font+8,p.clip.y+p.clip.h-8),font,col)},dot=(x,y,col)=>{const q=pt(x,y);c.save();c.fillStyle=col;c.shadowColor=col;c.shadowBlur=22*p.scale;c.beginPath();c.arc(...q,7*p.scale,0,Math.PI*2);c.fill();c.restore()};
+  c.save();c.beginPath();c.rect(p.clip.x,p.clip.y,p.clip.w,p.clip.h);c.clip();c.beginPath();c.rect(0,0,1080,1920);c.rect(610,30,400,410);if(r.stage!==5)c.rect(680,475,400,1160);c.clip('evenodd');
   line([[-1.5,0],[2.4,0]],'#b1cbdf',2);line([[0,-.5],[0,4.5]],'#b1cbdf',2);
   for(const x of [-1,1,2]){line([[x,-.035],[x,.035]],'#a9c4d9',1.5);if(r.stage!==1&&!(r.stage===4&&x===1))label(String(x),x,0,-10,40,'#a9c4d9',32)}
   for(const y of [1,2,3,4]){line([[-.035,y],[.035,y]],'#a9c4d9',1.5);label(String(y),0,y,-42,12,r.stage===4&&y===1?GOLD:'#a9c4d9',32)}

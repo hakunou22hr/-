@@ -13,3 +13,5 @@ for(const t of [9.8,19.5,25.3]){const camera=reelCamera(t);assert.ok(camera.zoom
 assert.equal(reelGuide(19.5).hideLabel,true);assert.equal(reelGuide(19.5).flareBoost,0);
 
 assert.equal(reelGuide(19.5).noFlare,true);for(const t of [0,1,3.8,4.9]){assert.equal(reelState(t).explanationVisible,false);assert.equal(reelSpeech(t),0);assert.equal(reelGuide(t).visible,false)}assert.equal(reelState(5).explanationVisible,true);
+
+for(const t of [0,26,26.99])assert.equal(reelState(t).returning,false);for(const t of [27,28,29.99,30]){const r=reelState(t);assert.equal(r.returning,true);assert.ok(r.classroomSource>=84&&r.classroomSource<=90);assert.equal(r.math.c,1)}assert.equal(reelState(30).classroomSource,90);

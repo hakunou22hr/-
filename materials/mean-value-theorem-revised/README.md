@@ -119,3 +119,15 @@ node materials/mean-value-theorem-revised/render/package-v16.mjs
 node materials/mean-value-theorem-revised/tests/video-v16.mjs
 node materials/mean-value-theorem-revised/tests/reels-video.mjs
 ```
+
+## 30秒 v17：声かけの大字幕を削除し、最後3秒を教室へ
+
+- ジャービスの声かけに対応した大きな上部見出しを全て削除。数学の説明・式・数値ラベルを保持。元の音声を継続。
+- 27〜30秒にmain90sの帰還時刻84〜90秒を割り当て、元のclassroom-v10素材を読み込んで教室へ戻る。黒板上の同じ放物線・平行線へ縮小し、生徒の見える広さまで引く。
+- 定理の式・成立条件は26秒から上部左へまとめ、教室に戻る間も読める。ジャービスは右上に保ち、文字に重ねない。フレアなし・案内文字なし・強い発光・元の男子の談笑を継続。
+- 90秒v16と以前の30秒・プレビューは保持。
+
+```sh
+REELS=1 RANGES='[[0,30,"instagram-30s-v17-silent"]]' OUTPUT=/workspace/work/mvt-reels-v17/delivery node materials/mean-value-theorem-revised/render/movie.mjs
+node materials/mean-value-theorem-revised/render/package-reels-v17.mjs
+```

@@ -1,0 +1,21 @@
+{
+  "variant": "Instagram30s v17",
+  "reviewedFrames": [
+    19.5,
+    27.5,
+    29.9
+  ],
+  "removed": "large narration-style headings; actual assistant audio retained",
+  "return": {
+    "start": 27,
+    "end": 30,
+    "source": "original classroom-v10,90s timeline84–90",
+    "result": "camera retreats from board to students; same graph shrinks onto board"
+  },
+  "math": "right-side explanation retained; theorem/conditions displayed at upper left from26s through return",
+  "guide": "upper right, no flares, no labels",
+  "limitations": [
+    "720p classroom source",
+    "physical devices and actual Instagram upload not tested"
+  ]
+}

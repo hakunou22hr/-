@@ -1,4 +1,4 @@
-import {ReelRenderer,reelState,reelGuide,reelCamera} from './reels.mjs?v=16';
+import {ReelRenderer,reelState,reelGuide,reelCamera} from './reels.mjs?v=17';
 import {guideState} from './guide.mjs';
 import {model,timeline,clamp,captions,starts,titles} from './model.mjs';import {Observatory,num} from './scene.mjs?v=16';
 const $=s=>document.querySelector(s),renderOnly=new URLSearchParams(location.search).has('render');let engine;try{engine=new Observatory();await engine.ready}catch(e){$('#fallback').hidden=false;throw e}const output=$('#scene'),ctx=output.getContext('2d'),video=$('#movie'),reelVideo=$('#reel-movie');let kind='square',c=.5,reveal=false,spatial=false,calm=matchMedia('(prefers-reduced-motion: reduce)').matches,saved=null,time=0,playing=false,filmMode=false,last=0,dragging=false,projection,drawTime=-100,drawToken=0;
